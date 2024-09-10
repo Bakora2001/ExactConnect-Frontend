@@ -58,7 +58,7 @@ const Rdp = () => {
             </nav>
 
             {/* New Section with Text and Image */}
-            <div className="flex flex-col-reverse lg:flex-row justify-between bg-white p-8 lg:p-16 max-w-screen-xl mx-auto">
+            <div className="flex flex-col-reverse lg:flex-row justify-between bg-white p-8 lg:p-16 max-w-screen-xl mx-auto mb-8">
                 {/* Text on the left */}
                 <div className="text-gray-800 pt-4 lg:pt-12 flex-row w-full lg:w-1/2">
                     <div className="mb-8 lg:mb-12">
@@ -72,12 +72,12 @@ const Rdp = () => {
                         <h2 className="text-[14px] lg:text-[16px] font-light">
                             <span className="block text-left">
                                 ExactConnect high-performance VPS Hosting redefines<br />
-                                excellence, combining cutting-edge technology with affordability.
+                                excellence, combining cutting-edge technology with<br/> affordability.
                             </span>
                         </h2>
                     </div>
                     {/* SELECT YOUR PLAN Button */}
-                    <div className="text-left">
+                    <div className="text-left mt-24">
                         <button className="bg-[#7C25BA] text-white font-regular py-2 px-4 lg:px-6 rounded-full hover:bg-[#6a1fa0]">
                             SELECT YOUR PLAN
                         </button>
@@ -89,7 +89,27 @@ const Rdp = () => {
                 </div>
             </div>
 
-            {/* Page Content */}
+            {/* Flags Section */}
+            <div className="bg-[#F1F0F2] p-8">
+                {/* <h2 className="text-2xl font-semibold text-center mb-6">Available Countries</h2> */}
+                <div className="flex flex-wrap justify-center gap-4 pt-4">
+                    {/* Flags for various countries */}
+                    <span className="text-3xl" title="United States">🇺🇸</span>
+                    <span className="text-3xl" title="United Kingdom">🇬🇧</span>
+                    <span className="text-3xl" title="Canada">🇨🇦</span>
+                    <span className="text-3xl" title="Germany">🇩🇪</span>
+                    <span className="text-3xl" title="France">🇫🇷</span>
+                    <span className="text-3xl" title="Italy">🇮🇹</span>
+                    <span className="text-3xl" title="Spain">🇪🇸</span>
+                    <span className="text-3xl" title="Australia">🇦🇺</span>
+                    <span className="text-3xl" title="Netherlands">🇳🇱</span>
+                    <span className="text-3xl" title="Sweden">🇸🇪</span>
+                    <span className="text-3xl" title="Switzerland">🇨🇭</span>
+                    <span className="text-3xl" title="Belgium">🇧🇪</span>
+                </div>
+                <h3 className="text-2xl font-light text-center mt-12 mb-6">Supports Over 15+  Countries with 
+                    Affordabale Pricing that fits Your  Needs</h3>
+            </div>
         </div>
     );
 };
