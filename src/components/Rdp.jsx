@@ -106,28 +106,31 @@ const Rdp = () => {
                     <span className="text-3xl" title="Switzerland">🇨🇭</span>
                     <span className="text-3xl" title="Belgium">🇧🇪</span>
                 </div>
-                <h3 className="text-2xl font-light text-center mt-12 mb-6">
+                <h3 className="text-2xl font-light text-center mt-16 mb-4">
                     Supports Over 15+ Countries with Affordable Pricing that fits Your Needs
                 </h3>
-            </div>
-
             {/* New Buttons Section */}
-            <div className="bg-[#F1F0F2] p-8">
-                <div className="flex justify-evenly mt-12">
-                    <button className="bg-[#7C25BA] text-white py-2 px-4 rounded-lg hover:bg-[#6a1fa0]">
+            <div className="bg-[#F1F0F2] p-4 mb-48">
+                <div className="flex justify-center gap-12 mt-12">
+                    <button className="bg-[#7C25BA] text-white text-md py-2 w-48 h-12 rounded-lg hover:bg-[#6a1fa0]">
                         United States
                     </button>
-                    <button className="bg-[#7C25BA] text-white py-2 px-4 rounded-lg hover:bg-[#6a1fa0]">
+                    <button className="bg-[#7C25BA] text-white text-md py-2 w-48 rounded-lg hover:bg-[#6a1fa0]">
                         United Kingdom
                     </button>
-                    <button className="bg-[#7C25BA] text-white py-2 px-4 rounded-lg hover:bg-[#6a1fa0]">
+                    <button className="bg-[#7C25BA] text-white text-md py-2 w-48 rounded-lg hover:bg-[#6a1fa0]">
                         Germany
                     </button>
-                    <button className="bg-[#7C25BA] text-white py-2 px-4 rounded-lg hover:bg-[#6a1fa0]">
+                    <button className="bg-[#7C25BA] text-white text-md py-2 w-48 rounded-lg hover:bg-[#6a1fa0]">
                         Other Countries
                     </button>
                 </div>
             </div>
+        </div>
+
+
+
+
         </div>
     );
 };
