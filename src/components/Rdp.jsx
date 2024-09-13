@@ -39,13 +39,13 @@ const Rdp = () => {
 
           {/* Links for larger screens */}
           <div className="hidden md:flex space-x-8 lg:space-x-24 pt-10">
-            <a href="#locations" className="hover:text-gray-300">
+            <a href="/locations" className="hover:text-gray-300">
               Locations
             </a>
-            <a href="#pricing" className="hover:text-gray-300">
+            <a href="/pricing" className="hover:text-gray-300">
               Pricing
             </a>
-            <a href="#contact" className="hover:text-gray-300">
+            <a href="/contact" className="hover:text-gray-300">
               Contact Us
             </a>
           </div>
@@ -64,17 +64,17 @@ const Rdp = () => {
         {/* Mobile Menu (visible when hamburger is clicked) */}
         {isMenuOpen && (
           <div className="md:hidden bg-[#7C25BA] text-white p-4 space-y-4">
-            <a href="#locations" className="block hover:text-gray-300">
+            <a href="/locations" className="block hover:text-gray-300">
               Locations
             </a>
-            <a href="#pricing" className="block hover:text-gray-300">
+            <a href="/pricing" className="block hover:text-gray-300">
               Pricing
             </a>
-            <a href="#contact" className="block hover:text-gray-300">
+            <a href="/contact" className="block hover:text-gray-300">
               Contact Us
             </a>
             <a
-              href="#get-started"
+              href="/get-started"
               className="block bg-white text-[#7C25BA] font-medium py-2 px-4 rounded hover:bg-gray-200"
             >
               Get Started
@@ -212,9 +212,12 @@ const Rdp = () => {
                     <strong>Price:</strong> $10/month
                   </li>
                 </ul>
+                <a href='/choose-plan'>
                 <button className="bg-[#7C25BA] text-white py-2 px-4 rounded-lg mt-4 hover:bg-[#6a1fa0]">
                   Choose Plan
                 </button>
+                </a>
+               
               </div>
 
               {/* Card 2 */}
@@ -240,9 +243,11 @@ const Rdp = () => {
                     <strong>Price:</strong> $10/month
                   </li>
                 </ul>
+                <a href='/choose-plan'>
                 <button className="bg-[#7C25BA] text-white py-2 px-4 rounded-lg mt-4 hover:bg-[#6a1fa0]">
                   Choose Plan
                 </button>
+                </a>
               </div>
 
               {/* Card 3 */}
@@ -268,9 +273,11 @@ const Rdp = () => {
                     <strong>Price:</strong> $10/month
                   </li>
                 </ul>
+                <a href='/choose-plan'>
                 <button className="bg-[#7C25BA] text-white py-2 px-4 rounded-lg mt-4 hover:bg-[#6a1fa0]">
                   Choose Plan
                 </button>
+                </a>
               </div>
               {/* Card 4 */}
               <div className="bg-white w-[270px] h-[650px] p-8 rounded-lg shadow-lg">
@@ -295,9 +302,11 @@ const Rdp = () => {
                     <strong>Price:</strong> $10/month
                   </li>
                 </ul>
+                <a href='/choose-plan'>
                 <button className="bg-[#7C25BA] text-white py-2 px-4 rounded-lg mt-4 hover:bg-[#6a1fa0]">
                   Choose Plan
                 </button>
+                </a>
               </div>
             </div>
           </div>
