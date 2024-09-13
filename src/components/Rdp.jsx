@@ -212,7 +212,7 @@ const Rdp = () => {
                     <strong>Price:</strong> $10/month
                   </li>
                 </ul>
-                <a href='/choose-plan'>
+                <a href='/configure'>
                 <button className="bg-[#7C25BA] text-white py-2 px-4 rounded-lg mt-4 hover:bg-[#6a1fa0]">
                   Choose Plan
                 </button>
@@ -243,7 +243,7 @@ const Rdp = () => {
                     <strong>Price:</strong> $10/month
                   </li>
                 </ul>
-                <a href='/choose-plan'>
+                <a href='/configure'>
                 <button className="bg-[#7C25BA] text-white py-2 px-4 rounded-lg mt-4 hover:bg-[#6a1fa0]">
                   Choose Plan
                 </button>
@@ -273,7 +273,7 @@ const Rdp = () => {
                     <strong>Price:</strong> $10/month
                   </li>
                 </ul>
-                <a href='/choose-plan'>
+                <a href='/configure'>
                 <button className="bg-[#7C25BA] text-white py-2 px-4 rounded-lg mt-4 hover:bg-[#6a1fa0]">
                   Choose Plan
                 </button>
@@ -302,7 +302,7 @@ const Rdp = () => {
                     <strong>Price:</strong> $10/month
                   </li>
                 </ul>
-                <a href='/choose-plan'>
+                <a href='/configure'>
                 <button className="bg-[#7C25BA] text-white py-2 px-4 rounded-lg mt-4 hover:bg-[#6a1fa0]">
                   Choose Plan
                 </button>
