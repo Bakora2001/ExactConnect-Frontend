@@ -29,7 +29,9 @@ const Configure = () => {
                 <li>IPv6: 4</li>
               </ul>
               <div className="mt-4">
-                <label className="text-gray-700 font-medium">Choose Billing Cycle</label>
+                <label className="text-gray-700 font-medium">
+                  Choose Billing Cycle
+                </label>
                 <select
                   className="w-full mt-1 p-2 border border-gray-300 rounded shadow-sm"
                   value={billingCycle}
@@ -38,7 +40,9 @@ const Configure = () => {
                   <option value="Quarterly">$14.00 USD Quarterly</option>
                 </select>
               </div>
-              <h3 className="mt-6 text-gray-700 font-medium">Configurable Options</h3>
+              <h3 className="mt-6 text-gray-700 font-medium">
+                Configurable Options
+              </h3>
               <div className="mt-4">
                 <div>
                   <label className="text-gray-700">Operating System</label>
@@ -79,7 +83,10 @@ const Configure = () => {
                       onChange={() => setBackup(!backup)}
                       className="mr-2"
                     />
-                    <span className="text-sm">Auto backup (we are trying our best to keep your data safe)</span>
+                    <span className="text-sm">
+                      Auto backup (we are trying our best to keep your data
+                      safe)
+                    </span>
                   </div>
                 </div>
               </div>
@@ -119,10 +126,11 @@ const Configure = () => {
                 <span>$14.00 USD</span>
               </li>
             </ul>
-
-            <button className="w-full bg-[#7C25BA] text-white py-2 rounded-lg shadow hover:bg-[#6a1fa0]transition mt-4">
-              Continue
-            </button>
+            <a href='/checkout'>
+              <button className="w-full bg-[#7C25BA] text-white py-2 rounded-lg shadow hover:bg-[#6a1fa0]transition mt-4">
+                Continue
+              </button>
+            </a>
           </div>
         </div>
       </div>
