@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import rdp1 from '../assets/rdp1.png'; // Import your image
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
+
 
 const Rdp = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false); // State to handle menu toggle
@@ -16,7 +19,7 @@ const Rdp = () => {
 
                     {/* Hamburger Icon (visible on small screens) */}
                     <div className="md:hidden">
-                        <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="focus:outline-none">
+                        < button onClick={() => setIsMenuOpen(!isMenuOpen)} className="focus:outline-none">
                             <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
                             </svg>
@@ -90,7 +93,7 @@ const Rdp = () => {
             </div>
 
             {/* Flags Section */}
-            <div className="bg-[#F1F0F2] p-8">
+        <div className="bg-[#F1F0F2] p-8">
                 <div className="flex flex-wrap justify-center gap-4 pt-4">
                     {/* Flags for various countries */}
                     <span className="text-3xl" title="United States">🇺🇸</span>
@@ -127,79 +130,120 @@ const Rdp = () => {
                 </div>
             </div>
 
-<div className="mb-48">
-    <div className="max-w-screen-xl mx-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-            {/* Card 1 */}
-            <div className="bg-white w-full h-[650px] p-8 rounded-lg shadow-lg">
-                <h3 className="text-xl font-semibold mb-4">Basic VPS</h3>
-                <ul className="space-y-2">
-                    <li><strong>CPU:</strong> 2 vCPU</li>
-                    <li><strong>RAM:</strong> 4 GB</li>
-                    <li><strong>Storage:</strong> 50 GB SSD</li>
-                    <li><strong>Bandwidth:</strong> 1 TB</li>
-                    <li><strong>IP Address:</strong> 1 IPv4</li>
-                    <li><strong>Price:</strong> $10/month</li>
-                </ul>
-                <button className="bg-[#7C25BA] text-white py-2 px-4 rounded-lg mt-4 hover:bg-[#6a1fa0]">
-                    Choose Plan
-                </button>
+            <section className="flex flex-wrap justify-center gap-6 my-10">
+    {Array(6).fill().map((_, index) => {
+        const prices = [8, 12, 15, 20, 25, 30]; // Unique prices for each card
+        return (
+            <div key={index} className="bg-white shadow-lg rounded-lg p-6 w-full sm:w-1/2 md:w-1/4">
+                <h2 className="text-xl font-bold">VPS - Essential</h2>
+                <p className="text-purple-600 mt-2">No Setup Fee</p>
+                <p className="text-4xl font-bold mt-4">${prices[index]}</p> {/* Use unique price */}
+                <p className="text-gray-500">/per month incl. VAT</p>
+                <button className="mt-6 px-8 py-3 bg-purple-600 text-white">Configure</button>
+                <div className="mt-6">
+                    <h3 className="font-bold">Top Features:</h3>
+                    <ul className="list-disc list-inside mt-2 text-left">
+                        <li>2 vCPU Cores</li>
+                        <li>2 GB RAM</li>
+                        <li>50 GB SSD</li>
+                        <li>5 TB Traffic</li>
+                    </ul>
+                    <h3 className="font-bold mt-4">Also Includes:</h3>
+                    <ul className="list-disc list-inside mt-2 text-left">
+                        <li>1x Dedicated UK IP</li>
+                        <li>Full Root Access</li>
+                        <li>Web UI for Easy Management</li>
+                        <li>Windows / Linux OS Options</li>
+                        <li>Free cPanel / Plesk</li>
+                        <li>7/24 Ticket Support</li>
+                    </ul>
+                    <p className="text-purple-600 mt-4 cursor-pointer">Compare <i className="fas fa-chevron-down"></i></p>
+                </div>
             </div>
+        );
+    })}
+</section>
 
-            {/* Card 2 */}
-            <div className="bg-white w-full h-[650px] p-8 rounded-lg shadow-lg">
-                <h3 className="text-xl font-semibold mb-4">Basic VPS</h3>
-                <ul className="space-y-2">
-                    <li><strong>CPU:</strong> 2 vCPU</li>
-                    <li><strong>RAM:</strong> 4 GB</li>
-                    <li><strong>Storage:</strong> 50 GB SSD</li>
-                    <li><strong>Bandwidth:</strong> 1 TB</li>
-                    <li><strong>IP Address:</strong> 1 IPv4</li>
-                    <li><strong>Price:</strong> $10/month</li>
-                </ul>
-                <button className="bg-[#7C25BA] text-white py-2 px-4 rounded-lg mt-4 hover:bg-[#6a1fa0]">
-                    Choose Plan
-                </button>
-            </div>
 
-            {/* Card 3 */}
-            <div className="bg-white w-full h-[650px] p-8 rounded-lg shadow-lg">
-                <h3 className="text-xl font-semibold mb-4">Basic VPS</h3>
-                <ul className="space-y-2">
-                    <li><strong>CPU:</strong> 2 vCPU</li>
-                    <li><strong>RAM:</strong> 4 GB</li>
-                    <li><strong>Storage:</strong> 50 GB SSD</li>
-                    <li><strong>Bandwidth:</strong> 1 TB</li>
-                    <li><strong>IP Address:</strong> 1 IPv4</li>
-                    <li><strong>Price:</strong> $10/month</li>
-                </ul>
-                <button className="bg-[#7C25BA] text-white py-2 px-4 rounded-lg mt-4 hover:bg-[#6a1fa0]">
-                    Choose Plan
-                </button>
-            </div>
 
-            {/* Card 4 */}
-            <div className="bg-white w-full h-[650px] p-8 rounded-lg shadow-lg">
-                <h3 className="text-xl font-semibold mb-4">Basic VPS</h3>
-                <ul className="space-y-2">
-                    <li><strong>CPU:</strong> 2 vCPU</li>
-                    <li><strong>RAM:</strong> 4 GB</li>
-                    <li><strong>Storage:</strong> 50 GB SSD</li>
-                    <li><strong>Bandwidth:</strong> 1 TB</li>
-                    <li><strong>IP Address:</strong> 1 IPv4</li>
-                    <li><strong>Price:</strong> $10/month</li>
-                </ul>
-                <button className="bg-[#7C25BA] text-white py-2 px-4 rounded-lg mt-4 hover:bg-[#6a1fa0]">
-                    Choose Plan
-                </button>
-            </div>
+
+
+
+
+
+
         </div>
-    </div>
+        <div className="bg-white mb-24">
+        <section className="text-center my-10 px-4">
+                        <h2 className="text-2xl font-bold">Not sure which plan is right for you?</h2>
+                        <p className="mt-4">We are here to guide You to make the right choices for your Business Plan..With just seconds of reply in our whatsapp number below</p>
+                        <div className="flex justify-center flex-wrap space-x-4 mt-6">
+                            <button className="px-6 py-3 bg-gray-200 rounded-full m-2"><i className="fas fa-phone"></i> +254 728703634</button>
+                            <button className="px-6 py-3 bg-gray-200 rounded-full m-2"><i className="fas fa-comments"></i> Live Chat</button>
+                        </div>
+</section>
+</div>
+<div className="bg-[#F1F0F2] h-48 mb-32">
+    <section className="bg-gray-100 py-6">
+                        <div className="flex justify-center space-x-4">
+                            {['ubuntu', 'windows', 'centos', 'debian', 'almalinux'].map((os, index) => (
+                                <div key={index} className="text-center">
+                                    <img src={`https://placehold.co/64x64`} alt={`${os} logo`} />
+                                    <p className="mt-2">{os.charAt(0).toUpperCase() + os.slice(1)}</p>
+                                </div>
+                            ))}
+                        </div>
+    </section>
 </div>
 
+<div className="bg-[#F1F0F2] mb-48">
+    <section className="bg-gray-200 py-10">
+                        <h2 className="text-center text-2xl font-bold">Beyond Shared Hosting</h2>
+                        <div className="flex justify-center space-x-4 mt-6">
+                            {['Web Hosting', 'Wordpress Hosting', 'Website Builder', 'SSL Certificate'].map((service, index) => (
+                                <div key={index} className="bg-white shadow-lg rounded-lg p-6 w-64 text-center">
+                                    <img src="https://placehold.co/64x64" alt={`${service} icon`} className="mx-auto" />
+                                    <p className="mt-4">{service}</p>
+                                </div>
+                            ))}
+                        </div>
+    </section>
+</div>
 
-        </div>
-
+<div className="">
+    <footer className="bg-purple-600 text-white py-10 mb-8">
+                        <div className="container mx-auto px-6">
+                            <div className="flex justify-between">
+                                <div>
+                                    <h3 className="text-xl font-bold">ExactConnect</h3>
+                                    <p className="mt-4">ExactConnect is an Trusted Online Shopping Platforms For the exact Online services for Our clients.</p>
+                                    <div className="flex space-x-4 mt-4">
+                                        <i className="fab fa-facebook-f"></i>
+                                        <i className="fab fa-twitter"></i>
+                                        <i className="fab fa-instagram"></i>
+                                        <i className="fab fa-linkedin-in"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h3 className="text-xl font-bold">Our Services</h3>
+                                    <ul className="mt-4">
+                                        <li>Residential Proxies</li>
+                                        <li>RDP VPS services</li>
+                                        <li>VCC Cards</li>
+                                        <li>Non-VOIP Numbers</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h3 className="text-xl font-bold">Contact Us</h3>
+                                    <p className="mt-4">Moi Avenue, Nairobi</p>
+                                    <p>Nairobi, 00100</p>
+                                    <p>Phone: +254 728703634</p>
+                                    <p>Email: exactconnect@gmail.com</p>
+                                </div>
+                            </div>
+                        </div>
+    </footer>
+</div>
 
 
 
