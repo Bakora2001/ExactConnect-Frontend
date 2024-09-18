@@ -127,74 +127,76 @@ const Rdp = () => {
                 </div>
             </div>
 
-            <div className="mb-48">
-                <div className="max-w-screen-xl mx-4 gap-4 ">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {/* Card 1 */}
-                        <div className="bg-white w-[270px] h-[650px] p-8 rounded-lg shadow-lg">
-                            <h3 className="text-xl font-semibold mb-4">Basic VPS</h3>
-                            <ul className="space-y-2">
-                                <li><strong>CPU:</strong> 2 vCPU</li>
-                                <li><strong>RAM:</strong> 4 GB</li>
-                                <li><strong>Storage:</strong> 50 GB SSD</li>
-                                <li><strong>Bandwidth:</strong> 1 TB</li>
-                                <li><strong>IP Address:</strong> 1 IPv4</li>
-                                <li><strong>Price:</strong> $10/month</li>
-                            </ul>
-                            <button className="bg-[#7C25BA] text-white py-2 px-4 rounded-lg mt-4 hover:bg-[#6a1fa0]">
-                                Choose Plan
-                            </button>
-                        </div>
-
-                        {/* Card 2 */}
-                        <div className="bg-white w-[270px] h-[650px] p-8 rounded-lg shadow-lg">
-                            <h3 className="text-xl font-semibold mb-4">Basic VPS</h3>
-                            <ul className="space-y-2">
-                                <li><strong>CPU:</strong> 2 vCPU</li>
-                                <li><strong>RAM:</strong> 4 GB</li>
-                                <li><strong>Storage:</strong> 50 GB SSD</li>
-                                <li><strong>Bandwidth:</strong> 1 TB</li>
-                                <li><strong>IP Address:</strong> 1 IPv4</li>
-                                <li><strong>Price:</strong> $10/month</li>
-                            </ul>
-                            <button className="bg-[#7C25BA] text-white py-2 px-4 rounded-lg mt-4 hover:bg-[#6a1fa0]">
-                                Choose Plan
-                            </button>
-                        </div>
-
-                        {/* Card 3 */}
-                        <div className="bg-white w-[270px] h-[650px] p-8 rounded-lg shadow-lg">
-                            <h3 className="text-xl font-semibold mb-4">Basic VPS</h3>
-                            <ul className="space-y-2">
-                                <li><strong>CPU:</strong> 2 vCPU</li>
-                                <li><strong>RAM:</strong> 4 GB</li>
-                                <li><strong>Storage:</strong> 50 GB SSD</li>
-                                <li><strong>Bandwidth:</strong> 1 TB</li>
-                                <li><strong>IP Address:</strong> 1 IPv4</li>
-                                <li><strong>Price:</strong> $10/month</li>
-                            </ul>
-                            <button className="bg-[#7C25BA] text-white py-2 px-4 rounded-lg mt-4 hover:bg-[#6a1fa0]">
-                                Choose Plan
-                            </button>
-                        </div>
-                        {/* Card 4 */}
-                        <div className="bg-white w-[270px] h-[650px] p-8 rounded-lg shadow-lg">
-                            <h3 className="text-xl font-semibold mb-4">Basic VPS</h3>
-                            <ul className="space-y-2">
-                                <li><strong>CPU:</strong> 2 vCPU</li>
-                                <li><strong>RAM:</strong> 4 GB</li>
-                                <li><strong>Storage:</strong> 50 GB SSD</li>
-                                <li><strong>Bandwidth:</strong> 1 TB</li>
-                                <li><strong>IP Address:</strong> 1 IPv4</li>
-                                <li><strong>Price:</strong> $10/month</li>
-                            </ul>
-                            <button className="bg-[#7C25BA] text-white py-2 px-4 rounded-lg mt-4 hover:bg-[#6a1fa0]">
-                                Choose Plan
-                            </button>
-                        </div>
-                    </div>
-                </div>
+<div className="mb-48">
+    <div className="max-w-screen-xl mx-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+            {/* Card 1 */}
+            <div className="bg-white w-full h-[650px] p-8 rounded-lg shadow-lg">
+                <h3 className="text-xl font-semibold mb-4">Basic VPS</h3>
+                <ul className="space-y-2">
+                    <li><strong>CPU:</strong> 2 vCPU</li>
+                    <li><strong>RAM:</strong> 4 GB</li>
+                    <li><strong>Storage:</strong> 50 GB SSD</li>
+                    <li><strong>Bandwidth:</strong> 1 TB</li>
+                    <li><strong>IP Address:</strong> 1 IPv4</li>
+                    <li><strong>Price:</strong> $10/month</li>
+                </ul>
+                <button className="bg-[#7C25BA] text-white py-2 px-4 rounded-lg mt-4 hover:bg-[#6a1fa0]">
+                    Choose Plan
+                </button>
             </div>
+
+            {/* Card 2 */}
+            <div className="bg-white w-full h-[650px] p-8 rounded-lg shadow-lg">
+                <h3 className="text-xl font-semibold mb-4">Basic VPS</h3>
+                <ul className="space-y-2">
+                    <li><strong>CPU:</strong> 2 vCPU</li>
+                    <li><strong>RAM:</strong> 4 GB</li>
+                    <li><strong>Storage:</strong> 50 GB SSD</li>
+                    <li><strong>Bandwidth:</strong> 1 TB</li>
+                    <li><strong>IP Address:</strong> 1 IPv4</li>
+                    <li><strong>Price:</strong> $10/month</li>
+                </ul>
+                <button className="bg-[#7C25BA] text-white py-2 px-4 rounded-lg mt-4 hover:bg-[#6a1fa0]">
+                    Choose Plan
+                </button>
+            </div>
+
+            {/* Card 3 */}
+            <div className="bg-white w-full h-[650px] p-8 rounded-lg shadow-lg">
+                <h3 className="text-xl font-semibold mb-4">Basic VPS</h3>
+                <ul className="space-y-2">
+                    <li><strong>CPU:</strong> 2 vCPU</li>
+                    <li><strong>RAM:</strong> 4 GB</li>
+                    <li><strong>Storage:</strong> 50 GB SSD</li>
+                    <li><strong>Bandwidth:</strong> 1 TB</li>
+                    <li><strong>IP Address:</strong> 1 IPv4</li>
+                    <li><strong>Price:</strong> $10/month</li>
+                </ul>
+                <button className="bg-[#7C25BA] text-white py-2 px-4 rounded-lg mt-4 hover:bg-[#6a1fa0]">
+                    Choose Plan
+                </button>
+            </div>
+
+            {/* Card 4 */}
+            <div className="bg-white w-full h-[650px] p-8 rounded-lg shadow-lg">
+                <h3 className="text-xl font-semibold mb-4">Basic VPS</h3>
+                <ul className="space-y-2">
+                    <li><strong>CPU:</strong> 2 vCPU</li>
+                    <li><strong>RAM:</strong> 4 GB</li>
+                    <li><strong>Storage:</strong> 50 GB SSD</li>
+                    <li><strong>Bandwidth:</strong> 1 TB</li>
+                    <li><strong>IP Address:</strong> 1 IPv4</li>
+                    <li><strong>Price:</strong> $10/month</li>
+                </ul>
+                <button className="bg-[#7C25BA] text-white py-2 px-4 rounded-lg mt-4 hover:bg-[#6a1fa0]">
+                    Choose Plan
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
         </div>
 
