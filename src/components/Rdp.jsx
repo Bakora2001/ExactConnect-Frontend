@@ -2,17 +2,18 @@ import React, { useState } from 'react';
 import rdp1 from '../assets/rdp1.png'; // Import your image
 
 const Rdp = () => {
-    const [isMenuOpen, setIsMenuOpen] = useState(false); // State to handle menu toggle
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // State to handle menu toggle
 
-    return (
-        <div>
-            {/* Navigation Bar */}
-            <nav className="bg-[#7C25BA] text-white sticky top-0 z-50 w-full h-24">
-                <div className="max-w-screen-xl px-4 flex justify-between h-16">
-                    {/* Logo */}
-                    <div className="pl-4 pt-8">
-                        <h1 className="text-3xl font-bold">ExactConnect</h1>
-                    </div>
+  return (
+    <div>
+      {/* Navigation Bar */}
+      <nav className="bg-[#7C25BA] text-white sticky top-0 z-50 w-full h-24">
+        <div className="max-w-screen-xl px-4 flex justify-between h-16">
+          {/* Logo */}
+          <div className="pl-4 pt-8">
+            <h1 className="text-3xl font-bold">ExactConnect</h1>
+          </div>
+
 
                     {/* Hamburger Icon (visible on small screens) */}
                     <div className="md:hidden">
@@ -22,15 +23,43 @@ const Rdp = () => {
                             </svg>
                         </button>
                     </div>
+          {/* Hamburger Icon (visible on small screens) */}
+          <div className="md:hidden">
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="focus:outline-none"
+            >
+              <svg
+                className="w-8 h-8 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            </button>
+          </div>
 
-                    {/* Links for larger screens */}
-                    <div className="hidden md:flex space-x-8 lg:space-x-24 pt-10">
-                        <a href="#locations" className="hover:text-gray-300">Locations</a>
-                        <a href="#pricing" className="hover:text-gray-300">Pricing</a>
-                        <a href="#contact" className="hover:text-gray-300">Contact Us</a>
-                    </div>
+          {/* Links for larger screens */}
+          <div className="hidden md:flex space-x-8 lg:space-x-24 pt-10">
+            <a href="/locations" className="hover:text-gray-300">
+              Locations
+            </a>
+            <a href="/pricing" className="hover:text-gray-300">
+              Pricing
+            </a>
+            <a href="/contact" className="hover:text-gray-300">
+              Contact Us
+            </a>
+          </div>
 
-                    {/* Get Started Button */}
+          {/* Get Started Button */}
                     <div className="hidden md:block pt-10">
                         <a href="#get-started" className="bg-[#7C25BA] text-white font-medium py-2 px-4 rounded hover:bg-[#6a1fa0] ring-1 ring-white">
                             Get Started
@@ -98,34 +127,7 @@ const Rdp = () => {
 
             {/* Pricing Cards Section */}
             <section className="flex flex-wrap justify-center gap-6 my-10">
-                {Array(6).fill().map((_, index) => {
-                    const prices = [8, 12, 15, 20, 25, 30]; // Unique prices for each card
-                    return (
-                        <div key={index} className="bg-white shadow-lg rounded-lg p-6 w-full sm:w-1/2 md:w-1/4">
-                            <h2 className="text-xl font-bold">VPS - Essential</h2>
-                            <p className="text-purple-600 mt-2">No Setup Fee</p>
-                            <p className="text-4xl font-bold mt-4">${prices[index]}</p> {/* Use unique price */}
-                            <p className="text-gray-500">/per month incl. VAT</p>
-                            <button className="mt-6 px-8 py-3 bg-purple-600 text-white">Configure</button>
-                            <div className="mt-6">
-                                <h3 className="font-bold">Top Features:</h3>
-                                <ul className="list-disc list-inside mt- 2 text-left">
-                                    <li>2 vCPU Cores</li>
-                                    <li>2 GB RAM</li>
-                                    <li>50 GB SSD</li>
-                                    <li>5 TB Traffic</li>
-                                </ul>
-                                <h3 className="font-bold mt-4">Also Includes:</h3>
-                                <ul className="list-disc list-inside mt-2 text-left">
-                                    <li>1x Dedicated UK IP</li>
-                                    <li>Full Root Access</li>
-                                    <li>Web UI for Easy Management</li>
-                                    <li>Windows / Linux OS Options</li>
-                                    <li>Free cPanel / Plesk</li>
-                                    <li>7/24 Ticket Support</li>
-                                </ul>
-                                <p className="text-purple-600 mt-4 cursor-pointer">Compare</p>
-                            </div>
+
                         </div>
                     );
                 })}
@@ -190,11 +192,10 @@ const Rdp = () => {
                                 <p>Email: exactconnect@gmail.com</p>
                             </div>
                         </div>
-                    </div>
-                </footer>
-            </div>
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default Rdp;
