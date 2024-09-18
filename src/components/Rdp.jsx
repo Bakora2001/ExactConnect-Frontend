@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import rdp1 from '../assets/rdp1.png'; // Import your image
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLinux, faWindows, faApple } from '@fortawesome/free-brands-svg-icons'; // Replace with actual icons
 import ubuntu from '../assets/ubuntu.svg'; // Adjust path as necessary
 import windows1 from '../assets/windows1.svg'; // Adjust path as necessary
 import centos from '../assets/centos.svg'; // Adjust path as necessary
