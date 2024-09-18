@@ -150,7 +150,7 @@ const Rdp = () => {
                 </section>
             </div>
 <p className="bg-[#DEE2E6] pl-4 font-bold w-48 ml-60">Operating System</p>
-<section className="bg-[#DEE2E6] py-0 mx-60 mb-32">
+<section className="bg-[#DEE2E6] py-0 mx-56 mb-32">
     <div className="max-w-screen-xl mx-auto px-4 py-7">
         <div className="flex gap-12 mx-12 flex-wrap space-x-12">
             {[
