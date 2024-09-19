@@ -1,4 +1,3 @@
-// src/admin/AdminHome.jsx
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaBox, FaUsers, FaShoppingCart, FaChartLine, FaCheckCircle, FaClock, FaTruck, FaTimesCircle } from 'react-icons/fa';
@@ -58,19 +57,12 @@ const AdminHome = () => {
     );
   };
 
-  // OrderTable component
+  // Empty OrderTable component
   const OrderTable = () => {
-    const orders = [
-      { customer: "John Doe", order: "Order #123", date: "2024-09-17", amount: "KSh 5000", status: "Completed", details: "Details about the order" },
-      { customer: "Jane Smith", order: "Order #124", date: "2024-09-16", amount: "KSh 3000", status: "Pending", details: "Details about the order" },
-      { customer: "Mike Johnson", order: "Order #125", date: "2024-09-15", amount: "KSh 7000", status: "In Progress", details: "Details about the order" },
-      // Add more orders as needed
-    ];
-
     return (
       <div className="mt-8">
         <table className="w-full bg-gray-800 text-white rounded-lg overflow-hidden shadow-md">
-          <thead className="bg-gray-800">
+          <thead className="bg-gray-700">
             <tr>
               <th className="p-4 text-left">Customer</th>
               <th className="p-4 text-left">Order</th>
@@ -81,16 +73,7 @@ const AdminHome = () => {
             </tr>
           </thead>
           <tbody>
-            {orders.map((order, index) => (
-              <tr key={index} className={`${index % 2 === 0 ? 'bg-gray-800' : 'bg-gray-800'}`}>
-                <td className="p-4">{order.customer}</td>
-                <td className="p-4">{order.order}</td>
-                <td className="p-4">{order.date}</td>
-                <td className="p-4">{order.amount}</td>
-                <td className="p-4">{order.status}</td>
-                <td className="p-4">{order.details}</td>
-              </tr>
-            ))}
+            {/* No data rows for now */}
           </tbody>
         </table>
       </div>
@@ -147,6 +130,8 @@ const AdminHome = () => {
         </div>
       </div>
 
+      <div className="border-t border-dotted border-purple-500 my-6"></div> {/* Dotted line */}
+
       <div className="grid grid-cols-4 gap-4 mb-8">
         <div className="col-span-3">
           <SalesGraph />
@@ -156,9 +141,15 @@ const AdminHome = () => {
         </div>
       </div>
 
+      <div className="border-t border-dotted border-purple-500 my-6"></div> {/* Dotted line */}
+
       <OrderSummary /> {/* OrderSummary is now part of AdminHome */}
       
-      <OrderTable /> {/* OrderTable added at the bottom */}
+      <div className="border-t border-dotted border-purple-500 my-6"></div> {/* Dotted line */}
+
+      <OrderTable /> {/* Empty OrderTable added at the bottom */}
+      
+      <div className="border-t border-dotted border-purple-500 my-6"></div> {/* Dotted line */}
     </div>
   );
 };

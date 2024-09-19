@@ -1,11 +1,13 @@
 // src/App.jsx
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import Rdp from './components/Rdp'; // Example user component
-import AdminSidebar from './admin/AdminSidebar'; // Admin Sidebar
-import AdminHome from './admin/AdminHome'; // Admin home component
+import Rdp from './components/Rdp'; 
+import AdminSidebar from './admin/AdminSidebar'; 
+import AdminHome from './admin/AdminHome'; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
+import AdminProducts from './admin/AdminProducts';
+import AddProductForm from './admin/AddProductsForm';
 
 // AdminRoute component to protect admin routes
 const AdminRoute = ({ children }) => {
@@ -40,15 +42,31 @@ const Layout = () => {
         {/* Page content */}
         <div className="p-4">
           <Routes>
-            {/* User Home Route */}
-            <Route path="/" element={<Rdp />} />
+           
+            <Route path="/Rdp" element={<Rdp />} />
 
             {/* Admin Routes (Protected) */}
             <Route
-              path="/admin"
+              path="/admin/home"
               element={
                 <AdminRoute>
-                  <AdminHome /> {/* Admin Home with greeting */}
+                  <AdminHome /> 
+                </AdminRoute>
+              }
+            />
+             <Route
+              path="/admin/products"
+              element={
+                <AdminRoute>
+                  <AdminProducts /> 
+                </AdminRoute>
+              }
+            />
+               <Route
+              path="/admin/products/new"
+              element={
+                <AdminRoute>
+                  <AddProductForm/> 
                 </AdminRoute>
               }
             />
