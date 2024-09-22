@@ -4,6 +4,8 @@ import ubuntu from '../assets/ubuntu.svg'; // Adjust path as necessary
 import windows from '../assets/windows.svg'; // Adjust path as necessary
 import centOs from '../assets/centOs.svg'; // Adjust path as necessary
 import debian from '../assets/debian.svg'; // Adjust path as necessary
+
+
 // import amalilinux from '../assets/amalilinux.svg'; // Adjust path as necessary
 const Rdp = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false); // State to handle menu toggle
@@ -11,6 +13,7 @@ const Rdp = () => {
     return (
         <div>
             {/* Navigation Bar */}
+
             <nav className="bg-[#7C25BA] text-white sticky top-0 z-50 w-full h-24">
                 <div className="max-w-screen-xl px-4 flex justify-between h-16">
                     {/* Logo */}
@@ -54,7 +57,6 @@ const Rdp = () => {
                     </div>
                 )}
             </nav>
-
             {/* New Section with Text and Image */}
             <div className="flex flex-col-reverse lg:flex-row justify-between bg-white p-8 lg:p-16 max-w-screen-xl mx-4 mb-8">
                 {/* Text on the left */}
