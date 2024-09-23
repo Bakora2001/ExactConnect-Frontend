@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-
 const Configure = () => {
   const [billingCycle, setBillingCycle] = useState('Quarterly');
   const [os, setOs] = useState('Ubuntu 22');

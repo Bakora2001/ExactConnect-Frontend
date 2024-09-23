@@ -5,6 +5,7 @@ import ubuntu from '../assets/ubuntu.svg'; // Adjust path as necessary
 import windows from '../assets/windows.svg'; // Adjust path as necessary
 import centOs from '../assets/centOs.svg'; // Adjust path as necessary
 import debian from '../assets/debian.svg'; // Adjust path as necessary
+import NavBar from '../reusables/Navbar';
 
 
 // import amalilinux from '../assets/amalilinux.svg'; // Adjust path as necessary
@@ -13,51 +14,7 @@ const Rdp = () => {
     const navigate = useNavigate();
     return (
         <div>
-            {/* Navigation Bar */}
-
-            <nav className="bg-[#7C25BA] text-white sticky top-0 z-50 w-full h-24">
-                <div className="max-w-screen-xl px-4 flex justify-between h-16">
-                    {/* Logo */}
-                    <div className="pl-4 pt-8">
-                        <h1 className="text-3xl font-bold">ExactConnect</h1>
-                    </div>
-
-                    {/* Hamburger Icon (visible on small screens) */}
-                    <div className="md:hidden">
-                        <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="focus:outline-none">
-                            <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
-                            </svg>
-                        </button>
-                    </div>
-
-                    {/* Links for larger screens */}
-                    <div className="hidden md:flex space-x-8 lg:space-x-24 pt-10">
-                        <a href="#locations" className="hover:text-gray-300">Locations</a>
-                        <a href="#pricing" className="hover:text-gray-300">Pricing</a>
-                        <a href="#contact" className="hover:text-gray-300">Contact Us</a>
-                    </div>
-
-                    {/* Get Started Button */}
-                    <div className="hidden md:block pt-10">
-                        <a href="#get-started" className="bg-[#7C25BA] text-white font-medium py-2 px-4 rounded hover:bg-[#6a1fa0] ring-1 ring-white">
-                            Get Started
-                        </a>
-                    </div>
-                </div>
-
-                {/* Mobile Menu (visible when hamburger is clicked) */}
-                {isMenuOpen && (
-                    <div className="md:hidden bg-[#7C25BA] text-white p-4 space-y-4">
-                        <a href="#locations" className="block hover:text-gray-300">Locations</a>
-                        <a href="#pricing" className="block hover:text-gray-300">Pricing</a>
-                        <a href="#contact" className="block hover:text-gray-300">Contact Us</a>
-                        <a href="#get-started" className="block bg-white text-[#7C25BA] font-medium py-2 px-4 rounded hover:bg-gray-200">
-                            Get Started
-                        </a>
-                    </div>
-                )}
-            </nav>
+            < NavBar />
             {/* New Section with Text and Image */}
             <div className="flex flex-col-reverse lg:flex-row justify-between bg-white p-8 lg:p-16 max-w-screen-xl mx-4 mb-8">
                 {/* Text on the left */}
