@@ -11,7 +11,7 @@ const NavBar = () => {
   };
 
   return (
-    <header className="w-full flex justify-between items-center p-4 px-6 fixed top-6 bg-purple-700 shadow-md z-10 border-b border-gray-400 h-16">
+    <header className="w-full flex justify-between items-center p-4 px-6 fixed top-6 bg-purple-700 shadow-md z-10 border-b border-gray-400">
       {/* Mobile Navigation */}
       <div className="md:hidden flex items-center">
         <button className="text-white text-[28px]" onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}>
