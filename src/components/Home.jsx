@@ -47,9 +47,9 @@ const Home = () => {
         {/* Benefits Section */}
         <div className="flex-1 border-r-2 border-gray-400 pr-8 mx-12">
             <div className="text-left">
-                <h4 className="font-regular text-[18px] ml-32">Benefits</h4>
-                <div className="border-b border-gray-500 w-32 mx-24 mb-4"></div>
-                <ul className="list-disc list-inside font-light text-[14px] space-y-6">
+                <h4 className="font-regular text-[18px] ml-40">Benefits</h4>
+                <div className="border-b border-gray-500 w-32 mx-32 mb-4"></div>
+                <ul className="list-disc list-inside font-light  text-[14px] ml-12 space-y-6"> {/* Reduced space between list items */}
                     <li>Exact IP for Online Accounts Creation</li>
                     <li>Supports Guaranteed 100% Online Mask Identification</li>
                     <li>Very Affordable pricing for Daily and Monthly Residential IPs</li>
@@ -61,21 +61,22 @@ const Home = () => {
         </div>
 
         {/* Use Case Section */}
-        <div className="flex-1 border-r-2 border-gray-400 pr-8">
+        <div className="flex-1">
             <div className="text-left">
-            <h4 className="font-regular text-[18px] ml-32">Use Case</h4>
-            <div className="border-b border-gray-500 w-32 mx-24 mb-4"></div>
-                <ul className="list-disc list-inside font-light text-[14px] space-y-6">
-                    <li>Oneforma Account Creation  (Any Locale)</li>
+                <h4 className="font-regular text-[18px] ml-32">Use Case</h4>
+                <div className="border-b border-gray-500 w-32 mx-24 mb-4"></div>
+                <ul className="list-disc list-inside font-light text-[14px] space-y-6"> {/* Reduced space between list items */}
+                    <li>Oneforma Account Creation (Any Locale)</li>
                     <li>Data Scraping</li>
-                    <li>Crowdsourcing Platforms ( Outlier, Appen, Clickworker, Oneforma,Echolabs, Telus AI )</li>
+                    <li>Crowdsourcing Platforms (Outlier, Appen, Clickworker, Oneforma, Echolabs, Telus AI)</li>
                     <li>Market Research</li>
                 </ul>
             </div>
         </div>
     </div>
-    <button className="bg-purple-700 text-white px-6 py-1.5 mr-8 rounded mt-12">Buy Now</button>
+    <button className="bg-purple-700 text-white px-6 py-1.5  rounded mt-12">Buy Now</button>
 </section>
+
 
 
             {/* VPS Server Section */}
