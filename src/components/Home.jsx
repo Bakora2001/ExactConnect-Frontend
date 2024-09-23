@@ -2,7 +2,7 @@ import React from 'react';
 import NavBar from '../reusables/Navbar'; // Import NavBar component
 import techImage from '../assets/tech-image.png'; // Import the image
 import './Home.css'; // Import the CSS file for the shake effect
-
+import server from '../assets/server.png';
 const Home = () => {
     return (
         <div>
@@ -63,8 +63,8 @@ const Home = () => {
         {/* Use Case Section */}
         <div className="flex-1">
             <div className="text-left">
-                <h4 className="font-regular text-[18px] ml-32">Use Case</h4>
-                <div className="border-b border-gray-500 w-32 mx-24 mb-4"></div>
+                <h4 className="font-regular text-[18px] ml-28">Use Case</h4>
+                <div className="border-b border-gray-500 w-32 mx-20 mb-4"></div>
                 <ul className="list-disc list-inside font-light text-[14px] space-y-6"> {/* Reduced space between list items */}
                     <li>Oneforma Account Creation (Any Locale)</li>
                     <li>Data Scraping</li>
@@ -77,33 +77,34 @@ const Home = () => {
     <button className="bg-purple-700 text-white px-6 py-1.5  rounded mt-12">Buy Now</button>
 </section>
 
-
-
             {/* VPS Server Section */}
-            <section className="bg-[#F9F7F2] text-center py-6">
-                <div>
-                    <h3 className="text-xl font-bold mb-1">VPS Server</h3>
-                    <div className="border-b-8 border-purple-700 w-16 mx-auto mb-4 rounded-full thick-line"></div>
-                </div>
-                <div className="max-w-6xl mx-auto flex flex-col md:flex-row gap-8">
-                    <div className="text-left">
-                        <h4 className="font-medium text-[32px] underline mb-4">Why Our VPS?</h4>
-                        <ul className="list-disc list-inside text-[14px]">
-                            <li>Private and Secure</li>
-                            <li>Reliable Hosting</li>
-                            <li>24/7 Support System</li>
-                            <li>Very Affordable as low as $2</li>
-                            <li>Instant Deployment</li>
-                            <li>Supports Linux/Windows/Ubuntu Server</li>
-                            <li>Supports Android Simulators/KVM Virtualization</li>
-                            <li>DDOS Protection</li>
-                            <li>No Setup fees</li>
-                        </ul>
-                    </div>
-                </div>
-                <button className="bg-purple-700 text-white px-6 py-1.5 mr-8 rounded mt-6">Buy Now</button>
-            </section>
+            <section className="bg-white text-center py-6 mx-12 mt-6 mb-32">
+    <div>
+        <h3 className="text-xl font-bold mb-1">VPS Server</h3>
+        <div className="border-b-8 border-purple-700 w-16 mx-auto mb-4 rounded-full thick-line"></div>
+    </div>
+    <div className="mx-auto flex flex-col md:flex-row gap-6">
+        <div className="text-left mt-6">
+            <h4 className="font-regular text-[18px] mx-48">Why Our VPS ?</h4>
+            <div className="border-b border-gray-500 w-[220px] mx-36 mb-4"></div>
+            <ul className="list-disc list-inside font-light ml-36 mt-4 text-[14px] space-y-6"> {/* Adjusted margin-top */}
+                <li>Exact IP for Online Accounts Creation</li>
+                <li>Supports Guaranteed 100% Online Mask Identification</li>
+                <li>Very Affordable pricing for Daily and Monthly Residential IPs</li>
+                <li>Supports SOCKS5/ HTTP</li>
+                <li>Cost Effective</li>
+                <li>No setup fee</li>
+            </ul>
         </div>
+
+        <div className="ml-20">
+            <img src={server} alt="server-logo" className="img-fluid animated max-w-md shake-on-hover" />
+        </div>
+    </div>
+    <button className="bg-purple-700 text-white px-6 py-1.5 mr-8 rounded mt-2">Buy Now</button>
+</section>
+
+</div>
     );
 };
 
