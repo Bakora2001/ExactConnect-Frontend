@@ -9,7 +9,7 @@ import debian from '../assets/debian.svg'; // Adjust path as necessary
 // import amalilinux from '../assets/amalilinux.svg'; // Adjust path as necessary
 const Rdp = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false); // State to handle menu toggle
-    const navigate = useNavigate();
+
     return (
         <div>
             {/* Navigation Bar */}
@@ -83,7 +83,7 @@ const Rdp = () => {
                 <div className="flex flex-wrap justify-center gap-4 pt-4">
                     {/* Flags for various countries */}
                     {['🇺🇸', '🇬🇧', '🇨🇦', '🇩🇪', '🇫🇷', '🇮🇹', '🇪🇸', '🇦🇺', '🇳🇱', '🇸🇪', '🇨🇭', '🇧🇪'].map((flag, index) => (
-                        <span key={index} className="text-3xl" title={Country ${index + 1}}>{flag}</span>
+                        <span key={index} className="text-3xl" title={`Country ${index + 1}`}>{flag}</span>
                     ))}
                 </div>
                 <h3 className="text-2xl font-light text-center mt-16 mb-4">
@@ -110,8 +110,7 @@ const Rdp = () => {
                             <p className="text-purple-600 mt-2">No Setup Fee</p>
                             <p className="text-4xl font-bold mt-4">${prices[index]}</p> {/* Use unique price */}
                             <p className="text-gray-500">/per month incl. VAT</p>
-                            <button className="mt-6 px-8 py-3 bg-purple-600 text-white"
-                            onClick={() => navigate('/configure')}>Configure</button>
+                            <button className="mt-6 px-8 py-3 bg-purple-600 text-white">Configure</button>
                             <div className="mt-6">
                                 <h3 className="font-bold">Top Features:</h3>
                                 <ul className="list-disc list-inside mt- 2 text-left">
@@ -162,7 +161,7 @@ const Rdp = () => {
                 // { name: 'AlmaLinux', icon: amalilinux } // Use appropriate image for AlmaLinux
             ].map((os, index) => (
                 <div key={index} className="text-center m-2">
-                    <img src={os.icon} alt={${os.name} logo} className="w-16 h-16" />
+                    <img src={os.icon} alt={`${os.name} logo`} className="w-16 h-16" />
                     <p className="mt-2">{os.name}</p>
                 </div>
             ))}
@@ -178,7 +177,7 @@ const Rdp = () => {
                     <div className="flex justify-center space-x-12 mt-12">
                         {['Web Hosting', 'WordPress Hosting', 'Website Builder', 'SSL Certificate'].map((service, index) => (
                             <div key={index} className="bg-white shadow-lg rounded-lg p-6 w-64 text-center">
-                                <img src="https://placehold.co/64x64" alt={${service} icon} className="mx-auto" />
+                                <img src="https://placehold.co/64x64" alt={`${service} icon`} className="mx-auto" />
                                 <p className="mt-4">{service}</p>
                             </div>
                         ))}
