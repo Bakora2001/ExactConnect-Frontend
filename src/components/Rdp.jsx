@@ -6,6 +6,7 @@ import centOs from '../assets/centOs.svg';
 import debian from '../assets/debian.png';
 import amalilinux from '../assets/linux.svg'; 
 import NavBar from '../reusables/Navbar';
+
 const Rdp = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
