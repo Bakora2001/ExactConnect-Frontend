@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import rdp1 from '../assets/rdp1.png';
 import ubuntu from '../assets/ubuntu.svg';
 import windows from '../assets/windows.svg';
@@ -9,51 +10,13 @@ import NavBar from '../reusables/Navbar';
 
 const Rdp = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const navigate = useNavigate(); // Initialize useNavigate
 
     return (
-
         <div>
             <div className="w-full mb-32">
-                    <NavBar /> {/* Render the reusable NavBar component */}
-                </div>
-            {/* Navigation Bar */}
-            {/* <nav className="bg-[#7C25BA] text-white sticky top-0 z-50 w-full h-24">
-                <div className="max-w-screen-xl px-4 flex justify-between h-16">
-                    <div className="pl-4 pt-8">
-                        <h1 className="text-3xl font-bold">ExactConnect</h1>
-                    </div>
-                    <div className="md:hidden">
-                        <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="focus:outline-none">
-                            <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
-                            </svg>
-                        </button>
-                    </div>
-
-                    <div className="hidden md:flex space-x-8 lg:space-x-24 pt-10">
-                        <a href="#locations" className="hover:text-gray-300">Locations</a>
-                        <a href="#pricing" className="hover:text-gray-300">Pricing</a>
-                        <a href="#contact" className="hover:text-gray-300">Contact Us</a>
-                    </div>
-
-                    <div className="hidden md:block pt-10">
-                        <a href="#get-started" className="bg-[#7C25BA] text-white font-medium py-2 px-4 rounded hover:bg-[#6a1fa0] ring-1 ring-white">
-                            Get Started
-                        </a>
-                    </div>
-                </div>
-
-                {isMenuOpen && (
-                    <div className="md:hidden bg-[#7C25BA] text-white p-4 space-y-4">
-                        <a href="#locations" className="block hover:text-gray-300">Locations</a>
-                        <a href="#pricing" className="block hover:text-gray-300">Pricing</a>
-                        <a href="#contact" className="block hover:text-gray-300">Contact Us</a>
-                        <a href="#get-started" className="block bg-white text-[#7C25BA] font-medium py-2 px-4 rounded hover:bg-gray-200">
-                            Get Started
-                        </a>
-                    </div>
-                )}
-            </nav> */}
+                <NavBar /> {/* Render the reusable NavBar component */}
+            </div>
 
             {/* Main Section */}
             <div className="flex flex-col-reverse lg:flex-row justify-between bg-white p-8 lg:p-16 max-w-screen-xl mx-auto">
@@ -84,7 +47,7 @@ const Rdp = () => {
                 <h3 className="text-2xl font-light text-center mt-16 mb-4">
                     Supports Over 15+ Countries with Affordable Pricing that fits Your Needs
                 </h3>
-            
+            </div>
 
             {/* Buttons Section */}
             <div className="bg-[#F1F0F2] p-4 mb-20">
@@ -107,7 +70,12 @@ const Rdp = () => {
                             <p className="text-purple-600 mt-2">No Setup Fee</p>
                             <p className="text-4xl font-bold mt-4">${prices[index]}</p>
                             <p className="text-gray-500">/per month incl. VAT</p>
-                            <button className="mt-6 px-8 py-3 bg-purple-600 text-white">Configure</button>
+                            <button 
+                                className="mt-6 px-8 py-3 bg-purple-600 text-white"
+                                onClick={() => navigate('/configure')} // Navigate to Configure page
+                            >
+                                Configure
+                            </button>
                             <div className="mt-6">
                                 <h3 className="font-bold">Top Features:</h3>
                                 <ul className="list-disc list-inside mt-2 text-left">
@@ -131,7 +99,7 @@ const Rdp = () => {
                     );
                 })}
             </section>
-            </div>
+
             {/* Operating System Section */}
             <p className="bg-[#DEE2E6] pl-4 font-bold w-48 ml-60">Operating System</p>
             <section className="bg-[#DEE2E6] py-0 mx-60 mb-32">
@@ -142,7 +110,6 @@ const Rdp = () => {
                             { name: 'Windows', icon: windows },
                             { name: 'CentOS', icon: centOs },
                             { name: 'Debian', icon: debian },
-                            // { name: 'AlmaLinux', icon: amalilinux }
                         ].map((os, index) => (
                             <div key={index} className="text-center m-2">
                                 <img src={os.icon} alt={`${os.name} logo`} className="w-16 h-16" />
