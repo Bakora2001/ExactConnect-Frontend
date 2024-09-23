@@ -5,14 +5,18 @@ import windows from '../assets/windows.svg';
 import centOs from '../assets/centOs.svg';
 import debian from '../assets/debian.png';
 import amalilinux from '../assets/linux.svg'; 
-
+import NavBar from '../reusables/Navbar';
 const Rdp = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     return (
+
         <div>
+            <div className="w-full mb-32">
+                    <NavBar /> {/* Render the reusable NavBar component */}
+                </div>
             {/* Navigation Bar */}
-            <nav className="bg-[#7C25BA] text-white sticky top-0 z-50 w-full h-24">
+            {/* <nav className="bg-[#7C25BA] text-white sticky top-0 z-50 w-full h-24">
                 <div className="max-w-screen-xl px-4 flex justify-between h-16">
                     <div className="pl-4 pt-8">
                         <h1 className="text-3xl font-bold">ExactConnect</h1>
@@ -48,7 +52,7 @@ const Rdp = () => {
                         </a>
                     </div>
                 )}
-            </nav>
+            </nav> */}
 
             {/* Main Section */}
             <div className="flex flex-col-reverse lg:flex-row justify-between bg-white p-8 lg:p-16 max-w-screen-xl mx-auto">
@@ -70,7 +74,7 @@ const Rdp = () => {
             </div>
 
             {/* Flags Section */}
-            <div className="bg-[#F1F0F2] p-8">
+            <div className="bg-[#F1F0F2] p-8 mb-24">
                 <div className="flex flex-wrap justify-center gap-4 pt-4">
                     {['🇺🇸', '🇬🇧', '🇨🇦', '🇩🇪', '🇫🇷', '🇮🇹', '🇪🇸', '🇦🇺', '🇳🇱', '🇸🇪', '🇨🇭', '🇧🇪'].map((flag, index) => (
                         <span key={index} className="text-3xl" title={`Country ${index + 1}`}>{flag}</span>
@@ -79,7 +83,7 @@ const Rdp = () => {
                 <h3 className="text-2xl font-light text-center mt-16 mb-4">
                     Supports Over 15+ Countries with Affordable Pricing that fits Your Needs
                 </h3>
-            </div>
+            
 
             {/* Buttons Section */}
             <div className="bg-[#F1F0F2] p-4 mb-20">
@@ -126,7 +130,7 @@ const Rdp = () => {
                     );
                 })}
             </section>
-
+            </div>
             {/* Operating System Section */}
             <p className="bg-[#DEE2E6] pl-4 font-bold w-48 ml-60">Operating System</p>
             <section className="bg-[#DEE2E6] py-0 mx-60 mb-32">

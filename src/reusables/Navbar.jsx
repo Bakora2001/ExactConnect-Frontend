@@ -11,7 +11,7 @@ const NavBar = () => {
   };
 
   return (
-    <header className="w-full flex justify-between items-center p-4 px-6 fixed top-6 bg-purple-700 shadow-md z-10 border-b border-gray-400">
+    <header className="w-full flex justify-between items-center p-6 px-6 fixed top-0 bg-purple-700 shadow-md z-10 border-b border-gray-400">
       {/* Mobile Navigation */}
       <div className="md:hidden flex items-center">
         <button className="text-white text-[28px]" onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}>
@@ -20,9 +20,9 @@ const NavBar = () => {
         </button>
       </div>
 
-      <div className="text-[22px] font-bold">ExactConnect</div>
+      <div className="text-[22px] text-white font-bold">ExactConnect</div>
 
-      <nav className="hidden md:flex space-x-10">
+      <nav className="hidden md:flex text-white space-x-10">
         <span className="text-[15px] cursor-pointer hover:text-gray-300" onClick={() => handleNavigation('/')}>Residential Proxy</span>
         <span className="text-[15px] cursor-pointer hover:text-gray-300" onClick={() => handleNavigation('/rdp')}>VPS Server</span>
         <span className="text-[15px] cursor-pointer hover:text-gray-300" onClick={() => handleNavigation('/')}>VCC Card</span>
@@ -30,7 +30,7 @@ const NavBar = () => {
         <span className="text-[15px] cursor-pointer hover:text-gray-300" onClick={() => handleNavigation('/')}>Contact Us</span>
       </nav>
 
-      <button className="border border-gray-300 text-[15px] py-1 px-4 rounded hover:bg-gray-200 hover:text-purple-700 transition-colors duration-200">
+      <button className="border border-gray-300 text-[15px] py-1 px-4 text-white rounded hover:bg-gray-200 hover:text-purple-700 transition-colors duration-200">
         Get Started
       </button>
 
