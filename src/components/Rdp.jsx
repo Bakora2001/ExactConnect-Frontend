@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import rdp1 from '../assets/rdp1.png'; // Import your image
 import ubuntu from '../assets/ubuntu.svg'; // Adjust path as necessary
 import windows from '../assets/windows.svg'; // Adjust path as necessary
@@ -9,7 +10,7 @@ import debian from '../assets/debian.svg'; // Adjust path as necessary
 // import amalilinux from '../assets/amalilinux.svg'; // Adjust path as necessary
 const Rdp = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false); // State to handle menu toggle
-
+    const navigate = useNavigate();
     return (
         <div>
             {/* Navigation Bar */}
@@ -110,7 +111,8 @@ const Rdp = () => {
                             <p className="text-purple-600 mt-2">No Setup Fee</p>
                             <p className="text-4xl font-bold mt-4">${prices[index]}</p> {/* Use unique price */}
                             <p className="text-gray-500">/per month incl. VAT</p>
-                            <button className="mt-6 px-8 py-3 bg-purple-600 text-white">Configure</button>
+                            <button className="mt-6 px-8 py-3 bg-purple-600 text-white"
+                            onClick={() => navigate('/configure')}>Configure</button>
                             <div className="mt-6">
                                 <h3 className="font-bold">Top Features:</h3>
                                 <ul className="list-disc list-inside mt- 2 text-left">

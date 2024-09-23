@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 
 const Configure = () => {
   const [billingCycle, setBillingCycle] = useState('Quarterly');
@@ -6,6 +8,7 @@ const Configure = () => {
   const [ipAddress, setIpAddress] = useState('No Additional IPs');
   const [location, setLocation] = useState('First available');
   const [backup, setBackup] = useState(true);
+  const navigate = useNavigate();
 
   return (
     <div className="flex min-h-screen bg-gray-200">
@@ -127,8 +130,8 @@ const Configure = () => {
               </li>
             </ul>
             <a href='/checkout'>
-              <button className="w-full bg-[#7C25BA] text-white py-2 rounded-lg shadow hover:bg-[#6a1fa0]transition mt-4">
-                Continue
+              <button className="w-full bg-[#7C25BA] text-white py-2 rounded-lg shadow hover:bg-[#6a1fa0]transition mt-4"
+              onClick={() => navigate('/checkout')}>Continue
               </button>
             </a>
           </div>
