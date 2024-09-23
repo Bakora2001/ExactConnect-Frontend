@@ -80,74 +80,86 @@ const Home = () => {
 </section>
 
     {/* VPS Server */}
-<section className="bg-white text-center py-6 mx-12 mt-6 mb-32">
-    <div>
-        <h3 className="text-xl font-bold mb-1">VPS Server</h3>
-        <div className="border-b-8 border-purple-700 w-16 mx-auto mb-4 rounded-full thick-line"></div>
+<section className="bg-white text-center mt-4 py-6 pl-24 mb-12 w-full">
+  <div>
+    <h3 className="text-xl font-bold mb-1 pr-[100px]">VPS Server</h3>
+    <div className="border-b-8 border-purple-700 w-16 mx-[480px] mb-4 rounded-full thick-line"></div>
+  </div>
+  <div className="mx-auto flex flex-col lg:flex-row gap-6 items-center lg:items-start max-w-7xl">
+    
+    {/* Text Section */}
+    <div className="text-left w-full lg:w-1/2 ml-[104px] lg:px-8">
+      <h4 className="font-regular text-[18px] mt-8 lg:mt-0">Why Our VPS ?</h4>
+      <div className="border-b border-gray-500 w-[220px] mb-4"></div>
+      <ul className="list-disc list-inside font-light text-[14px] space-y-6">
+        <li>Private and Secure</li>
+        <li>Supports Android Simulators/ KVM Virtualization</li>
+        <li>Supports Linux/Windows/ Ubuntu Server</li>
+        <li>Very Affordable as low as 12$</li>
+        <li>Instant Deployment</li>
+        <li>Reliable Hosting</li>
+        <li>DDOS Protection</li>
+        <li>24/7 Support System</li>
+      </ul>
     </div>
-    <div className="mx-auto flex flex-col md:flex-row gap-6">
-        <div className="text-left mt-6">
-            <h4 className="font-regular text-[18px] mx-48">Why Our VPS ?</h4>
-            <div className="border-b border-gray-500 w-[220px] mx-36 mb-4"></div>
-            <ul className="list-disc list-inside font-light ml-36 mt-4 text-[14px] space-y-6"> {/* Adjusted margin-top */}
-                <li>Private and Secure</li>
-                <li>Supports Android Simulators/ KVM Virtualization</li>
-                <li>Supports Linux/Windows/ Ubuntu Server</li>
-                <li>Very Affordable as low as 12$</li>
-                <li>Instant Deployment</li>
-                <li>Reliable Hosting</li>
-                <li>DDOS Protection</li>
-                <li>24/7 Support System</li>
-            </ul>
-        </div>
 
-        <div className="ml-20">
-            <img src={server} alt="server-logo" className="img-fluid animated max-w-md shake-on-hover" />
-        </div>
+    {/* Image Section */}
+    <div className="flex justify-center lg:justify-start pt-8 mr-[80px] lg:pt-0 w-full lg:w-1/2">
+      <img src={server} alt="server-logo" className="img-fluid max-w-xs lg:max-w-md" />
     </div>
-    <button className="bg-purple-700 text-white px-6 py-1.5 mr-8 rounded mt-2">Buy Now</button>
+  </div>
+  <button className="bg-purple-700 text-white px-6 py-1.5 rounded mt-8">Buy Now</button>
 </section>
+
 
     {/* Virtual Credit Card Section */}
-<section className="bg-[#EEEEEE] text-center py-6 mt-6 mb-32">
-    <div>
-        <h3 className="text-xl font-bold mb-1">Virtual Credit Card</h3>
-        <div className="border-b-8 border-purple-700 w-20 mx-auto mb-4 rounded-full thick-line"></div>
+    <section className="bg-[#EEEEEE] text-center py-6 mb-32 pl-24 w-full">
+  <div>
+    <h3 className="text-xl font-bold mb-1 text-center pr-36">Virtual Credit Card</h3>
+    <div className="border-b-8 border-purple-700 w-20 ml-[450px] mb-4 rounded-full thick-line"></div>
+  </div>
+  <div className="mx-auto flex flex-col lg:flex-row gap-6 items-center lg:items-start max-w-7xl">
+    
+    {/* Image Section */}
+    <div className="flex justify-center lg:justify-start pt-12 lg:mt-0 w-full lg:w-1/2">
+      <img src={wallet} alt="wallet-logo" className="img-fluid max-w-xs lg:max-w-md" />
     </div>
-    <div className="mx-auto flex flex-col md:flex-row gap-6">
-        <div className="ml-20 mt-20">
-            <img src={wallet} alt="wallet-logo" className="img-fluid animated max-w-md shake-on-hover" />
-        </div>
-        <div className="text-left mt-6">
-            <h4 className="font-regular text-[18px] mx-48">Why Our VPS ?</h4>
-            <div className="border-b border-gray-500 w-[220px] mx-36 mb-4"></div>
-            <ul className="list-disc list-inside font-light ml-36 mt-4 text-[14px] space-y-2"> {/* Adjusted margin-top */}
-                <li>Private and Secure</li>
-                <li>Supports Android Simulators/ KVM Virtualization</li>
-                <li>Supports Linux/Windows/ Ubuntu Server</li>
-                <li>Very Affordable as low as 12$</li>
-                <li>Instant Deployment</li>
-                <li>Reliable Hosting</li>
-                <li>DDOS Protection</li>
-                <li>24/7 Support System</li>
-            </ul>
 
-            <h4 className="font-regular text-[18px] mx-48 mt-8">Why Our VPS ?</h4>
-            <div className="border-b border-gray-500 w-[220px] mx-36 mb-4"></div>
-            <ul className="list-disc list-inside font-light ml-36 mt-4 text-[14px] space-y-2"> {/* Adjusted margin-top */}
-                <li>Private and Secure</li>
-                <li>Supports Android Simulators/ KVM Virtualization</li>
-                <li>Supports Linux/Windows/ Ubuntu Server</li>
-                <li>Very Affordable as low as 12$</li>
-                <li>Instant Deployment</li>
-                <li>Reliable Hosting</li>
-                <li>DDOS Protection</li>
-                <li>24/7 Support System</li>
-            </ul>
-        </div>
+    {/* Text Section */}
+    <div className="text-left w-full lg:w-1/2 px-4 lg:px-8">
+      
+      {/* First Heading & List */}
+      <h4 className="font-regular text-[18px] mt-8 lg:mt-0">Why Our VPS ?</h4>
+      <div className="border-b border-gray-500 w-[220px] mb-4"></div>
+      <ul className="list-disc list-inside font-light text-[14px] space-y-2">
+        <li>Private and Secure</li>
+        <li>Supports Android Simulators/ KVM Virtualization</li>
+        <li>Supports Linux/Windows/ Ubuntu Server</li>
+        <li>Very Affordable as low as 12$</li>
+        <li>Instant Deployment</li>
+        <li>Reliable Hosting</li>
+        <li>DDOS Protection</li>
+        <li>24/7 Support System</li>
+      </ul>
+
+      {/* Second Heading & List */}
+      <h4 className="font-regular text-[18px] mt-8">Why Our VPS ?</h4>
+      <div className="border-b border-gray-500 w-[220px] mb-4"></div>
+      <ul className="list-disc list-inside font-light text-[14px] space-y-2">
+        <li>Private and Secure</li>
+        <li>Supports Android Simulators/ KVM Virtualization</li>
+        <li>Supports Linux/Windows/ Ubuntu Server</li>
+        <li>Very Affordable as low as 12$</li>
+        <li>Instant Deployment</li>
+        <li>Reliable Hosting</li>
+        <li>DDOS Protection</li>
+        <li>24/7 Support System</li>
+      </ul>
     </div>
-    <button className="bg-purple-700 text-white px-6 py-1.5 mr-8 rounded mt-8">Buy Now</button>
+  </div>
+  <button className="bg-purple-700 text-white px-6 py-1.5 rounded mt-8">Buy Now</button>
 </section>
+
 
 </div>
     );
