@@ -88,8 +88,8 @@ const Home = () => {
   <div className="mx-auto flex flex-col lg:flex-row gap-6 items-center lg:items-start max-w-7xl">
     
     {/* Text Section */}
-    <div className="text-left w-full lg:w-1/2 ml-[104px] lg:px-8">
-      <h4 className="font-regular text-[18px] mt-8 lg:mt-0">Why Our VPS ?</h4>
+    <div className="text-left w-full lg:w-1/2 ml-[90px] lg:px-8">
+      <h4 className="font-regular text-[18px] pt-[25px] lg:mt-0">Why Our VPS ?</h4>
       <div className="border-b border-gray-500 w-[220px] mb-4"></div>
       <ul className="list-disc list-inside font-light text-[14px] space-y-6">
         <li>Private and Secure</li>
