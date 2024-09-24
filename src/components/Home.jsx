@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import NavBar from '../reusables/Navbar'; // Import NavBar component
 import techImage from '../assets/tech-image.png'; // Import the image
 import './Home.css'; // Import the CSS file for the shake effect
@@ -6,6 +7,7 @@ import server from '../assets/server.png';
 import wallet from '../assets/wallet.png';
 
 const Home = () => {
+  const navigate = useNavigate();
     return (
         <div>
   {/* Header Section */}
@@ -125,8 +127,8 @@ const Home = () => {
         />
       </div>
     </div>
-    <button className="bg-purple-700 text-white px-4 sm:px-6 py-1.5 rounded mt-8">
-      Buy Now
+    <button className="bg-purple-700 text-white px-4 sm:px-6 py-1.5 rounded mt-8"
+    onClick={() => navigate('/rdp')}>Buy Now
     </button>
   </section>
 
