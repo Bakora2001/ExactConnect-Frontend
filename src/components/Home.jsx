@@ -5,11 +5,12 @@ import techImage from '../assets/tech-image.png'; // Import the image
 import './Home.css'; // Import the CSS file for the shake effect
 import server from '../assets/server.png';
 import wallet from '../assets/wallet.png';
+import phone from '../assets/phone.png'; 
 
 const Home = () => {
   const navigate = useNavigate();
     return (
-        <div>
+<div>
   {/* Header Section */}
   <div className="h-auto sm:h-[655px] flex flex-col items-center bg-purple-700 text-white mb-10">
     {/* NavBar */}
@@ -140,7 +141,7 @@ const Home = () => {
     </div>
     <div className="mx-auto flex flex-col lg:flex-row gap-6 items-center lg:items-start max-w-7xl">
       {/* Image Section */}
-      <div className="flex justify-center lg:justify-start pt-12 lg:mt-0 w-full lg:w-1/2">
+      <div className="flex justify-center lg:justify-start pt-12 lg:mt-12 w-full lg:w-1/2">
         <img
           src={wallet}
           alt="wallet-logo"
@@ -185,6 +186,54 @@ const Home = () => {
       Buy Now
     </button>
   </section>
+
+{/* Virtual Number Section */}
+<section className="bg-[#E3F6F4] py-6 mb-12 px-4 sm:px-24">
+  <div className="max-w-7xl mx-auto">
+    {/* Heading Section */}
+    <div className="grid lg:grid-cols-3 items-start gap-6">
+      {/* Left Section: Verification Process */}
+      <div>
+        <h4 className="text-lg font-semibold text-center">Verification Process</h4>
+        <ul className="space-y-4 pt-6 rounded-lg overflow-hidden">
+          {[
+            "Find out if the Account You want to verify is Listed",
+            "Choose the Account you want to Verify",
+            "Order the number and get instant message",
+            "If Service is not listed, consult with our Agent",
+            "Receive your Number from our Agent and verify",
+          ].map((item, index) => (
+            <li
+              key={index}
+              className="bg-white rounded-full shadow-md px-4 py-2 flex items-center space-x-2"
+            >
+              <span className="text-black font-bold">&#8226;</span>
+              <span className="text-sm font-light whitespace-nowrap">{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Image Section */}
+      <div className="flex justify-center items-start pt-6 lg:pt-8">
+        <img
+          src={phone}
+          alt="phone-logo"
+          className="img-fluid max-w-xs sm:max-w-md"
+        />
+      </div>
+
+      {/* Right Section */}
+      <div className="text-left">
+        <p>
+          This is some descriptive text about the virtual number. Add any
+          information you want to share here.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+  
 </div>
 
     );
