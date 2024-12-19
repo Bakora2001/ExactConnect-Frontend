@@ -1,8 +1,17 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { FaBox, FaUsers, FaShoppingCart, FaChartLine, FaCheckCircle, FaClock, FaTruck, FaTimesCircle } from 'react-icons/fa';
-import SalesGraph from './SalesGraph'; 
-import TopProducts from './TopProducts'; 
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import {
+  FaBox,
+  FaUsers,
+  FaShoppingCart,
+  FaChartLine,
+  FaCheckCircle,
+  FaClock,
+  FaTruck,
+  FaTimesCircle,
+} from "react-icons/fa";
+import SalesGraph from "./SalesGraph";
+import TopProducts from "./TopProducts";
 
 const AdminHome = () => {
   const navigate = useNavigate();
@@ -19,14 +28,13 @@ const AdminHome = () => {
     return "Good Evening";
   };
 
-  const greeting = `${getGreeting()} Samuel Githaiga`;
+  const greeting = `${getGreeting()}, Maxwel Omwoyo !`;
 
-  const handleOrdersClick = () => navigate('/admin/orders');
-  const handleUsersClick = () => navigate('/admin/users');
-  const handleSalesClick = () => navigate('/admin/analytics');
-  const handleProductsClick = () => navigate('/admin/products');
+  const handleOrdersClick = () => navigate("/admin/orders");
+  const handleUsersClick = () => navigate("/admin/customers");
+  const handleSalesClick = () => navigate("/admin/analytics");
+  const handleProductsClick = () => navigate("/admin/products");
 
-  // OrderSummary component
   const OrderSummary = () => {
     const items = [
       { icon: <FaBox className="text-3xl" />, label: "All", orders: 120, amount: 50000, color: "text-blue-500" },
@@ -41,9 +49,7 @@ const AdminHome = () => {
         <div className="bg-gray-800 rounded-lg p-4 flex flex-wrap space-y-6 sm:space-y-0 sm:flex-nowrap sm:space-x-6">
           {items.map((item, index) => (
             <div key={index} className="flex flex-col items-center text-white flex-grow sm:w-1/5">
-              <div className={`mb-1 ${item.color}`}>
-                {item.icon}
-              </div>
+              <div className={`mb-1 ${item.color}`}>{item.icon}</div>
               <div className="text-md font-semibold">{item.label}</div>
               <div className="text-xs">{item.orders} orders</div>
               <div className="text-xs">KSh {item.amount.toLocaleString()}</div>
@@ -57,7 +63,6 @@ const AdminHome = () => {
     );
   };
 
-  // Empty OrderTable component
   const OrderTable = () => {
     return (
       <div className="mt-8">
@@ -73,7 +78,11 @@ const AdminHome = () => {
             </tr>
           </thead>
           <tbody>
-            {/* No data rows for now */}
+            <tr className="text-center">
+              <td className="p-4" colSpan="6">
+                No data available
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -86,7 +95,7 @@ const AdminHome = () => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         <div
-          className="bg-purple-500 shadow-lg rounded-lg p-6 border border-gray-200 cursor-pointer hover:bg-purple-600 transition-colors flex items-center"
+          className="bg-purple-800 shadow-lg rounded-lg p-6 border border-gray-200 cursor-pointer hover:bg-purple-900 transition-colors flex items-center"
           onClick={handleSalesClick}
         >
           <FaChartLine className="text-3xl text-white mr-4" />
@@ -97,7 +106,7 @@ const AdminHome = () => {
         </div>
 
         <div
-          className="bg-purple-500 shadow-lg rounded-lg p-6 border border-gray-200 cursor-pointer hover:bg-purple-600 transition-colors flex items-center"
+          className="bg-purple-800 shadow-lg rounded-lg p-6 border border-gray-200 cursor-pointer hover:bg-purple-900 transition-colors flex items-center"
           onClick={handleUsersClick}
         >
           <FaUsers className="text-3xl text-white mr-4" />
@@ -108,7 +117,7 @@ const AdminHome = () => {
         </div>
 
         <div
-          className="bg-purple-500 shadow-lg rounded-lg p-6 border border-gray-200 cursor-pointer hover:bg-purple-600 transition-colors flex items-center"
+          className="bg-purple-800 shadow-lg rounded-lg p-6 border border-gray-200 cursor-pointer hover:bg-purple-900 transition-colors flex items-center"
           onClick={handleOrdersClick}
         >
           <FaShoppingCart className="text-3xl text-white mr-4" />
@@ -119,7 +128,7 @@ const AdminHome = () => {
         </div>
 
         <div
-          className="bg-purple-500 shadow-lg rounded-lg p-6 border border-gray-200 cursor-pointer hover:bg-purple-600 transition-colors flex items-center"
+          className="bg-purple-800 shadow-lg rounded-lg p-6 border border-gray-200 cursor-pointer hover:bg-purple-900 transition-colors flex items-center"
           onClick={handleProductsClick}
         >
           <FaBox className="text-3xl text-white mr-4" />
@@ -130,7 +139,7 @@ const AdminHome = () => {
         </div>
       </div>
 
-      <div className="border-t border-dotted border-purple-500 my-6"></div> {/* Dotted line */}
+      <div className="border-t border-dotted border-purple-500 my-6"></div>
 
       <div className="grid grid-cols-4 gap-4 mb-8">
         <div className="col-span-3">
@@ -141,15 +150,15 @@ const AdminHome = () => {
         </div>
       </div>
 
-      <div className="border-t border-dotted border-purple-500 my-6"></div> {/* Dotted line */}
+      <div className="border-t border-dotted border-purple-500 my-6"></div>
 
-      <OrderSummary /> {/* OrderSummary is now part of AdminHome */}
-      
-      <div className="border-t border-dotted border-purple-500 my-6"></div> {/* Dotted line */}
+      <OrderSummary />
 
-      <OrderTable /> {/* Empty OrderTable added at the bottom */}
-      
-      <div className="border-t border-dotted border-purple-500 my-6"></div> {/* Dotted line */}
+      <div className="border-t border-dotted border-purple-500 my-6"></div>
+
+      <OrderTable />
+
+      <div className="border-t border-dotted border-purple-500 my-6"></div>
     </div>
   );
 };
