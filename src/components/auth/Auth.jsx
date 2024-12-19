@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios"; // Axios for API calls
 import Login from "./Login";
 import Signup from "./Signup";
+import Navbar from "../../reusables/Navbar"; // Import Navbar component
 import backgroundImage from "../../assets/login.jpg"; // Corrected relative path
 
 const Auth = () => {
@@ -35,12 +36,18 @@ const Auth = () => {
 
       if (isLoginForm) {
         // Handle login
-        response = await axios.post("https://exact-connect-latest.onrender.com/login", formData);
+        response = await axios.post(
+          "https://exact-connect-latest.onrender.com/login",
+          formData
+        );
         alert("Login Successful");
         navigate("/home"); // Redirect to home page after login
       } else {
         // Handle signup
-        response = await axios.post("https://exact-connect-latest.onrender.com/customers", formData);
+        response = await axios.post(
+          "https://exact-connect-latest.onrender.com/customers",
+          formData
+        );
         setSuccessMessage("Sign up successful! Please login"); // Show success message for sign up
         navigate("/login"); // Redirect to login page after successful signup
       }
@@ -50,32 +57,48 @@ const Auth = () => {
   };
 
   return (
-    <div
-    className="h-screen bg-cover bg-center  items-center"
-      style={{ backgroundImage: `url(${backgroundImage})` }} // Set the background image
+    <>
+      {/* Render Navbar at the top of the page */}
+      <Navbar />
+      <div
+        className="h-screen bg-cover bg-center"
+        style={{ backgroundImage: `url(${backgroundImage})` }} // Set the background image
       >
-      <div className="flex justify-center items-center h-screen">
-        <div className="w-full max-w-md">
-          {isLogin ? (
-            <Login formData={formData} handleChange={handleChange} handleSubmit={handleSubmit} />
-          ) : (
-            <Signup formData={formData} handleChange={handleChange} handleSubmit={handleSubmit} />
-          )}
+        <div className="flex justify-center items-center h-screen">
+          <div className="w-full max-w-md">
+            {isLogin ? (
+              <Login
+                formData={formData}
+                handleChange={handleChange}
+                handleSubmit={handleSubmit}
+              />
+            ) : (
+              <Signup
+                formData={formData}
+                handleChange={handleChange}
+                handleSubmit={handleSubmit}
+              />
+            )}
 
-          <div className="text-center">
-            <button
-              onClick={() => setIsLogin(!isLogin)}
-              className="text-sm text-blue-500 hover:underline"
-            >
-              {isLogin ? "Don't have an account? Sign up" : "Already have an account? Login"}
-            </button>
+            <div className="text-center">
+              <button
+                onClick={() => setIsLogin(!isLogin)}
+                className="text-sm text-blue-500 hover:underline"
+              >
+                {isLogin
+                  ? "Don't have an account? Sign up"
+                  : "Already have an account? Login"}
+              </button>
+            </div>
+
+            {error && <div className="text-red-500 text-center">{error}</div>}
+            {successMessage && (
+              <div className="text-green-500 text-center">{successMessage}</div>
+            )}
           </div>
-
-          {error && <div className="text-red-500 text-center">{error}</div>}
-          {successMessage && <div className="text-green-500 text-center">{successMessage}</div>}
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
