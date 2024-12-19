@@ -1,5 +1,8 @@
 import './App.css';
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { useState } from 'react';
+
+// Import Components
 import Home from './components/Home'; // Import Home component
 import Rdp from './components/Rdp';   // Import Rdp component
 import Configure from './components/Configure'; 
@@ -12,7 +15,11 @@ import AdminProducts from './admin/AdminProducts';
 import AddProductForm from './admin/AddProductsForm'; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
-import { useState } from 'react';
+
+// Import Auth component (handles both Login and Signup)
+import Auth from './components/auth/Auth'; // Only import Auth which internally manages Login and Signup
+import ChangePassword from './components/auth/ChangePassword';
+import OTPVerification from './components/auth/OTPVerification';
 
 // AdminRoute component to protect admin routes
 const AdminRoute = ({ children }) => {
@@ -51,6 +58,11 @@ const Layout = () => {
             <Route path="/rdp" element={<Rdp />} /> {/* Route for Rdp component */}
             <Route path="/configure" element={<Configure />} /> {/* Route for Configure component */}
             <Route path="/checkout" element={<Checkout />} /> {/* Route for Checkout component */}
+
+            {/* Authentication Routes - Handle both Signup and Login */}
+            <Route path="/auth" element={<Auth />} /> {/* Combined Auth page for Login/Signup */}
+            <Route path="/change-password" element={<ChangePassword />} /> {/* Change Password route */}
+            <Route path="/verify-otp" element={<OTPVerification />} /> {/* OTP Verification route */}
 
             {/* Admin Routes (Protected) */}
             <Route
