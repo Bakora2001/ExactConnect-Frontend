@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import {
-  FaBox,
+  FaBoxOpen, // For Total Products
   FaUsers,
   FaShoppingCart,
   FaChartLine,
@@ -9,7 +9,7 @@ import {
   FaClock,
   FaTruck,
   FaTimesCircle,
-} from "react-icons/fa";
+} from "react-icons/fa"; // Importing relevant icons
 import SalesGraph from "./SalesGraph";
 import TopProducts from "./TopProducts";
 
@@ -37,7 +37,7 @@ const AdminHome = () => {
 
   const OrderSummary = () => {
     const items = [
-      { icon: <FaBox className="text-3xl" />, label: "All", orders: 120, amount: 50000, color: "text-blue-500" },
+      { icon: <FaBoxOpen className="text-3xl" />, label: "All", orders: 120, amount: 50000, color: "text-blue-500" },
       { icon: <FaCheckCircle className="text-3xl" />, label: "Completed", orders: 90, amount: 30000, color: "text-green-500" },
       { icon: <FaClock className="text-3xl" />, label: "Pending", orders: 20, amount: 15000, color: "text-yellow-500" },
       { icon: <FaTruck className="text-3xl" />, label: "In Progress", orders: 10, amount: 20000, color: "text-purple-500" },
@@ -93,48 +93,49 @@ const AdminHome = () => {
     <div className="p-6 bg-gray-100 rounded-lg shadow-lg">
       <div className="mb-8 text-2xl font-bold text-gray-800">{greeting}</div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      {/* Main grid for the boxes */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
         <div
-          className="bg-purple-800 shadow-lg rounded-lg p-6 border border-gray-200 cursor-pointer hover:bg-purple-900 transition-colors flex items-center"
+          className="bg-purple-800 shadow-lg rounded-lg p-8 border border-gray-200 cursor-pointer hover:bg-purple-900 transition-colors flex items-center"
           onClick={handleSalesClick}
         >
-          <FaChartLine className="text-3xl text-white mr-4" />
+          <FaChartLine className="text-4xl text-white mr-4" />
           <div>
             <h3 className="text-xl font-semibold text-white mb-2">Total Sales</h3>
-            <p className="text-3xl font-bold text-white">{totalSales}</p>
+            <p className="text-lg font-bold text-white">{totalSales}</p>
           </div>
         </div>
 
         <div
-          className="bg-purple-800 shadow-lg rounded-lg p-6 border border-gray-200 cursor-pointer hover:bg-purple-900 transition-colors flex items-center"
+          className="bg-purple-800 shadow-lg rounded-lg p-8 border border-gray-200 cursor-pointer hover:bg-purple-900 transition-colors flex items-center"
           onClick={handleUsersClick}
         >
-          <FaUsers className="text-3xl text-white mr-4" />
+          <FaUsers className="text-4xl text-white mr-4" />
           <div>
             <h3 className="text-xl font-semibold text-white mb-2">Total Users</h3>
-            <p className="text-3xl font-bold text-white">{totalUsers}</p>
+            <p className="text-lg font-bold text-white">{totalUsers}</p>
           </div>
         </div>
 
         <div
-          className="bg-purple-800 shadow-lg rounded-lg p-6 border border-gray-200 cursor-pointer hover:bg-purple-900 transition-colors flex items-center"
+          className="bg-purple-800 shadow-lg rounded-lg p-8 border border-gray-200 cursor-pointer hover:bg-purple-900 transition-colors flex items-center"
           onClick={handleOrdersClick}
         >
-          <FaShoppingCart className="text-3xl text-white mr-4" />
+          <FaShoppingCart className="text-4xl text-white mr-4" />
           <div>
             <h3 className="text-xl font-semibold text-white mb-2">Total Orders</h3>
-            <p className="text-3xl font-bold text-white">{totalOrders}</p>
+            <p className="text-lg font-bold text-white">{totalOrders}</p>
           </div>
         </div>
 
         <div
-          className="bg-purple-800 shadow-lg rounded-lg p-6 border border-gray-200 cursor-pointer hover:bg-purple-900 transition-colors flex items-center"
+          className="bg-purple-800 shadow-lg rounded-lg p-8 border border-gray-200 cursor-pointer hover:bg-purple-900 transition-colors flex items-center"
           onClick={handleProductsClick}
         >
-          <FaBox className="text-3xl text-white mr-4" />
+          <FaBoxOpen className="text-4xl text-white mr-4" />
           <div>
             <h3 className="text-xl font-semibold text-white mb-2">Total Products</h3>
-            <p className="text-3xl font-bold text-white">{totalProducts}</p>
+            <p className="text-lg font-bold text-white">{totalProducts}</p>
           </div>
         </div>
       </div>
