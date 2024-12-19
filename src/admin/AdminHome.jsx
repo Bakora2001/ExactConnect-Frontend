@@ -141,7 +141,7 @@ const AdminHome = () => {
 
       <div className="border-t border-dotted border-purple-500 my-6"></div>
 
-      <div className="grid grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-8">
         <div className="col-span-3">
           <SalesGraph />
         </div>

@@ -27,7 +27,7 @@ const AdminSidebar = ({ sidebarOpen, setSidebarOpen }) => {
     <aside
       className={`fixed inset-y-0 left-0 transform ${
         sidebarOpen ? "translate-x-0" : "-translate-x-full"
-      } md:translate-x-0 transition-transform duration-300 ease-in-out w-64 bg-purple-950 text-gray-100 h-full p-6 shadow-lg z-50`}
+      } md:translate-x-0 transition-transform duration-300 ease-in-out bg-purple-950 text-gray-100 h-full p-6 shadow-lg z-50 w-64 md:w-64 lg:w-64 xl:w-64`}
     >
       {/* Header */}
       <div className="mb-8 flex justify-between items-center">
