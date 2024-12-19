@@ -62,7 +62,7 @@ const Auth = () => {
             <Signup formData={formData} handleChange={handleChange} handleSubmit={handleSubmit} />
           )}
 
-          <div className="mt-4">
+          <div className="text-center">
             <button
               onClick={() => setIsLogin(!isLogin)}
               className="text-sm text-blue-500 hover:underline"
