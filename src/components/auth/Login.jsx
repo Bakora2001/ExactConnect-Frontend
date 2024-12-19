@@ -42,7 +42,7 @@ const Login = ({ formData, handleChange, handleSubmit }) => {
 
   return (
     <div>
-      <div className="bg-white p-8 rounded-md shadow-md w-full ring-2 ring-gray-300 ring-offset-2 max-w-md">
+      <div className="bg-white p-8 pb-24 rounded-md shadow-md w-full ring-2 ring-gray-300 ring-offset-2 max-w-md">
         <form onSubmit={handleLoginSubmit}>
           <div className="mb-4">
             <label htmlFor="idNumber" className="block text-sm font-medium text-gray-700">

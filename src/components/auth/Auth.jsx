@@ -52,15 +52,15 @@ const Auth = () => {
 
   return (
     <div
-      className="h-screen bg-cover bg-center flex flex-col"
+      className="h-full sm:h-full bg-fixed sm:h-full bg-cover bg-center"
       style={{ backgroundImage: `url(${backgroundImage})` }} // Set the background image
     >
       {/* Navbar */}
       <Navbar />
 
       {/* Main Content */}
-      <div className="flex justify-center items-center flex-grow px-4 sm:px-6 lg:px-8">
-        <div className="w-full max-w-md bg-white p-6 rounded-md shadow-md">
+      <div className="flex  items-center h-full pt-24 pb-24 px-4 sm:px-6 lg:px-8">
+        <div className="w-full max-w-sm bg-white p-6 rounded-md shadow-md  md:ml-[800px]">
           {isLogin ? (
             <Login formData={formData} handleChange={handleChange} handleSubmit={handleSubmit} />
           ) : (
