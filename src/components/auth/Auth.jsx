@@ -51,7 +51,7 @@ const Auth = () => {
 
   return (
     <div
-    className="h-screen bg-cover bg-center flex justify-center items-center"
+    className="h-screen bg-cover bg-center  items-center"
       style={{ backgroundImage: `url(${backgroundImage})` }} // Set the background image
       >
       <div className="flex justify-center items-center h-screen">
