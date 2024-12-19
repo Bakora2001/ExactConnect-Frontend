@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios"; // Axios for API calls
 import Login from "./Login";
 import Signup from "./Signup";
+import backgroundImage from "../../assets/login.jpg"; // Corrected relative path
 
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -49,7 +50,10 @@ const Auth = () => {
   };
 
   return (
-    <div>
+    <div
+    className="h-screen bg-cover bg-center flex justify-center items-center"
+      style={{ backgroundImage: `url(${backgroundImage})` }} // Set the background image
+      >
       <div className="flex justify-center items-center h-screen">
         <div className="w-full max-w-md">
           {isLogin ? (
