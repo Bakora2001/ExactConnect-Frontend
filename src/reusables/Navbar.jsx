@@ -42,7 +42,7 @@ const NavBar = () => {
       <nav className="hidden md:flex text-white space-x-10">
         <span
           className="text-[15px] cursor-pointer hover:text-gray-300"
-          onClick={() => handleNavigation('/')}
+          onClick={() => handleNavigation('/proxy')}
         >
           Residential Proxy
         </span>

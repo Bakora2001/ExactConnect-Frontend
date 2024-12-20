@@ -7,6 +7,7 @@ import Home from './components/Home'; // Import Home component
 import Rdp from './components/Rdp';   // Import Rdp component
 import Configure from './components/Configure'; 
 import Checkout from './components/Checkout'; 
+import Proxy from './components/Proxy'; // Import Proxy component
 
 // Admin components
 import AdminSidebar from './admin/AdminSidebar'; 
@@ -58,6 +59,7 @@ const Layout = () => {
             <Route path="/rdp" element={<Rdp />} /> {/* Route for Rdp component */}
             <Route path="/configure" element={<Configure />} /> {/* Route for Configure component */}
             <Route path="/checkout" element={<Checkout />} /> {/* Route for Checkout component */}
+            <Route path="/proxy" element={<Proxy />} /> {/* Route for Proxy */}
 
             {/* Authentication Routes - Handle both Signup and Login */}
             <Route path="/auth" element={<Auth />} /> {/* Combined Auth page for Login/Signup */}
