@@ -12,6 +12,7 @@ const Proxy = () => {
 
   const handleRowClick = (rowIndex) => {
     setSelectedRow(rowIndex);
+    
     setRowData({
       IP: "139.171._._",
       Region: "VA",
