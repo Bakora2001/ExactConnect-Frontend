@@ -4,11 +4,17 @@ import { FaBars, FaTimes, FaAngleDoubleLeft } from 'react-icons/fa'; // Import i
 
 const NavBar = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // Use the navigate hook
 
+  // Function to handle navigation
   const handleNavigation = (path) => {
-    navigate(path);
-    setMobileMenuOpen(false); // Close mobile menu on navigation
+    navigate(path);  // Use the navigate function to go to the desired path
+    setMobileMenuOpen(false); // Close mobile menu after navigating
+  };
+
+  // Function to handle the "Get Started" button click
+  const handleGetStartedClick = () => {
+    navigate('/auth');  // Navigate to the auth page
   };
 
   return (
@@ -26,17 +32,17 @@ const NavBar = () => {
       </div>
 
       {/* Exact Connect logo */}
-<div className="text-[22px] text-white font-bold">
-  <button className="text-white text-[22px] font-bold" onClick={() => navigate('/')}>
-    ExactConnect
-  </button>
-</div>
+      <div className="text-[22px] text-white font-bold">
+        <button className="text-white text-[22px] font-bold" onClick={() => navigate('/')}>
+          ExactConnect
+        </button>
+      </div>
 
       {/* Desktop Navigation */}
       <nav className="hidden md:flex text-white space-x-10">
         <span
           className="text-[15px] cursor-pointer hover:text-gray-300"
-          onClick={() => handleNavigation('/')}
+          onClick={() => handleNavigation('/proxy')}
         >
           Residential Proxy
         </span>
@@ -66,7 +72,11 @@ const NavBar = () => {
         </span>
       </nav>
 
-      <button className="hidden md:inline border border-gray-300 text-[15px] py-1 px-4 text-white rounded hover:bg-gray-200 hover:text-purple-700 transition-colors duration-200">
+      {/* Get Started button - uses navigate on click */}
+      <button
+        className="hidden md:inline border border-gray-300 text-[15px] py-1 px-4 text-white rounded hover:bg-gray-200 hover:text-purple-700 transition-colors duration-200"
+        onClick={handleGetStartedClick}  // Calls the handleGetStartedClick function when clicked
+      >
         Get Started
       </button>
 
@@ -118,7 +128,7 @@ const NavBar = () => {
             </span>
             <button
               className="border border-gray-300 text-[18px] text-white py-2 px-6 rounded hover:bg-gray-200 hover:text-purple-700 transition-colors duration-200"
-              onClick={() => handleNavigation('/')}
+              onClick={handleGetStartedClick}  // Same handler for mobile
             >
               Get Started
             </button>

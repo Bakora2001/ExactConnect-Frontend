@@ -9,6 +9,9 @@ import phone from '../assets/phone.png';
 
 const Home = () => {
   const navigate = useNavigate();
+  const handleGetStartedClick = () => {
+    navigate('/auth'); // Navigates to the /auth path
+  };
     return (
 <div>
   {/* Header Section */}
@@ -28,9 +31,11 @@ const Home = () => {
         <p className="text-md sm:text-lg mb-4 mt-6 sm:mt-12">
           We’ve Got the Perfect Solutions For You
         </p>
-        <button className="border border-white py-1.5 px-3 text-sm sm:text-[15px] rounded hover:bg-white hover:text-purple-700">
-          Get Started
+        <button onClick={handleGetStartedClick} className="border border-white  py-1.5 px-3 text-sm sm:text-[15px] rounded hover:bg-white hover:text-purple-700"
+        >
+            Get Started
         </button>
+
       </div>
       <div className="mt-6 pt-6 sm:pt-6">
         <img
