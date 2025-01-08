@@ -30,7 +30,7 @@ const Login = ({ formData, handleChange, handleSubmit }) => {
     if (newPassword) {
       try {
         const response = await axios.post(
-          `https://exact-connect-latest.onrender.com/customers/customers/${formData.idNumber}/change-passwordverify-otp/reset`,
+          `https://exact-connect-latest.onrender.com/customers/customers/${formData.email}/change-passwordverify-otp/reset`,
           { newPassword }
         );
         setSuccess("Password changed successfully!");
@@ -45,17 +45,17 @@ const Login = ({ formData, handleChange, handleSubmit }) => {
       <div className="bg-white p-8 pb-24 rounded-md shadow-md w-full ring-2 ring-gray-300 ring-offset-2 max-w-md">
         <form onSubmit={handleLoginSubmit}>
           <div className="mb-4">
-            <label htmlFor="idNumber" className="block text-sm font-medium text-gray-700">
-              ID Number
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+              Email
             </label>
             <input
-              type="text"
-              name="idNumber"
-              id="idNumber"
-              value={formData.idNumber}
+              type="email"
+              name="email"
+              id="email"
+              value={formData.email}
               onChange={handleChange}
               className="mt-1 p-2 block w-full border rounded-md"
-              placeholder="Enter ID Number"
+              placeholder="Enter Email"
               required
             />
           </div>
