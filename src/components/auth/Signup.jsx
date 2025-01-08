@@ -9,7 +9,7 @@ const Signup = ({ formData, handleChange, handleSubmit }) => {
   const [success, setSuccess] = useState("");
   const [countryOptions] = useState(countryList().getData());
   const [selectedCountry, setSelectedCountry] = useState(null);
-
+console.log(formData);
   const handleSignupSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
