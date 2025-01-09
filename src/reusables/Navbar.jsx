@@ -18,7 +18,8 @@ const NavBar = () => {
   };
 
   return (
-    <header className="w-full  flex items-center justify-between px-8 py-4 bg-[#131312] shadow-sm  border-b border-gray-600 z-40  fixed top-0 bg-[#131312]/80 backdrop-blur-xl backdrop-filter dark:border-default-200/[0.2] transition-opacity rounded-small h-fit">
+    <div >
+      <header className="w-full  flex items-center justify-between px-3 py-2 bg-[#131312] shadow-sm  border-b border-gray-600   fixed top-0 left-0 right-0 z-50 bg-[#131312]/50 backdrop-blur-xl backdrop-filter dark:border-default-200/[0.2] transition-opacity rounded-small h-fit md:px-12  ">
     {/* Mobile Menu Button */}
     <div className=" md:hidden  items-center">
       {!isMobileMenuOpen && (
@@ -113,6 +114,8 @@ const NavBar = () => {
       ></div>
     )}
   </header>
+    </div>
+    
   
   );
 };

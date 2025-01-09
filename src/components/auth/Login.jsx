@@ -85,15 +85,15 @@ function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-white">
-      <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-1 text-gray-900">Login</h2>
-        <p className="text-sm text-gray-600 mb-4">to get service</p>
+    <div className="min-h-screen flex items-center justify-center bg-[#131312]">
+      <div className="bg-[#131312] p-6 rounded-lg shadow-lg w-full max-w-md">
+        <h2 className="text-2xl font-bold mb-1 text-white">Login</h2>
+        <p className="text-sm text-white mb-4">to get service</p>
         <form onSubmit={handleLoginSubmit}>
           <div className="mb-4">
             <label
               htmlFor="email"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm font-medium text-white"
             >
               Email
             </label>
@@ -101,13 +101,13 @@ function Login() {
               type="email"
               name="email"
               id="email"
-              placeholder="john.doe@example.com"
+              placeholder="you@example.com"
               value={formData.email}
               onChange={handleChange}
-              className={`w-full px-4 py-2 border ${
+              className={`w-full bg-[#131312] px-4 py-2 border border-gray-600 text-white ${
                 errors.email ? 'border-red-500' : 'border-gray-300'
               } rounded-lg text-sm focus:outline-none focus:ring-2 ${
-                errors.email ? 'focus:ring-red-500' : 'focus:ring-purple-500'
+                errors.email ? 'focus:ring-red-500' : 'focus:ring-gray-500'
               }`}
               aria-invalid={!!errors.email}
               aria-describedby="email_error"
@@ -120,43 +120,46 @@ function Login() {
           </div>
 
           <div className="mb-4 relative">
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Password
-            </label>
-            <input
-              type={showPassword ? 'text' : 'password'}
-              name="password"
-              id="password"
-              placeholder="Enter password"
-              value={formData.password}
-              onChange={handleChange}
-              className={`w-full px-4 py-2 border ${
-                errors.password ? 'border-red-500' : 'border-gray-300'
-              } rounded-lg text-sm focus:outline-none focus:ring-2 ${
-                errors.password ? 'focus:ring-red-500' : 'focus:ring-purple-500'
-              }`}
-              aria-invalid={!!errors.password}
-              aria-describedby="password_error"
-            />
-            <span
-              onClick={() => setShowPassword((prev) => !prev)}
-              className="absolute right-3 top-3 text-gray-500"
-            >
-              {showPassword ? (
-                <AiFillEyeInvisible className="h-5 w-5" />
-              ) : (
-                <AiFillEye className="h-5 w-5" />
-              )}
-            </span>
-            {errors.password && (
-              <p id="password_error" className="text-red-500 text-sm mt-1">
-                {errors.password}
-              </p>
-            )}
-          </div>
+  <label
+    htmlFor="password"
+    className="block text-sm font-medium text-white mb-1"
+  >
+    Password
+  </label>
+  <div className="relative">
+    <input
+      type={showPassword ? 'text' : 'password'}
+      name="password"
+      id="password"
+      placeholder="Enter password"
+      value={formData.password}
+      onChange={handleChange}
+      className={`w-full bg-[#131312] px-4 py-2 pr-10 border ${
+        errors.password ? 'border-red-500' : 'border-gray-600'
+      } rounded-lg text-sm text-white focus:outline-none focus:ring-2 ${
+        errors.password ? 'focus:ring-red-500' : 'focus:ring-gray-500'
+      }`}
+      aria-invalid={!!errors.password}
+      aria-describedby="password_error"
+    />
+    <span
+      onClick={() => setShowPassword((prev) => !prev)}
+      className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-500 hover:text-gray-300"
+    >
+      {showPassword ? (
+        <AiFillEyeInvisible className="h-5 w-5" />
+      ) : (
+        <AiFillEye className="h-5 w-5" />
+      )}
+    </span>
+  </div>
+  {errors.password && (
+    <p id="password_error" className="text-red-500 text-sm mt-1">
+      {errors.password}
+    </p>
+  )}
+</div>
+
 
           <button
             type="submit"
