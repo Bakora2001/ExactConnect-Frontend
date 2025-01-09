@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { SERVER_URL } from '../../data';
 
 const ChangePassword = ({ customerId }) => {
   const [passwordData, setPasswordData] = useState({
     oldPassword: '',
-    newPassword: ''
+    newPassword: '',
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -14,7 +15,7 @@ const ChangePassword = ({ customerId }) => {
     const { name, value } = e.target;
     setPasswordData((prevData) => ({
       ...prevData,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -25,7 +26,10 @@ const ChangePassword = ({ customerId }) => {
     setError('');
 
     try {
-      const response = await axios.put(`https://exact-connect-latest.onrender.com/customers/customers/${customerId}/change-password`, passwordData);
+      const response = await axios.put(
+        `${SERVER_URL}/customers/customers/${customerId}/change-password`,
+        passwordData
+      );
       console.log('Password Changed:', response.data);
       // Handle password change success (e.g., show a success message)
     } catch (error) {
@@ -40,7 +44,9 @@ const ChangePassword = ({ customerId }) => {
       <h2 className="text-2xl font-semibold mb-4">Change Password</h2>
       <form onSubmit={handleChangePassword}>
         <div className="mb-4">
-          <label htmlFor="oldPassword" className="block">Old Password</label>
+          <label htmlFor="oldPassword" className="block">
+            Old Password
+          </label>
           <input
             type="password"
             id="oldPassword"
@@ -52,7 +58,9 @@ const ChangePassword = ({ customerId }) => {
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="newPassword" className="block">New Password</label>
+          <label htmlFor="newPassword" className="block">
+            New Password
+          </label>
           <input
             type="password"
             id="newPassword"
@@ -64,7 +72,11 @@ const ChangePassword = ({ customerId }) => {
           />
         </div>
         {error && <p className="text-red-500">{error}</p>}
-        <button type="submit" className="w-full bg-blue-500 p-2 mt-4 rounded" disabled={loading}>
+        <button
+          type="submit"
+          className="w-full bg-blue-500 p-2 mt-4 rounded"
+          disabled={loading}
+        >
           {loading ? 'Changing Password...' : 'Change Password'}
         </button>
       </form>

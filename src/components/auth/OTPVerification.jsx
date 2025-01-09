@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { SERVER_URL } from '../../data';
 
 const OTPVerification = ({ customerId }) => {
   const [otp, setOtp] = useState('');
@@ -25,7 +26,7 @@ const OTPVerification = ({ customerId }) => {
 
     try {
       const response = await axios.post(
-        `https://exact-connect-latest.onrender.com/customers/customers/${customerId}/change-passwordverify-otp/reset`,
+        `${SERVER_URL}/customers/customers/${customerId}/change-passwordverify-otp/reset`,
         { otp, newPassword }
       );
       console.log('Password reset successful:', response.data);
@@ -42,7 +43,9 @@ const OTPVerification = ({ customerId }) => {
       <h2 className="text-2xl font-semibold mb-4">OTP Verification</h2>
       <form onSubmit={handleOTPVerification}>
         <div className="mb-4">
-          <label htmlFor="otp" className="block">OTP</label>
+          <label htmlFor="otp" className="block">
+            OTP
+          </label>
           <input
             type="text"
             id="otp"
@@ -54,7 +57,9 @@ const OTPVerification = ({ customerId }) => {
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="newPassword" className="block">New Password</label>
+          <label htmlFor="newPassword" className="block">
+            New Password
+          </label>
           <input
             type="password"
             id="newPassword"
@@ -66,7 +71,11 @@ const OTPVerification = ({ customerId }) => {
           />
         </div>
         {error && <p className="text-red-500">{error}</p>}
-        <button type="submit" className="w-full bg-blue-500 p-2 mt-4 rounded" disabled={loading}>
+        <button
+          type="submit"
+          className="w-full bg-blue-500 p-2 mt-4 rounded"
+          disabled={loading}
+        >
           {loading ? 'Verifying OTP...' : 'Verify OTP'}
         </button>
       </form>

@@ -1,24 +1,25 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useState } from 'react';
+import axios from 'axios';
+import { SERVER_URL } from '../../data';
 
 const Login = ({ formData, handleChange, handleSubmit }) => {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
   const [forgotPassword, setForgotPassword] = useState(false);
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError("");
-    setSuccess("");
+    setError('');
+    setSuccess('');
     try {
       // Send login data to the API
-      const response = await axios.post("https://exact-connect-latest.onrender.com/login", formData);
-      setSuccess("Login successful!");
+      const response = await axios.post(`${SERVER_URL}/login`, formData);
+      setSuccess('Login successful!');
       // Redirect user to dashboard or main page after successful login
     } catch (err) {
-      setError("Login failed. Please try again.");
+      setError('Login failed. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -26,16 +27,16 @@ const Login = ({ formData, handleChange, handleSubmit }) => {
 
   const handleForgotPassword = async () => {
     setForgotPassword(true);
-    const newPassword = prompt("Please enter your new password:");
+    const newPassword = prompt('Please enter your new password:');
     if (newPassword) {
       try {
         const response = await axios.post(
-          `https://exact-connect-latest.onrender.com/customers/customers/${formData.email}/change-passwordverify-otp/reset`,
+          `${SERVER_URL}/customers/customers/${formData.email}/change-passwordverify-otp/reset`,
           { newPassword }
         );
-        setSuccess("Password changed successfully!");
+        setSuccess('Password changed successfully!');
       } catch (err) {
-        setError("Failed to change password. Please try again.");
+        setError('Failed to change password. Please try again.');
       }
     }
   };
@@ -45,7 +46,10 @@ const Login = ({ formData, handleChange, handleSubmit }) => {
       <div className="bg-white p-8 pb-24 rounded-md shadow-md w-full ring-2 ring-gray-300 ring-offset-2 max-w-md">
         <form onSubmit={handleLoginSubmit}>
           <div className="mb-4">
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700"
+            >
               Email
             </label>
             <input
@@ -61,7 +65,10 @@ const Login = ({ formData, handleChange, handleSubmit }) => {
           </div>
 
           <div className="mb-4">
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700"
+            >
               Password
             </label>
             <input
@@ -81,7 +88,7 @@ const Login = ({ formData, handleChange, handleSubmit }) => {
             className="w-full bg-[#7e22ce] text-white font-semibold py-2 px-4 rounded-md hover:bg-[#6b21a8]"
             disabled={loading}
           >
-            {loading ? "Logging in..." : "Login"}
+            {loading ? 'Logging in...' : 'Login'}
           </button>
 
           {error && <p className="text-red-500 text-xs mt-2">{error}</p>}
@@ -93,7 +100,7 @@ const Login = ({ formData, handleChange, handleSubmit }) => {
           onClick={handleForgotPassword}
           className="mt-4 text-xs text-blue-500 hover:underline"
         >
-          {forgotPassword ? "Set A New Password" : "Forgot Password?"}
+          {forgotPassword ? 'Set A New Password' : 'Forgot Password?'}
         </button>
       </div>
     </div>

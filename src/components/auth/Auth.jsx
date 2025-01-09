@@ -1,19 +1,20 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios"; // Axios for API calls
-import Login from "./Login";
-import Signup from "./Signup";
-import Navbar from "../../reusables/Navbar"; // Import Navbar
-import backgroundImage from "../../assets/login.jpg"; // Corrected relative path
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios'; // Axios for API calls
+import Login from './Login';
+import Signup from './Signup';
+import Navbar from '../../reusables/Navbar'; // Import Navbar
+import backgroundImage from '../../assets/login.jpg'; // Corrected relative path
+import { SERVER_URL } from '../../data';
 
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
-    idNumber: "",
-    firstName: "",
-    lastName: "",
-    countryCode: "",
-    password: "",
+    idNumber: '',
+    firstName: '',
+    lastName: '',
+    countryCode: '',
+    password: '',
   });
   const [error, setError] = useState(null); // For capturing error messages
   const [successMessage, setSuccessMessage] = useState(null); // For capturing success message
@@ -36,23 +37,23 @@ const Auth = () => {
 
       if (isLoginForm) {
         // Handle login
-        response = await axios.post("https://exact-connect-latest.onrender.com/login", formData);
-        alert("Login Successful");
-        navigate("/home"); // Redirect to home page after login
+        response = await axios.post(`${SERVER_URL}/login`, formData);
+        alert('Login Successful');
+        navigate('/home'); // Redirect to home page after login
       } else {
         // Handle signup
-        response = await axios.post("https://exact-connect-latest.onrender.com/customers", formData);
-        setSuccessMessage("Sign up successful! Please login"); // Show success message for sign up
-        navigate("/login"); // Redirect to login page after successful signup
+        response = await axios.post(`${SERVRE_URL}/customers`, formData);
+        setSuccessMessage('Sign up successful! Please login'); // Show success message for sign up
+        navigate('/login'); // Redirect to login page after successful signup
       }
     } catch (err) {
-      setError("Something went wrong. Please try again."); // Show error message
+      setError('Something went wrong. Please try again.'); // Show error message
     }
   };
 
   return (
     <div
-      className="h-full sm:h-full bg-fixed sm:h-full bg-cover bg-center"
+      className="h-full sm:h-full bg-fixed bg-cover bg-center"
       style={{ backgroundImage: `url(${backgroundImage})` }} // Set the background image
     >
       {/* Navbar */}
@@ -62,9 +63,17 @@ const Auth = () => {
       <div className="flex  items-center h-full pt-24 pb-24 px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-sm bg-white p-6 rounded-md shadow-md  md:ml-[800px]">
           {isLogin ? (
-            <Login formData={formData} handleChange={handleChange} handleSubmit={handleSubmit} />
+            <Login
+              formData={formData}
+              handleChange={handleChange}
+              handleSubmit={handleSubmit}
+            />
           ) : (
-            <Signup formData={formData} handleChange={handleChange} handleSubmit={handleSubmit} />
+            <Signup
+              formData={formData}
+              handleChange={handleChange}
+              handleSubmit={handleSubmit}
+            />
           )}
 
           <div className="text-center mt-4">
@@ -72,12 +81,20 @@ const Auth = () => {
               onClick={() => setIsLogin(!isLogin)}
               className="text-sm text-blue-500 hover:underline"
             >
-              {isLogin ? "Don't have an account? Sign up" : "Already have an account? Login"}
+              {isLogin
+                ? "Don't have an account? Sign up"
+                : 'Already have an account? Login'}
             </button>
           </div>
 
-          {error && <div className="text-red-500 text-center mt-2">{error}</div>}
-          {successMessage && <div className="text-green-500 text-center mt-2">{successMessage}</div>}
+          {error && (
+            <div className="text-red-500 text-center mt-2">{error}</div>
+          )}
+          {successMessage && (
+            <div className="text-green-500 text-center mt-2">
+              {successMessage}
+            </div>
+          )}
         </div>
       </div>
     </div>
