@@ -14,136 +14,106 @@ const NavBar = () => {
 
   // Function to handle the "Get Started" button click
   const handleGetStartedClick = () => {
-    navigate('/signup');  // Navigate to the auth page
+    navigate('/auth');  // Navigate to the auth page
   };
 
   return (
-    <header className="w-full flex justify-between items-center p-4 px-6 fixed top-0 bg-purple-700 shadow-md z-10 border-b border-gray-400">
-      {/* Hamburger Icon (visible only on mobile) */}
-      <div className="md:hidden flex items-center">
-        {!isMobileMenuOpen && (
-          <button
-            className="text-white text-[28px]"
-            onClick={() => setMobileMenuOpen(true)}
-          >
-            <FaBars />
-          </button>
-        )}
-      </div>
-
-      {/* Exact Connect logo */}
-      <div className="text-[22px] text-white font-bold">
-        <button className="text-white text-[22px] font-bold" onClick={() => navigate('/')}>
-          ExactConnect
+    <header className="w-full flex items-center justify-between py-3 px-6 bg-black shadow-sm z-10 border-b fixed top-0 bg-black/80 backdrop-blur-md">
+    {/* Mobile Menu Button */}
+    <div className=" md:hidden flex items-center">
+      {!isMobileMenuOpen && (
+        <button
+          className="text-white text-2xl"
+          onClick={() => setMobileMenuOpen(true)}
+        >
+          <FaBars />
         </button>
-      </div>
-
-      {/* Desktop Navigation */}
-      <nav className="hidden md:flex text-white space-x-10">
-        <span
-          className="text-[15px] cursor-pointer hover:text-gray-300"
-          onClick={() => handleNavigation('/proxy')}
-        >
-          Residential Proxy
-        </span>
-        <span
-          className="text-[15px] cursor-pointer hover:text-gray-300"
-          onClick={() => handleNavigation('/rdp')}
-        >
-          VPS Server
-        </span>
-        <span
-          className="text-[15px] cursor-pointer hover:text-gray-300"
-          onClick={() => handleNavigation('/')}
-        >
-          VCC Card
-        </span>
-        <span
-          className="text-[15px] cursor-pointer hover:text-gray-300"
-          onClick={() => handleNavigation('/')}
-        >
-          Non-VOIP Numbers
-        </span>
-        <span
-          className="text-[15px] cursor-pointer hover:text-gray-300"
-          onClick={() => handleNavigation('/')}
-        >
-          Contact Us
-        </span>
-      </nav>
-
-      {/* Get Started button - uses navigate on click */}
-      <button
-        className="hidden md:inline border border-gray-300 text-[15px] py-1 px-4 text-white rounded hover:bg-gray-200 hover:text-purple-700 transition-colors duration-200"
-        onClick={handleGetStartedClick}  // Calls the handleGetStartedClick function when clicked
-      >
-        Get Started
-      </button>
-
-      {/* Mobile Side Drawer */}
-      <div
-        className={`fixed top-0 left-0 h-auto bg-purple-700 w-1/2 z-20 shadow-lg transform ${
-          isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
-        } transition-transform duration-300 ease-in-out`}
-        style={{ maxHeight: '80vh' }} // Limit height of the side drawer
-      >
-        <div className="p-6 flex flex-col space-y-4">
-          {/* Close Button (Double Arrow) */}
-          <button
-            className="text-white text-[24px] self-end"
-            onClick={() => setMobileMenuOpen(false)}
-          >
-            <FaAngleDoubleLeft />
-          </button>
-          <nav className="flex flex-col space-y-6">
-            <span
-              className="text-[18px] text-white cursor-pointer hover:text-gray-300"
-              onClick={() => handleNavigation('/')}
-            >
-              Residential Proxy
-            </span>
-            <span
-              className="text-[18px] text-white cursor-pointer hover:text-gray-300"
-              onClick={() => handleNavigation('/rdp')}
-            >
-              VPS Server
-            </span>
-            <span
-              className="text-[18px] text-white cursor-pointer hover:text-gray-300"
-              onClick={() => handleNavigation('/')}
-            >
-              VCC Card
-            </span>
-            <span
-              className="text-[18px] text-white cursor-pointer hover:text-gray-300"
-              onClick={() => handleNavigation('/')}
-            >
-              Non-VOIP Numbers
-            </span>
-            <span
-              className="text-[18px] text-white cursor-pointer hover:text-gray-300"
-              onClick={() => handleNavigation('/')}
-            >
-              Contact Us
-            </span>
-            <button
-              className="border border-gray-300 text-[18px] text-white py-2 px-6 rounded hover:bg-gray-200 hover:text-purple-700 transition-colors duration-200"
-              onClick={handleGetStartedClick}  // Same handler for mobile
-            >
-              Get Started
-            </button>
-          </nav>
-        </div>
-      </div>
-
-      {/* Overlay (optional, closes menu when clicked) */}
-      {isMobileMenuOpen && (
-        <div
-          className="fixed inset-0 bg-black opacity-50 z-10"
-          onClick={() => setMobileMenuOpen(false)}
-        />
       )}
-    </header>
+    </div>
+  
+    {/* Logo */}
+    <div className="text-lg text-white font-bold cursor-pointer">
+      <button onClick={() => navigate('/')} className="flex items-center space-x-1">
+        <span>ExactConnect</span>
+      </button>
+    </div>
+  
+    {/* Desktop Navigation */}
+    <nav className="hidden md:flex space-x-8 text-white ">
+      {[
+        { label: "Residential Proxy", link: "/proxy" },
+        { label: "VPS Server", link: "/rdp" },
+        { label: "VCC Card", link: "/" },
+        { label: "Non-VOIP Numbers", link: "/" },
+        { label: "Contact Us", link: "/" },
+      ].map((item, index) => (
+        <span
+          key={index}
+          className="text-sm cursor-pointer hover:text-gray-300 transition-colors"
+          onClick={() => handleNavigation(item.link)}
+        >
+          {item.label}
+        </span>
+      ))}
+    </nav>
+  
+    {/* Get Started Button */}
+    <button
+      className="hidden md:inline bg-white text-black border border-white px-4 py-2 text-sm font-medium rounded hover:bg-purple-800 hover:text-white transition duration-200"
+      onClick={handleGetStartedClick}
+    >
+      Get Started
+    </button>
+  
+    {/* Mobile Side Drawer */}
+    <div
+      className={`fixed top-0 left-0 h-full w-2/3 bg-black z-20 shadow-lg transform ${
+        isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
+      } transition-transform duration-300`}
+    >
+      <div className="p-6 flex flex-col space-y-6">
+        {/* Close Button */}
+        <button
+          className="text-white text-2xl self-end"
+          onClick={() => setMobileMenuOpen(false)}
+        >
+          <FaAngleDoubleLeft />
+        </button>
+        <nav className="flex flex-col space-y-4">
+          {[
+            { label: "Residential Proxy", link: "/proxy" },
+            { label: "VPS Server", link: "/rdp" },
+            { label: "VCC Card", link: "/" },
+            { label: "Non-VOIP Numbers", link: "/" },
+            { label: "Contact Us", link: "/" },
+          ].map((item, index) => (
+            <span
+              key={index}
+              className="text-white text-lg cursor-pointer hover:text-gray-300 transition-colors"
+              onClick={() => handleNavigation(item.link)}
+            >
+              {item.label}
+            </span>
+          ))}
+          <button
+            className="mt-4 bg-white text-black px-6 py-2 rounded border border-white hover:bg-purple-800 hover:text-white transition duration-200"
+            onClick={handleGetStartedClick}
+          >
+            Get Started
+          </button>
+        </nav>
+      </div>
+    </div>
+  
+    {/* Overlay */}
+    {isMobileMenuOpen && (
+      <div
+        className="fixed inset-0 bg-black bg-opacity-50 z-10"
+        onClick={() => setMobileMenuOpen(false)}
+      ></div>
+    )}
+  </header>
+  
   );
 };
 
