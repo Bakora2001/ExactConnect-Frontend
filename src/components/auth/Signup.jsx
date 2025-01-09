@@ -115,15 +115,15 @@ function Signup() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-white">
-      <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-1 text-gray-900">Signup</h2>
-        <p className="text-sm text-gray-600 mb-4">to get started</p>
+    <div className="min-h-screen flex items-center justify-center bg-[#131312]">
+      <div className=" p-6 rounded-lg shadow-lg w-full max-w-md  ">
+        <h2 className="text-2xl font-bold mb-1 text-white">Get Started</h2>
+        <p className="text-sm text-white mb-4">Create new account</p>
         <form onSubmit={onSubmit}>
           <div className="mb-4">
             <label
               htmlFor="email"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm font-medium text-white"
             >
               Email
             </label>
@@ -133,14 +133,14 @@ function Signup() {
               id="email"
               value={formData.email}
               onChange={handleChange}
-              className={`w-full px-4 py-2 border ${
+              className={`w-full bg-[#131312] px-4 py-2 border border-gray-600 text-white ${
                 errors.email ? 'border-red-500' : 'border-gray-300'
               } rounded-lg text-sm focus:outline-none focus:ring-2 ${
                 errors.email ? 'focus:ring-red-500' : 'focus:ring-gray-500'
               }`}
               aria-invalid={!!errors.email}
               aria-describedby="user_name_error"
-              placeholder="john.doe@gmail.com"
+              placeholder="you@example.com"
             />
             {errors.email && (
               <p id="user_name_error" className="text-red-500 text-sm mt-1">
@@ -152,7 +152,7 @@ function Signup() {
           <div className="mb-4">
             <label
               htmlFor="firstName"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm font-medium text-white"
             >
               First Name
             </label>
@@ -162,7 +162,7 @@ function Signup() {
               id="firstName"
               value={formData.firstName}
               onChange={handleChange}
-              className={`w-full px-4 py-2 border ${
+              className={`w-full bg-[#131312] px-4 py-2 border border-gray-600 text-white ${
                 errors.firstName ? 'border-red-500' : 'border-gray-300'
               } rounded-lg text-sm focus:outline-none focus:ring-2 ${
                 errors.firstName ? 'focus:ring-red-500' : 'focus:ring-gray-500'
@@ -181,7 +181,7 @@ function Signup() {
           <div className="mb-4">
             <label
               htmlFor="lastName"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm font-medium text-white"
             >
               Last Name
             </label>
@@ -191,7 +191,7 @@ function Signup() {
               id="lastName"
               value={formData.lastName}
               onChange={handleChange}
-              className={`w-full px-4 py-2 border ${
+              className={`w-full bg-[#131312] px-4 py-2 border border-gray-600 text-white ${
                 errors.lastName ? 'border-red-500' : 'border-gray-300'
               } rounded-lg text-sm focus:outline-none focus:ring-2 ${
                 errors.lastName ? 'focus:ring-red-500' : 'focus:ring-gray-500'
@@ -210,7 +210,7 @@ function Signup() {
           <div className="mb-4">
             <label
               htmlFor="country"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm font-medium text-white"
             >
               Country
             </label>
@@ -220,50 +220,53 @@ function Signup() {
               options={countryOptions}
               value={selectedCountry}
               onChange={handleCountryChange}
-              className="mt-1 p-2 block w-full border rounded-md"
+              className="mt-1  p-2 block w-full border rounded-md"
               placeholder="Search and Select Country"
             />
           </div>
 
           <div className="mb-4 relative">
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Password
-            </label>
-            <input
-              type={showPassword ? 'text' : 'password'}
-              name="password"
-              id="password"
-              placeholder="Enter password"
-              value={formData.password}
-              onChange={handleChange}
-              className={`w-full px-4 py-2 border ${
-                errors.password ? 'border-red-500' : 'border-gray-300'
-              } rounded-lg text-sm focus:outline-none focus:ring-2 ${
-                errors.password ? 'focus:ring-red-500' : 'focus:ring-gray-500'
-              }`}
-              aria-invalid={!!errors.password}
-              aria-describedby="password_error"
-            />
-            <button
-              className="absolute right-3 top-3 text-gray-500"
-              type="button"
-              onClick={togglePasswordVisibility}
-            >
-              {showPassword ? <FiEyeOff /> : <FiEye />}
-            </button>
-            {errors.password && (
-              <p id="password_error" className="text-red-500 text-sm mt-1">
-                {errors.password}
-              </p>
-            )}
-          </div>
+  <label
+    htmlFor="password"
+    className="block text-sm font-medium text-white"
+  >
+    Password
+  </label>
+  <div className="relative ">
+    <input
+      type={showPassword ? 'text' : 'password'}
+      name="password"
+      id="password"
+      placeholder="Enter password"
+      value={formData.password}
+      onChange={handleChange}
+      className={`w-full bg-[#131312] px-4 py-2 border border-gray-600 text-white ${
+        errors.password ? 'border-red-500' : 'border-gray-300'
+      } rounded-lg text-sm focus:outline-none focus:ring-2 ${
+        errors.password ? 'focus:ring-red-500' : 'focus:ring-gray-500'
+      }`}
+      aria-invalid={!!errors.password}
+      aria-describedby="password_error"
+    />
+    <button
+      className="absolute inset-y-0 right-3 flex items-center text-gray-500  "
+      type="button"
+      onClick={togglePasswordVisibility}
+    >
+      {showPassword ? <FiEyeOff /> : <FiEye />}
+    </button>
+  </div>
+  {errors.password && (
+    <p id="password_error" className="text-red-500 text-sm mt-1">
+      {errors.password}
+    </p>
+  )}
+</div>
+
 
           <button
             type="submit"
-            className={`w-full bg-[#7e22ce] text-white py-2 rounded-lg flex items-center justify-center hover:bg-[#6b21a8] focus:outline-none focus:ring-2 focus:ring-gray-500 ${
+            className={`w-full bg-[#4a3da0] text-white py-2 rounded-lg flex items-center justify-center hover:bg-[#5b21a8] focus:outline-none focus:ring-2 focus:ring-gray-500 ${
               isLoading && 'opacity-50 cursor-not-allowed'
             }`}
             disabled={isLoading}
@@ -295,7 +298,7 @@ function Signup() {
             )}
           </button>
         </form>
-        <p className="text-sm text-center mt-4">
+        <p className="text-sm text-center mt-4 text-white">
           Already have an account?{' '}
           <Link to="/login" className="text-gray-600 hover:underline">
             Login

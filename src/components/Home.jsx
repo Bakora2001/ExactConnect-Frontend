@@ -13,19 +13,18 @@ const Home = () => {
     navigate('/signup'); // Navigates to the /auth path
   };
     return (
-<div>
+<div className= 'bg-[#131312] text-white'>
   {/* Header Section */}
-  <NavBar />
-  <div className="flex flex-col items-center bg-black text-white py-10 sm:py-16 ">
-   
-     
-
-    
+  <div className="flex flex-col items-center  text-white py-10 sm:py-16">
+    {/* NavBar */}
+    <div className="w-full mb-12 sm:mb-20">
+      <NavBar />
+    </div>
 
     {/* Main Content */}
     <main className="flex flex-col-reverse md:flex-row items-center md:justify-between text-center md:text-left px-6 sm:px-12 gap-8 sm:gap-16 max-w-7xl mx-auto">
       <div className="w-full md:w-1/2">
-        <h1 className="text-2xl sm:text-4xl font-semibold mb-4 leading-snug">
+        <h1 className="text-[48px] sm:text-4xl font-bold mb-4 leading-snug font-sans text-[#fcfdfd]">
           Need Precise Residential IPs, <br />
           RDP VPS, Virtual Credit Cards, or Non-VOIP Numbers?
         </h1>
@@ -51,17 +50,17 @@ const Home = () => {
 
   {/* Why Choose Our Services Section */}
   <section className="text-center py-10">
-    <h2 className="text-3xl font-bold mb-4">Why Choose Our Services?</h2>
+    <h2 className="text-3xl font-bold mb-4 text-white">Why Choose Our Services?</h2>
     <div className="border-b-4 border-purple-700 w-20 mx-auto rounded-full mb-8"></div>
   </section>
 
   {/* Residential Proxies Section */}
-  <section className="bg-gray-50 py-10">
+  <section className="bg-black-50 py-10">
     <div className="max-w-6xl mx-auto px-4 sm:px-8">
-      <h3 className="text-xl font-bold text-center mb-6">Residential Proxies</h3>
+      <h3 className="text-xl font-bold text-center text-white mb-6">Residential Proxies</h3>
       <div className="flex flex-col sm:flex-row gap-8">
         {/* Benefits */}
-        <div className="flex-1">
+        <div className="flex-1 text-white">
           <h4 className="font-medium text-lg mb-4">Benefits</h4>
           <ul className="list-disc pl-5 space-y-3 text-sm">
             <li>Exact IP for Online Accounts Creation</li>
@@ -90,11 +89,11 @@ const Home = () => {
   </section>
 
   {/* VPS Server Section */}
-  <section className="bg-white py-10">
+  <section className="bg-black py-10">
     <div className="max-w-7xl mx-auto px-4 sm:px-8">
-      <h3 className="text-xl font-bold text-center mb-6">VPS Server</h3>
+      <h3 className="text-xl font-bold text-center text-white mb-6">VPS Server</h3>
       <div className="flex flex-col lg:flex-row gap-8 items-center">
-        <div className="w-full lg:w-1/2">
+        <div className="w-full lg:w-1/2 text-white">
           <h4 className="font-medium text-lg mb-4">Why Our VPS?</h4>
           <ul className="list-disc pl-5 space-y-3 text-sm">
             <li>Private and Secure</li>
@@ -124,8 +123,8 @@ const Home = () => {
   </section>
 
   {/* Virtual Credit Card Section */}
-  <section className="bg-gray-100 py-10">
-    <div className="max-w-7xl mx-auto px-4 sm:px-8">
+  <section className="bg-black py-10">
+    <div className="max-w-7xl mx-auto px-4 sm:px-8 text-white">
       <h3 className="text-xl font-bold text-center mb-6">Virtual Credit Card</h3>
       <div className="flex flex-col lg:flex-row gap-8 items-center">
         <div className="w-full lg:w-1/2">
@@ -153,6 +152,7 @@ const Home = () => {
     </div>
   </section>
 </div>
+
 
 
     );

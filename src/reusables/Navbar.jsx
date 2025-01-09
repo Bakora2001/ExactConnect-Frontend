@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaBars, FaTimes, FaAngleDoubleLeft } from 'react-icons/fa'; // Import icons
-
+// #806cff
 const NavBar = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navigate = useNavigate(); // Use the navigate hook
@@ -14,11 +14,11 @@ const NavBar = () => {
 
   // Function to handle the "Get Started" button click
   const handleGetStartedClick = () => {
-    navigate('/auth');  // Navigate to the auth page
+    navigate('/signup');  // Navigate to the auth page
   };
 
   return (
-    <header className="w-full flex items-center justify-between py-3 px-6 bg-black shadow-sm z-10 border-b fixed top-0 bg-black/80 backdrop-blur-md">
+    <header className="w-full flex items-center justify-between py-3 px-6 bg-[#131312] shadow-sm  border-b border-gray-600 z-40  fixed top-0 bg-[#131312]/80 backdrop-blur-xl backdrop-filter dark:border-default-200/[0.2] transition-opacity">
     {/* Mobile Menu Button */}
     <div className=" md:hidden flex items-center">
       {!isMobileMenuOpen && (
@@ -32,14 +32,14 @@ const NavBar = () => {
     </div>
   
     {/* Logo */}
-    <div className="text-lg text-white font-bold cursor-pointer">
+    <div className="font-circular text-lg/[24px] text-white font-bold cursor-pointer hover:text-[#806cff]">
       <button onClick={() => navigate('/')} className="flex items-center space-x-1">
         <span>ExactConnect</span>
       </button>
     </div>
   
     {/* Desktop Navigation */}
-    <nav className="hidden md:flex space-x-8 text-white ">
+    <nav className="hidden md:flex space-x-8 text-[#919eab] font-sans font-[500] text-[12px]">
       {[
         { label: "Residential Proxy", link: "/proxy" },
         { label: "VPS Server", link: "/rdp" },
@@ -49,7 +49,7 @@ const NavBar = () => {
       ].map((item, index) => (
         <span
           key={index}
-          className="text-sm cursor-pointer hover:text-gray-300 transition-colors"
+          className="text-sm cursor-pointer hover:text-[#806cff] transition-colors"
           onClick={() => handleNavigation(item.link)}
         >
           {item.label}
@@ -59,7 +59,7 @@ const NavBar = () => {
   
     {/* Get Started Button */}
     <button
-      className="hidden md:inline bg-white text-black border border-white px-4 py-2 text-sm font-medium rounded hover:bg-purple-800 hover:text-white transition duration-200"
+      className="hidden md:inline bg-white text-black border border-gray-500 px-4 py-2 text-sm font-medium rounded hover:bg-[#4a3da0] hover:text-white transition duration-200"
       onClick={handleGetStartedClick}
     >
       Get Started
@@ -96,7 +96,7 @@ const NavBar = () => {
             </span>
           ))}
           <button
-            className="mt-4 bg-white text-black px-6 py-2 rounded border border-white hover:bg-purple-800 hover:text-white transition duration-200"
+            className="mt-4 bg-white text-black px-6 py-2 rounded border border-white hover:bg-[#806cff] hover:text-white transition duration-200"
             onClick={handleGetStartedClick}
           >
             Get Started
