@@ -1,28 +1,26 @@
-import React, { useState } from "react";
-import axios from "axios";
-import Select from "react-select";
-import countryList from "react-select-country-list";
+import React, { useState } from 'react';
+import axios from 'axios';
+import Select from 'react-select';
+import countryList from 'react-select-country-list';
+import { SERVER_URL } from '../../data';
 
 const Signup = ({ formData, handleChange, handleSubmit }) => {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
   const [countryOptions] = useState(countryList().getData());
   const [selectedCountry, setSelectedCountry] = useState(null);
-console.log(formData);
+  console.log(formData);
   const handleSignupSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError("");
-    setSuccess("");
+    setError('');
+    setSuccess('');
     try {
-      const response = await axios.post(
-        "https://exact-connect-latest.onrender.com/customers",
-        formData
-      );
-      setSuccess("Signup successful! Please login.");
+      const response = await axios.post(`${SERVER_URL}/customers`, formData);
+      setSuccess('Signup successful! Please login.');
     } catch (err) {
-      setError("Signup failed. Please try again.");
+      setError('Signup failed. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -32,8 +30,8 @@ console.log(formData);
     setSelectedCountry(selectedOption);
     handleChange({
       target: {
-        name: "countryCode",
-        value: selectedOption ? selectedOption.value : "",
+        name: 'countryCode',
+        value: selectedOption ? selectedOption.value : '',
       },
     });
   };
@@ -43,7 +41,10 @@ console.log(formData);
       <div className="bg-white p-8 rounded-md shadow-md w-full max-w-md ring-2 ring-gray-300 ring-offset-2">
         <form onSubmit={handleSignupSubmit}>
           <div className="mb-4">
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700"
+            >
               Email
             </label>
             <input
@@ -53,13 +54,16 @@ console.log(formData);
               value={formData.email}
               onChange={handleChange}
               className="mt-1 p-2 block w-full border rounded-md"
-              placeholder="Enter Email"
+              placeholder="john.doe@gmail.com"
               required
             />
           </div>
 
           <div className="mb-4">
-            <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="firstName"
+              className="block text-sm font-medium text-gray-700"
+            >
               First Name
             </label>
             <input
@@ -69,13 +73,16 @@ console.log(formData);
               value={formData.firstName}
               onChange={handleChange}
               className="mt-1 p-2 block w-full border rounded-md"
-              placeholder="Enter First Name"
+              placeholder="John"
               required
             />
           </div>
 
           <div className="mb-4">
-            <label htmlFor="lastName" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="lastName"
+              className="block text-sm font-medium text-gray-700"
+            >
               Last Name
             </label>
             <input
@@ -85,13 +92,16 @@ console.log(formData);
               value={formData.lastName}
               onChange={handleChange}
               className="mt-1 p-2 block w-full border rounded-md"
-              placeholder="Enter Last Name"
+              placeholder="Doe"
               required
             />
           </div>
 
           <div className="mb-4">
-            <label htmlFor="country" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="country"
+              className="block text-sm font-medium text-gray-700"
+            >
               Country
             </label>
             <Select
@@ -107,7 +117,10 @@ console.log(formData);
           </div>
 
           <div className="mb-4">
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700"
+            >
               Password
             </label>
             <input
@@ -127,7 +140,7 @@ console.log(formData);
             className="w-full bg-[#7e22ce] text-white font-semibold py-2 px-4 rounded-md hover:bg-[#6b21a8]"
             disabled={loading}
           >
-            {loading ? "Signing up..." : "Sign Up"}
+            {loading ? 'Signing up...' : 'Sign Up'}
           </button>
 
           {error && <p className="text-red-500 text-xs mt-2">{error}</p>}
