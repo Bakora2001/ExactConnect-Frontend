@@ -17,10 +17,11 @@ import AddProductForm from './admin/AddProductsForm';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 
-// Import Auth component (handles both Login and Signup)
-import Auth from './components/auth/Auth'; // Only import Auth which internally manages Login and Signup
+
 import ChangePassword from './components/auth/ChangePassword';
 import OTPVerification from './components/auth/OTPVerification';
+import Signup from './components/auth/Signup';
+import Login from './components/auth/Login';
 
 // AdminRoute component to protect admin routes
 const AdminRoute = ({ children }) => {
@@ -62,7 +63,9 @@ const Layout = () => {
             <Route path="/proxy" element={<Proxy />} /> {/* Route for Proxy */}
 
             {/* Authentication Routes - Handle both Signup and Login */}
-            <Route path="/auth" element={<Auth />} /> {/* Combined Auth page for Login/Signup */}
+            <Route path="/signup" element={<Signup />} /> 
+            <Route path="/login" element={<Login />} />
+            {/* Combined Auth page for Login/Signup */}
             <Route path="/change-password" element={<ChangePassword />} /> {/* Change Password route */}
             <Route path="/verify-otp" element={<OTPVerification />} /> {/* OTP Verification route */}
 

@@ -1,31 +1,53 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import { FiEye, FiEyeOff } from 'react-icons/fi';
 import Select from 'react-select';
+import { Link, useNavigate } from 'react-router-dom';
 import countryList from 'react-select-country-list';
+import { z } from 'zod';
+import toast from 'react-hot-toast';
+
+//Base url
 import { SERVER_URL } from '../../data';
 
-const Signup = ({ formData, handleChange, handleSubmit }) => {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
+//Form validation using zod
+const registerSchema = z.object({
+  email: z.string().min(1).email({
+    message: 'Invalid email address',
+  }),
+  firstName: z.string().min(1, {
+    message: 'Must have at least 1 character',
+  }),
+  lastName: z.string().min(1, {
+    message: 'Must have at least 1 character',
+  }),
+  password: z
+    .string()
+    .min(8, { message: 'Password must be at least 8 characters long' })
+    .regex(/[A-Z]/, {
+      message: 'Password must include at least one uppercase letter',
+    })
+    .regex(/[a-z]/, {
+      message: 'Password must include at least one lowercase letter',
+    }),
+});
+
+function Signup() {
+  const [formData, setFormData] = useState({
+    email: '',
+    firstName: '',
+    lastName: '',
+    countryCode: '',
+    password: '',
+  });
+
+  const [errors, setError] = useState({});
+  const [isLoading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [countryOptions] = useState(countryList().getData());
   const [selectedCountry, setSelectedCountry] = useState(null);
-  console.log(formData);
-  const handleSignupSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError('');
-    setSuccess('');
-    try {
-      const response = await axios.post(`${SERVER_URL}/customers`, formData);
-      setSuccess('Signup successful! Please login.');
-    } catch (err) {
-      setError('Signup failed. Please try again.');
-    } finally {
-      setLoading(false);
-    }
-  };
+  const navigate = useNavigate();
 
+  //Selecting country
   const handleCountryChange = (selectedOption) => {
     setSelectedCountry(selectedOption);
     handleChange({
@@ -36,10 +58,68 @@ const Signup = ({ formData, handleChange, handleSubmit }) => {
     });
   };
 
+  //Handling input change
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  //Handling toggling password visibility
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+  };
+
+  //Form submittion part
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      registerSchema.parse(formData);
+      setError({});
+
+      const response = await fetch(`${SERVER_URL}/customers`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: formData.email,
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          countryCode: formData.countryCode,
+          password: formData.password,
+        }),
+      });
+
+      const result = await response.json();
+      if (response.ok) {
+        toast.success('Registation successful');
+        navigate('/login');
+      } else {
+        toast.error('Error');
+      }
+    } catch (err) {
+      if (err instanceof z.ZodError) {
+        const formattedErrors = {};
+        err.errors.forEach((error) => {
+          formattedErrors[error.path[0]] = error.message;
+        });
+        setError(formattedErrors);
+      } else {
+        toast.error('Something went wrong. Please try again.');
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <div>
-      <div className="bg-white p-8 rounded-md shadow-md w-full max-w-md ring-2 ring-gray-300 ring-offset-2">
-        <form onSubmit={handleSignupSubmit}>
+    <div className="min-h-screen flex items-center justify-center bg-white">
+      <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+        <h2 className="text-2xl font-bold mb-1 text-gray-900">Signup</h2>
+        <p className="text-sm text-gray-600 mb-4">to get started</p>
+        <form onSubmit={onSubmit}>
           <div className="mb-4">
             <label
               htmlFor="email"
@@ -53,10 +133,20 @@ const Signup = ({ formData, handleChange, handleSubmit }) => {
               id="email"
               value={formData.email}
               onChange={handleChange}
-              className="mt-1 p-2 block w-full border rounded-md"
+              className={`w-full px-4 py-2 border ${
+                errors.email ? 'border-red-500' : 'border-gray-300'
+              } rounded-lg text-sm focus:outline-none focus:ring-2 ${
+                errors.email ? 'focus:ring-red-500' : 'focus:ring-gray-500'
+              }`}
+              aria-invalid={!!errors.email}
+              aria-describedby="user_name_error"
               placeholder="john.doe@gmail.com"
-              required
             />
+            {errors.email && (
+              <p id="user_name_error" className="text-red-500 text-sm mt-1">
+                {errors.email}
+              </p>
+            )}
           </div>
 
           <div className="mb-4">
@@ -72,10 +162,20 @@ const Signup = ({ formData, handleChange, handleSubmit }) => {
               id="firstName"
               value={formData.firstName}
               onChange={handleChange}
-              className="mt-1 p-2 block w-full border rounded-md"
+              className={`w-full px-4 py-2 border ${
+                errors.firstName ? 'border-red-500' : 'border-gray-300'
+              } rounded-lg text-sm focus:outline-none focus:ring-2 ${
+                errors.firstName ? 'focus:ring-red-500' : 'focus:ring-gray-500'
+              }`}
               placeholder="John"
-              required
+              aria-invalid={!!errors.firstName}
+              aria-describedby="email_error"
             />
+            {errors.firstName && (
+              <p id="email_error" className="text-red-500 text-sm mt-1">
+                {errors.firstName}
+              </p>
+            )}
           </div>
 
           <div className="mb-4">
@@ -91,10 +191,20 @@ const Signup = ({ formData, handleChange, handleSubmit }) => {
               id="lastName"
               value={formData.lastName}
               onChange={handleChange}
-              className="mt-1 p-2 block w-full border rounded-md"
+              className={`w-full px-4 py-2 border ${
+                errors.lastName ? 'border-red-500' : 'border-gray-300'
+              } rounded-lg text-sm focus:outline-none focus:ring-2 ${
+                errors.lastName ? 'focus:ring-red-500' : 'focus:ring-gray-500'
+              }`}
+              aria-invalid={!!errors.lastName}
+              aria-describedby="user_name_error"
               placeholder="Doe"
-              required
             />
+            {errors.lastName && (
+              <p id="user_name_error" className="text-red-500 text-sm mt-1">
+                {errors.lastName}
+              </p>
+            )}
           </div>
 
           <div className="mb-4">
@@ -112,11 +222,10 @@ const Signup = ({ formData, handleChange, handleSubmit }) => {
               onChange={handleCountryChange}
               className="mt-1 p-2 block w-full border rounded-md"
               placeholder="Search and Select Country"
-              required
             />
           </div>
 
-          <div className="mb-4">
+          <div className="mb-4 relative">
             <label
               htmlFor="password"
               className="block text-sm font-medium text-gray-700"
@@ -124,31 +233,77 @@ const Signup = ({ formData, handleChange, handleSubmit }) => {
               Password
             </label>
             <input
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               name="password"
               id="password"
+              placeholder="Enter password"
               value={formData.password}
               onChange={handleChange}
-              className="mt-1 p-2 block w-full border rounded-md"
-              placeholder="Enter Password"
-              required
+              className={`w-full px-4 py-2 border ${
+                errors.password ? 'border-red-500' : 'border-gray-300'
+              } rounded-lg text-sm focus:outline-none focus:ring-2 ${
+                errors.password ? 'focus:ring-red-500' : 'focus:ring-gray-500'
+              }`}
+              aria-invalid={!!errors.password}
+              aria-describedby="password_error"
             />
+            <button
+              className="absolute right-3 top-3 text-gray-500"
+              type="button"
+              onClick={togglePasswordVisibility}
+            >
+              {showPassword ? <FiEyeOff /> : <FiEye />}
+            </button>
+            {errors.password && (
+              <p id="password_error" className="text-red-500 text-sm mt-1">
+                {errors.password}
+              </p>
+            )}
           </div>
 
           <button
             type="submit"
-            className="w-full bg-[#7e22ce] text-white font-semibold py-2 px-4 rounded-md hover:bg-[#6b21a8]"
-            disabled={loading}
+            className={`w-full bg-[#7e22ce] text-white py-2 rounded-lg flex items-center justify-center hover:bg-[#6b21a8] focus:outline-none focus:ring-2 focus:ring-gray-500 ${
+              isLoading && 'opacity-50 cursor-not-allowed'
+            }`}
+            disabled={isLoading}
+            aria-busy={isLoading}
           >
-            {loading ? 'Signing up...' : 'Sign Up'}
+            {isLoading ? (
+              <svg
+                className="animate-spin h-5 w-5 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                />
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 2.419.876 4.623 2.334 6.291l1.666-1.666z"
+                />
+              </svg>
+            ) : (
+              'Signup'
+            )}
           </button>
-
-          {error && <p className="text-red-500 text-xs mt-2">{error}</p>}
-          {success && <p className="text-green-500 text-xs mt-2">{success}</p>}
         </form>
+        <p className="text-sm text-center mt-4">
+          Already have an account?{' '}
+          <Link to="/login" className="text-gray-600 hover:underline">
+            Login
+          </Link>
+        </p>
       </div>
     </div>
   );
-};
+}
 
 export default Signup;

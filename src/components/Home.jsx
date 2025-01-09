@@ -10,7 +10,7 @@ import phone from '../assets/phone.png';
 const Home = () => {
   const navigate = useNavigate();
   const handleGetStartedClick = () => {
-    navigate('/auth'); // Navigates to the /auth path
+    navigate('/signup'); // Navigates to the /auth path
   };
     return (
 <div>

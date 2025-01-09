@@ -14,7 +14,7 @@ const NavBar = () => {
 
   // Function to handle the "Get Started" button click
   const handleGetStartedClick = () => {
-    navigate('/auth');  // Navigate to the auth page
+    navigate('/signup');  // Navigate to the auth page
   };
 
   return (
