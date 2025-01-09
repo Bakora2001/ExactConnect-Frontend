@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaBars, FaTimes, FaAngleDoubleLeft } from 'react-icons/fa'; // Import icons
 // #806cff
 const NavBar = () => {
@@ -18,9 +18,9 @@ const NavBar = () => {
   };
 
   return (
-    <header className="w-full flex items-center justify-between py-3 px-6 bg-[#131312] shadow-sm  border-b border-gray-600 z-40  fixed top-0 bg-[#131312]/80 backdrop-blur-xl backdrop-filter dark:border-default-200/[0.2] transition-opacity">
+    <header className="w-full  flex items-center justify-between px-8 py-4 bg-[#131312] shadow-sm  border-b border-gray-600 z-40  fixed top-0 bg-[#131312]/80 backdrop-blur-xl backdrop-filter dark:border-default-200/[0.2] transition-opacity rounded-small h-fit">
     {/* Mobile Menu Button */}
-    <div className=" md:hidden flex items-center">
+    <div className=" md:hidden  items-center">
       {!isMobileMenuOpen && (
         <button
           className="text-white text-2xl"
@@ -32,27 +32,27 @@ const NavBar = () => {
     </div>
   
     {/* Logo */}
-    <div className="font-circular text-lg/[24px] text-white font-bold cursor-pointer hover:text-[#806cff]">
-      <button onClick={() => navigate('/')} className="flex items-center space-x-1">
-        <span>ExactConnect</span>
-      </button>
+    <div className=" font-circular text-lg/[24px] text-white font-bold cursor-pointer hover:text-[#806cff]">
+      <Link to='/' className="flex items-center space-x-1">
+        Exact<span className='text-[#806cff] hover:text-[#fff]'>Connect.</span>
+      </Link>
     </div>
   
     {/* Desktop Navigation */}
-    <nav className="hidden md:flex space-x-8 text-[#919eab] font-sans font-[500] text-[12px]">
+    <nav className="hidden md:flex space-x-8 text-[#919eab] font-sans font-[500] text-[12px] ">
       {[
-        { label: "Residential Proxy", link: "/proxy" },
-        { label: "VPS Server", link: "/rdp" },
-        { label: "VCC Card", link: "/" },
-        { label: "Non-VOIP Numbers", link: "/" },
-        { label: "Contact Us", link: "/" },
-      ].map((item, index) => (
+        {to:'/proxy',label:'Residential Proxy'},
+        {to:'/rdp',label:'VPS server'},
+       {to:'/',label:"VCC card"},
+       {to:'/',label:"Non-VOIP Numbers"},
+       {to:'/',label:'Contact Us'},
+      ].map(({to,label}, index) => (
         <span
           key={index}
           className="text-sm cursor-pointer hover:text-[#806cff] transition-colors"
-          onClick={() => handleNavigation(item.link)}
+          onClick={() => handleNavigation(to)}
         >
-          {item.label}
+          {label}
         </span>
       ))}
     </nav>
