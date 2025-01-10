@@ -12,7 +12,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       toastOptions={{
         success: {
           iconTheme:{
-            primary:'purple'
+            primary:'#4a3da0'
           }
         },
       }}

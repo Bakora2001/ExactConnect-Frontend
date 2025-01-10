@@ -24,7 +24,7 @@ const Home = () => {
     {/* Main Content */}
     <main className="flex flex-col-reverse md:flex-row items-center md:justify-between text-center md:text-left px-6 sm:px-12 gap-8 sm:gap-16 max-w-7xl mx-auto">
       <div className="w-full md:w-1/2">
-        <h1 className="text-[48px] sm:text-4xl font-bold mb-4 leading-snug font-sans text-[#fcfdfd]">
+        <h1 className="text-7xl sm:text-4xl  mb-4 leading-snug font-circular font-normal text-[#fcfdfd]">
           Need Precise Residential IPs, <br />
           RDP VPS, Virtual Credit Cards, or Non-VOIP Numbers?
         </h1>
@@ -33,7 +33,7 @@ const Home = () => {
         </p>
         <button
           onClick={handleGetStartedClick}
-          className="bg-white text-purple-700 font-semibold py-2 px-4 rounded-lg shadow hover:bg-purple-600 hover:text-white transition duration-200"
+          className="bg-[#4a3da0] text-white font-normal font-circular py-2 px-4 rounded-lg shadow text-sm hover:bg-[#6353ce] hover:text-white transition duration-200"
         >
           Get Started
         </button>
