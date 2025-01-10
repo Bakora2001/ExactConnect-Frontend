@@ -98,12 +98,12 @@ const NavBar = () => {
               {item.label}
             </span>
           ))}
-          <button
-            className="mt-4 bg-white text-black px-6 py-2 rounded border border-white hover:bg-[#806cff] hover:text-white transition duration-200"
+          {/* <button
+            className="mt-4 bg-white text-black px-6 py-2 rounded border border-white hover:bg-[#806cff] hover:text-white transition duration-200 sm:hidden"
             onClick={handleGetStartedClick}
           >
             Get Started
-          </button>
+          </button> */}
         </nav>
       </div>
     </div>
