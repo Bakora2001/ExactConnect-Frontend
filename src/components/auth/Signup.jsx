@@ -95,7 +95,7 @@ function Signup() {
       const result = await response.json();
       if (response.ok) {
         toast.success('Registation successful');
-        navigate('/login');
+        navigate('/otp');
       } else {
         toast.error('Error');
       }
@@ -121,7 +121,9 @@ function Signup() {
           Exact
           <span className="text-[#806cff]   hover:text-[#fff]">Connect.</span>
         </h2>
-        <p className="text-lg font-circular font-bold text-white mb-4">Join Us</p>
+        <p className="text-lg font-circular font-bold text-white mb-4">
+          Join Us
+        </p>
 
         <form onSubmit={onSubmit}>
           <div className="mb-4">
