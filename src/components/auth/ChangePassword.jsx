@@ -81,7 +81,7 @@ function  ChangePassword  ()  {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#131312]">
-      <div className="max-w-md mx-auto p-6  rounded-lg shadow-lg text-white">
+      <div className="max-w-md mx-auto p-6  rounded-lg shadow-lg text-white border border-gray-700">
         <h2 className="text-lg font-semibold mb-4">Forgot Password</h2>
         <p className="text-sm text-gray-400 mb-6">
           Enter your registered email and we will send you a link to reset your
@@ -124,7 +124,7 @@ function  ChangePassword  ()  {
         </form>
         <p className="text-sm text-center text-gray-400 mt-6">
           Don't have an account?{' '}
-          <Link href="/sign-up" className="text-blue-500 hover:underline">
+          <Link to="/signup" className="text-blue-500 hover:underline">
             Sign up.
           </Link>
         </p>

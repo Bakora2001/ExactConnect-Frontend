@@ -49,7 +49,7 @@ const OTPVerification = ({ customerId }) => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#131312]">
-      <div className="max-w-md mx-auto p-6  rounded-lg shadow-lg text-white border border-gray-600">
+      <div className="max-w-md mx-auto p-6  rounded-lg shadow-lg text-white border border-gray-700">
       <h2 className="text-lg font-semibold mb-4">Two-factor Authentication</h2>
       <p className="text-sm text-gray-400 mb-6">
         Please enter the authentication code. <br />
