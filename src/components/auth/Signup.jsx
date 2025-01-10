@@ -15,10 +15,10 @@ const registerSchema = z.object({
     message: 'Invalid email address',
   }),
   firstName: z.string().min(1, {
-    message: 'Must have at least 1 character',
+    message: 'First name is required',
   }),
   lastName: z.string().min(1, {
-    message: 'Must have at least 1 character',
+    message: 'Last name is required',
   }),
   password: z
     .string()
@@ -116,10 +116,70 @@ function Signup() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#131312]">
-      <div className=" p-6 rounded-lg shadow-lg w-full max-w-md  ">
-        <h2 className="text-2xl font-bold mb-1 text-white">Get Started</h2>
-        <p className="text-sm text-white mb-4">Create new account</p>
+      <div className=" p-6 rounded-lg shadow-lg w-full max-w-md border ">
+        <h2 className="text-2xl font-bold mb-1 text-white hover:text-[#806cff]">
+          Exact
+          <span className="text-[#806cff]   hover:text-[#fff]">Connect.</span>
+        </h2>
+        <p className="text-lg font-circular font-bold text-white mb-4">Join Us</p>
+
         <form onSubmit={onSubmit}>
+          <div className="mb-4">
+            <label
+              htmlFor="firstName"
+              className="block text-sm font-medium text-white"
+            >
+              First Name
+            </label>
+            <input
+              type="text"
+              name="firstName"
+              id="firstName"
+              value={formData.firstName}
+              onChange={handleChange}
+              className={`w-full bg-[#131312] px-4 py-2 border border-gray-600 text-white ${
+                errors.firstName ? 'border-red-500' : 'border-gray-300'
+              } rounded-lg text-sm focus:outline-none focus:ring-2 ${
+                errors.firstName ? 'focus:ring-red-500' : 'focus:ring-gray-500'
+              }`}
+              placeholder="John"
+              aria-invalid={!!errors.firstName}
+              aria-describedby="email_error"
+            />
+            {errors.firstName && (
+              <p id="email_error" className="text-red-500 text-sm mt-1">
+                {errors.firstName}
+              </p>
+            )}
+          </div>
+          <div className="mb-4">
+            <label
+              htmlFor="lastName"
+              className="block text-sm font-medium text-white"
+            >
+              Last Name
+            </label>
+            <input
+              type="text"
+              name="lastName"
+              id="lastName"
+              value={formData.lastName}
+              onChange={handleChange}
+              className={`w-full bg-[#131312] px-4 py-2 border border-gray-600 text-white ${
+                errors.lastName ? 'border-red-500' : 'border-gray-300'
+              } rounded-lg text-sm focus:outline-none focus:ring-2 ${
+                errors.lastName ? 'focus:ring-red-500' : 'focus:ring-gray-500'
+              }`}
+              aria-invalid={!!errors.lastName}
+              aria-describedby="user_name_error"
+              placeholder="Doe"
+            />
+            {errors.lastName && (
+              <p id="user_name_error" className="text-red-500 text-sm mt-1">
+                {errors.lastName}
+              </p>
+            )}
+          </div>
           <div className="mb-4">
             <label
               htmlFor="email"
@@ -151,64 +211,6 @@ function Signup() {
 
           <div className="mb-4">
             <label
-              htmlFor="firstName"
-              className="block text-sm font-medium text-white"
-            >
-              First Name
-            </label>
-            <input
-              type="text"
-              name="firstName"
-              id="firstName"
-              value={formData.firstName}
-              onChange={handleChange}
-              className={`w-full bg-[#131312] px-4 py-2 border border-gray-600 text-white ${
-                errors.firstName ? 'border-red-500' : 'border-gray-300'
-              } rounded-lg text-sm focus:outline-none focus:ring-2 ${
-                errors.firstName ? 'focus:ring-red-500' : 'focus:ring-gray-500'
-              }`}
-              placeholder="John"
-              aria-invalid={!!errors.firstName}
-              aria-describedby="email_error"
-            />
-            {errors.firstName && (
-              <p id="email_error" className="text-red-500 text-sm mt-1">
-                {errors.firstName}
-              </p>
-            )}
-          </div>
-
-          <div className="mb-4">
-            <label
-              htmlFor="lastName"
-              className="block text-sm font-medium text-white"
-            >
-              Last Name
-            </label>
-            <input
-              type="text"
-              name="lastName"
-              id="lastName"
-              value={formData.lastName}
-              onChange={handleChange}
-              className={`w-full bg-[#131312] px-4 py-2 border border-gray-600 text-white ${
-                errors.lastName ? 'border-red-500' : 'border-gray-300'
-              } rounded-lg text-sm focus:outline-none focus:ring-2 ${
-                errors.lastName ? 'focus:ring-red-500' : 'focus:ring-gray-500'
-              }`}
-              aria-invalid={!!errors.lastName}
-              aria-describedby="user_name_error"
-              placeholder="Doe"
-            />
-            {errors.lastName && (
-              <p id="user_name_error" className="text-red-500 text-sm mt-1">
-                {errors.lastName}
-              </p>
-            )}
-          </div>
-
-          <div className="mb-4">
-            <label
               htmlFor="country"
               className="block text-sm font-medium text-white"
             >
@@ -226,43 +228,42 @@ function Signup() {
           </div>
 
           <div className="mb-4 relative">
-  <label
-    htmlFor="password"
-    className="block text-sm font-medium text-white"
-  >
-    Password
-  </label>
-  <div className="relative ">
-    <input
-      type={showPassword ? 'text' : 'password'}
-      name="password"
-      id="password"
-      placeholder="Enter password"
-      value={formData.password}
-      onChange={handleChange}
-      className={`w-full bg-[#131312] px-4 py-2 border border-gray-600 text-white ${
-        errors.password ? 'border-red-500' : 'border-gray-300'
-      } rounded-lg text-sm focus:outline-none focus:ring-2 ${
-        errors.password ? 'focus:ring-red-500' : 'focus:ring-gray-500'
-      }`}
-      aria-invalid={!!errors.password}
-      aria-describedby="password_error"
-    />
-    <button
-      className="absolute inset-y-0 right-3 flex items-center text-gray-500  "
-      type="button"
-      onClick={togglePasswordVisibility}
-    >
-      {showPassword ? <FiEyeOff /> : <FiEye />}
-    </button>
-  </div>
-  {errors.password && (
-    <p id="password_error" className="text-red-500 text-sm mt-1">
-      {errors.password}
-    </p>
-  )}
-</div>
-
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-white"
+            >
+              Password
+            </label>
+            <div className="relative ">
+              <input
+                type={showPassword ? 'text' : 'password'}
+                name="password"
+                id="password"
+                placeholder="Enter password"
+                value={formData.password}
+                onChange={handleChange}
+                className={`w-full bg-[#131312] px-4 py-2 border border-gray-600 text-white ${
+                  errors.password ? 'border-red-500' : 'border-gray-300'
+                } rounded-lg text-sm focus:outline-none focus:ring-2 ${
+                  errors.password ? 'focus:ring-red-500' : 'focus:ring-gray-500'
+                }`}
+                aria-invalid={!!errors.password}
+                aria-describedby="password_error"
+              />
+              <button
+                className="absolute inset-y-0 right-3 flex items-center text-gray-500  "
+                type="button"
+                onClick={togglePasswordVisibility}
+              >
+                {showPassword ? <FiEyeOff /> : <FiEye />}
+              </button>
+            </div>
+            {errors.password && (
+              <p id="password_error" className="text-red-500 text-sm mt-1">
+                {errors.password}
+              </p>
+            )}
+          </div>
 
           <button
             type="submit"
@@ -294,14 +295,17 @@ function Signup() {
                 />
               </svg>
             ) : (
-              'Signup'
+              'Create an account'
             )}
           </button>
         </form>
-        <p className="text-sm text-center mt-4 text-white">
+        <p className="text-sm  mt-4 text-white">
           Already have an account?{' '}
-          <Link to="/login" className="text-gray-600 hover:underline">
-            Login
+          <Link
+            to="/login"
+            className="text-[#4a3da0] font-bold hover:underline"
+          >
+            Sign in
           </Link>
         </p>
       </div>

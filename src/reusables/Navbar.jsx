@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaBars, FaTimes, FaAngleDoubleLeft } from 'react-icons/fa'; // Import icons
+import { FaBars, FaTimes } from 'react-icons/fa'; // Import icons
 // #806cff
 const NavBar = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -16,10 +16,11 @@ const NavBar = () => {
   const handleGetStartedClick = () => {
     navigate('/signup');  // Navigate to the auth page
   };
-
+ 
+  
   return (
     <div >
-      <header className="w-full  flex items-center justify-between px-3 py-2 bg-[#131312] shadow-sm  border-b border-gray-600   fixed top-0 left-0 right-0 z-50 bg-[#131312]/50 backdrop-blur-xl backdrop-filter dark:border-default-200/[0.2] transition-opacity rounded-small h-fit md:px-12  ">
+      <header className="w-full  flex items-center justify-between px-3 py-2 bg-[#131312] shadow-sm  border-b border-gray-700   fixed top-0 left-0 right-0 z-50 bg-[#131312]/50 backdrop-blur-xl backdrop-filter dark:border-default-200/[0.2] transition-opacity rounded-small h-fit md:px-12">
     {/* Mobile Menu Button */}
     <div className=" md:hidden  items-center">
       {!isMobileMenuOpen && (
@@ -33,7 +34,7 @@ const NavBar = () => {
     </div>
   
     {/* Logo */}
-    <div className=" font-circular text-lg/[24px] text-white font-bold cursor-pointer hover:text-[#806cff]">
+    <div className="font-circular text-lg/[24px] text-white font-bold cursor-pointer hover:text-[#806cff]">
       <Link to='/' className="flex items-center space-x-1">
         Exact<span className='text-[#806cff] hover:text-[#fff]'>Connect.</span>
       </Link>
@@ -60,7 +61,7 @@ const NavBar = () => {
   
     {/* Get Started Button */}
     <button
-      className="hidden md:inline bg-white text-black border border-gray-500 px-4 py-2 text-sm font-medium rounded hover:bg-[#4a3da0] hover:text-white transition duration-200"
+      className=" hidden md:inline bg-white text-black border border-gray-500 px-4 py-2 text-sm font-medium rounded hover:bg-[#4a3da0] hover:text-white transition duration-200"
       onClick={handleGetStartedClick}
     >
       Get Started
@@ -68,17 +69,18 @@ const NavBar = () => {
   
     {/* Mobile Side Drawer */}
     <div
-      className={`fixed top-0 left-0 h-full w-2/3 bg-black z-20 shadow-lg transform ${
+      className={`fixed top-0 left-0 h-full w-2/3 bg-[#131312] z-20 shadow-lg transform mt-10 p-4 ${
         isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
       } transition-transform duration-300`}
+      style={{ height: '100vh' }}
     >
-      <div className="p-6 flex flex-col space-y-6">
+      <div className="p-6  flex flex-col space-y-6">
         {/* Close Button */}
         <button
           className="text-white text-2xl self-end"
           onClick={() => setMobileMenuOpen(false)}
         >
-          <FaAngleDoubleLeft />
+          <FaTimes />
         </button>
         <nav className="flex flex-col space-y-4">
           {[

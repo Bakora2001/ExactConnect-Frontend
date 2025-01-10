@@ -38,7 +38,7 @@ function Login() {
       loginSchema.parse(formData);
       setError({});
 
-      const response = await fetch(`${SERVER_URL}/login`, {
+      const response = await fetch(`${SERVER_URL}/customers/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -86,7 +86,7 @@ function Login() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#131312]">
-      <div className="bg-[#131312] p-6 rounded-lg shadow-lg w-full max-w-md">
+      <div className="bg-[#131312] p-6 rounded-lg shadow-lg w-full max-w-md border ">
         <h2 className="text-2xl font-bold mb-1 text-white">Login</h2>
         <p className="text-sm text-white mb-4">to get service</p>
         <form onSubmit={handleLoginSubmit}>

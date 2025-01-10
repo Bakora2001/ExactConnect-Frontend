@@ -13,7 +13,7 @@ const Home = () => {
     navigate('/signup'); // Navigates to the /auth path
   };
     return (
-<div className= 'bg-[#131312] text-white'>
+<div className= 'bg-[#131312] text-white '>
   {/* Header Section */}
   <div className="flex flex-col items-center  text-white py-10 sm:py-16">
     {/* NavBar */}
