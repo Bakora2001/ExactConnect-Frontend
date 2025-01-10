@@ -86,8 +86,11 @@ function Login() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#131312]">
       <div className="bg-[#131312] p-6 rounded-lg shadow-lg w-full max-w-md border border-gray-700">
-        <h2 className="text-2xl font-bold mb-1 text-white">Login</h2>
-        <p className="text-sm text-white mb-4">to get service</p>
+      <h2 className="text-2xl font-normal font-circular mb-6 text-white hover:text-[#806cff]">
+          Welcome Back
+        </h2>
+        <h2 className="text-2xl font-bold  text-gray-400">Login</h2>
+        <p className="text-sm text-gray-600 mb-4">Sign in to your account</p>
         <form onSubmit={handleLoginSubmit}>
           <div className="mb-4">
             <label
@@ -100,6 +103,7 @@ function Login() {
               type="email"
               name="email"
               id="email"
+        
               placeholder="you@example.com"
               value={formData.email}
               onChange={handleChange}
@@ -211,6 +215,15 @@ function Login() {
         >
           {forgotPassword ? 'Set A New Password' : 'Forgot Password?'}
         </button> */}
+        <p className="text-sm  mt-4 text-white">
+          Don't have and account?{' '}
+          <Link
+            to="/signup"
+            className="text-[#4a3da0] font-bold hover:underline"
+          >
+            Sign in
+          </Link>
+        </p>
       </div>
     </div>
   );

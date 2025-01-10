@@ -116,13 +116,13 @@ function Signup() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#131312]">
-      <div className=" p-6 rounded-lg shadow-lg w-full max-w-md border border-gray-700">
+      <div className="max-w-md mx-auto p-6 rounded-lg shadow-lg w-full  border border-gray-700">
         <h2 className="text-2xl font-bold mb-1 text-white hover:text-[#806cff]">
           Exact
           <span className="text-[#806cff]   hover:text-[#fff]">Connect.</span>
         </h2>
-        <p className="text-lg font-circular font-bold text-white mb-4">
-          Join Us
+        <p className="text-lg font-circular font-normal text-gray-600 mb-4">
+          Get started
         </p>
 
         <form onSubmit={onSubmit}>

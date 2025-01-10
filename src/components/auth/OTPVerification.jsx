@@ -64,6 +64,8 @@ const OTPVerification = ({ customerId }) => {
               type="text"
               maxLength={1}
               value={digit}
+              autoComplete='off'
+              placeholder='○'
               onChange={(e) => handleOtpChange(e.target.value, index)}
               className="w-12 h-12 bg-[#131312] border border-gray-600 rounded-lg text-center text-white text-lg focus:outline-none focus:ring-2 focus:ring-gray-500"
             />

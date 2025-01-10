@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaBars, FaTimes } from 'react-icons/fa'; // Import icons
+import ProfileModal from '../components/profile/OpenModal';
 // #806cff
 const NavBar = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -66,6 +67,7 @@ const NavBar = () => {
     >
       Get Started
     </button>
+    {/* <ProfileModal/> */}
   
     {/* Mobile Side Drawer */}
     <div
