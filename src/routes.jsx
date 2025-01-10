@@ -52,7 +52,7 @@ export const router = createBrowserRouter([
     element: <Rdp />,
   },
   {
-    path: '/change-password',
+    path: '/forgot-password',
     element: <ChangePassword />,
   },
   {

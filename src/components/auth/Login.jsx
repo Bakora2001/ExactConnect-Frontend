@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 import toast from 'react-hot-toast';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
-import axios from 'axios';
 import { SERVER_URL } from '../../data';
 
 //Zod form validation
@@ -68,21 +67,21 @@ function Login() {
     }
   };
 
-  const handleForgotPassword = async () => {
-    setForgotPassword(true);
-    const newPassword = prompt('Please enter your new password:');
-    if (newPassword) {
-      try {
-        const response = await axios.post(
-          `${SERVER_URL}/customers/customers/${formData.email}/change-passwordverify-otp/reset`,
-          { newPassword }
-        );
-        setSuccess('Password changed successfully!');
-      } catch (err) {
-        setError('Failed to change password. Please try again.');
-      }
-    }
-  };
+  // const handleForgotPassword = async () => {
+  //   setForgotPassword(true);
+  //   const newPassword = prompt('Please enter your new password:');
+  //   if (newPassword) {
+  //     try {
+  //       const response = await axios.post(
+  //         `${SERVER_URL}/customers/customers/${formData.email}/change-passwordverify-otp/reset`,
+  //         { newPassword }
+  //       );
+  //       setSuccess('Password changed successfully!');
+  //     } catch (err) {
+  //       setError('Failed to change password. Please try again.');
+  //     }
+  //   }
+  // };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#131312]">
@@ -118,52 +117,61 @@ function Login() {
               </p>
             )}
           </div>
-
           <div className="mb-4 relative">
-  <label
-    htmlFor="password"
-    className="block text-sm font-medium text-white mb-1"
-  >
-    Password
-  </label>
-  <div className="relative">
-    <input
-      type={showPassword ? 'text' : 'password'}
-      name="password"
-      id="password"
-      placeholder="Enter password"
-      value={formData.password}
-      onChange={handleChange}
-      className={`w-full bg-[#131312] px-4 py-2 pr-10 border ${
-        errors.password ? 'border-red-500' : 'border-gray-600'
-      } rounded-lg text-sm text-white focus:outline-none focus:ring-2 ${
-        errors.password ? 'focus:ring-red-500' : 'focus:ring-gray-500'
-      }`}
-      aria-invalid={!!errors.password}
-      aria-describedby="password_error"
-    />
-    <span
-      onClick={() => setShowPassword((prev) => !prev)}
-      className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-500 hover:text-gray-300"
-    >
-      {showPassword ? (
-        <AiFillEyeInvisible className="h-5 w-5" />
-      ) : (
-        <AiFillEye className="h-5 w-5" />
-      )}
-    </span>
-  </div>
-  {errors.password && (
-    <p id="password_error" className="text-red-500 text-sm mt-1">
-      {errors.password}
-    </p>
-  )}
-</div>
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-white mb-1"
+            >
+              Password
+            </label>
 
+            <div className="relative">
+              <input
+                type={showPassword ? 'text' : 'password'}
+                name="password"
+                id="password"
+                placeholder="********"
+                value={formData.password}
+                onChange={handleChange}
+                className={`w-full bg-[#131312] px-4 py-2 pr-10 border ${
+                  errors.password ? 'border-red-500' : 'border-gray-600'
+                } rounded-lg text-sm text-white focus:outline-none focus:ring-2 ${
+                  errors.password ? 'focus:ring-red-500' : 'focus:ring-gray-500'
+                }`}
+                aria-invalid={!!errors.password}
+                aria-describedby="password_error"
+              />
+              <span
+                onClick={() => setShowPassword((prev) => !prev)}
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-500 hover:text-gray-300"
+              >
+                {showPassword ? (
+                  <AiFillEyeInvisible className="h-5 w-5" />
+                ) : (
+                  <AiFillEye className="h-5 w-5" />
+                )}
+              </span>
+            </div>
+
+            <div className="flex justify-end mt-2 text-gray-600">
+              <Link
+                to="/forgot-password"
+                className="text-sm font-medium text-muted-foreground hover:opacity-75"
+              >
+                Forgot password?
+              </Link>
+            </div>
+
+            {errors.password && (
+              <p id="password_error" className="text-red-500 text-sm mt-1">
+                {errors.password}
+              </p>
+            )}
+          </div>
 
           <button
             type="submit"
-            className={`w-full flex items-center justify-center bg-[#7e22ce] text-white py-2 rounded-lg hover:bg-[#6b21a8] focus:outline-none focus:ring-2 focus:ring-purple-500 ${
+            className={`w-full flex items-center justify-center bg-[#4a3da0] text-white py-2 rounded-lg hover:bg-[#5b21a8] focus:outline-none focus:ring-2 focus:ring-purple-500 ${
               isLoading && 'opacity-50 cursor-not-allowed'
             }`}
             disabled={isLoading}
@@ -197,12 +205,12 @@ function Login() {
         </form>
 
         {/* Forgot Password Button */}
-        <button
+        {/* <button
           onClick={handleForgotPassword}
           className="mt-4 text-xs text-blue-500 hover:underline"
         >
           {forgotPassword ? 'Set A New Password' : 'Forgot Password?'}
-        </button>
+        </button> */}
       </div>
     </div>
   );

@@ -239,7 +239,7 @@ function Signup() {
                 type={showPassword ? 'text' : 'password'}
                 name="password"
                 id="password"
-                placeholder="Enter password"
+                placeholder="********"
                 value={formData.password}
                 onChange={handleChange}
                 className={`w-full bg-[#131312] px-4 py-2 border border-gray-600 text-white ${

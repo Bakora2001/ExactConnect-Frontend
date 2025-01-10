@@ -1,13 +1,20 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { SERVER_URL } from '../../data';
+import { z } from 'zod';
+import { Link } from 'react-router-dom';
 
-const ChangePassword = ({ customerId }) => {
-  const [passwordData, setPasswordData] = useState({
-    oldPassword: '',
-    newPassword: '',
+//Email validation
+const forgotePasswordSchema = z.object({
+  email: z.string().min(1).email({
+    message: 'Invalid email address',
+  }),
+});
+
+function  ChangePassword  ()  {
+  const [formData, setPasswordData] = useState({
+    email: '',
   });
-  const [error, setError] = useState('');
+  const [errors, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
   // Handle form input changes
@@ -20,66 +27,108 @@ const ChangePassword = ({ customerId }) => {
   };
 
   // Handle form submission for password change
-  const handleChangePassword = async (e) => {
+  // const handleChangePassword = async (e) => {
+  //   e.preventDefault();
+  //   setLoading(true);
+  //   setError('');
+
+  //   try {
+  //     const response = await axios.put(
+  //       `${SERVER_URL}/customers/customers/${customerId}/change-password`,
+  //       formData
+  //     );
+  //     console.log('Password Changed:', response.data);
+  //     // Handle password change success (e.g., show a success message)
+  //   } catch (error) {
+  //     setError('Password change failed. Please try again.');
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+  const onSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError('');
 
     try {
-      const response = await axios.put(
-        `${SERVER_URL}/customers/customers/${customerId}/change-password`,
-        passwordData
-      );
-      console.log('Password Changed:', response.data);
-      // Handle password change success (e.g., show a success message)
-    } catch (error) {
-      setError('Password change failed. Please try again.');
+      forgotePasswordSchema.parse(formData);
+      setError({});
+
+      const response = await fetch(`${SERVER_URL}/customers/customers/${customerId}/change-password`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: formData.email,
+          
+        }),
+      });
+
+    } catch (err) {
+      if (err instanceof z.ZodError) {
+        const formattedErrors = {};
+        err.errors.forEach((error) => {
+          formattedErrors[error.path[0]] = error.message;
+        });
+        setError(formattedErrors);
+      } else {
+        toast.error('Something went wrong. Please try again.');
+      }
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-purple-700 text-white rounded-lg shadow-lg">
-      <h2 className="text-2xl font-semibold mb-4">Change Password</h2>
-      <form onSubmit={handleChangePassword}>
-        <div className="mb-4">
-          <label htmlFor="oldPassword" className="block">
-            Old Password
+    <div className="min-h-screen flex items-center justify-center bg-[#131312]">
+      <div className="max-w-md mx-auto p-6  rounded-lg shadow-lg text-white">
+        <h2 className="text-lg font-semibold mb-4">Forgot Password</h2>
+        <p className="text-sm text-gray-400 mb-6">
+          Enter your registered email and we will send you a link to reset your
+          password.
+        </p>
+        <form onSubmit={onSubmit}>
+          <label
+            htmlFor="email"
+            className="block text-sm font-medium text-white mb-2"
+          >
+            Email
           </label>
           <input
-            type="password"
-            id="oldPassword"
-            name="oldPassword"
-            value={passwordData.oldPassword}
-            onChange={handleChange}
-            className="w-full p-2 mt-1 border rounded"
-            required
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="newPassword" className="block">
-            New Password
-          </label>
-          <input
-            type="password"
-            id="newPassword"
-            name="newPassword"
-            value={passwordData.newPassword}
-            onChange={handleChange}
-            className="w-full p-2 mt-1 border rounded"
-            required
-          />
-        </div>
-        {error && <p className="text-red-500">{error}</p>}
-        <button
-          type="submit"
-          className="w-full bg-blue-500 p-2 mt-4 rounded"
-          disabled={loading}
-        >
-          {loading ? 'Changing Password...' : 'Change Password'}
-        </button>
-      </form>
+            type="email"
+            id="email"
+            name="email"
+            placeholder="name@example.com"
+            value={formData.email}
+              onChange={handleChange}
+              className={`w-full bg-[#131312] px-4 py-2 border border-gray-600 text-white ${
+                errors.email ? 'border-red-500' : 'border-gray-300'
+              } rounded-lg text-sm focus:outline-none focus:ring-2 ${
+                errors.email ? 'focus:ring-red-500' : 'focus:ring-gray-500'
+              }`}
+              aria-invalid={!!errors.email}
+              aria-describedby="email_error"
+            />
+            {errors.email && (
+              <p id="user_name_error" className="text-red-500 text-sm mb-4">
+                {errors.email}
+              </p>
+            )}
+         
+          <button
+            type="submit"
+            className="w-full bg-[#4a3da0] text-white text-sm font-medium py-2 rounded-lg hover:bg-gray-600 transition mt-4"
+          >
+            Continue
+          </button>
+        </form>
+        <p className="text-sm text-center text-gray-400 mt-6">
+          Don't have an account?{' '}
+          <Link href="/sign-up" className="text-blue-500 hover:underline">
+            Sign up.
+          </Link>
+        </p>
+      </div>
     </div>
   );
 };
