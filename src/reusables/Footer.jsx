@@ -1,10 +1,10 @@
 import {
   FaFacebookF,
   FaInstagram,
-  FaTwitter,
   FaTiktok,
   FaPinterest,
 } from 'react-icons/fa';
+import {FaXTwitter} from 'react-icons/fa6'
 
 const Footer = () => {
   return (
@@ -94,7 +94,7 @@ const Footer = () => {
                 className="p-2 rounded-full bg-gray-800 hover:bg-purple-600 transition"
                 aria-label="Twitter"
               >
-                <FaTwitter className="text-white" />
+                <FaXTwitter className="text-white" />
               </a>
               <a
                 href="#"
