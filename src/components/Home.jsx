@@ -6,6 +6,7 @@ import techImage from '../assets/tech-image.png'; // Import the image
 import server from '../assets/server.png';
 import wallet from '../assets/wallet.png';
 import phone from '../assets/phone.png';
+import Footer from '../reusables/Footer';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -93,7 +94,7 @@ const Home = () => {
       </section>
 
       {/* VPS Server Section */}
-      <section className="bg-black py-10">
+      <section className="bg-[#131312]k py-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-8">
           <h3 className="text-xl font-bold text-center text-white mb-6">
             VPS Server
@@ -129,7 +130,7 @@ const Home = () => {
       </section>
 
       {/* Virtual Credit Card Section */}
-      <section className="bg-black py-10">
+      <section className="bg-[#131312] py-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-8 text-white">
           <h3 className="text-xl font-bold text-center mb-6">
             Virtual Credit Card
@@ -158,7 +159,9 @@ const Home = () => {
             </button>
           </div>
         </div>
+       
       </section>
+      <Footer/>
     </div>
   );
 };

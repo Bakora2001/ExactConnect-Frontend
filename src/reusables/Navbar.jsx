@@ -48,7 +48,7 @@ const NavBar = () => {
             { to: '/rdp', label: 'VPS server' },
             { to: '/maintainance', label: 'VCC card' },
             { to: '/', label: 'Non-VOIP Numbers' },
-            { to: '/', label: 'Contact Us' },
+            { to: '/contact', label: 'Contact Us' },
           ].map(({ to, label }, index) => (
             <span
               key={index}
@@ -89,7 +89,7 @@ const NavBar = () => {
                 { label: 'Residential Proxy', link: '/proxy' },
                 { label: 'VPS Server', link: '/rdp' },
                 { label: 'VCC Card', link: '/maintainance' },
-                { label: 'Non-VOIP Numbers', link: '/' },
+                { label: 'Non-VOIP Numbers', link: '/contact' },
                 { label: 'Contact Us', link: '/' },
               ].map((item, index) => (
                 <span

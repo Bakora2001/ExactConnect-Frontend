@@ -22,6 +22,7 @@ import Rdp from './components/Rdp';
 import Checkout from './components/Checkout';
 import Configure from './components/Configure';
 import MaintenancePage from './pages/MaintainancePage';
+import ContactUs from './contact/ContactUs';
 
 export const router = createBrowserRouter([
   {
@@ -80,4 +81,8 @@ export const router = createBrowserRouter([
     path: '/maintainance',
     element: <MaintenancePage />,
   },
+  {
+    path:'/contact',
+    element:<ContactUs/>
+  }
 ]);
