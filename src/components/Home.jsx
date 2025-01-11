@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import NavBar from '../reusables/Navbar'; // Import NavBar component
 import techImage from '../assets/tech-image.png'; // Import the image
 
@@ -86,9 +86,12 @@ const Home = () => {
             </div>
           </div>
           <div className="text-center mt-8">
-            <button className="bg-purple-700 text-white py-2 px-6 rounded-lg shadow hover:bg-purple-600 transition">
+          <Link to='/proxy'>
+          <button className="bg-purple-700 text-white py-2 px-6 rounded-lg shadow hover:bg-purple-600 transition">
               Buy Now
             </button>
+          </Link>
+            
           </div>
         </div>
       </section>
@@ -154,9 +157,12 @@ const Home = () => {
             </div>
           </div>
           <div className="text-center mt-8">
-            <button className="bg-purple-700 text-white py-2 px-6 rounded-lg shadow hover:bg-purple-600 transition">
+          <Link to='/maintainance'>
+          <button className="bg-purple-700 text-white py-2 px-6 rounded-lg shadow hover:bg-purple-600 transition">
               Buy Now
             </button>
+          </Link>
+            
           </div>
         </div>
        
