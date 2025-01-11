@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
+import LogoIcon from "./LogoIcon";
 
 const NavBar = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -21,19 +22,25 @@ const NavBar = () => {
     <header className="w-full fixed top-0 left-0 right-0 z-50 bg-[#131312] bg-opacity-90 backdrop-blur-md border-b border-gray-800">
       <div className="flex items-center justify-between px-3 py-2 md:px-12">
         {/* Logo */}
-        <div className="text-xl font-bold text-white hover:text-[#806cff] transition cursor-pointer">
-          <Link to="/" className="flex items-center space-x-1">
-            Exact<span className="text-[#806cff]">Connect.</span>
+      <div className="flex items-center space-x-2">
+      <div className="text-sm font-bold text-white hover:text-[#806cff] transition cursor-pointer">
+          <Link to="/" className="flex flex-col">
+            Exact<span className="text-[#806cff]" >Connect.</span>
+           
           </Link>
+          
         </div>
+        <LogoIcon />
+      </div>
+        
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex space-x-8 text-gray-400 text-sm font-medium">
+        <nav className="hidden md:flex space-x-8 text-gray-400 text-xs font-medium">
           {[
             { to: "/proxy", label: "Residential Proxy" },
             { to: "/rdp", label: "VPS Server" },
             { to: "/maintainance", label: "VCC Card" },
-            { to: "/", label: "Non-VOIP Numbers" },
+            { to: "/maintainance", label: "Non-VOIP Numbers" },
             { to: "/contact", label: "Contact Us" },
           ].map(({ to, label }, index) => (
             <span
@@ -84,7 +91,7 @@ const NavBar = () => {
               { label: "Residential Proxy", link: "/proxy" },
               { label: "VPS Server", link: "/rdp" },
               { label: "VCC Card", link: "/maintainance" },
-              { label: "Non-VOIP Numbers", link: "/" },
+              { label: "Non-VOIP Numbers", link: "/maintainance" },
               { label: "Contact Us", link: "/contact" },
             ].map((item, index) => (
               <span

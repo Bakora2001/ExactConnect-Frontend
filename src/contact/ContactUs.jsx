@@ -131,7 +131,7 @@ const ContactUs = () => {
         </div>
 
         {/* Form Section */}
-        <div className="bg-gray-900 p-8 rounded-lg shadow-lg max-w-4xl mx-auto">
+        <div className="bg-gray-900 p-8 rounded-lg shadow-lg max-w-4xl mx-auto ">
           <form className="space-y-6" onSubmit={onSubmit}>
             <div>
               <label htmlFor="fullName" className="block text-sm text-gray-400">

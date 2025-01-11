@@ -112,7 +112,7 @@ const Proxy = () => {
         <Navbar />
       </div>
       {loading ? (
-        <div className="flex-col gap-4 w-full flex items-center justify-center ">
+        <div className="flex-col gap-4 w-full flex items-center justify-center h-screen">
           <div className="w-20 h-20 border-4 border-transparent text-[#7265c4] text-4xl animate-spin flex items-center justify-center border-t-[#7265c4] rounded-full">
             <div className="w-16 h-16 border-4 border-transparent text-white text-2xl animate-spin flex items-center justify-center border-t-white rounded-full"></div>
           </div>
@@ -134,37 +134,6 @@ const Proxy = () => {
           <p className="text-gray-400">No proxies found.</p>
         </div>
       ) : null}
-      {/* Filter Section */}
-      {/* <div className="bg-[#1f1f1e] p-6 rounded-lg shadow-lg mb-8">
-    <h2 className="text-white text-xl font-bold mb-4">Filter Proxies</h2>
-    <div className="flex flex-wrap gap-4 justify-between">
-      <input
-        type="number"
-        name="price"
-        placeholder="Max Price"
-        value={filters.price}
-        onChange={handleFilterChange}
-        className="p-3 rounded bg-gray-800 text-white w-full sm:w-[30%] placeholder-gray-400 focus:ring-2 focus:ring-[#7265c4] outline-none"
-      />
-      <input
-        type="text"
-        name="location"
-        placeholder="Location (City or Region)"
-        value={filters.location}
-        onChange={handleFilterChange}
-        className="p-3 rounded bg-gray-800 text-white w-full sm:w-[30%] placeholder-gray-400 focus:ring-2 focus:ring-[#7265c4] outline-none"
-      />
-      <input
-        type="text"
-        name="isp"
-        placeholder="ISP"
-        value={filters.isp}
-        onChange={handleFilterChange}
-        className="p-3 rounded bg-gray-800 text-white w-full sm:w-[30%] placeholder-gray-400 focus:ring-2 focus:ring-[#7265c4] outline-none"
-      />
-    </div>
-  </div> */}
-
       {/* Proxies Section */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-6">
         {filteredProxies.map((proxy, index) => (
@@ -210,7 +179,7 @@ const Proxy = () => {
       </div>
 
       {/* Pagination Controls */}
-      <div className="flex justify-center items-center gap-4 mt-8">
+      <div className="flex justify-center items-center gap-4 mt-8 ">
         <button
           className="px-6 py-2 bg-gray-700 text-white rounded-lg shadow-md hover:bg-gray-600 transition disabled:opacity-50"
           onClick={handlePreviousPage}

@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+.fade-in {
+  opacity: 0;
+  filter: blur(10px); /* Start with a blur effect */
+  transform: translateY(10%);
+  transition: opacity 0.8s ease-in-out, filter 0.8s ease-in-out, transform 0.8s ease-in-out;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  filter: blur(0); /* Clear blur when visible */
+  transform: translateY(0); /* Move to the final position */
+}
+
