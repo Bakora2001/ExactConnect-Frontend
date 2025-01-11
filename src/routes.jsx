@@ -21,6 +21,7 @@ import Proxy from './components/Proxy';
 import Rdp from './components/Rdp';
 import Checkout from './components/Checkout';
 import Configure from './components/Configure';
+import MaintenancePage from './pages/MaintainancePage';
 
 export const router = createBrowserRouter([
   {
@@ -74,5 +75,9 @@ export const router = createBrowserRouter([
   {
     path: '/admin/products/new',
     element: <AddProductForm />,
+  },
+  {
+    path: '/maintainance',
+    element: <MaintenancePage />,
   },
 ]);
