@@ -48,10 +48,10 @@ const OTPVerification = ({ customerId }) => {
   const isVerifyDisabled = otp.some((digit) => digit === '') || loading;
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#131312]">
-      <div className="max-w-md mx-auto p-6  rounded-lg shadow-lg text-white border border-gray-700">
+    <div className="min-h-screen flex items-center justify-center bg-white">
+      <div className="max-w-md mx-auto p-6  rounded-lg shadow-lg text-white border ">
       <h2 className="text-lg font-semibold mb-4">Two-factor Authentication</h2>
-      <p className="text-sm text-gray-400 mb-6">
+      <p className="text-sm text-gray-600 mb-6">
         Please enter the authentication code. <br />
         We have sent the authentication code to your email.
       </p>
@@ -67,7 +67,7 @@ const OTPVerification = ({ customerId }) => {
               autoComplete='off'
               placeholder='○'
               onChange={(e) => handleOtpChange(e.target.value, index)}
-              className="w-12 h-12 bg-[#131312] border border-gray-600 rounded-lg text-center text-white text-lg focus:outline-none focus:ring-2 focus:ring-gray-500"
+              className="w-12 h-12 bg-white border border-gray-600 rounded-lg text-center text-white text-lg focus:outline-none focus:ring-2 focus:ring-gray-500"
             />
           ))}
         </div>
@@ -77,7 +77,7 @@ const OTPVerification = ({ customerId }) => {
           disabled={isVerifyDisabled}
           className={`w-full text-white text-sm font-medium py-2 rounded-lg transition ${
             isVerifyDisabled
-              ? 'bg-[#4a3da0] cursor-not-allowed'
+              ? 'bg-[#7C25BA] cursor-not-allowed'
               : 'bg-gray-700 hover:bg-gray-600'
           }`}
         >
