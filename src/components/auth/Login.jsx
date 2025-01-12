@@ -84,18 +84,18 @@ function Login() {
   // };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#131312]">
-      <div className="bg-[#131312] p-6 rounded-lg shadow-lg w-full max-w-md border border-gray-700">
-      <h2 className="text-2xl font-normal font-circular mb-6 text-white hover:text-[#806cff]">
+    <div className="min-h-screen flex items-center justify-center bg-white">
+      <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md border ">
+      <h2 className="text-2xl font-normal font-circular mb-6 text-black hover:text-[#7C25BA]">
           Welcome Back
         </h2>
-        <h2 className="text-2xl font-bold  text-gray-400">Login</h2>
+        <h2 className="text-2xl font-bold  text-gray-700">Login</h2>
         <p className="text-sm text-gray-600 mb-4">Sign in to your account</p>
         <form onSubmit={handleLoginSubmit}>
           <div className="mb-4">
             <label
               htmlFor="email"
-              className="block text-sm font-medium text-white"
+              className="block text-sm font-medium text-black"
             >
               Email
             </label>
@@ -107,7 +107,7 @@ function Login() {
               placeholder="you@example.com"
               value={formData.email}
               onChange={handleChange}
-              className={`w-full bg-[#131312] px-4 py-2 border border-gray-600 text-white ${
+              className={`w-full bg-white px-4 py-2 border border-gray-600 text-white ${
                 errors.email ? 'border-red-500' : 'border-gray-300'
               } rounded-lg text-sm focus:outline-none focus:ring-2 ${
                 errors.email ? 'focus:ring-red-500' : 'focus:ring-gray-500'
@@ -124,7 +124,7 @@ function Login() {
           <div className="mb-4 relative">
             <label
               htmlFor="password"
-              className="block text-sm font-medium text-white mb-1"
+              className="block text-sm font-medium text-black mb-1"
             >
               Password
             </label>
@@ -137,7 +137,7 @@ function Login() {
                 placeholder="********"
                 value={formData.password}
                 onChange={handleChange}
-                className={`w-full bg-[#131312] px-4 py-2 pr-10 border ${
+                className={`w-full bg-white px-4 py-2 pr-10 border ${
                   errors.password ? 'border-red-500' : 'border-gray-600'
                 } rounded-lg text-sm text-white focus:outline-none focus:ring-2 ${
                   errors.password ? 'focus:ring-red-500' : 'focus:ring-gray-500'
@@ -175,7 +175,7 @@ function Login() {
 
           <button
             type="submit"
-            className={`w-full flex items-center justify-center bg-[#4a3da0] text-white py-2 rounded-lg hover:bg-[#5b21a8] focus:outline-none focus:ring-2 focus:ring-purple-500 ${
+            className={`w-full flex items-center justify-center bg-[#7C25BA] text-white py-2 rounded-lg hover:bg-[#5b21a8] focus:outline-none focus:ring-2 focus:ring-purple-500 ${
               isLoading && 'opacity-50 cursor-not-allowed'
             }`}
             disabled={isLoading}
@@ -215,11 +215,11 @@ function Login() {
         >
           {forgotPassword ? 'Set A New Password' : 'Forgot Password?'}
         </button> */}
-        <p className="text-sm  mt-4 text-white">
+        <p className="text-sm  mt-4 text-black">
           Don't have and account?{' '}
           <Link
             to="/signup"
-            className="text-[#4a3da0] font-bold hover:underline"
+            className="text-[#7C25BA] font-bold hover:underline"
           >
             Sign in
           </Link>
