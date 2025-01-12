@@ -115,11 +115,11 @@ function Signup() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#131312]">
-      <div className="max-w-md mx-auto p-6 rounded-lg shadow-lg w-full  border border-gray-700">
-        <h2 className="text-2xl font-bold mb-1 text-white hover:text-[#806cff]">
+    <div className="min-h-screen flex items-center justify-center bg-white">
+      <div className="max-w-md mx-auto p-6 rounded-lg shadow-lg w-full border ">
+        <h2 className="text-2xl font-bold mb-1 text-[#7C25BA] hover:text-[#806cff]">
           Exact
-          <span className="text-[#806cff]   hover:text-[#fff]">Connect.</span>
+          <span className="text-[#7C25BA]   hover:text-[#fff]">Connect.</span>
         </h2>
         <p className="text-lg font-circular font-normal text-gray-600 mb-4">
           Get started
@@ -129,7 +129,7 @@ function Signup() {
           <div className="mb-4">
             <label
               htmlFor="firstName"
-              className="block text-sm font-medium text-white"
+              className="block text-sm font-medium text-black"
             >
               First Name
             </label>
@@ -139,7 +139,7 @@ function Signup() {
               id="firstName"
               value={formData.firstName}
               onChange={handleChange}
-              className={`w-full bg-[#131312] px-4 py-2 border border-gray-600 text-white ${
+              className={`w-full bg-white px-4 py-2 border border-gray-600 text-white ${
                 errors.firstName ? 'border-red-500' : 'border-gray-300'
               } rounded-lg text-sm focus:outline-none focus:ring-2 ${
                 errors.firstName ? 'focus:ring-red-500' : 'focus:ring-gray-500'
@@ -157,7 +157,7 @@ function Signup() {
           <div className="mb-4">
             <label
               htmlFor="lastName"
-              className="block text-sm font-medium text-white"
+              className="block text-sm font-medium text-black"
             >
               Last Name
             </label>
@@ -167,7 +167,7 @@ function Signup() {
               id="lastName"
               value={formData.lastName}
               onChange={handleChange}
-              className={`w-full bg-[#131312] px-4 py-2 border border-gray-600 text-white ${
+              className={`w-full bg-white px-4 py-2 border border-gray-600 text-white ${
                 errors.lastName ? 'border-red-500' : 'border-gray-300'
               } rounded-lg text-sm focus:outline-none focus:ring-2 ${
                 errors.lastName ? 'focus:ring-red-500' : 'focus:ring-gray-500'
@@ -185,7 +185,7 @@ function Signup() {
           <div className="mb-4">
             <label
               htmlFor="email"
-              className="block text-sm font-medium text-white"
+              className="block text-sm font-medium text-black"
             >
               Email
             </label>
@@ -195,7 +195,7 @@ function Signup() {
               id="email"
               value={formData.email}
               onChange={handleChange}
-              className={`w-full bg-[#131312] px-4 py-2 border border-gray-600 text-white ${
+              className={`w-full bg-white px-4 py-2 border border-gray-600 text-white ${
                 errors.email ? 'border-red-500' : 'border-gray-300'
               } rounded-lg text-sm focus:outline-none focus:ring-2 ${
                 errors.email ? 'focus:ring-red-500' : 'focus:ring-gray-500'
@@ -214,7 +214,7 @@ function Signup() {
           <div className="mb-4">
             <label
               htmlFor="country"
-              className="block text-sm font-medium text-white"
+              className="block text-sm font-medium text-black"
             >
               Country
             </label>
@@ -232,7 +232,7 @@ function Signup() {
           <div className="mb-4 relative">
             <label
               htmlFor="password"
-              className="block text-sm font-medium text-white"
+              className="block text-sm font-medium text-black"
             >
               Password
             </label>
@@ -244,7 +244,7 @@ function Signup() {
                 placeholder="********"
                 value={formData.password}
                 onChange={handleChange}
-                className={`w-full bg-[#131312] px-4 py-2 border border-gray-600 text-white ${
+                className={`w-full bg-white px-4 py-2 border border-gray-600 text-white ${
                   errors.password ? 'border-red-500' : 'border-gray-300'
                 } rounded-lg text-sm focus:outline-none focus:ring-2 ${
                   errors.password ? 'focus:ring-red-500' : 'focus:ring-gray-500'
@@ -269,7 +269,7 @@ function Signup() {
 
           <button
             type="submit"
-            className={`w-full bg-[#4a3da0] text-white py-2 rounded-lg flex items-center justify-center hover:bg-[#5b21a8] focus:outline-none focus:ring-2 focus:ring-gray-500 ${
+            className={`w-full bg-[#7C25BA] text-white py-2 rounded-lg flex items-center justify-center hover:bg-[#5b21a8] focus:outline-none focus:ring-2 focus:ring-gray-500 ${
               isLoading && 'opacity-50 cursor-not-allowed'
             }`}
             disabled={isLoading}
@@ -301,11 +301,11 @@ function Signup() {
             )}
           </button>
         </form>
-        <p className="text-sm  mt-4 text-white">
+        <p className="text-sm  mt-4 text-black">
           Already have an account?{' '}
           <Link
             to="/login"
-            className="text-[#4a3da0] font-bold hover:underline"
+            className="text-[#7C25BA] font-bold hover:underline"
           >
             Sign in
           </Link>
