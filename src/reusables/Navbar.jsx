@@ -72,7 +72,7 @@ const NavBar = () => {
 
       {/* Mobile Menu */}
       <div
-        className={`fixed top-0 left-0 h-screen w-2/3 bg-[#131312] text-white z-20 transform ${
+        className={`fixed top-0 left-0 h-screen w-2/3 bg-[#7e22ce] text-white z-20 transform ${
           isMobileMenuOpen 
           ? "translate-x-0" 
           : "-translate-x-full "
@@ -108,7 +108,7 @@ const NavBar = () => {
 
           {/* Get Started Button */}
           <button
-            className="mt-6 bg-[#806cff] text-white px-6 py-2 rounded-lg shadow-lg hover:bg-[#6755d4] transition duration-200"
+            className="mt-6 bg-[#7e22ce] text-white  py-2 rounded-lg shadow-lg hover:bg-[#6755d4] transition duration-200 border border-white"
             onClick={handleGetStartedClick}
           >
             Get Started
