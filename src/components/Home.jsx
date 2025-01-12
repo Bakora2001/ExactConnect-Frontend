@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+
 import { Link, useNavigate } from 'react-router-dom';
 import NavBar from '../reusables/Navbar';
 import Footer from '../reusables/Footer';
@@ -10,37 +10,21 @@ import phone from '../assets/phone.png';
 const Home = () => {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const sections = document.querySelectorAll('.fade-in');
 
-    const observer = new IntersectionObserver(
-      (entries, observer) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.2 }
-    );
-
-    sections.forEach((section) => observer.observe(section));
-  }, []);
 
   const handleGetStartedClick = () => {
     navigate('/signup');
   };
 
   return (
-    <div className="bg-[#131312] text-white font-sans">
+    <div className="bg-[#7C25BA] text-white font-sans">
       {/* Header Section */}
       <div className="w-full mb-12 sm:mb-20 py-10 sm:py-16">
           <NavBar />
         </div>
-      <header className="fade-in transition-all duration-1000 opacity-0 translate-y-10 flex flex-col items-center ">
+      <header className=" translate-y-10 flex flex-col items-center ">
         
-        <div className="max-w-7xl mx-auto flex flex-col-reverse md:flex-row items-center px-6 sm:px-12 gap-10 md:gap-16 ">
+        <div className="max-w-7xl mx-auto flex flex-col-reverse md:flex-row items-center px-6 sm:px-12 gap-10 md:gap-16 mb-6">
           <div className="md:w-1/2 text-center md:text-left">
             <h1 className="text-4xl sm:text-5xl font-bold leading-tight mb-6 text-[#fcfdfd]">
               Need Precise Residential IPs, RDP VPS, Virtual Credit Cards, or Non-VOIP Numbers?
@@ -50,7 +34,7 @@ const Home = () => {
             </p>
             <button
               onClick={handleGetStartedClick}
-              className="bg-[#806cff]  text-white font-medium py-3 px-6 rounded-lg shadow-lg hover:opacity-90 transition-all duration-200"
+              className="bg-[#7C25BA] text-white font-medium py-3 px-6 rounded-lg shadow-lg hover:opacity-90 transition-all duration-200 border border-white mb-5"
             >
               Get Started
             </button>
@@ -59,30 +43,31 @@ const Home = () => {
             <img
               src={techImage}
               alt="Tech Solutions"
-              className="max-h-[350px] md:max-h-[400px]"
+              className="max-h-[350px] md:max-h-[400px] mb-5"
             />
           </div>
         </div>
       </header>
 
       {/* Why Choose Our Services Section */}
-      <section className="fade-in transition-all duration-1000 opacity-0 translate-y-10 py-12 bg-[#131312]">
-        <h2 className="text-3xl font-extrabold text-center text-white mb-6">
+      <section className="
+        py-12 bg-[#fefffe]">
+        <h2 className="text-3xl font-extrabold text-center text-black mb-6">
           Why Choose Our Services?
         </h2>
-        <div className="border-b-4 border-[#806cff]  w-24 mx-auto rounded-full mb-8"></div>
+        <div className="border-b-4 border-[#7C25BA]  w-24 mx-auto rounded-full mb-8"></div>
       </section>
 
       {/* Residential Proxies Section */}
-      <section className="fade-in transition-all duration-1000 opacity-0 translate-y-10 bg-[#131312] py-12">
+      <section className=" bg-[#f8f7f3] py-12">
         <div className="max-w-6xl mx-auto px-6">
-          <h3 className="text-2xl font-bold text-center text-white mb-8">
+          <h3 className="text-2xl font-bold text-center text-black mb-8">
             Residential Proxies
           </h3>
           <div className="grid sm:grid-cols-2 gap-10">
             <div>
-              <h4 className="text-xl font-semibold mb-4">Benefits</h4>
-              <ul className="list-disc space-y-3 pl-6">
+              <h4 className="text-xl font-semibold mb-4 text-black">Benefits</h4>
+              <ul className="list-disc space-y-3 pl-6 text-black">
                 <li>Exact IP for Online Accounts Creation</li>
                 <li>Supports Guaranteed 100% Online Mask Identification</li>
                 <li>Very Affordable Pricing</li>
@@ -91,8 +76,8 @@ const Home = () => {
               </ul>
             </div>
             <div>
-              <h4 className="text-xl font-semibold mb-4">Use Cases</h4>
-              <ul className="list-disc space-y-3 pl-6">
+              <h4 className="text-xl font-semibold mb-4 text-black">Use Cases</h4>
+              <ul className="list-disc space-y-3 pl-6 text-black">
                 <li>Oneforma Account Creation (Any Locale)</li>
                 <li>Data Scraping</li>
                 <li>Market Research</li>
@@ -101,22 +86,22 @@ const Home = () => {
           </div>
           <div className="text-center mt-8">
             <Link to="/proxy">
-              <button className="bg-[#806cff] hover:bg-[#806cff]  text-white font-medium py-3 px-8 rounded-lg shadow-md">
+              <button className="bg-[#7C25BA]  hover:bg-[#806cff]  text-white font-medium py-3 px-8 rounded-lg shadow-md">
                 Buy Now
               </button>
             </Link>
           </div>
         </div>
       </section>
-      <section className="bg-[#131312] py-12 fade-in transition-all duration-1000 opacity-0 translate-y-10">
+      <section className="bg-[#fefffe] py-12 ">
         <div className="max-w-7xl mx-auto px-6">
-          <h3 className="text-2xl font-bold text-center text-white mb-8">
+          <h3 className="text-2xl font-bold text-center text-black mb-8">
             VPS Server
           </h3>
           <div className="grid lg:grid-cols-2 gap-10 items-center">
             <div>
-              <h4 className="text-xl font-semibold mb-4">Why Our VPS?</h4>
-              <ul className="list-disc space-y-3 pl-6">
+              <h4 className="text-xl font-semibold mb-4 text-black">Why Our VPS?</h4>
+              <ul className="list-disc space-y-3 pl-6 text-black">
                 <li>Private and Secure</li>
                 <li>Supports Android Simulators</li>
                 <li>Supports Linux/Windows/Ubuntu</li>
@@ -135,7 +120,7 @@ const Home = () => {
           <div className="text-center mt-8">
             <button
               onClick={() => navigate('/rdp')}
-              className="bg-[#806cff]  hover:bg-[#806cff]  text-white font-medium py-3 px-8 rounded-lg shadow-md"
+              className="bg-[#7C25BA]  hover:bg-[#806cff]  text-white font-medium py-3 px-8 rounded-lg shadow-md"
             >
               Buy Now
             </button>
@@ -144,9 +129,9 @@ const Home = () => {
       </section>
 
       {/* Virtual Credit Card Section */}
-      <section className="bg-[#131312] py-12 fade-in transition-all duration-1000 opacity-0 translate-y-10">
+      <section className="bg-[#eeeeee] py-12 ">
         <div className="max-w-7xl mx-auto px-6">
-          <h3 className="text-2xl font-bold text-center text-white mb-8">
+          <h3 className="text-2xl font-bold text-center text-black mb-8">
             Virtual Credit Card
           </h3>
           <div className="grid lg:grid-cols-2 gap-10 items-center">
@@ -158,8 +143,8 @@ const Home = () => {
               />
             </div>
             <div>
-              <h4 className="text-xl font-semibold mb-4">Why Choose Us?</h4>
-              <ul className="list-disc space-y-3 pl-6">
+              <h4 className="text-xl font-semibold mb-4 text-black">Why Choose Us?</h4>
+              <ul className="list-disc space-y-3 pl-6 text-black">
                 <li>Private and Secure</li>
                 <li>Instant Deployment</li>
                 <li>Reliable Hosting</li>
@@ -169,7 +154,7 @@ const Home = () => {
           </div>
           <div className="text-center mt-8">
             <Link to="/maintainance">
-              <button className="bg-[#806cff]  hover:bg-[#806cff]  text-white font-medium py-3 px-8 rounded-lg shadow-md">
+              <button className="bg-[#7C25BA]  hover:bg-[#806cff]  text-white font-medium py-3 px-8 rounded-lg shadow-md">
                 Buy Now
               </button>
             </Link>
@@ -178,9 +163,9 @@ const Home = () => {
       </section>
 
       {/* Verification Process Section */}
-      <section className="bg-[#131312] py-12 fade-in transition-all duration-1000 opacity-0 translate-y-10">
+      <section className="bg-[#e2f7f4] py-12 ">
         <div className="max-w-7xl mx-auto px-6">
-          <h4 className="text-2xl font-bold text-center text-white mb-8">
+          <h4 className="text-2xl font-bold text-center text-black mb-8">
             Verification Process
           </h4>
           <div className="grid lg:grid-cols-3 gap-8 items-start">
@@ -208,7 +193,7 @@ const Home = () => {
                 className="max-h-[300px]"
               />
             </div>
-            <p className="text-white text-lg">
+            <p className="text-black text-lg">
               Add a descriptive text about the verification process or additional
               information users should know.
             </p>

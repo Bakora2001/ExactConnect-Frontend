@@ -30,6 +30,7 @@ const Proxy = () => {
         throw new Error('Failed to fetch proxies');
       }
       const data = await response.json();
+      console.log(data);
       setProxies(data.agents || []);
       setFilteredProxies(data.agents || []);
       setTotalPages(data.totalPages || 1); // Assuming API returns total pages

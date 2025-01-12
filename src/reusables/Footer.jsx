@@ -8,7 +8,7 @@ import {FaXTwitter} from 'react-icons/fa6'
 
 const Footer = () => {
   return (
-    <footer className="bg-[#131312] text-gray-300 py-10 border-t border-gray-700">
+    <footer className="bg-[#7C25BA]text-gray-300 py-10 border-t border-gray-700">
       <div className="container mx-auto px-6 max-w-7xl">
         {/* Footer Grid */}
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
@@ -115,7 +115,7 @@ const Footer = () => {
         </div>
 
         {/* Footer Bottom */}
-        <div className="mt-10 border-t border-dashed border-gray-700 pt-4 text-center text-sm">
+        <div className="mt-10 border-t border-dashed border-white pt-4 text-center text-sm">
           <p>
             &copy; {new Date().getFullYear()} ExactConnect. All Rights Reserved.
           </p>

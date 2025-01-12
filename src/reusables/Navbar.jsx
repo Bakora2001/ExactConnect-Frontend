@@ -19,13 +19,13 @@ const NavBar = () => {
   };
 
   return (
-    <header className="w-full fixed top-0 left-0 right-0 z-50 bg-[#131312] bg-opacity-90 backdrop-blur-md border-b border-gray-800">
+    <header className="w-full fixed top-0 left-0 right-0 z-50 bg-[#7C25BA] bg-opacity-90 backdrop-blur-md border-b border-gray-500">
       <div className="flex items-center justify-between px-3 py-2 md:px-12">
         {/* Logo */}
       <div className="flex items-center space-x-2">
-      <div className="text-sm font-bold text-white hover:text-[#806cff] transition cursor-pointer">
+      <div className="text-sm font-bold text-white  transition cursor-pointer">
           <Link to="/" className="flex flex-col">
-            Exact<span className="text-[#806cff]" >Connect.</span>
+            Exact<span className="text-white" >Connect.</span>
            
           </Link>
           
@@ -35,7 +35,7 @@ const NavBar = () => {
         
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex space-x-8 text-gray-400 text-xs font-medium">
+        <nav className="hidden md:flex space-x-8 text-white text-xs font-medium">
           {[
             { to: "/proxy", label: "Residential Proxy" },
             { to: "/rdp", label: "VPS Server" },
@@ -45,7 +45,7 @@ const NavBar = () => {
           ].map(({ to, label }, index) => (
             <span
               key={index}
-              className="cursor-pointer hover:text-[#806cff] transition"
+              className="cursor-pointer hover:text-gray-300 transition"
               onClick={() => handleNavigation(to)}
             >
               {label}
@@ -55,7 +55,7 @@ const NavBar = () => {
 
         {/* Get Started Button */}
         <button
-          className="hidden md:block bg-[#806cff] text-white px-6 py-2 rounded-lg shadow-lg hover:bg-[#6755d4] transition duration-200"
+          className="hidden md:block bg-[#7C25BA] text-white px-6 py-2 rounded-lg shadow-lg hover:bg-[#6755d4] transition duration-200 border border-white"
           onClick={handleGetStartedClick}
         >
           Get Started
@@ -73,8 +73,10 @@ const NavBar = () => {
       {/* Mobile Menu */}
       <div
         className={`fixed top-0 left-0 h-screen w-2/3 bg-[#131312] text-white z-20 transform ${
-          isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
-        } transition-transform duration-300 shadow-lg`}
+          isMobileMenuOpen 
+          ? "translate-x-0" 
+          : "-translate-x-full "
+        } transition-transform duration-300 shadow-lg `}
       >
         <div className="p-6 flex flex-col space-y-6">
           {/* Close Button */}
@@ -117,7 +119,7 @@ const NavBar = () => {
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-10"
+          className="fixed inset-0 bg-black bg-opacity-50 z-10 "
           onClick={() => setMobileMenuOpen(false)}
         ></div>
       )}
