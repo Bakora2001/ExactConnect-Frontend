@@ -80,17 +80,17 @@ function  ChangePassword  ()  {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#131312]">
-      <div className="max-w-md mx-auto p-6  rounded-lg shadow-lg text-white border border-gray-700">
-        <h2 className="text-lg font-semibold mb-4">Forgot Password</h2>
-        <p className="text-sm text-gray-400 mb-6">
+    <div className="min-h-screen flex items-center justify-center bg-white">
+      <div className="max-w-md mx-auto p-6  rounded-lg shadow-lg text-white border ">
+        <h2 className="text-lg font-semibold mb-4 text-black">Forgot Password</h2>
+        <p className="text-sm text-gray-700 mb-6">
           Enter your registered email and we will send you a link to reset your
           password.
         </p>
         <form onSubmit={onSubmit}>
           <label
             htmlFor="email"
-            className="block text-sm font-medium text-white mb-2"
+            className="block text-sm font-medium text-black mb-2"
           >
             Email
           </label>
@@ -101,7 +101,7 @@ function  ChangePassword  ()  {
             placeholder="name@example.com"
             value={formData.email}
               onChange={handleChange}
-              className={`w-full bg-[#131312] px-4 py-2 border border-gray-600 text-white ${
+              className={`w-full bg-white px-4 py-2 border border-gray-600 text-white ${
                 errors.email ? 'border-red-500' : 'border-gray-300'
               } rounded-lg text-sm focus:outline-none focus:ring-2 ${
                 errors.email ? 'focus:ring-red-500' : 'focus:ring-gray-500'
@@ -117,7 +117,7 @@ function  ChangePassword  ()  {
          
           <button
             type="submit"
-            className="w-full bg-[#4a3da0] text-white text-sm font-medium py-2 rounded-lg hover:bg-gray-600 transition mt-4"
+            className="w-full bg-[#7C25BA] text-white text-sm font-medium py-2 rounded-lg hover:bg-gray-600 transition mt-4"
           >
             Continue
           </button>
