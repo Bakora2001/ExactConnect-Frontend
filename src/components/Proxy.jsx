@@ -107,7 +107,7 @@ const Proxy = () => {
   }
 
   return (
-    <div className="bg-[#131312] min-h-screen p-4">
+    <div className="bg-white min-h-screen p-4">
       {/* Navbar */}
       <div className="w-full mb-12 sm:mb-20">
         <Navbar />
@@ -115,7 +115,7 @@ const Proxy = () => {
       {loading ? (
         <div className="flex-col gap-4 w-full flex items-center justify-center h-screen">
           <div className="w-20 h-20 border-4 border-transparent text-[#7e22ce] text-4xl animate-spin flex items-center justify-center border-t-[#7e22ce] rounded-full">
-            <div className="w-16 h-16 border-4 border-transparent text-white text-2xl animate-spin flex items-center justify-center border-t-white rounded-full"></div>
+            <div className="w-16 h-16 border-4 border-transparent text-white text-2xl animate-spin flex items-center justify-center border-t-black rounded-full"></div>
           </div>
         </div>
       ) : error ? (
@@ -140,14 +140,14 @@ const Proxy = () => {
         {filteredProxies.map((proxy, index) => (
           <div
             key={proxy.id}
-            className={`bg-[#1f1f1e] text-white p-6 rounded-lg shadow-md hover:shadow-xl transition border ${
+            className={`bg-white text-black p-6 rounded-lg shadow-lg hover:shadow-xl transition border ${
               index === selectedRow ? 'border-[#7265c4]' : 'border-transparent'
             } cursor-pointer`}
             onClick={() => handleRowClick(index, proxy)}
           >
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-lg font-bold truncate">{proxy.ip}</h2>
-              <p className="text-green-400 text-lg font-semibold">
+              <p className="text-[#7e22ce] text-lg font-semibold">
                 ${proxy.price}
               </p>
             </div>
