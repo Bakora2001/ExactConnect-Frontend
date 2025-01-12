@@ -95,7 +95,7 @@ function Signup() {
       const result = await response.json();
       if (response.ok) {
         toast.success('Registation successful');
-        navigate('/otp');
+        navigate('/login');
       } else {
         toast.error('Error');
       }
