@@ -98,7 +98,7 @@ const ContactUs = () => {
           </p>
           <div className="mt-6">
             <a
-              href="mailto:hello@trianglelabs.co"
+              href="mailto:charleskibet101@gmail.com"
               className="text-[#806cff] hover:underline text-lg"
             >
               charleskibet101@gmail.com
