@@ -86,7 +86,7 @@ const Home = () => {
           </div>
           <div className="text-center mt-8">
             <Link to="/proxy">
-              <button className="bg-[#7C25BA]  hover:bg-[#806cff]  text-white font-medium py-3 px-8 rounded-lg shadow-md">
+              <button className="bg-[#7C25BA]  hover:bg-[#6a1fa0]  text-white font-medium py-3 px-8 rounded-lg shadow-md">
                 Buy Now
               </button>
             </Link>
@@ -120,7 +120,7 @@ const Home = () => {
           <div className="text-center mt-8">
             <button
               onClick={() => navigate('/rdp')}
-              className="bg-[#7C25BA]  hover:bg-[#806cff]  text-white font-medium py-3 px-8 rounded-lg shadow-md"
+              className="bg-[#7C25BA]  hover:bg-[#6a1fa0]  text-white font-medium py-3 px-8 rounded-lg shadow-md"
             >
               Buy Now
             </button>
@@ -154,7 +154,7 @@ const Home = () => {
           </div>
           <div className="text-center mt-8">
             <Link to="/maintainance">
-              <button className="bg-[#7C25BA]  hover:bg-[#806cff]  text-white font-medium py-3 px-8 rounded-lg shadow-md">
+              <button className="bg-[#7C25BA]  hover:bg-[#6a1fa0]  text-white font-medium py-3 px-8 rounded-lg shadow-md">
                 Buy Now
               </button>
             </Link>

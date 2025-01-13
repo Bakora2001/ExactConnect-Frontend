@@ -55,7 +55,7 @@ const NavBar = () => {
 
         {/* Get Started Button */}
         <button
-          className="hidden md:block bg-[#7C25BA] text-white px-6 py-2 rounded-lg shadow-lg hover:bg-[#6755d4] transition duration-200 border border-white"
+          className="hidden md:block bg-[#7C25BA] text-white px-6 py-2 rounded-lg shadow-lg hover:bg-[#6a1fa0] transition duration-200 border border-white"
           onClick={handleGetStartedClick}
         >
           Get Started
@@ -98,7 +98,7 @@ const NavBar = () => {
             ].map((item, index) => (
               <span
                 key={index}
-                className="text-lg cursor-pointer hover:text-[#806cff] transition"
+                className="text-lg cursor-pointer hover:text-[#6a1fa0] transition"
                 onClick={() => handleNavigation(item.link)}
               >
                 {item.label}
@@ -108,7 +108,7 @@ const NavBar = () => {
 
           {/* Get Started Button */}
           <button
-            className="mt-6 bg-[#7e22ce] text-white  py-2 rounded-lg shadow-lg hover:bg-[#6755d4] transition duration-200 border border-white"
+            className="mt-6 bg-[#7e22ce] text-white  py-2 rounded-lg shadow-lg hover:bg-[#6a1fa0] transition duration-200 border border-white"
             onClick={handleGetStartedClick}
           >
             Get Started
