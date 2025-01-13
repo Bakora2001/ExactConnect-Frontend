@@ -165,6 +165,7 @@ const ContactUs = () => {
               <input
                 type="email"
                 id="email"
+                name='email'
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="you@example.com"
@@ -189,6 +190,7 @@ const ContactUs = () => {
               <input
                 type="tel"
                 id="phone_number"
+                name='phone_number'
                 value={formData.phone_number}
                 onChange={handleChange}
                 placeholder="0712345678"
@@ -215,10 +217,11 @@ const ContactUs = () => {
               <textarea
                 id="message"
                 rows="5"
+                name='message'
                 value={formData.message}
                 onChange={handleChange}
                 placeholder="Write your message here..."
-                className={`mt-2 w-full bg-white px-4 py-3 border border-gray-600 text-white ${
+                className={`mt-2 w-full bg-white px-4 py-3 border border-gray-600 text-black ${
                   errors.message ? 'border-red-500' : 'border-gray-300'
                 } rounded-lg text-sm focus:outline-none focus:ring-2 ${
                   errors.message ? 'focus:ring-red-500' : 'focus:ring-gray-500'
@@ -234,7 +237,7 @@ const ContactUs = () => {
             </div>
             <button
               type="submit"
-              className="w-full bg-[#7C25BA] py-3 px-6 rounded-md text-white font-semibold hover:bg-gray-600 transition"
+              className="w-full bg-[#7C25BA] py-3 px-6 rounded-md text-white font-semibold hover:bg-[#6a1fa0] transition"
             >
               Send Message
             </button>
