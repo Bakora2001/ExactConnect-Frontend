@@ -18,7 +18,7 @@ const {darkMode} = useContext(DarkModeContext)
   };
 
   return (
-    <div className={`font-sans ${darkMode ? 'bg-[#131312] text-white' : 'bg-[#7C25BA] text-white'} `}>
+    <div className={`font-sans ${darkMode ? 'bg-[#010001] text-white' : 'bg-[#7C25BA] text-white'} `}>
       {/* Header Section */}
       <div className="w-full mb-12 sm:mb-20 py-10 sm:py-16">
           <NavBar />
