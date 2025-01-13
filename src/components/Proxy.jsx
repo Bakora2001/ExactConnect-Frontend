@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import Navbar from '../reusables/Navbar';
 import { SERVER_URL } from '../data';
+import { DarkModeContext } from '../../DarkModeContext';
 
 //TODO --> Add the filter section
 
@@ -18,6 +19,8 @@ const Proxy = () => {
     location: '',
     isp: '',
   });
+
+  const { darkMode } = useContext(DarkModeContext);
 
   // Fetching proxies from API
   const fetchProxies = async (page = 0) => {
@@ -107,7 +110,9 @@ const Proxy = () => {
   }
 
   return (
-    <div className="bg-white min-h-screen p-4">
+    <div
+      className={`${darkMode ? 'bg-[#131312]' : 'bg-white'} min-h-screen p-4`}
+    >
       {/* Navbar */}
       <div className="w-full mb-12 sm:mb-20">
         <Navbar />
@@ -140,7 +145,9 @@ const Proxy = () => {
         {filteredProxies.map((proxy, index) => (
           <div
             key={proxy.id}
-            className={`bg-white text-black p-6 rounded-lg shadow-lg hover:shadow-xl transition border ${
+            className={`${
+              darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
+            }  p-6 rounded-lg shadow-lg hover:shadow-xl transition border ${
               index === selectedRow ? 'border-[#7265c4]' : 'border-transparent'
             } cursor-pointer`}
             onClick={() => handleRowClick(index, proxy)}

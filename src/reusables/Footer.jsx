@@ -36,7 +36,7 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-lg font-semibold text-white mb-4">
+            <h4 className="text-lg font-semibold text-[#7C25BA] mb-4">
               Quick Links
             </h4>
             <ul className="space-y-2 text-sm">
@@ -70,7 +70,7 @@ const Footer = () => {
 
           {/* Contact Info */}
           <div>
-            <h4 className="text-lg font-semibold text-white mb-4">
+            <h4 className="text-lg font-semibold text-[#7C25BA] mb-4">
               Contact Info
             </h4>
             <ul className="space-y-2 text-sm">
@@ -82,7 +82,7 @@ const Footer = () => {
 
           {/* Social Media Links */}
           <div>
-            <h4 className="text-lg font-semibold text-white mb-4">Follow Us</h4>
+            <h4 className="text-lg font-semibold text-[#7C25BA] mb-4">Socials</h4>
             <div className="flex space-x-4">
               <a
                 href="#"
