@@ -23,6 +23,7 @@ import Checkout from './components/Checkout';
 import Configure from './components/Configure';
 import MaintenancePage from './pages/MaintainancePage';
 import ContactUs from './contact/ContactUs';
+import Mpesa from './payment/Mpesa'
 
 export const router = createBrowserRouter([
   {
@@ -84,5 +85,8 @@ export const router = createBrowserRouter([
   {
     path:'/contact',
     element:<ContactUs/>
+  },{
+    path:'/mpesa-checkout',
+    element:<Mpesa />
   }
 ]);
