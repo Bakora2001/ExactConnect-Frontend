@@ -4,11 +4,20 @@ import {
   FaTiktok,
   FaPinterest,
 } from 'react-icons/fa';
-import {FaXTwitter} from 'react-icons/fa6'
+
+import { FaXTwitter } from 'react-icons/fa6';
+import { DarkModeContext } from '../../DarkModeContext';
+import { useContext } from 'react';
+
+//Icons to toggle between dark and light mode
+import Light from '../icons/Light';
+import Moon from '../icons/Moon';
 
 const Footer = () => {
+  const { darkMode, toggleDarkMode } = useContext(DarkModeContext);
+
   return (
-    <footer className="bg-[#7C25BA]text-gray-300 py-10 border-t border-gray-700">
+    <footer className="py-10 border-t border-gray-700 bg-[#7C25BA] dark:bg-[#131312] text-white dark:text-white relative">
       <div className="container mx-auto px-6 max-w-7xl">
         {/* Footer Grid */}
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
@@ -36,11 +45,11 @@ const Footer = () => {
                   About Us
                 </a>
               </li>
-
-              <a href="/contact" className="hover:underline">
-                Contact Us
-              </a>
-
+              <li>
+                <a href="/contact" className="hover:underline">
+                  Contact Us
+                </a>
+              </li>
               <li>
                 <a href="/maintainance" className="hover:underline">
                   Terms & Conditions
@@ -111,6 +120,18 @@ const Footer = () => {
                 <FaPinterest className="text-white" />
               </a>
             </div>
+            <div className="mt-8 flex justify-center items-center border border-gray-700 w-fit rounded-md p-1">
+              <button
+                onClick={toggleDarkMode}
+                className="text-2xl focus:outline-none transition-colors duration-300"
+              >
+                {darkMode ? (
+                  <Light className="text-yellow-300" />
+                ) : (
+                  <Moon className="text-gray-500" />
+                )}
+              </button>
+            </div>
           </div>
         </div>
 
@@ -121,6 +142,8 @@ const Footer = () => {
           </p>
         </div>
       </div>
+
+      {/* Dark Mode Toggle */}
     </footer>
   );
 };

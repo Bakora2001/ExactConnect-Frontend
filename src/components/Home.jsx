@@ -1,4 +1,4 @@
-
+import { DarkModeContext } from '../../DarkModeContext';
 import { Link, useNavigate } from 'react-router-dom';
 import NavBar from '../reusables/Navbar';
 import Footer from '../reusables/Footer';
@@ -6,18 +6,19 @@ import techImage from '../assets/tech-image.png';
 import server from '../assets/server.png';
 import wallet from '../assets/wallet.png';
 import phone from '../assets/phone.png';
+import { useContext } from 'react';
 
 const Home = () => {
   const navigate = useNavigate();
 
-
+const {darkMode} = useContext(DarkModeContext)
 
   const handleGetStartedClick = () => {
     navigate('/signup');
   };
 
   return (
-    <div className="bg-[#7C25BA] text-white font-sans">
+    <div className={`font-sans ${darkMode ? 'bg-[#131312] text-white' : 'bg-[#7C25BA] text-white'} `}>
       {/* Header Section */}
       <div className="w-full mb-12 sm:mb-20 py-10 sm:py-16">
           <NavBar />
@@ -26,7 +27,7 @@ const Home = () => {
         
         <div className="max-w-7xl mx-auto flex flex-col-reverse md:flex-row items-center px-6 sm:px-12 gap-10 md:gap-16 mb-6">
           <div className="md:w-1/2 text-center md:text-left">
-            <h1 className="text-4xl sm:text-5xl font-bold leading-tight mb-6 text-[#fcfdfd]">
+            <h1 className={`text-4xl sm:text-5xl font-bold leading-tight mb-6 ${darkMode? 'text-white':'text-white'}`}>
               Need Precise Residential IPs, RDP VPS, Virtual Credit Cards, or Non-VOIP Numbers?
             </h1>
             <p className="text-lg mb-8">
@@ -34,7 +35,7 @@ const Home = () => {
             </p>
             <button
               onClick={handleGetStartedClick}
-              className="bg-[#7C25BA] text-white font-medium py-3 px-6 rounded-lg shadow-lg hover:opacity-90 transition-all duration-200 border border-white mb-5"
+              className={`${darkMode? 'bg-[#7C25BA] text-white':'bg-[#7C25BA]'}  font-medium py-3 px-6 rounded-lg shadow-lg hover:opacity-90 transition-all duration-200 border border-white mb-5`}
             >
               Get Started
             </button>
@@ -50,24 +51,23 @@ const Home = () => {
       </header>
 
       {/* Why Choose Our Services Section */}
-      <section className="
-        py-12 bg-[#fefffe]">
-        <h2 className="text-3xl font-extrabold text-center text-black mb-6">
+      <section className={`py-12 ${darkMode? 'bg-[#131312] text-white' :'bg-[#fffe] text-black'}`}>
+        <h2 className="text-3xl font-extrabold text-center  mb-6">
           Why Choose Our Services?
         </h2>
         <div className="border-b-4 border-[#7C25BA]  w-24 mx-auto rounded-full mb-8"></div>
       </section>
-
+      {/* bg-[#f8f7f3] */}
       {/* Residential Proxies Section */}
-      <section className=" bg-[#f8f7f3] py-12">
+      <section className={` ${darkMode?'bg-[#131312] text-white':'bg-[#f8f7f3] text-black'} py-12`}>
         <div className="max-w-6xl mx-auto px-6">
-          <h3 className="text-2xl font-bold text-center text-black mb-8">
+          <h3 className="text-2xl font-bold text-center  mb-8">
             Residential Proxies
           </h3>
           <div className="grid sm:grid-cols-2 gap-10">
             <div>
-              <h4 className="text-xl font-semibold mb-4 text-black">Benefits</h4>
-              <ul className="list-disc space-y-3 pl-6 text-black">
+              <h4 className="text-xl font-semibold mb-4 ">Benefits</h4>
+              <ul className="list-disc space-y-3 pl-6 ">
                 <li>Exact IP for Online Accounts Creation</li>
                 <li>Supports Guaranteed 100% Online Mask Identification</li>
                 <li>Very Affordable Pricing</li>
@@ -76,8 +76,8 @@ const Home = () => {
               </ul>
             </div>
             <div>
-              <h4 className="text-xl font-semibold mb-4 text-black">Use Cases</h4>
-              <ul className="list-disc space-y-3 pl-6 text-black">
+              <h4 className="text-xl font-semibold mb-4 ">Use Cases</h4>
+              <ul className="list-disc space-y-3 pl-6 ">
                 <li>Oneforma Account Creation (Any Locale)</li>
                 <li>Data Scraping</li>
                 <li>Market Research</li>
@@ -93,15 +93,16 @@ const Home = () => {
           </div>
         </div>
       </section>
-      <section className="bg-[#fefffe] py-12 ">
+      {/* bg-[#fefffe] */}
+      <section className={`${darkMode?'bg-[#131312] text-white':'bg-[#fefffe] text-black'} py-12` }>
         <div className="max-w-7xl mx-auto px-6">
-          <h3 className="text-2xl font-bold text-center text-black mb-8">
+          <h3 className="text-2xl font-bold text-center  mb-8">
             VPS Server
           </h3>
           <div className="grid lg:grid-cols-2 gap-10 items-center">
             <div>
-              <h4 className="text-xl font-semibold mb-4 text-black">Why Our VPS?</h4>
-              <ul className="list-disc space-y-3 pl-6 text-black">
+              <h4 className="text-xl font-semibold mb-4 ">Why Our VPS?</h4>
+              <ul className="list-disc space-y-3 pl-6 ">
                 <li>Private and Secure</li>
                 <li>Supports Android Simulators</li>
                 <li>Supports Linux/Windows/Ubuntu</li>
@@ -129,9 +130,10 @@ const Home = () => {
       </section>
 
       {/* Virtual Credit Card Section */}
-      <section className="bg-[#eeeeee] py-12 ">
+      {/* bg-[#eeeeee] */}
+      <section className={`${darkMode?'bg-[#131312] text-white':'bg-[#eeeeee] text-black'} py-12`}>
         <div className="max-w-7xl mx-auto px-6">
-          <h3 className="text-2xl font-bold text-center text-black mb-8">
+          <h3 className="text-2xl font-bold text-center  mb-8">
             Virtual Credit Card
           </h3>
           <div className="grid lg:grid-cols-2 gap-10 items-center">
@@ -143,8 +145,8 @@ const Home = () => {
               />
             </div>
             <div>
-              <h4 className="text-xl font-semibold mb-4 text-black">Why Choose Us?</h4>
-              <ul className="list-disc space-y-3 pl-6 text-black">
+              <h4 className="text-xl font-semibold mb-4 ">Why Choose Us?</h4>
+              <ul className="list-disc space-y-3 pl-6 ">
                 <li>Private and Secure</li>
                 <li>Instant Deployment</li>
                 <li>Reliable Hosting</li>
@@ -163,9 +165,10 @@ const Home = () => {
       </section>
 
       {/* Verification Process Section */}
-      <section className="bg-[#e2f7f4] py-12 ">
+      {/* bg-[#e2f7f4] */}
+      <section className={`${darkMode? 'bg-[#131312] text-white':'bg-[#e2f7f4] text-black'} py-12`} >
         <div className="max-w-7xl mx-auto px-6">
-          <h4 className="text-2xl font-bold text-center text-black mb-8">
+          <h4 className="text-2xl font-bold text-center  mb-8">
             Verification Process
           </h4>
           <div className="grid lg:grid-cols-3 gap-8 items-start">
@@ -193,7 +196,7 @@ const Home = () => {
                 className="max-h-[300px]"
               />
             </div>
-            <p className="text-black text-lg">
+            <p className="text-lg">
               Add a descriptive text about the verification process or additional
               information users should know.
             </p>
