@@ -326,7 +326,9 @@ function Signup() {
             )}
           </button>
         </form>
-        <p className="text-sm  mt-4 text-black">
+        <p
+          className={`text-sm  mt-4 ${darkMode ? 'text-white' : 'text-black'}`}
+        >
           Already have an account?{' '}
           <Link
             to="/login"

@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 import toast from 'react-hot-toast';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
+
+//Dark mode
+import { DarkModeContext } from '../../../DarkModeContext';
+
+//Base url
 import { SERVER_URL } from '../../data';
 
 //Zod form validation
@@ -22,7 +27,9 @@ function Login() {
   const [errors, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [forgotPassword, setForgotPassword] = useState(false);
+
   const navigate = useNavigate();
+  const { darkMode } = useContext(DarkModeContext);
 
   //Handle input change
   const handleChange = (e) => {
@@ -84,9 +91,17 @@ function Login() {
   // };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-white">
-      <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md border ">
-      <h2 className="text-2xl font-normal font-circular mb-6 text-black hover:text-[#7C25BA]">
+    <div
+      className={`min-h-screen flex items-center justify-center ${
+        darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
+      }`}
+    >
+      <div
+        className={`${
+          darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
+        } p-6 rounded-lg shadow-lg w-full max-w-md border `}
+      >
+        <h2 className="text-2xl font-normal font-circular mb-6  hover:text-[#7C25BA]">
           Welcome Back
         </h2>
         <h2 className="text-2xl font-bold  text-gray-700">Login</h2>
@@ -95,7 +110,9 @@ function Login() {
           <div className="mb-4">
             <label
               htmlFor="email"
-              className="block text-sm font-medium text-black"
+              className={`block text-sm font-medium ${
+                darkMode ? 'text-white' : 'text-black'
+              }`}
             >
               Email
             </label>
@@ -103,11 +120,12 @@ function Login() {
               type="email"
               name="email"
               id="email"
-        
               placeholder="you@example.com"
               value={formData.email}
               onChange={handleChange}
-              className={`w-full bg-white px-4 py-2 border border-gray-600 text-white ${
+              className={`w-full ${
+                darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
+              } px-4 py-2 border border-gray-600  ${
                 errors.email ? 'border-red-500' : 'border-gray-300'
               } rounded-lg text-sm focus:outline-none focus:ring-2 ${
                 errors.email ? 'focus:ring-red-500' : 'focus:ring-gray-500'
@@ -124,7 +142,9 @@ function Login() {
           <div className="mb-4 relative">
             <label
               htmlFor="password"
-              className="block text-sm font-medium text-black mb-1"
+              className={`mb-1 block text-sm font-medium ${
+                darkMode ? 'text-white' : 'text-black'
+              }`}
             >
               Password
             </label>
@@ -137,9 +157,11 @@ function Login() {
                 placeholder="********"
                 value={formData.password}
                 onChange={handleChange}
-                className={`w-full bg-white px-4 py-2 pr-10 border ${
+                className={`w-full ${
+                  darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
+                } px-4 py-2 pr-10 border ${
                   errors.password ? 'border-red-500' : 'border-gray-600'
-                } rounded-lg text-sm text-white focus:outline-none focus:ring-2 ${
+                } rounded-lg text-sm  focus:outline-none focus:ring-2 ${
                   errors.password ? 'focus:ring-red-500' : 'focus:ring-gray-500'
                 }`}
                 aria-invalid={!!errors.password}
@@ -215,7 +237,9 @@ function Login() {
         >
           {forgotPassword ? 'Set A New Password' : 'Forgot Password?'}
         </button> */}
-        <p className="text-sm  mt-4 text-black">
+        <p
+          className={`text-sm  mt-4 ${darkMode ? 'text-white' : 'text-black'}`}
+        >
           Don't have and account?{' '}
           <Link
             to="/signup"
