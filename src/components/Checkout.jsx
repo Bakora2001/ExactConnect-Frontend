@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FaTrashAlt, FaEdit } from 'react-icons/fa';
 import { MdClose } from 'react-icons/md';
+import { Link } from 'react-router-dom';
 
 const Checkout = () => {
   const [isRemoveModalOpen, setIsRemoveModalOpen] = useState(false);
@@ -172,9 +173,12 @@ const Checkout = () => {
               >
                 Cancel
               </button>
+              <Link to='/mpesa-checkout'>
               <button className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
                 Confirm Checkout
               </button>
+              </Link>
+              
             </div>
           </div>
         </div>

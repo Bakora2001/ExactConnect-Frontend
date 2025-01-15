@@ -1,8 +1,11 @@
 import { z } from 'zod';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import Navbar from '../reusables/Navbar';
 import { SERVER_URL } from '../data';
 import toast from 'react-hot-toast';
+
+//Dark mode
+import { DarkModeContext } from '../../DarkModeContext';
 
 //Handling passing in correct mobile numbers
 const phoneRegex = new RegExp(
@@ -31,6 +34,7 @@ const ContactUs = () => {
     message: '',
   });
 
+  const { darkMode } = useContext(DarkModeContext);
   const [errors, setError] = useState({});
   const [isLoading, setLoading] = useState(false);
 
@@ -83,23 +87,27 @@ const ContactUs = () => {
     }
   };
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div
+      className={`min-h-screen ${
+        darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
+      }`}
+    >
       <Navbar />
       <div className="container mx-auto py-20 px-6">
         {/* Header Section */}
         <div className="text-center space-y-4 mb-12">
-          <p className="text-sm uppercase tracking-wide text-gray-400">
+          <p className="text-sm uppercase tracking-wide text-gray-600">
             Need a sparring partner?
           </p>
           <h1 className="text-4xl font-extrabold">Let's work together</h1>
-          <p className="text-gray-400">
+          <p className="text-gray-600">
             Want learn more about our services? Let us know and a member of our
             team will reach out right away!
           </p>
           <div className="mt-6">
             <a
               href="mailto:charleskibet101@gmail.com"
-              className="text-[#806cff] hover:underline text-lg"
+              className="text-[#7C25BA] hover:underline text-lg"
             >
               charleskibet101@gmail.com
             </a>
@@ -108,9 +116,9 @@ const ContactUs = () => {
                 onClick={() =>
                   navigator.clipboard.writeText('charleskibet101@gmail.com')
                 }
-                className="flex items-center space-x-2 bg-gray-800 px-4 py-2 rounded-md border border-gray-700 hover:bg-gray-700"
+                className="flex items-center space-x-2 bg-[#7C25BA] px-4 py-2 rounded-md border shadow-lg hover:bg-[#6a1fa0]"
               >
-                <span>Copy Email</span>
+                <span className="text-white font-circular">Copy Email</span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -131,10 +139,12 @@ const ContactUs = () => {
         </div>
 
         {/* Form Section */}
-        <div className="bg-gray-900 p-8 rounded-lg shadow-lg max-w-4xl mx-auto ">
+        <div
+          className={`  ${darkMode?'bg-[#131312]':'bg-white'} p-8 rounded-lg shadow-lg max-w-4xl mx-auto border  border-gray-600 `}
+        >
           <form className="space-y-6" onSubmit={onSubmit}>
             <div>
-              <label htmlFor="fullName" className="block text-sm text-gray-400">
+              <label htmlFor="fullName" className="block text-sm text-gray-500">
                 Your Name
               </label>
               <input
@@ -144,7 +154,7 @@ const ContactUs = () => {
                 value={formData.fullName}
                 onChange={handleChange}
                 placeholder="John Doe"
-                className={`mt-2 w-full bg-black px-4 py-3 border border-gray-600 text-white ${
+                className={`mt-2 w-full ${darkMode?'bg-black' :'bg-white text-white'}  px-4 py-3 border border-gray-600  ${
                   errors.fullName ? 'border-red-500' : 'border-gray-300'
                 } rounded-lg text-sm focus:outline-none focus:ring-2 ${
                   errors.fullName ? 'focus:ring-red-500' : 'focus:ring-gray-500'
@@ -165,10 +175,11 @@ const ContactUs = () => {
               <input
                 type="email"
                 id="email"
+                name="email"
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="you@example.com"
-                className={`mt-2 w-full bg-black px-4 py-3 border border-gray-600 text-white ${
+                className={`mt-2 w-full  px-4 py-3 border border-gray-600 ${darkMode?'bg-black' :'bg-white text-white'} ${
                   errors.email ? 'border-red-500' : 'border-gray-300'
                 } rounded-lg text-sm focus:outline-none focus:ring-2 ${
                   errors.email ? 'focus:ring-red-500' : 'focus:ring-gray-500'
@@ -189,10 +200,11 @@ const ContactUs = () => {
               <input
                 type="tel"
                 id="phone_number"
+                name="phone_number"
                 value={formData.phone_number}
                 onChange={handleChange}
                 placeholder="0712345678"
-                className={`mt-2 w-full bg-black px-4 py-3 border border-gray-600 text-white ${
+                className={`mt-2 w-full  px-4 py-3 border border-gray-600 ${darkMode?'bg-black' :'bg-white text-white'} ${
                   errors.phone_number ? 'border-red-500' : 'border-gray-300'
                 } rounded-lg text-sm focus:outline-none focus:ring-2 ${
                   errors.phone_number
@@ -215,10 +227,11 @@ const ContactUs = () => {
               <textarea
                 id="message"
                 rows="5"
+                name="message"
                 value={formData.message}
                 onChange={handleChange}
                 placeholder="Write your message here..."
-                className={`mt-2 w-full bg-black px-4 py-3 border border-gray-600 text-white ${
+                className={`mt-2 w-full ${darkMode?'bg-black' :'bg-white text-white'} px-4 py-3 border border-gray-600  ${
                   errors.message ? 'border-red-500' : 'border-gray-300'
                 } rounded-lg text-sm focus:outline-none focus:ring-2 ${
                   errors.message ? 'focus:ring-red-500' : 'focus:ring-gray-500'
@@ -234,7 +247,7 @@ const ContactUs = () => {
             </div>
             <button
               type="submit"
-              className="w-full bg-[#806cff] py-3 px-6 rounded-md text-white font-semibold hover:bg-gray-600 transition"
+              className="w-full bg-[#7C25BA] py-3 px-6 rounded-md text-white font-semibold hover:bg-[#6a1fa0] transition"
             >
               Send Message
             </button>

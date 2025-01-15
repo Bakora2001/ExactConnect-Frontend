@@ -4,11 +4,20 @@ import {
   FaTiktok,
   FaPinterest,
 } from 'react-icons/fa';
-import {FaXTwitter} from 'react-icons/fa6'
+
+import { FaXTwitter } from 'react-icons/fa6';
+import { DarkModeContext } from '../../DarkModeContext';
+import { useContext } from 'react';
+
+//Icons to toggle between dark and light mode
+import Light from '../../public/icons/Light';
+import Moon from '../../public/icons/Moon';
 
 const Footer = () => {
+  const { darkMode, toggleDarkMode } = useContext(DarkModeContext);
+
   return (
-    <footer className="bg-[#7C25BA]text-gray-300 py-10 border-t border-gray-700">
+    <footer className={`py-10 border-t border-gray-700 ${darkMode?'bg-[#131312] text-white':'bg-gray-900 text-white'} relative`}>
       <div className="container mx-auto px-6 max-w-7xl">
         {/* Footer Grid */}
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
@@ -27,7 +36,7 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-lg font-semibold text-white mb-4">
+            <h4 className="text-lg font-semibold text-[#7C25BA] mb-4">
               Quick Links
             </h4>
             <ul className="space-y-2 text-sm">
@@ -36,11 +45,11 @@ const Footer = () => {
                   About Us
                 </a>
               </li>
-
-              <a href="/contact" className="hover:underline">
-                Contact Us
-              </a>
-
+              <li>
+                <a href="/contact" className="hover:underline">
+                  Contact Us
+                </a>
+              </li>
               <li>
                 <a href="/maintainance" className="hover:underline">
                   Terms & Conditions
@@ -61,7 +70,7 @@ const Footer = () => {
 
           {/* Contact Info */}
           <div>
-            <h4 className="text-lg font-semibold text-white mb-4">
+            <h4 className="text-lg font-semibold text-[#7C25BA] mb-4">
               Contact Info
             </h4>
             <ul className="space-y-2 text-sm">
@@ -73,7 +82,7 @@ const Footer = () => {
 
           {/* Social Media Links */}
           <div>
-            <h4 className="text-lg font-semibold text-white mb-4">Follow Us</h4>
+            <h4 className="text-lg font-semibold text-[#7C25BA] mb-4">Socials</h4>
             <div className="flex space-x-4">
               <a
                 href="#"
@@ -111,6 +120,18 @@ const Footer = () => {
                 <FaPinterest className="text-white" />
               </a>
             </div>
+            <div className="mt-8 flex justify-center items-center border border-gray-700 w-fit rounded-md p-1">
+              <button
+                onClick={toggleDarkMode}
+                className="text-2xl focus:outline-none transition-colors duration-300"
+              >
+                {darkMode ? (
+                  <Light className="text-gray-700" />
+                ) : (
+                  <Moon className="text-gray-500" />
+                )}
+              </button>
+            </div>
           </div>
         </div>
 
@@ -121,6 +142,8 @@ const Footer = () => {
           </p>
         </div>
       </div>
+
+     
     </footer>
   );
 };

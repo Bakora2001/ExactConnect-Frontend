@@ -4,19 +4,22 @@ import { RouterProvider } from 'react-router-dom';
 import { router } from './routes';
 import './index.css';
 import { Toaster } from 'react-hot-toast';
+import { DarkModeProvider } from '../DarkModeContext.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <Toaster
-      position="top-center"
-      toastOptions={{
-        success: {
-          iconTheme:{
-            primary:'#4a3da0'
-          }
-        },
-      }}
-    />
-    <RouterProvider router={router} />
+    <DarkModeProvider>
+      <Toaster
+        position="top-center"
+        toastOptions={{
+          success: {
+            iconTheme: {
+              primary: '#4a3da0',
+            },
+          },
+        }}
+      />
+      <RouterProvider router={router} />
+    </DarkModeProvider>
   </React.StrictMode>
 );
