@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import Select from 'react-select';
 import { Link, useNavigate } from 'react-router-dom';
 import countryList from 'react-select-country-list';
 import { z } from 'zod';
 import toast from 'react-hot-toast';
+
+//Dark mode
+import { DarkModeContext } from '../../../DarkModeContext';
 
 //Base url
 import { SERVER_URL } from '../../data';
@@ -46,6 +49,7 @@ function Signup() {
   const [countryOptions] = useState(countryList().getData());
   const [selectedCountry, setSelectedCountry] = useState(null);
   const navigate = useNavigate();
+  const { darkMode } = useContext(DarkModeContext);
 
   //Selecting country
   const handleCountryChange = (selectedOption) => {
@@ -115,7 +119,10 @@ function Signup() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-white">
+    <div
+      className={`min-h-screen flex items-center justify-center
+     ${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'}`}
+    >
       <div className="max-w-md mx-auto p-6 rounded-lg shadow-lg w-full border ">
         <h2 className="text-2xl font-bold mb-1 text-[#7C25BA] hover:text-[#806cff]">
           Exact
@@ -129,7 +136,9 @@ function Signup() {
           <div className="mb-4">
             <label
               htmlFor="firstName"
-              className="block text-sm font-medium text-black"
+              className={`block text-sm font-medium ${
+                darkMode ? 'text-white' : 'text-black'
+              }`}
             >
               First Name
             </label>
@@ -139,7 +148,9 @@ function Signup() {
               id="firstName"
               value={formData.firstName}
               onChange={handleChange}
-              className={`w-full bg-white px-4 py-2 border border-gray-600 text-white ${
+              className={`w-full ${
+                darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
+              } px-4 py-2 border border-gray-600  ${
                 errors.firstName ? 'border-red-500' : 'border-gray-300'
               } rounded-lg text-sm focus:outline-none focus:ring-2 ${
                 errors.firstName ? 'focus:ring-red-500' : 'focus:ring-gray-500'
@@ -157,7 +168,9 @@ function Signup() {
           <div className="mb-4">
             <label
               htmlFor="lastName"
-              className="block text-sm font-medium text-black"
+              className={`block text-sm font-medium ${
+                darkMode ? 'text-white' : 'text-black'
+              }`}
             >
               Last Name
             </label>
@@ -167,7 +180,9 @@ function Signup() {
               id="lastName"
               value={formData.lastName}
               onChange={handleChange}
-              className={`w-full bg-white px-4 py-2 border border-gray-600 text-white ${
+              className={`w-full  px-4 py-2 border border-gray-600 ${
+                darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
+              } ${
                 errors.lastName ? 'border-red-500' : 'border-gray-300'
               } rounded-lg text-sm focus:outline-none focus:ring-2 ${
                 errors.lastName ? 'focus:ring-red-500' : 'focus:ring-gray-500'
@@ -185,7 +200,9 @@ function Signup() {
           <div className="mb-4">
             <label
               htmlFor="email"
-              className="block text-sm font-medium text-black"
+              className={`block text-sm font-medium ${
+                darkMode ? 'text-white' : 'text-black'
+              }`}
             >
               Email
             </label>
@@ -195,7 +212,9 @@ function Signup() {
               id="email"
               value={formData.email}
               onChange={handleChange}
-              className={`w-full bg-white px-4 py-2 border border-gray-600 text-white ${
+              className={`w-full ${
+                darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
+              } px-4 py-2 border border-gray-600  ${
                 errors.email ? 'border-red-500' : 'border-gray-300'
               } rounded-lg text-sm focus:outline-none focus:ring-2 ${
                 errors.email ? 'focus:ring-red-500' : 'focus:ring-gray-500'
@@ -214,7 +233,9 @@ function Signup() {
           <div className="mb-4">
             <label
               htmlFor="country"
-              className="block text-sm font-medium text-black"
+              className={`block text-sm font-medium ${
+                darkMode ? 'text-white' : 'text-black'
+              }`}
             >
               Country
             </label>
@@ -232,7 +253,9 @@ function Signup() {
           <div className="mb-4 relative">
             <label
               htmlFor="password"
-              className="block text-sm font-medium text-black"
+              className={`block text-sm font-medium ${
+                darkMode ? 'text-white' : 'text-black'
+              }`}
             >
               Password
             </label>
@@ -244,7 +267,9 @@ function Signup() {
                 placeholder="********"
                 value={formData.password}
                 onChange={handleChange}
-                className={`w-full bg-white px-4 py-2 border border-gray-600 text-white ${
+                className={`w-full  px-4 py-2 border border-gray-600 ${
+                  darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
+                } ${
                   errors.password ? 'border-red-500' : 'border-gray-300'
                 } rounded-lg text-sm focus:outline-none focus:ring-2 ${
                   errors.password ? 'focus:ring-red-500' : 'focus:ring-gray-500'
