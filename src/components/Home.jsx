@@ -2,10 +2,10 @@ import { DarkModeContext } from '../../DarkModeContext';
 import { Link, useNavigate } from 'react-router-dom';
 import NavBar from '../reusables/Navbar';
 import Footer from '../reusables/Footer';
-import techImage from '../assets/tech-image.png';
-import server from '../assets/server.png';
-import wallet from '../assets/wallet.png';
-import phone from '../assets/phone.png';
+import techImage from '/tech-image.png';
+import server from '/server.png';
+import wallet from '/wallet.png';
+import phone from '/phone.png';
 import { useContext } from 'react';
 
 const Home = () => {
@@ -94,7 +94,7 @@ const {darkMode} = useContext(DarkModeContext)
         </div>
       </section>
       {/* bg-[#fefffe] */}
-      <section className={`${darkMode?'bg-[#131312] text-white':'bg-[#fefffe] text-black'} py-12` }>
+      <section className={`${darkMode?'bg-[#28282B] text-white':'bg-[#fefffe] text-black'} py-12` }>
         <div className="max-w-7xl mx-auto px-6">
           <h3 className="text-2xl font-bold text-center  mb-8">
             VPS Server
@@ -166,7 +166,7 @@ const {darkMode} = useContext(DarkModeContext)
 
       {/* Verification Process Section */}
       {/* bg-[#e2f7f4] */}
-      <section className={`${darkMode? 'bg-[#131312] text-white':'bg-[#e2f7f4] text-black'} py-12`} >
+      <section className={`${darkMode? 'bg-gray-900 text-white':'bg-[#e2f7f4] text-black'} py-12`} >
         <div className="max-w-7xl mx-auto px-6">
           <h4 className="text-2xl font-bold text-center  mb-8">
             Verification Process

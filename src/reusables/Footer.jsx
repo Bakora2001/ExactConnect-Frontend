@@ -10,8 +10,8 @@ import { DarkModeContext } from '../../DarkModeContext';
 import { useContext } from 'react';
 
 //Icons to toggle between dark and light mode
-import Light from '../icons/Light';
-import Moon from '../icons/Moon';
+import Light from '../../public/icons/Light';
+import Moon from '../../public/icons/Moon';
 
 const Footer = () => {
   const { darkMode, toggleDarkMode } = useContext(DarkModeContext);

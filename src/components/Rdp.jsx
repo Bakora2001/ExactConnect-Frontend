@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import rdp1 from '../assets/rdp1.png'; // Import your image
-import ubuntu from '../assets/ubuntu.svg'; // Adjust path as necessary
-import windows from '../assets/windows.svg'; // Adjust path as necessary
-import centOs from '../assets/centOs.svg'; // Adjust path as necessary
-import debian from '../assets/debian.svg'; // Adjust path as necessary
+import rdp1 from '/rdp1.png'; 
+import ubuntu from '/ubuntu.svg'; 
+import windows from '/windows.svg'; 
+import centOs from '/centOs.svg'; 
+import debian from '/debian.svg'; 
 import NavBar from '../reusables/Navbar';
 
 const Rdp = () => {
