@@ -10,7 +10,7 @@ import toast from 'react-hot-toast';
 import { DarkModeContext } from '../../../DarkModeContext';
 
 //Base url
-import { SERVER_URL } from '../../data';
+import { SERVER_URL } from '../../services/data';
 
 //Form validation using zod
 const registerSchema = z.object({

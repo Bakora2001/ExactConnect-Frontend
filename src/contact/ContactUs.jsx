@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { useState, useContext } from 'react';
 import Navbar from '../reusables/Navbar';
-import { SERVER_URL } from '../data';
+import { SERVER_URL } from '../services/data';
 import toast from 'react-hot-toast';
 
 //Dark mode

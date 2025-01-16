@@ -8,7 +8,7 @@ import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { DarkModeContext } from '../../../DarkModeContext';
 
 //Base url
-import { SERVER_URL } from '../../data';
+import { SERVER_URL } from '../../services/data';
 
 //Zod form validation
 const loginSchema = z.object({

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SERVER_URL } from '../../data';
+import { SERVER_URL } from '../../services/data';
 import { z } from 'zod';
 import { Link } from 'react-router-dom';
 

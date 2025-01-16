@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { SERVER_URL } from '../../data';
+import { SERVER_URL } from '../../services/data';
 import { Link } from 'react-router-dom';
 
 const OTPVerification = ({ customerId }) => {
