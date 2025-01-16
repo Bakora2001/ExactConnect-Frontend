@@ -6,11 +6,18 @@ import { DarkModeContext } from '../../context/DarkModeContext';
 //TODO --> Add the filter section
 
 const Proxy = () => {
+  //Handling state of the proxies
   const [proxies, setProxies] = useState([]);
+
+  //Handling state and filtering proxies
   const [filteredProxies, setFilteredProxies] = useState([]);
   const [selectedRow, setSelectedRow] = useState(null);
   const [rowData, setRowData] = useState({});
+
+  //State manangement of the loader
   const [loading, setLoading] = useState(true);
+
+  //State management for handling any server errors
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
@@ -23,7 +30,7 @@ const Proxy = () => {
   const { darkMode } = useContext(DarkModeContext);
 
   // Fetching proxies from API
-  const fetchProxies = async (page = 0) => {
+  const fetchProxies = async (page=0) => {
     try {
       setLoading(true);
       const response = await fetch(
@@ -36,7 +43,7 @@ const Proxy = () => {
       console.log(data);
       setProxies(data.agents || []);
       setFilteredProxies(data.agents || []);
-      setTotalPages(data.totalPages || 1); // Assuming API returns total pages
+      setTotalPages(data.total );
     } catch (error) {
       setError(error.message);
     } finally {
