@@ -7,7 +7,7 @@ import NotFound from '../src/components/errors/NotFound';
 import MaintenancePage from '../src/components/errors/MaintainancePage';
 
 //The sites landing page
-import Home from './components/Home';
+import Home from './components/layout/Home';
 
 //Components for handling all authentication processes
 import Signup from './components/auth/Signup';
