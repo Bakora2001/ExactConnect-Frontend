@@ -24,7 +24,7 @@ const Footer = () => {
           {/* Company Info Section */}
           <div>
             <img
-              src="/src/assets/server-svgrepo-com.svg"
+              src="/server-svgrepo-com.svg"
               alt="Company Logo"
               className="h-12 mb-4"
             />
