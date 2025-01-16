@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import LogoIcon from './LogoIcon';
-import { DarkModeContext } from '../../DarkModeContext';
+import { DarkModeContext } from '../../context/DarkModeContext';
 
 const NavBar = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -76,8 +76,8 @@ const NavBar = () => {
       {/* Mobile Menu */}
       <div
         className={`fixed bottom-0 left-0 top-0 h-screen w-2/3  ${
-        darkMode ? 'bg-[#131312] text-white' : 'bg-[#7C25BA] text-white  '
-      } z-20 transform ${
+          darkMode ? 'bg-[#131312] text-white' : 'bg-[#7C25BA] text-white  '
+        } z-20 transform ${
           isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full '
         } transition-transform duration-300 shadow-lg border border-gray-600 rounded-[16px] mb-2 mt-2`}
       >

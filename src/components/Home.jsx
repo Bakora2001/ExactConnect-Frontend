@@ -1,7 +1,7 @@
-import { DarkModeContext } from '../../DarkModeContext';
+import { DarkModeContext } from '../context/DarkModeContext';
 import { Link, useNavigate } from 'react-router-dom';
-import NavBar from '../reusables/Navbar';
-import Footer from '../reusables/Footer';
+import NavBar from '../components/reusables/Navbar';
+import Footer from '../components/reusables/Footer';
 import techImage from '/tech-image.png';
 import server from '/server.png';
 import wallet from '/wallet.png';

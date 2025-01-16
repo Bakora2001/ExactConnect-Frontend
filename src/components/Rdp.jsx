@@ -5,7 +5,7 @@ import ubuntu from '/ubuntu.svg';
 import windows from '/windows.svg'; 
 import centOs from '/centOs.svg'; 
 import debian from '/debian.svg'; 
-import NavBar from '../reusables/Navbar';
+import NavBar from '../components/reusables/Navbar';
 
 const Rdp = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false); // State to handle menu toggle

@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 
 //Dark mode
-import { DarkModeContext } from '../../../DarkModeContext';
+import { DarkModeContext } from '../../context/DarkModeContext';
 
 //Base url
 import { SERVER_URL } from '../../services/data';

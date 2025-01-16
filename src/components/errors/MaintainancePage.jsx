@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { DarkModeContext } from '../../DarkModeContext';
+import { DarkModeContext } from '../../context/DarkModeContext';
 import { useContext } from 'react';
 
 const MaintenancePage = () => {

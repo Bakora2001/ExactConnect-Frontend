@@ -1,11 +1,11 @@
 import { z } from 'zod';
 import { useState, useContext } from 'react';
-import Navbar from '../../reusables/Navbar';
+import Navbar from '../reusables/Navbar';
 import { SERVER_URL } from '../../services/data';
 import toast from 'react-hot-toast';
 
 //Dark mode
-import { DarkModeContext } from '../../../DarkModeContext';
+import { DarkModeContext } from '../../context/DarkModeContext';
 
 //Handling passing in correct mobile numbers
 const phoneRegex = new RegExp(
@@ -140,7 +140,9 @@ const ContactUs = () => {
 
         {/* Form Section */}
         <div
-          className={`  ${darkMode?'bg-[#131312]':'bg-white'} p-8 rounded-lg shadow-lg max-w-4xl mx-auto border  border-gray-600 `}
+          className={`  ${
+            darkMode ? 'bg-[#131312]' : 'bg-white'
+          } p-8 rounded-lg shadow-lg max-w-4xl mx-auto border  border-gray-600 `}
         >
           <form className="space-y-6" onSubmit={onSubmit}>
             <div>
@@ -154,7 +156,9 @@ const ContactUs = () => {
                 value={formData.fullName}
                 onChange={handleChange}
                 placeholder="John Doe"
-                className={`mt-2 w-full ${darkMode?'bg-black' :'bg-white text-white'}  px-4 py-3 border border-gray-600  ${
+                className={`mt-2 w-full ${
+                  darkMode ? 'bg-black' : 'bg-white text-white'
+                }  px-4 py-3 border border-gray-600  ${
                   errors.fullName ? 'border-red-500' : 'border-gray-300'
                 } rounded-lg text-sm focus:outline-none focus:ring-2 ${
                   errors.fullName ? 'focus:ring-red-500' : 'focus:ring-gray-500'
@@ -179,7 +183,9 @@ const ContactUs = () => {
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="you@example.com"
-                className={`mt-2 w-full  px-4 py-3 border border-gray-600 ${darkMode?'bg-black' :'bg-white text-white'} ${
+                className={`mt-2 w-full  px-4 py-3 border border-gray-600 ${
+                  darkMode ? 'bg-black' : 'bg-white text-white'
+                } ${
                   errors.email ? 'border-red-500' : 'border-gray-300'
                 } rounded-lg text-sm focus:outline-none focus:ring-2 ${
                   errors.email ? 'focus:ring-red-500' : 'focus:ring-gray-500'
@@ -204,7 +210,9 @@ const ContactUs = () => {
                 value={formData.phone_number}
                 onChange={handleChange}
                 placeholder="0712345678"
-                className={`mt-2 w-full  px-4 py-3 border border-gray-600 ${darkMode?'bg-black' :'bg-white text-white'} ${
+                className={`mt-2 w-full  px-4 py-3 border border-gray-600 ${
+                  darkMode ? 'bg-black' : 'bg-white text-white'
+                } ${
                   errors.phone_number ? 'border-red-500' : 'border-gray-300'
                 } rounded-lg text-sm focus:outline-none focus:ring-2 ${
                   errors.phone_number
@@ -231,7 +239,9 @@ const ContactUs = () => {
                 value={formData.message}
                 onChange={handleChange}
                 placeholder="Write your message here..."
-                className={`mt-2 w-full ${darkMode?'bg-black' :'bg-white text-white'} px-4 py-3 border border-gray-600  ${
+                className={`mt-2 w-full ${
+                  darkMode ? 'bg-black' : 'bg-white text-white'
+                } px-4 py-3 border border-gray-600  ${
                   errors.message ? 'border-red-500' : 'border-gray-300'
                 } rounded-lg text-sm focus:outline-none focus:ring-2 ${
                   errors.message ? 'focus:ring-red-500' : 'focus:ring-gray-500'

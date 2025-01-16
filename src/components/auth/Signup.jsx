@@ -7,7 +7,7 @@ import { z } from 'zod';
 import toast from 'react-hot-toast';
 
 //Dark mode
-import { DarkModeContext } from '../../../DarkModeContext';
+import { DarkModeContext } from '../../context/DarkModeContext';
 
 //Base url
 import { SERVER_URL } from '../../services/data';

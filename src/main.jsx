@@ -4,7 +4,7 @@ import { RouterProvider } from 'react-router-dom';
 import { router } from './routes';
 import './index.css';
 import { Toaster } from 'react-hot-toast';
-import { DarkModeProvider } from '../DarkModeContext.jsx';
+import { DarkModeProvider } from '../src/context/DarkModeContext';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
