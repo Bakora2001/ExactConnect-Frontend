@@ -5,14 +5,14 @@ import ubuntu from '/ubuntu.svg';
 import windows from '/windows.svg'; 
 import centOs from '/centOs.svg'; 
 import debian from '/debian.svg'; 
-import NavBar from '../components/reusables/Navbar';
+import NavBar from '../../components/reusables/Navbar';
 
 const Rdp = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false); // State to handle menu toggle
     const navigate = useNavigate();
     return (
         <div>
-            < NavBar />
+            <NavBar/>
             {/* New Section with Text and Image */}
             <div className="flex flex-col-reverse lg:flex-row justify-between bg-white p-4 sm:p-8 lg:p-16 max-w-screen-xl mx-auto mb-8">
                 {/* Text on the left */}

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
-import Navbar from '../components/reusables/Navbar';
-import { SERVER_URL } from '../services/data';
-import { DarkModeContext } from '../context/DarkModeContext';
+import Navbar from '../reusables/Navbar';
+import { SERVER_URL } from '../../services/data';
+import { DarkModeContext } from '../../context/DarkModeContext';
 
 //TODO --> Add the filter section
 

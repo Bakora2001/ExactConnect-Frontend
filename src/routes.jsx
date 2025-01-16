@@ -20,8 +20,8 @@ import AdminHome from '../src/components/admin/AdminHome';
 import AdminProducts from '../src/components/admin/AdminProducts';
 import AddProductForm from '../src/components/admin/AddProductsForm';
 
-import Proxy from '../src/components/Proxy';
-import Rdp from './components/Rdp';
+import Proxy from '../src/components/proxy/Proxy';
+import Rdp from '../src/components/rdp/Rdp';
 import Checkout from './components/Checkout';
 import Configure from './components/Configure';
 
