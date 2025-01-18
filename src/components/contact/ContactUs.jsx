@@ -52,7 +52,7 @@ const ContactUs = () => {
       contactSchema.parse(formData);
       setError({});
 
-      const response = await fetch(`${SERVER_URL}/contact`, {
+      const response = await fetch(`${SERVER_URL}/messages`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

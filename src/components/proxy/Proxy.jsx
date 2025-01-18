@@ -139,22 +139,30 @@ const Proxy = () => {
   return (
     <div
       className={`${
-        darkMode ? 'bg-[#030816]' : 'bg-white'
-      } min-h-screen  p-6 sm:p-8`}
+        darkMode ? 'bg-[#030816] text-white' : 'bg-white text-black'
+      } min-h-screen p-6 sm:p-8`}
     >
-      {/* Navbar */}
-      <div className="w-full mb-10 sm:mb-16">
+    <div className="w-full mb-10 sm:mb-16">
         <Navbar />
       </div>
-      <div className="flex  flex-col sm:flex-row sm:items-center justify-between mb-10 sm:mb-16">
-        <div className="flex items-center gap-4">
-          <button
-            onClick={toggleFilterModal}
-            className="flex items-center justify-center gap-2 px-4 py-2 text-white bg-purple-600 rounded-md shadow-md hover:bg-purple-700 focus:ring-2 focus:ring-purple-400 focus:outline-none transition-all"
-          >
-            <IoFilterOutline size={20} />
-            <span className=" sm:inline-block">Filter</span>
-          </button>
+      <div className="sticky z-40 top-0 px-4 py-6 fixed-main flex flex-col flex-grow overflow-hidden">
+        <div className={`flex items-center justify-between px-3 py-2 md:px-12 ${darkMode? 'bg-[#131312] text-white'
+                : 'bg-white text-black border border-gray-300'}`}>
+          <div>
+            <h1 className="text-3xl font-bold">Shop Proxies</h1>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
+              Here's a list of proxies. Just tap to buy.
+            </p>
+          </div>
+          <div className="flex items-center gap-4 mt-4 sm:mt-0">
+            <button
+              onClick={toggleFilterModal}
+              className="flex items-center justify-center gap-2 px-5 py-3 text-white bg-purple-600 rounded-md shadow-md hover:bg-purple-700 focus:ring-2 focus:ring-purple-400 focus:outline-none transition-all"
+            >
+              <IoFilterOutline size={20} />
+              <span className="hidden sm:inline-block">Filter</span>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -164,7 +172,7 @@ const Proxy = () => {
           <p className="text-lg text-gray-400">Loading proxies...</p>
         </div>
       ) : error ? (
-        <div>Error: {error}</div>
+        <div className="text-red-600 text-center">Error: {error}</div>
       ) : filteredProxies.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-20 text-gray-400">
           <svg
