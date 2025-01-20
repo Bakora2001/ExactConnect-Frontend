@@ -1,4 +1,5 @@
 //Filter component to handle filtering the data
+//In  the location we can filter using the cc and city then the isp
 const FilterModal = ({ filters, handleFilterChange, toggleFilterModal }) => (
   <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
     <div className="bg-white p-6 rounded-lg shadow-lg w-96">
@@ -12,18 +13,30 @@ const FilterModal = ({ filters, handleFilterChange, toggleFilterModal }) => (
         </button>
       </div>
 
+     
+
       <div className="mb-4">
-        <label className="block text-sm font-medium mb-2">Price</label>
+        <label className="block text-sm font-medium mb-2">Any</label>
         <input
-          type="number"
-          name="price"
-          value={filters.price}
+          type="text"
+          name="location"
+          value={filters.location}
           onChange={handleFilterChange}
-          placeholder="Max price"
+          placeholder="Location"
           className="border border-gray-300 rounded-md p-2 w-full"
         />
       </div>
-
+      <div className="mb-4">
+        <label className="block text-sm font-medium mb-2">City</label>
+        <input
+          type="text"
+          name="location"
+          value={filters.location}
+          onChange={handleFilterChange}
+          placeholder="City"
+          className="border border-gray-300 rounded-md p-2 w-full"
+        />
+      </div>
       <div className="mb-4">
         <label className="block text-sm font-medium mb-2">Location</label>
         <input
@@ -35,7 +48,6 @@ const FilterModal = ({ filters, handleFilterChange, toggleFilterModal }) => (
           className="border border-gray-300 rounded-md p-2 w-full"
         />
       </div>
-
       <div className="mb-4">
         <label className="block text-sm font-medium mb-2">ISP</label>
         <input

@@ -1,15 +1,17 @@
 import React, { useEffect, useState, useContext } from 'react';
 import Navbar from '../reusables/Navbar';
+
+//Base url
 import { SERVER_URL } from '../../services/data';
 import { DarkModeContext } from '../../context/DarkModeContext';
 
 //Importing proxy components
-import Header from './Header';
 import Pagination from './Pagination';
 import FilterModal from './FilterModal';
 import Loading from './Loading';
 import ProxyDetails from './ProxyDetails';
 import ProxyCard from './ProxyCard';
+import ProxyHeader from './ProxyHeader';
 
 //TODO --> Add the filter section
 
@@ -29,6 +31,7 @@ const Proxy = () => {
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
+  
   const [filters, setFilters] = useState({
     location: '',
     isp: '',
@@ -54,6 +57,7 @@ const Proxy = () => {
       setProxies(data.agents || []);
       setFilteredProxies(data.agents || []);
       setTotalPages(data.total);
+  
     } catch (error) {
       setError(error.message);
     } finally {
@@ -102,7 +106,7 @@ const Proxy = () => {
     if (filters.location) {
       filtered = filtered.filter(
         (proxy) =>
-          proxy.loc.city
+          proxy.loc.cc
             .toLowerCase()
             .includes(filters.location.toLowerCase()) ||
           proxy.loc.reg.toLowerCase().includes(filters.location.toLowerCase())
@@ -148,7 +152,7 @@ const Proxy = () => {
         <Navbar />
       </div>
 
-      <Header darkMode={darkMode} toggleFilterModal={toggleFilterModal} />
+      <ProxyHeader darkMode={darkMode} toggleFilterModal={toggleFilterModal} proxies={proxies}/>
       <Loading
         loading={loading}
         error={error}
