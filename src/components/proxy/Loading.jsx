@@ -1,7 +1,7 @@
 //Component which handles the loading
-import React from 'react'
+import React from 'react';
 
-function Loading({loading,filteredProxies,error}) {
+function Loading({ loading, filteredProxies, error }) {
   return (
     <div>
       {loading ? (
@@ -25,7 +25,7 @@ function Loading({loading,filteredProxies,error}) {
         </div>
       ) : null}
     </div>
-  )
+  );
 }
 
-export default Loading
+export default Loading;
