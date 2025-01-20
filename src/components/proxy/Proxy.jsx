@@ -1,4 +1,10 @@
-import React, { useEffect, useState, useContext ,useMemo,useCallback} from 'react';
+import React, {
+  useEffect,
+  useState,
+  useContext,
+  useMemo,
+  useCallback,
+} from 'react';
 import Navbar from '../reusables/Navbar';
 
 //Base url
@@ -32,7 +38,7 @@ const Proxy = () => {
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
-  
+
   const [filters, setFilters] = useState({
     location: '',
     isp: '',
@@ -48,29 +54,29 @@ const Proxy = () => {
   //   try {
   //     setLoading(true);
   //     setError(null);  // Clear any previous errors
-  
+
   //     // Construct the API URL with optional country code filter
   //     const url = `${SERVER_URL}/products/proxies?page=${page}${countryCode ? `&countryCode=${countryCode}` : ''}`;
-      
+
   //     const response = await fetch(url);
-  
+
   //     if (!response.ok) {
   //       throw new Error('Failed to fetch proxies. Please reload the page.');
   //     }
-  
+
   //     const data = await response.json();
-  
+
   //     if (!data.agents || data.agents.length === 0) {
   //       throw new Error('No proxies found for the selected country.');
   //     }
-  
+
   //     // Update state with fetched proxies
   //     setProxies(data.agents);
-  //     setFilteredProxies(data.agents.filter(proxy => 
+  //     setFilteredProxies(data.agents.filter(proxy =>
   //       countryCode ? proxy.loc.cc === countryCode : true
   //     ));
   //     setTotalPages(data.total || 0);
-  
+
   //   } catch (error) {
   //     setError(error.message);
   //   } finally {
@@ -83,9 +89,11 @@ const Proxy = () => {
       setError(null);
       const data = await fetchProxyData(page, countryCode);
       setProxies(data.agents);
-      setFilteredProxies(data.agents.filter(proxy => 
-        countryCode ? proxy.loc.cc === countryCode : true
-      ));
+      setFilteredProxies(
+        data.agents.filter((proxy) =>
+          countryCode ? proxy.loc.cc === countryCode : true
+        )
+      );
       setTotalPages(data.total || 0);
     } catch (error) {
       setError(error.message);
@@ -93,7 +101,6 @@ const Proxy = () => {
       setLoading(false);
     }
   };
-  
 
   useEffect(() => {
     fetchProxies(currentPage);
@@ -152,17 +159,23 @@ const Proxy = () => {
   //   setFilteredProxies(filtered);
   // };
   const filteredResults = useMemo(() => {
-    return proxies.filter(proxy => 
-      (!filters.conn || proxy.conn.toLowerCase().includes(filters.conn.toLowerCase())) &&
-      (!filters.location || proxy.loc.cc.toLowerCase().includes(filters.location.toLowerCase())) &&
-      (!filters.isp || proxy.loc.isp.toLowerCase().includes(filters.isp.toLowerCase()))
+    return proxies.filter(
+      (proxy) =>
+        (!filters.conn ||
+          proxy.conn.toLowerCase().includes(filters.conn.toLowerCase())) &&
+        (!filters.location ||
+          proxy.loc.cc
+            .toLowerCase()
+            .includes(filters.location.toLowerCase())) &&
+        (!filters.isp ||
+          proxy.loc.isp.toLowerCase().includes(filters.isp.toLowerCase()))
     );
   }, [filters, proxies]);
-  
+
   useEffect(() => {
     setFilteredProxies(filteredResults);
   }, [filteredResults]);
-  
+
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
     setFilters((prevFilters) => ({
@@ -186,14 +199,18 @@ const Proxy = () => {
   return (
     <div
       className={`${
-    darkMode ? 'bg-[#030816] text-white' : 'bg-white text-black'
-  } min-h-screen p-6 sm:p-8 flex flex-col gap-8`}
+        darkMode ? 'bg-[#030816] text-white' : 'bg-white text-black'
+      } min-h-screen p-6 sm:p-8 flex flex-col gap-8`}
     >
       <div className="w-full mb-10 sm:mb-12">
         <Navbar />
       </div>
 
-      <ProxyHeader darkMode={darkMode} toggleFilterModal={toggleFilterModal} fetchProxies={fetchProxies}/>
+      <ProxyHeader
+        darkMode={darkMode}
+        toggleFilterModal={toggleFilterModal}
+        fetchProxies={fetchProxies}
+      />
       <Loading
         loading={loading}
         error={error}
