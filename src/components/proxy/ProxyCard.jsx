@@ -10,18 +10,14 @@ const ProxyCard = ({
   selectedRow,
   handleRowClick,
 }) => (
-  <div className="grid grid-cols-1 gap-6 p-4 md:grid-cols-2 lg:grid-cols-4">
+  <div className={`grid grid-cols-1  gap-6 p-4 md:grid-cols-2 lg:grid-cols-4`}>
     {filteredProxies.map((proxy, index) => (
       <div
         key={proxy.id}
-        className={`${
-          darkMode
-            ? 'bg-[#131312] text-white border border-white'
-            : 'bg-white text-black border border-gray-300'
-        } p-6 rounded-lg shadow-md hover:shadow-lg transition-transform transform ${
+        className={` p-6 rounded-lg shadow-lg hover:shadow-lg transition-transform transform border ${darkMode?'border-gray-700':'border-gray-100'} ${
           index === selectedRow
-            ? 'scale-105 border-[#7265c4]'
-            : 'border-transparent'
+            ? 'scale-105 border-purple-400'
+            : ''
         } cursor-pointer`}
         onClick={() => handleRowClick(index, proxy)}
       >
