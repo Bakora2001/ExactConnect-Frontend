@@ -216,15 +216,13 @@ const Proxy = () => {
         error={error}
         filteredProxies={filteredProxies}
       />
-     
+
       <ProxyCard
         filteredProxies={filteredProxies}
         darkMode={darkMode}
         selectedRow={selectedRow}
         handleRowClick={handleRowClick}
       />
-     
-      
 
       {isFilterModalOpen && (
         <FilterModal
