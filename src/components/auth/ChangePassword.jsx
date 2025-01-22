@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState,useContext } from 'react';
 import { SERVER_URL } from '../../services/data';
 import { z } from 'zod';
 import { Link } from 'react-router-dom';
+
+import { DarkModeContext } from '../../context/DarkModeContext';
 
 //Email validation
 const forgotePasswordSchema = z.object({
@@ -17,6 +19,7 @@ function  ChangePassword  ()  {
   const [errors, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
+const { darkMode } = useContext(DarkModeContext);
   // Handle form input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -80,9 +83,9 @@ function  ChangePassword  ()  {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-white">
-      <div className="max-w-md mx-auto p-6  rounded-lg shadow-lg text-white border ">
-        <h2 className="text-lg font-semibold mb-4 text-black">Forgot Password</h2>
+    <div className={`min-h-screen flex items-center justify-center ${darkMode?'bg-[#131312]' : 'bg-white'}`}>
+      <div className={`max-w-sm mx-auto p-4  rounded-lg shadow-lg ${darkMode?'text-white':'text-black'} border border-gray-700`}>
+        <h2 className={`text-lg font-semibold mb-4 ${darkMode?'text-white':'text-black'}`}>Forgot Password</h2>
         <p className="text-sm text-gray-700 mb-6">
           Enter your registered email and we will send you a link to reset your
           password.
@@ -90,7 +93,7 @@ function  ChangePassword  ()  {
         <form onSubmit={onSubmit}>
           <label
             htmlFor="email"
-            className="block text-sm font-medium text-black mb-2"
+            className={`block text-sm font-medium ${darkMode? 'text-white':'text-black'} mb-2`}
           >
             Email
           </label>
@@ -101,7 +104,7 @@ function  ChangePassword  ()  {
             placeholder="name@example.com"
             value={formData.email}
               onChange={handleChange}
-              className={`w-full bg-white px-4 py-2 border border-gray-600 text-white ${
+              className={`w-full ${darkMode?'bg-[#131312] text-white':'bg-white text-black'} px-4 py-2 border border-gray-600  ${
                 errors.email ? 'border-red-500' : 'border-gray-300'
               } rounded-lg text-sm focus:outline-none focus:ring-2 ${
                 errors.email ? 'focus:ring-red-500' : 'focus:ring-gray-500'
@@ -124,7 +127,7 @@ function  ChangePassword  ()  {
         </form>
         <p className="text-sm text-center text-gray-400 mt-6">
           Don't have an account?{' '}
-          <Link to="/signup" className="text-blue-500 hover:underline">
+          <Link to="/account/signup" className="text-blue-500 hover:underline">
             Sign up.
           </Link>
         </p>

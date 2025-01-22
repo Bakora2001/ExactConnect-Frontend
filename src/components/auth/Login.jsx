@@ -54,6 +54,7 @@ function Login() {
 
       const result = await response.json();
       if (response.ok) {
+        navigate('/')
         localStorage.setItem('token', result.access_token);
         toast.success('Login successsful');
       }
@@ -92,14 +93,14 @@ function Login() {
 
   return (
     <div
-      className={`min-h-screen flex items-center justify-center ${
+      className={`min-h-screen w-screen h-screen flex items-center justify-center ${
         darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
       }`}
     >
       <div
         className={`${
           darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
-        } p-6 rounded-lg shadow-lg w-full max-w-md border `}
+        } p-6 rounded-lg shadow-lg w-5/6 max-w-sm border border-gray-700`}
       >
         <h2 className="text-2xl font-normal font-circular mb-6  hover:text-[#7C25BA]">
           Welcome Back

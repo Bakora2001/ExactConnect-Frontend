@@ -120,10 +120,10 @@ function Signup() {
 
   return (
     <div
-      className={`min-h-screen flex items-center justify-center
+      className={`min-h-screen flex w-screen h-screen items-center justify-center
      ${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'}`}
     >
-      <div className="max-w-md mx-auto p-6 rounded-lg shadow-lg w-full border ">
+      <div className="max-w-sm mx-auto p-4 rounded-lg shadow-lg w-5/6 border border-gray-700">
         <h2 className="text-2xl font-bold mb-1 text-[#7C25BA] hover:text-[#806cff]">
           Exact
           <span className="text-[#7C25BA]   hover:text-[#fff]">Connect.</span>
