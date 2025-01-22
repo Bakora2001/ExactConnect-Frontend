@@ -99,8 +99,8 @@ function Login() {
     >
       <div
         className={`${
-          darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
-        } p-6 rounded-lg shadow-lg w-5/6 max-w-sm border border-gray-700`}
+          darkMode ? 'bg-[#131312] text-white border-gray-700' : 'bg-white text-black border-gray-100'
+        } p-6 rounded-lg shadow-lg w-5/6 max-w-sm border `}
       >
         <h2 className="text-2xl font-normal font-circular mb-6  hover:text-[#7C25BA]">
           Welcome Back

@@ -84,7 +84,7 @@ const { darkMode } = useContext(DarkModeContext);
 
   return (
     <div className={`min-h-screen flex items-center justify-center ${darkMode?'bg-[#131312]' : 'bg-white'}`}>
-      <div className={`max-w-sm mx-auto p-4  rounded-lg shadow-lg ${darkMode?'text-white':'text-black'} border border-gray-700`}>
+      <div className={`max-w-sm mx-auto p-4  rounded-lg shadow-lg ${darkMode?'text-white border-gray-700':'text-black border-gray-100'} border `}>
         <h2 className={`text-lg font-semibold mb-4 ${darkMode?'text-white':'text-black'}`}>Forgot Password</h2>
         <p className="text-sm text-gray-700 mb-6">
           Enter your registered email and we will send you a link to reset your
