@@ -54,7 +54,7 @@ function Login() {
 
       const result = await response.json();
       if (response.ok) {
-        navigate('/')
+        navigate('/');
         localStorage.setItem('token', result.access_token);
         toast.success('Login successsful');
       }
@@ -99,7 +99,9 @@ function Login() {
     >
       <div
         className={`${
-          darkMode ? 'bg-[#131312] text-white border-gray-700' : 'bg-white text-black border-gray-100'
+          darkMode
+            ? 'bg-[#131312] text-white border-gray-700'
+            : 'bg-white text-black border-gray-100'
         } p-6 rounded-lg shadow-lg w-5/6 max-w-sm border `}
       >
         <h2 className="text-2xl font-normal font-circular mb-6  hover:text-[#7C25BA]">

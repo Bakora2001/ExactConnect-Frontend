@@ -1,4 +1,4 @@
-import React, { useState,useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { SERVER_URL } from '../../services/data';
 import { z } from 'zod';
 import { Link } from 'react-router-dom';
@@ -12,14 +12,14 @@ const forgotePasswordSchema = z.object({
   }),
 });
 
-function  ChangePassword  ()  {
+function ChangePassword() {
   const [formData, setPasswordData] = useState({
     email: '',
   });
   const [errors, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-const { darkMode } = useContext(DarkModeContext);
+  const { darkMode } = useContext(DarkModeContext);
   // Handle form input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -56,17 +56,18 @@ const { darkMode } = useContext(DarkModeContext);
       forgotePasswordSchema.parse(formData);
       setError({});
 
-      const response = await fetch(`${SERVER_URL}/customers/customers/${customerId}/change-password`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: formData.email,
-          
-        }),
-      });
-
+      const response = await fetch(
+        `${SERVER_URL}/customers/customers/${customerId}/change-password`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: formData.email,
+          }),
+        }
+      );
     } catch (err) {
       if (err instanceof z.ZodError) {
         const formattedErrors = {};
@@ -83,9 +84,23 @@ const { darkMode } = useContext(DarkModeContext);
   };
 
   return (
-    <div className={`min-h-screen flex items-center justify-center ${darkMode?'bg-[#131312]' : 'bg-white'}`}>
-      <div className={`max-w-sm mx-auto p-4  rounded-lg shadow-lg ${darkMode?'text-white border-gray-700':'text-black border-gray-100'} border `}>
-        <h2 className={`text-lg font-semibold mb-4 ${darkMode?'text-white':'text-black'}`}>Forgot Password</h2>
+    <div
+      className={`min-h-screen flex items-center justify-center ${
+        darkMode ? 'bg-[#131312]' : 'bg-white'
+      }`}
+    >
+      <div
+        className={`max-w-sm mx-auto p-4  rounded-lg shadow-lg ${
+          darkMode ? 'text-white border-gray-700' : 'text-black border-gray-100'
+        } border `}
+      >
+        <h2
+          className={`text-lg font-semibold mb-4 ${
+            darkMode ? 'text-white' : 'text-black'
+          }`}
+        >
+          Forgot Password
+        </h2>
         <p className="text-sm text-gray-700 mb-6">
           Enter your registered email and we will send you a link to reset your
           password.
@@ -93,7 +108,9 @@ const { darkMode } = useContext(DarkModeContext);
         <form onSubmit={onSubmit}>
           <label
             htmlFor="email"
-            className={`block text-sm font-medium ${darkMode? 'text-white':'text-black'} mb-2`}
+            className={`block text-sm font-medium ${
+              darkMode ? 'text-white' : 'text-black'
+            } mb-2`}
           >
             Email
           </label>
@@ -103,21 +120,23 @@ const { darkMode } = useContext(DarkModeContext);
             name="email"
             placeholder="name@example.com"
             value={formData.email}
-              onChange={handleChange}
-              className={`w-full ${darkMode?'bg-[#131312] text-white':'bg-white text-black'} px-4 py-2 border border-gray-600  ${
-                errors.email ? 'border-red-500' : 'border-gray-300'
-              } rounded-lg text-sm focus:outline-none focus:ring-2 ${
-                errors.email ? 'focus:ring-red-500' : 'focus:ring-gray-500'
-              }`}
-              aria-invalid={!!errors.email}
-              aria-describedby="email_error"
-            />
-            {errors.email && (
-              <p id="user_name_error" className="text-red-500 text-sm mb-4">
-                {errors.email}
-              </p>
-            )}
-         
+            onChange={handleChange}
+            className={`w-full ${
+              darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
+            } px-4 py-2 border border-gray-600  ${
+              errors.email ? 'border-red-500' : 'border-gray-300'
+            } rounded-lg text-sm focus:outline-none focus:ring-2 ${
+              errors.email ? 'focus:ring-red-500' : 'focus:ring-gray-500'
+            }`}
+            aria-invalid={!!errors.email}
+            aria-describedby="email_error"
+          />
+          {errors.email && (
+            <p id="user_name_error" className="text-red-500 text-sm mb-4">
+              {errors.email}
+            </p>
+          )}
+
           <button
             type="submit"
             className="w-full bg-[#7C25BA] text-white text-sm font-medium py-2 rounded-lg hover:bg-gray-600 transition mt-4"
@@ -134,6 +153,6 @@ const { darkMode } = useContext(DarkModeContext);
       </div>
     </div>
   );
-};
+}
 
 export default ChangePassword;

@@ -125,7 +125,9 @@ function Signup() {
     >
       <div
         className={`${
-          darkMode ? 'bg-[#131312] text-white border-gray-700' : 'bg-white text-black border-gray-100'
+          darkMode
+            ? 'bg-[#131312] text-white border-gray-700'
+            : 'bg-white text-black border-gray-100'
         } p-4 rounded-lg shadow-lg w-5/6 max-w-sm border `}
       >
         <h2 className="text-2xl font-bold mb-1 text-[#7C25BA] hover:text-[#806cff]">
