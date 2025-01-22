@@ -17,7 +17,7 @@ const NavBar = () => {
 
   // Get Started button handler
   const handleGetStartedClick = () => {
-    navigate('/signup');
+    navigate('/account/signup');
   };
 
   return (

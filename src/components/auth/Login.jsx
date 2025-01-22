@@ -242,7 +242,7 @@ function Login() {
         >
           Don't have and account?{' '}
           <Link
-            to="/signup"
+            to="/account/signup"
             className="text-[#7C25BA] font-bold hover:underline"
           >
             Sign in

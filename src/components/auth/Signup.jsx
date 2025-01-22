@@ -99,7 +99,7 @@ function Signup() {
       const result = await response.json();
       if (response.ok) {
         toast.success('Registation successful');
-        navigate('/login');
+        navigate('/account/login');
       } else {
         toast.error('Error');
       }
@@ -331,7 +331,7 @@ function Signup() {
         >
           Already have an account?{' '}
           <Link
-            to="/login"
+            to="/account/login"
             className="text-[#7C25BA] font-bold hover:underline"
           >
             Sign in

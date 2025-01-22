@@ -30,11 +30,11 @@ import Mpesa from '../src/components/payment/Mpesa';
 
 export const router = createBrowserRouter([
   {
-    path: '/signup',
+    path: '/account/signup',
     element: <Signup />,
   },
   {
-    path: '/login',
+    path: '/account/login',
     element: <Login />,
   },
   {
