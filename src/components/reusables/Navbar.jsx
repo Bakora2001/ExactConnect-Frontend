@@ -22,11 +22,11 @@ const NavBar = () => {
 
   return (
     <header
-      className={`w-full fixed top-0 left-0 right-0 z-50  bg-opacity-90 backdrop-blur-md border-b border-gray-500 ${
+      className={`w-full  fixed top-0 left-0 right-0 z-50  bg-opacity-90 backdrop-blur-xl border-b border-gray-500 ${
         darkMode ? 'bg-[#131312] text-white' : 'bg-[#7C25BA] text-white'
-      }`}
+      } mx-auto items-center`}
     >
-      <div className="flex items-center justify-between px-3 py-2 md:px-12">
+      <div className=" w-full mx-auto flex items-center justify-between px-3 py-2 md:px-8 lg:px-72">
         {/* Logo */}
         <div className="flex items-center space-x-2">
           <div className="text-sm font-bold text-white  transition cursor-pointer">

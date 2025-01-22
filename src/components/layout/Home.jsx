@@ -11,31 +11,41 @@ import { useContext } from 'react';
 const Home = () => {
   const navigate = useNavigate();
 
-const {darkMode} = useContext(DarkModeContext)
+  const { darkMode } = useContext(DarkModeContext);
 
   const handleGetStartedClick = () => {
     navigate('/signup');
   };
 
   return (
-    <div className={`font-sans ${darkMode ? 'bg-[#010001] text-white' : 'bg-[#7C25BA] text-white'} `}>
+    <div
+      className={`font-sans ${
+        darkMode ? 'bg-[#010001] text-white' : 'bg-[#7C25BA] text-white'
+      }`}
+    >
       {/* Header Section */}
-      <div className="w-full mb-12 sm:mb-20 py-10 sm:py-16">
-          <NavBar />
-        </div>
-      <header className=" translate-y-10 flex flex-col items-center ">
-        
-        <div className="max-w-7xl mx-auto flex flex-col-reverse md:flex-row items-center px-6 sm:px-12 gap-10 md:gap-16 mb-6">
+      <div className=" mb-12 sm:mb-16 py-10 sm:py-12">
+        <NavBar />
+      </div>
+      <section className="relative h-full w-full -translate-y-10 flex flex-col items-center ">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center px-[1rem] md:px-[3rem] sm:px-12 gap-10 md:gap-16 mb-6">
           <div className="md:w-1/2 text-center md:text-left">
-            <h1 className={`text-4xl sm:text-5xl font-bold leading-tight mb-6 ${darkMode? 'text-white':'text-white'}`}>
-              Need Precise Residential IPs, RDP VPS, Virtual Credit Cards, or Non-VOIP Numbers?
+            <h1
+              className={`text-4xl sm:text-5xl font-sans font-bold leading-tight mb-6 ${
+                darkMode ? 'text-white' : 'text-white'
+              }`}
+            >
+              Need Precise Residential IPs, RDP VPS, Virtual Credit Cards, or
+              Non-VOIP Numbers?
             </h1>
             <p className="text-lg mb-8">
               We’ve Got the Perfect Solutions For You
             </p>
             <button
               onClick={handleGetStartedClick}
-              className={`${darkMode? 'bg-[#7C25BA] text-white':'bg-[#7C25BA]'}  font-medium py-3 px-6 rounded-lg shadow-lg hover:opacity-90 transition-all duration-200 border border-white mb-5`}
+              className={`${
+                darkMode ? 'bg-[#7C25BA] text-white' : 'bg-[#7C25BA]'
+              }  font-medium py-3 px-6 rounded-lg shadow-lg hover:opacity-90 transition-all duration-200 border border-white mb-5`}
             >
               Get Started
             </button>
@@ -48,10 +58,14 @@ const {darkMode} = useContext(DarkModeContext)
             />
           </div>
         </div>
-      </header>
+      </section>
 
       {/* Why Choose Our Services Section */}
-      <section className={`py-12 ${darkMode? 'bg-[#131312] text-white' :'bg-[#fffe] text-black'}`}>
+      <section
+        className={`py-12 ${
+          darkMode ? 'bg-[#131312] text-white' : 'bg-[#fffe] text-black'
+        }`}
+      >
         <h2 className="text-3xl font-extrabold text-center  mb-6">
           Why Choose Our Services?
         </h2>
@@ -59,7 +73,11 @@ const {darkMode} = useContext(DarkModeContext)
       </section>
       {/* bg-[#f8f7f3] */}
       {/* Residential Proxies Section */}
-      <section className={` ${darkMode?'bg-[#131312] text-white':'bg-[#f8f7f3] text-black'} py-12`}>
+      <section
+        className={` ${
+          darkMode ? 'bg-[#131312] text-white' : 'bg-[#f8f7f3] text-black'
+        } py-12`}
+      >
         <div className="max-w-6xl mx-auto px-6">
           <h3 className="text-2xl font-bold text-center  mb-8">
             Residential Proxies
@@ -94,11 +112,13 @@ const {darkMode} = useContext(DarkModeContext)
         </div>
       </section>
       {/* bg-[#fefffe] */}
-      <section className={`${darkMode?'bg-[#28282B] text-white':'bg-[#fefffe] text-black'} py-12` }>
+      <section
+        className={`${
+          darkMode ? 'bg-[#28282B] text-white' : 'bg-[#fefffe] text-black'
+        } py-12`}
+      >
         <div className="max-w-7xl mx-auto px-6">
-          <h3 className="text-2xl font-bold text-center  mb-8">
-            VPS Server
-          </h3>
+          <h3 className="text-2xl font-bold text-center  mb-8">VPS Server</h3>
           <div className="grid lg:grid-cols-2 gap-10 items-center">
             <div>
               <h4 className="text-xl font-semibold mb-4 ">Why Our VPS?</h4>
@@ -111,11 +131,7 @@ const {darkMode} = useContext(DarkModeContext)
               </ul>
             </div>
             <div className="flex justify-center">
-              <img
-                src={server}
-                alt="VPS Server"
-                className="max-h-[350px]"
-              />
+              <img src={server} alt="VPS Server" className="max-h-[350px]" />
             </div>
           </div>
           <div className="text-center mt-8">
@@ -131,7 +147,11 @@ const {darkMode} = useContext(DarkModeContext)
 
       {/* Virtual Credit Card Section */}
       {/* bg-[#eeeeee] */}
-      <section className={`${darkMode?'bg-[#131312] text-white':'bg-[#eeeeee] text-black'} py-12`}>
+      <section
+        className={`${
+          darkMode ? 'bg-[#131312] text-white' : 'bg-[#eeeeee] text-black'
+        } py-12`}
+      >
         <div className="max-w-7xl mx-auto px-6">
           <h3 className="text-2xl font-bold text-center  mb-8">
             Virtual Credit Card
@@ -166,7 +186,11 @@ const {darkMode} = useContext(DarkModeContext)
 
       {/* Verification Process Section */}
       {/* bg-[#e2f7f4] */}
-      <section className={`${darkMode? 'bg-gray-900 text-white':'bg-[#e2f7f4] text-black'} py-12`} >
+      <section
+        className={`${
+          darkMode ? 'bg-gray-900 text-white' : 'bg-[#e2f7f4] text-black'
+        } py-12`}
+      >
         <div className="max-w-7xl mx-auto px-6">
           <h4 className="text-2xl font-bold text-center  mb-8">
             Verification Process
@@ -174,11 +198,11 @@ const {darkMode} = useContext(DarkModeContext)
           <div className="grid lg:grid-cols-3 gap-8 items-start">
             <ul className="space-y-4">
               {[
-                "Find out if the Account You want to verify is Listed",
-                "Choose the Account you want to Verify",
-                "Order the number and get instant message",
-                "If Service is not listed, consult with our Agent",
-                "Receive your Number from our Agent and verify",
+                'Find out if the Account You want to verify is Listed',
+                'Choose the Account you want to Verify',
+                'Order the number and get instant message',
+                'If Service is not listed, consult with our Agent',
+                'Receive your Number from our Agent and verify',
               ].map((item, index) => (
                 <li
                   key={index}
@@ -197,8 +221,8 @@ const {darkMode} = useContext(DarkModeContext)
               />
             </div>
             <p className="text-lg">
-              Add a descriptive text about the verification process or additional
-              information users should know.
+              Add a descriptive text about the verification process or
+              additional information users should know.
             </p>
           </div>
         </div>
