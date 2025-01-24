@@ -84,7 +84,7 @@ const OTPVerification = () => {
     >
       <div
         className={`max-w-md mx-auto p-6 rounded-lg shadow-lg ${
-          darkMode ? 'text-white' : 'text-black'
+          darkMode ? 'text-white border-gray-700' : 'text-black'
         } border`}
       >
         <h2 className="text-lg font-semibold mb-4">
@@ -92,7 +92,7 @@ const OTPVerification = () => {
         </h2>
         <p className="text-sm text-gray-600 mb-6">
           Please enter the authentication code. <br />
-          We have sent the authentication code to your email.
+          We have sent the one time password code to your email.
         </p>
         <form onSubmit={handleOTPVerification}>
           <div className="flex justify-center gap-2 mb-6">
@@ -102,7 +102,11 @@ const OTPVerification = () => {
               autoComplete="off"
               placeholder="Enter your OTP"
               onChange={handleOtpChange}
-              className="w-full h-12 bg-white border border-gray-600 rounded-lg text-center text-black text-lg focus:outline-none focus:ring-2 focus:ring-gray-500"
+              className={`w-full h-12 ${
+                darkMode
+                  ? 'bg-[#131312] text-white border-gray-600'
+                  : 'bg-white text-black'
+              } border  rounded-lg text-center  text-lg focus:outline-none focus:ring-2 focus:ring-gray-500`}
             />
           </div>
           {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
