@@ -276,7 +276,7 @@ const ContactUs = () => {
                 onChange={handleChange}
                 placeholder="Write your message here..."
                 className={`mt-2 w-full ${
-                  darkMode ? 'bg-black text-white' : 'bg-white text-black'
+                  darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
                 } px-4 py-3 border border-gray-600  ${
                   errors.message ? 'border-red-500' : 'border-gray-300'
                 } rounded-lg text-sm focus:outline-none focus:ring-2 ${
