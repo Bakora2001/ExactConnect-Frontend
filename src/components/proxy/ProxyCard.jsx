@@ -10,11 +10,13 @@ const ProxyCard = ({
   selectedRow,
   handleRowClick,
 }) => (
-  <div className={`grid grid-cols-1  gap-6 p-4 md:grid-cols-2 lg:grid-cols-4`}>
+  <div
+    className={`w-full grid grid-cols-1 gap-6 p-6 md:grid-cols-2 lg:grid-cols-4`}
+  >
     {filteredProxies.map((proxy, index) => (
       <div
         key={proxy.id}
-        className={` p-6 rounded-lg shadow-lg hover:shadow-lg transition-transform transform border ${
+        className={`p-6 rounded-lg shadow-lg hover:shadow-lg transition-transform transform border ${
           darkMode ? 'border-gray-700' : 'border-gray-100'
         } ${
           index === selectedRow ? 'scale-105 border-purple-400' : ''
@@ -33,30 +35,35 @@ const ProxyCard = ({
           }`}
         >
           <div className="flex justify-between items-center">
-            <div>
+            <div className="w-1/3">
               <p>Location</p>
               <div className="flex items-center gap-2">
                 <img
                   src={`https://flagsapi.com/${proxy.loc.cc}/flat/64.png`}
-                  // alt={proxy.loc.cc}
                   className="w-6 h-4 rounded-sm shadow-md"
                 />
-                <p className="font-semibold">{proxy.loc.cc}</p>
+                <p className="font-semibold truncate">{proxy.loc.cc}</p>
               </div>
             </div>
-            <div>
+            <div className="w-1/3">
               <p>City</p>
-              <p className="font-semibold">{proxy.loc.city}</p>
+              <p className="font-semibold truncate">{proxy.loc.city}</p>{' '}
+              {/* Added truncate here */}
             </div>
-            <div>
+            <div className="w-1/3">
               <p>ISP</p>
-              <p className="font-semibold">{proxy.loc.isp}</p>
+              <p className="font-semibold truncate">{proxy.loc.isp}</p>{' '}
+              {/* Added truncate here */}
             </div>
           </div>
         </div>
 
         {/* Proxy Stats */}
-        <div className="space-y-2 text-gray-400 items-center flex justify-between">
+        <div
+          className={`space-y-2 ${
+            darkMode ? 'text-white' : 'text-black'
+          } items-center flex justify-between`}
+        >
           <div>
             <p>Conn</p>
             <div

@@ -60,7 +60,7 @@ const Header = ({ darkMode, fetchProxies }) => {
 
   return (
     <div className={`px-4 py-3 md:px-8 rounded-lg`}>
-    <h1 className="text-2xl font-semibold mb-4 md:mb-6">Select Country</h1>
+    <h1 className="text-2xl font-semibold ">Select Country</h1>
     <div className="flex flex-wrap items-center gap-3 md:gap-4 lg:gap-6">
       {visibleCountries.map((country) => (
         <CountryButton

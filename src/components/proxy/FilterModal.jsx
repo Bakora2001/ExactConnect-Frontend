@@ -14,7 +14,7 @@ const FilterModal = ({
     <div
       className={`${
         darkMode ? 'bg-[#131312] border border-gray-700' : 'bg-white'
-      } p-6 rounded-lg shadow-lg w-96`}
+      } p-6 rounded-lg w-96`}
     >
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-lg font-bold">Filter</h2>
