@@ -116,7 +116,7 @@ const ContactUs = () => {
                 onClick={() =>
                   navigator.clipboard.writeText('charleskibet101@gmail.com')
                 }
-                className="flex items-center space-x-2 bg-[#7C25BA] px-4 py-2 rounded-md border shadow-lg hover:bg-[#6a1fa0]"
+                className="flex items-center space-x-2 bg-[#7C25BA] px-4 py-2 rounded-md  shadow-lg hover:bg-[#6a1fa0]"
               >
                 <span className="text-white font-circular">Copy Email</span>
                 <svg

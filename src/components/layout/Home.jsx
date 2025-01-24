@@ -45,7 +45,7 @@ const Home = () => {
               onClick={handleGetStartedClick}
               className={`${
                 darkMode ? 'bg-[#7C25BA] text-white' : 'bg-[#7C25BA]'
-              }  font-medium py-3 px-6 rounded-lg shadow-lg hover:opacity-90 transition-all duration-200 border border-white mb-5`}
+              }  font-medium py-3 px-6 rounded-lg shadow-lg hover:opacity-90 transition-all duration-200  mb-5`}
             >
               Get Started
             </button>
