@@ -6,6 +6,7 @@ import toast from 'react-hot-toast';
 
 //Dark mode
 import { DarkModeContext } from '../../context/DarkModeContext';
+import { useNavigate } from 'react-router-dom';
 
 //Handling passing in correct mobile numbers
 const phoneRegex = new RegExp(
@@ -22,7 +23,7 @@ const contactSchema = z.object({
   }),
   phone_number: z.string().regex(phoneRegex, 'Invalid Phone Number!'),
   message: z.string().min(10, {
-    message: 'Message is required',
+    message: 'Message is should be more than 10 words',
   }),
 });
 
@@ -38,6 +39,9 @@ const ContactUs = () => {
   const [errors, setError] = useState({});
   const [isLoading, setLoading] = useState(false);
 
+  //Function to handle navigation
+  const navigate = useNavigate();
+
   //Handling input change
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -49,28 +53,57 @@ const ContactUs = () => {
     setLoading(true);
 
     try {
+      // Validate form data using Zod
       contactSchema.parse(formData);
       setError({});
 
+      // Construct the payload
+      const payload = {
+        recipients: [
+          {
+            name: 'ExactConnect payments',
+            recipient: 'charleskibet101@gmail.com',
+          },
+        ],
+        subject: 'VIBE',
+        body: `
+          Name: ${formData.fullName}
+          Email: ${formData.email}
+          Phone Number: ${formData.phone_number}
+          Message: ${formData.message}
+        `,
+        deliveryMode: 'EMAIL',
+        countryCode: 'KE',
+      };
+
+      // Send the data to the server
       const response = await fetch(`${SERVER_URL}/messages`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          email: formData.email,
-          fullName: formData.fullName,
-          phone_number: formData.phone_number,
-          message: formData.message,
-        }),
+        body: JSON.stringify(payload),
       });
 
-      const result = await response.json();
-      if (response.ok) {
-        toast.success('Submitted successful');
-        navigate('/otp');
+      let responseData;
+
+      const contentType = response.headers.get('Content-Type');
+
+      if (contentType && contentType.includes('application/json')) {
+        responseData = await response.json();
       } else {
-        toast.error('Error');
+        responseData = await response.text();
+      }
+
+      if (response.status === 200) {
+        navigate('/delivered');
+        toast.success('Message sent successfully!');
+        setFormData({
+          email: '',
+          fullName: '',
+          phone_number: '',
+          message: '',
+        });
       }
     } catch (err) {
       if (err instanceof z.ZodError) {
@@ -86,6 +119,7 @@ const ContactUs = () => {
       setLoading(false);
     }
   };
+
   return (
     <div
       className={`min-h-screen ${
@@ -141,8 +175,10 @@ const ContactUs = () => {
         {/* Form Section */}
         <div
           className={`  ${
-            darkMode ? 'bg-[#131312]' : 'bg-white'
-          } p-8 rounded-lg shadow-lg max-w-4xl mx-auto border  border-gray-600 `}
+            darkMode
+              ? 'bg-[#131312] border-gray-700'
+              : 'bg-white border-gray-100'
+          } p-8 rounded-lg shadow-lg max-w-4xl mx-auto border   `}
         >
           <form className="space-y-6" onSubmit={onSubmit}>
             <div>
@@ -157,7 +193,7 @@ const ContactUs = () => {
                 onChange={handleChange}
                 placeholder="John Doe"
                 className={`mt-2 w-full ${
-                  darkMode ? 'bg-black' : 'bg-white text-white'
+                  darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
                 }  px-4 py-3 border border-gray-600  ${
                   errors.fullName ? 'border-red-500' : 'border-gray-300'
                 } rounded-lg text-sm focus:outline-none focus:ring-2 ${
@@ -184,7 +220,7 @@ const ContactUs = () => {
                 onChange={handleChange}
                 placeholder="you@example.com"
                 className={`mt-2 w-full  px-4 py-3 border border-gray-600 ${
-                  darkMode ? 'bg-black' : 'bg-white text-white'
+                  darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
                 } ${
                   errors.email ? 'border-red-500' : 'border-gray-300'
                 } rounded-lg text-sm focus:outline-none focus:ring-2 ${
@@ -211,7 +247,7 @@ const ContactUs = () => {
                 onChange={handleChange}
                 placeholder="0712345678"
                 className={`mt-2 w-full  px-4 py-3 border border-gray-600 ${
-                  darkMode ? 'bg-black' : 'bg-white text-white'
+                  darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
                 } ${
                   errors.phone_number ? 'border-red-500' : 'border-gray-300'
                 } rounded-lg text-sm focus:outline-none focus:ring-2 ${
@@ -240,7 +276,7 @@ const ContactUs = () => {
                 onChange={handleChange}
                 placeholder="Write your message here..."
                 className={`mt-2 w-full ${
-                  darkMode ? 'bg-black' : 'bg-white text-white'
+                  darkMode ? 'bg-black text-white' : 'bg-white text-black'
                 } px-4 py-3 border border-gray-600  ${
                   errors.message ? 'border-red-500' : 'border-gray-300'
                 } rounded-lg text-sm focus:outline-none focus:ring-2 ${
