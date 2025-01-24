@@ -25,8 +25,6 @@ function Login() {
   const [isLoading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setError] = useState('');
-  const [success, setSuccess] = useState('');
-  const [forgotPassword, setForgotPassword] = useState(false);
 
   const navigate = useNavigate();
   const { darkMode } = useContext(DarkModeContext);
@@ -74,22 +72,6 @@ function Login() {
       setLoading(false);
     }
   };
-
-  // const handleForgotPassword = async () => {
-  //   setForgotPassword(true);
-  //   const newPassword = prompt('Please enter your new password:');
-  //   if (newPassword) {
-  //     try {
-  //       const response = await axios.post(
-  //         `${SERVER_URL}/customers/customers/${formData.email}/change-passwordverify-otp/reset`,
-  //         { newPassword }
-  //       );
-  //       setSuccess('Password changed successfully!');
-  //     } catch (err) {
-  //       setError('Failed to change password. Please try again.');
-  //     }
-  //   }
-  // };
 
   return (
     <div
@@ -233,13 +215,6 @@ function Login() {
           </button>
         </form>
 
-        {/* Forgot Password Button */}
-        {/* <button
-          onClick={handleForgotPassword}
-          className="mt-4 text-xs text-blue-500 hover:underline"
-        >
-          {forgotPassword ? 'Set A New Password' : 'Forgot Password?'}
-        </button> */}
         <p
           className={`text-sm  mt-4 ${darkMode ? 'text-white' : 'text-black'}`}
         >

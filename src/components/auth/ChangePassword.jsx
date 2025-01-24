@@ -29,7 +29,7 @@ const ChangePassword = () => {
 
   //Accessing the customer reference from the backend
   const customerId = localStorage.getItem('customerReference');
-  console.log(customerId);
+ 
   //To handle the loading state when the form is submitting
   const [isLoading, setLoading] = useState(false);
 
@@ -39,7 +39,7 @@ const ChangePassword = () => {
   //State to handle the errors from zod
   const [errors, setError] = useState('');
 
-  const [confirmPassword, setConfirmPassword] = useState('');
+  
 
   //Function for turning the showpassord to either true or false
   const togglePasswordVisibility = () => {
