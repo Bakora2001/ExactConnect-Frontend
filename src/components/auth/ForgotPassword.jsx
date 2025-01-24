@@ -12,7 +12,7 @@ const forgotePasswordSchema = z.object({
   }),
 });
 
-function ChangePassword() {
+function ForgotPassword() {
   const [formData, setPasswordData] = useState({
     email: '',
   });
@@ -155,4 +155,4 @@ function ChangePassword() {
   );
 }
 
-export default ChangePassword;
+export default ForgotPassword;
