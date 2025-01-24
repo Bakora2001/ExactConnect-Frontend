@@ -55,10 +55,9 @@ const NavBar = () => {
             </span>
           ))}
         </nav>
-
         {/* Get Started Button */}
         <button
-          className="hidden md:block bg-[#7C25BA] text-white px-6 py-2 rounded-lg shadow-lg hover:bg-[#6a1fa0] transition duration-200  "
+          className="hidden md:block bg-[#6a1fa0] text-white px-6 py-2 rounded-lg shadow-lg hover:bg-[#7C25BA] transition duration-200  "
           onClick={handleGetStartedClick}
         >
           Get Started
