@@ -6,19 +6,26 @@ import techImage from '/tech-image.png';
 import server from '/server.png';
 import wallet from '/wallet.png';
 import phone from '/phone.png';
-import { useContext } from 'react';
+import Loader from '../pages/Loader';
+import { useContext, useState } from 'react';
 
 const Home = () => {
   const navigate = useNavigate();
-
+const [isLoading,setIsLoading] = useState(true)
   const { darkMode } = useContext(DarkModeContext);
 
   const handleGetStartedClick = () => {
     navigate('/signup');
   };
-
+setTimeout(() => {
+  setIsLoading(false)
+},2000)
   return (
-    <div
+    <div>
+    {
+      isLoading?(
+        <Loader/>
+      ):<div
       className={`font-sans ${
         darkMode ? 'bg-[#010001] text-white' : 'bg-[#7C25BA] text-white'
       }`}
@@ -231,6 +238,10 @@ const Home = () => {
       {/* Repeat similar structure for other sections */}
       <Footer />
     </div>
+    }
+      
+    </div>
+    
   );
 };
 
