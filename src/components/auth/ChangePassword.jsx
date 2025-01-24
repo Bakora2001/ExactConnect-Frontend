@@ -92,7 +92,7 @@ const ChangePassword = () => {
 
       if (response.status === 200) {
         toast.success(responseData.message || 'Check email for OTP');
-        navigate('/email');
+        navigate('/account/email');
       } else {
         throw new Error(responseData.message);
       }

@@ -61,9 +61,13 @@ const ContactUs = () => {
       const payload = {
         recipients: [
           {
-            name: 'ExactConnect payments',
-            recipient: 'charleskibet101@gmail.com',
+            name: 'ExactConnect',
+            recipient: 'maxwellbakora93@gmail.com',
           },
+          {
+            name:'Exact Connect',
+            recipient:'charleskibet101@gmail.com'
+          }
         ],
         subject: 'VIBE',
         body: `

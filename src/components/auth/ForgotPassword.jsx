@@ -1,7 +1,10 @@
 import React, { useState, useContext } from 'react';
 import { SERVER_URL } from '../../services/data';
 import { z } from 'zod';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
+
+import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 
 import { DarkModeContext } from '../../context/DarkModeContext';
 
@@ -10,12 +13,19 @@ const forgotePasswordSchema = z.object({
   email: z.string().min(1).email({
     message: 'Invalid email address',
   }),
+  newPassword: z.string().min(1, {
+    message: 'New password is required',
+  }),
 });
 
 function ForgotPassword() {
   const [formData, setPasswordData] = useState({
     email: '',
+    newPassword: '',
   });
+  console.log(formData);
+  const navigate = useNavigate()
+  const [showPassword, setShowPassword] = useState(false);
   const [errors, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -29,25 +39,6 @@ function ForgotPassword() {
     }));
   };
 
-  // Handle form submission for password change
-  // const handleChangePassword = async (e) => {
-  //   e.preventDefault();
-  //   setLoading(true);
-  //   setError('');
-
-  //   try {
-  //     const response = await axios.put(
-  //       `${SERVER_URL}/customers/customers/${customerId}/change-password`,
-  //       formData
-  //     );
-  //     console.log('Password Changed:', response.data);
-  //     // Handle password change success (e.g., show a success message)
-  //   } catch (error) {
-  //     setError('Password change failed. Please try again.');
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
   const onSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -57,17 +48,21 @@ function ForgotPassword() {
       setError({});
 
       const response = await fetch(
-        `${SERVER_URL}/customers/customers/${customerId}/change-password`,
+        `${SERVER_URL}/customers/forgot-password/reset`,
         {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({
-            email: formData.email,
-          }),
+          body: JSON.stringify(formData),
         }
       );
+
+      if (response.ok) {
+        navigate('/account/otp');
+        
+        toast.success('Reset successful');
+      }
     } catch (err) {
       if (err instanceof z.ZodError) {
         const formattedErrors = {};
@@ -136,7 +131,54 @@ function ForgotPassword() {
               {errors.email}
             </p>
           )}
+          <div className="mb-4 relative">
+            <label
+              htmlFor="password"
+              className={`mb-1 block text-sm font-medium ${
+                darkMode ? 'text-white' : 'text-black'
+              }`}
+            >
+              New Password
+            </label>
 
+            <div className="relative">
+              <input
+                type={showPassword ? 'text' : 'password'}
+                name="newPassword"
+                id="password"
+                placeholder="********"
+                value={formData.newPassword}
+                onChange={handleChange}
+                className={`w-full ${
+                  darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
+                } px-4 py-2 pr-10 border ${
+                  errors.newPassword ? 'border-red-500' : 'border-gray-600'
+                } rounded-lg text-sm  focus:outline-none focus:ring-2 ${
+                  errors.newPassword
+                    ? 'focus:ring-red-500'
+                    : 'focus:ring-gray-500'
+                }`}
+                aria-invalid={!!errors.newPassword}
+                aria-describedby="password_error"
+              />
+              <span
+                onClick={() => setShowPassword((prev) => !prev)}
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-500 hover:text-gray-300"
+              >
+                {showPassword ? (
+                  <AiFillEyeInvisible className="h-5 w-5" />
+                ) : (
+                  <AiFillEye className="h-5 w-5" />
+                )}
+              </span>
+            </div>
+
+            {errors.newPassword && (
+              <p id="password_error" className="text-red-500 text-sm mt-1">
+                {errors.newPassword}
+              </p>
+            )}
+          </div>
           <button
             type="submit"
             className="w-full bg-[#7C25BA] text-white text-sm font-medium py-2 rounded-lg hover:bg-gray-600 transition mt-4"
