@@ -75,7 +75,7 @@ const Header = ({ darkMode, fetchProxies }) => {
         <div ref={dropdownRef} className="relative">
           <button
             onClick={() => setShowDropdown((prev) => !prev)}
-            className="flex items-center gap-2 px-3 md:px-4 py-2 text-sm rounded-full border border-gray-400 bg-white text-gray-700 hover:bg-gray-200 transition-all duration-300"
+            className="flex items-center gap-2 px-3 md:px-4 py-2 text-sm  rounded-full border border-gray-400 bg-white text-gray-700 hover:bg-gray-200 transition-all duration-300"
             aria-expanded={showDropdown}
             aria-haspopup="true"
           >
@@ -112,7 +112,9 @@ const CountryButton = ({ country, selectedCountry, handleCountrySelect }) => (
     aria-label={`Select country ${country.name}`}
   >
     <span>{countryFlag(country.code)}</span>
-    <span>{country.name}</span>
+    <span className="truncate max-w-[150px]"> {/* Truncate and limit the width */}
+      {country.name}
+    </span>
   </button>
 );
 
@@ -123,7 +125,9 @@ const CountryDropdownItem = ({ country, handleCountrySelect }) => (
     aria-label={`Select country ${country.name}`}
   >
     <span>{countryFlag(country.code)}</span>
-    <span>{country.name}</span>
+    <span className="truncate max-w-[150px]"> {/* Truncate and limit the width */}
+      {country.name}
+    </span>
   </button>
 );
 
