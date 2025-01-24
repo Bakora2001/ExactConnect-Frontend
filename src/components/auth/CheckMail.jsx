@@ -37,7 +37,7 @@ const CheckMail = () => {
         </p>
 
         <Link
-          to="/otp"
+          to="/account/otp"
           // target="_blank"
           className={`flex items-center justify-center w-full py-3 bg-[#7C25BA]   ${
             darkMode ? 'text-white' : 'text-white'
