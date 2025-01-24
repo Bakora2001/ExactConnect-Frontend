@@ -55,7 +55,7 @@ function Login() {
       const result = await response.json();
       if (response.ok) {
         navigate('/');
-        localStorage.setItem('token', result.access_token);
+        localStorage.setItem('customerReference', result.customerReference);
         toast.success('Login successsful');
       }
     } catch (err) {
