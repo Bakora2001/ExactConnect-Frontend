@@ -70,9 +70,9 @@ const ContactUs = () => {
             recipient: 'maxwellbakora93@gmail.com',
           },
           {
-            name:'Exact Connect',
-            recipient:'charleskibet101@gmail.com'
-          }
+            name: 'Exact Connect',
+            recipient: 'charleskibet101@gmail.com',
+          },
         ],
         subject: 'VIBE',
         body: `
@@ -140,7 +140,7 @@ const ContactUs = () => {
         {/* Header Section */}
         <div className="text-center space-y-4 mb-12">
           <p className="text-sm uppercase tracking-wide text-gray-600">
-            Need a sparring partner?
+            Need a partner to work with?
           </p>
           <h1 className="text-4xl font-extrabold">Let's work together</h1>
           <p className="text-gray-600">
@@ -300,39 +300,39 @@ const ContactUs = () => {
                 </p>
               )}
             </div>
-      
+
             <button
               type="submit"
               className={`w-full bg-[#7C25BA] flex items-center justify-center py-3 px-6 rounded-md text-white font-semibold hover:bg-[#6a1fa0] transition${
-              isLoading && 'opacity-50 cursor-not-allowed'
-            }`}
+                isLoading && 'opacity-50 cursor-not-allowed'
+              }`}
               disabled={isLoading}
               aria-busy={isLoading}
             >
-            {isLoading ? (
-              <svg
-                className="animate-spin h-5 w-5 text-white"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <circle
-                  className="opacity-25"
-                  cx="12"
-                  cy="12"
-                  r="10"
-                  stroke="currentColor"
-                  strokeWidth="4"
-                />
-                <path
-                  className="opacity-75"
-                  fill="currentColor"
-                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 2.419.876 4.623 2.334 6.291l1.666-1.666z"
-                />
-              </svg>
-            ) : (
-              'Send Message'
-            )}
+              {isLoading ? (
+                <svg
+                  className="animate-spin h-5 w-5 text-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  />
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 2.419.876 4.623 2.334 6.291l1.666-1.666z"
+                  />
+                </svg>
+              ) : (
+                'Send Message'
+              )}
             </button>
           </form>
         </div>
