@@ -218,7 +218,7 @@ function Login() {
         <p
           className={`text-sm  mt-4 ${darkMode ? 'text-white' : 'text-black'}`}
         >
-          Don't have and account?{' '}
+          Don't have an account?{' '}
           <Link
             to="/account/signup"
             className="text-[#7C25BA] font-bold hover:underline"
