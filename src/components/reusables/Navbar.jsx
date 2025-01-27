@@ -22,9 +22,8 @@ const NavBar = () => {
 
   return (
     <header
-      className={`w-full  fixed top-0 left-0 right-0 z-50  bg-opacity-90 backdrop-blur-xl border-b border-gray-500 ${
-        darkMode ? 'bg-[#131312] text-white' : 'bg-[#7C25BA] text-white'
-      } mx-auto items-center`}
+      className={`w-full  fixed top-0 left-0 right-0 z-50  bg-opacity-90 backdrop-blur-xl border-b border-gray-500 ${darkMode ? 'bg-[#131312] text-white' : 'bg-[#7C25BA] text-white'
+        } mx-auto items-center`}
     >
       <div className=" w-full mx-auto flex items-center justify-between px-3 py-2 md:px-8 lg:px-72">
         {/* Logo */}
@@ -74,11 +73,9 @@ const NavBar = () => {
 
       {/* Mobile Menu */}
       <div
-        className={`fixed bottom-0 left-0 top-0 h-screen w-2/3  ${
-          darkMode ? 'bg-[#131312] text-white' : 'bg-[#7C25BA] text-white  '
-        } z-20 transform ${
-          isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full '
-        } transition-transform duration-300 shadow-lg border border-gray-600 rounded-[16px] mb-2 mt-2`}
+        className={`fixed bottom-0 left-0 top-0 h-screen w-2/3  ${darkMode ? 'bg-[#131312] text-white' : 'bg-[#7C25BA] text-white  '
+          } z-20 transform ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full '
+          } transition-transform duration-300 shadow-lg border border-gray-600 rounded-[16px] mb-2 mt-2`}
       >
         <div className="p-6 flex flex-col space-y-6">
           {/* Close Button */}

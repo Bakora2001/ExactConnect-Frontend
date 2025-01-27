@@ -17,7 +17,7 @@ const Footer = () => {
   const { darkMode, toggleDarkMode } = useContext(DarkModeContext);
 
   return (
-    <footer className={`py-10 border-t border-gray-700 ${darkMode?'bg-[#131312] text-white':'bg-gray-900 text-white'} relative`}>
+    <footer className={`py-10 border-t border-gray-700 ${darkMode ? 'bg-[#131312] text-white' : 'bg-gray-900 text-white'} relative`}>
       <div className="container mx-auto px-6 max-w-7xl">
         {/* Footer Grid */}
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
@@ -143,7 +143,7 @@ const Footer = () => {
         </div>
       </div>
 
-     
+
     </footer>
   );
 };
