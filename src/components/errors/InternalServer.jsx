@@ -6,9 +6,8 @@ const InternalServer = () => {
   const { darkMode } = useContext(DarkModeContext);
   return (
     <div
-      className={`flex items-center justify-center h-screen ${
-        darkMode ? 'bg-[#131312] text-white' : ' bg-white text-black'
-      }`}
+      className={`flex items-center justify-center h-screen ${darkMode ? 'bg-[#131312] text-white' : ' bg-white text-black'
+        }`}
     >
       <div className="text-center">
         <h1 className="text-9xl font-bold text-red-500">500</h1>
