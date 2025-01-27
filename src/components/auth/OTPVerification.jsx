@@ -13,6 +13,9 @@ import { z } from 'zod';
 const otpVerificationSchema = z.object({
   email: z.string().min(1).email({
     message: 'Invalid email address'
+  }),
+  otp: z.string().min(1, {
+    message: 'Enter a valid otp'
   })
 })
 
@@ -45,10 +48,7 @@ const OTPVerification = () => {
   // Handle OTP verification and new password setting
   const handleOTPVerification = async (e) => {
     e.preventDefault();
-    setLoading(true);
-
-
-
+    setLoading(true)
 
     try {
       otpVerificationSchema.parse(formData)
@@ -80,9 +80,18 @@ const OTPVerification = () => {
       } else {
         throw new Error(responseData.message || 'OTP verification failed');
       }
-    } catch (error) {
-      setError(error.message || 'An unexpected error occurred');
-      toast.error(error.message || 'An unexpected error occurred');
+    } catch (err) {
+      if (err instanceof z.ZodError) {
+        // Handle validation errors
+        const formattedErrors = {};
+        err.errors.forEach((error) => {
+          formattedErrors[error.path[0]] = error.message;
+        });
+        setError(formattedErrors);
+      } else {
+        // Handle network/server errors
+        toast.error('Invalid OTP.');
+      }
     } finally {
       setLoading(false);
     }
@@ -120,7 +129,7 @@ const OTPVerification = () => {
             placeholder="you@example.com"
             value={formData.email}
             onChange={handleOtpChange}
-            className={`w-full ${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
+            className={`w-full h-12 mb-4 ${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
               } px-4 py-2 border border-gray-600  ${errors.email ? 'border-red-500' : 'border-gray-300'
               } rounded-lg text-sm focus:outline-none focus:ring-2 ${errors.email ? 'focus:ring-red-500' : 'focus:ring-gray-500'
               }`}
@@ -132,21 +141,31 @@ const OTPVerification = () => {
               {errors.email}
             </p>
           )}
-          <div className="flex justify-center gap-2 mb-6">
-            <input
-              type="text"
-              name='otp'
-              value={formData.otp}
-              autoComplete="off"
-              placeholder="Enter your OTP"
-              onChange={handleOtpChange}
-              className={`w-full h-12 ${darkMode
-                ? 'bg-[#131312] text-white border-gray-600'
-                : 'bg-white text-black'
-                } border  rounded-lg text-center  text-lg focus:outline-none focus:ring-2 focus:ring-gray-500`}
-            />
+          <div className="mb-4 relative">
+            <label
+              htmlFor="Otp"
+              className={`mb-2 block text-sm font-medium ${darkMode ? 'text-white' : 'text-black'
+                }`}
+            >
+              OTP
+            </label>
+            <div className='relative'>
+              <input
+                type="text"
+                name='otp'
+                value={formData.otp}
+                autoComplete="off"
+                placeholder="Enter your OTP"
+                onChange={handleOtpChange}
+                className={`w-full h-12 ${darkMode
+                  ? 'bg-[#131312] text-white border-gray-600'
+                  : 'bg-white text-black'
+                  } border  rounded-lg text-center  text-lg focus:outline-none focus:ring-2 focus:ring-gray-500`}
+              />
+            </div>
+
           </div>
-          {errors && <p className="text-red-500 text-sm mb-4">{errors}</p>}
+          {errors.otp && <p className="text-red-500 text-sm mb-4">{errors.otp}</p>}
           <button
             type="submit"
             disabled={loading}
