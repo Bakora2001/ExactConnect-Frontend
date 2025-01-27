@@ -91,8 +91,8 @@ const Header = ({ darkMode, fetchProxies }) => {
             <button
               onClick={() => setShowDropdown((prev) => !prev)}
               className={`flex items-center gap-2 px-3 md:px-4 py-2 text-sm  rounded-full border  ${darkMode
-                  ? 'bg-[#131312] text-white border-gray-700 hover:bg-gray-100 hover:text-black'
-                  : 'bg-white text-black border-gray-400'
+                ? 'bg-[#131312] text-white border-gray-700 hover:bg-gray-100 hover:text-black'
+                : 'bg-white text-black border-gray-400'
                 }   transition-all duration-300`}
               aria-expanded={showDropdown}
               aria-haspopup="true"
@@ -122,8 +122,8 @@ const CountryButton = ({ country, selectedCountry, handleCountrySelect }) => (
   <button
     onClick={() => handleCountrySelect(country)}
     className={`flex items-center gap-2 px-4 py-2 text-sm rounded-full border transition-all duration-300 ${selectedCountry?.code === country.code
-        ? 'bg-purple-600 text-white border-purple-700 shadow-md'
-        : 'bg-white text-gray-700 border-gray-300 hover:bg-blue-100 hover:border-purple-400'
+      ? 'bg-purple-600 text-white border-purple-700 shadow-md'
+      : 'bg-white text-gray-700 border-gray-300 hover:bg-blue-100 hover:border-purple-400'
       } `}
     aria-label={`Select country ${country.name}`}
   >
