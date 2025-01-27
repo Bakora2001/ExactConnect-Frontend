@@ -131,9 +131,8 @@ const ContactUs = () => {
 
   return (
     <div
-      className={`min-h-screen ${
-        darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
-      }`}
+      className={`min-h-screen ${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
+        }`}
     >
       <Navbar />
       <div className="container mx-auto py-20 px-6">
@@ -183,11 +182,10 @@ const ContactUs = () => {
 
         {/* Form Section */}
         <div
-          className={`  ${
-            darkMode
+          className={`  ${darkMode
               ? 'bg-[#131312] border-gray-700'
               : 'bg-white border-gray-100'
-          } p-8 rounded-lg shadow-lg max-w-4xl mx-auto border   `}
+            } p-8 rounded-lg shadow-lg max-w-4xl mx-auto border   `}
         >
           <form className="space-y-6" onSubmit={onSubmit}>
             <div>
@@ -201,13 +199,10 @@ const ContactUs = () => {
                 value={formData.fullName}
                 onChange={handleChange}
                 placeholder="John Doe"
-                className={`mt-2 w-full ${
-                  darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
-                }  px-4 py-3 border border-gray-600  ${
-                  errors.fullName ? 'border-red-500' : 'border-gray-300'
-                } rounded-lg text-sm focus:outline-none focus:ring-2 ${
-                  errors.fullName ? 'focus:ring-red-500' : 'focus:ring-gray-500'
-                }`}
+                className={`mt-2 w-full ${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
+                  }  px-4 py-3 border border-gray-600  ${errors.fullName ? 'border-red-500' : 'border-gray-300'
+                  } rounded-lg text-sm focus:outline-none focus:ring-2 ${errors.fullName ? 'focus:ring-red-500' : 'focus:ring-gray-500'
+                  }`}
                 aria-invalid={!!errors.fullName}
                 aria-describedby="fullName_error"
               />
@@ -228,13 +223,10 @@ const ContactUs = () => {
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="you@example.com"
-                className={`mt-2 w-full  px-4 py-3 border border-gray-600 ${
-                  darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
-                } ${
-                  errors.email ? 'border-red-500' : 'border-gray-300'
-                } rounded-lg text-sm focus:outline-none focus:ring-2 ${
-                  errors.email ? 'focus:ring-red-500' : 'focus:ring-gray-500'
-                }`}
+                className={`mt-2 w-full  px-4 py-3 border border-gray-600 ${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
+                  } ${errors.email ? 'border-red-500' : 'border-gray-300'
+                  } rounded-lg text-sm focus:outline-none focus:ring-2 ${errors.email ? 'focus:ring-red-500' : 'focus:ring-gray-500'
+                  }`}
                 aria-invalid={!!errors.email}
                 aria-describedby="fullName_error"
               />
@@ -255,15 +247,12 @@ const ContactUs = () => {
                 value={formData.phone_number}
                 onChange={handleChange}
                 placeholder="0712345678"
-                className={`mt-2 w-full  px-4 py-3 border border-gray-600 ${
-                  darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
-                } ${
-                  errors.phone_number ? 'border-red-500' : 'border-gray-300'
-                } rounded-lg text-sm focus:outline-none focus:ring-2 ${
-                  errors.phone_number
+                className={`mt-2 w-full  px-4 py-3 border border-gray-600 ${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
+                  } ${errors.phone_number ? 'border-red-500' : 'border-gray-300'
+                  } rounded-lg text-sm focus:outline-none focus:ring-2 ${errors.phone_number
                     ? 'focus:ring-red-500'
                     : 'focus:ring-gray-500'
-                }`}
+                  }`}
                 aria-invalid={!!errors.phone_number}
                 aria-describedby="fullName_error"
               />
@@ -284,13 +273,10 @@ const ContactUs = () => {
                 value={formData.message}
                 onChange={handleChange}
                 placeholder="Write your message here..."
-                className={`mt-2 w-full ${
-                  darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
-                } px-4 py-3 border border-gray-600  ${
-                  errors.message ? 'border-red-500' : 'border-gray-300'
-                } rounded-lg text-sm focus:outline-none focus:ring-2 ${
-                  errors.message ? 'focus:ring-red-500' : 'focus:ring-gray-500'
-                }`}
+                className={`mt-2 w-full ${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
+                  } px-4 py-3 border border-gray-600  ${errors.message ? 'border-red-500' : 'border-gray-300'
+                  } rounded-lg text-sm focus:outline-none focus:ring-2 ${errors.message ? 'focus:ring-red-500' : 'focus:ring-gray-500'
+                  }`}
                 aria-invalid={!!errors.message}
                 aria-describedby="fullName_error"
               ></textarea>
@@ -303,9 +289,8 @@ const ContactUs = () => {
 
             <button
               type="submit"
-              className={`w-full bg-[#7C25BA] flex items-center justify-center py-3 px-6 rounded-md text-white font-semibold hover:bg-[#6a1fa0] transition${
-                isLoading && 'opacity-50 cursor-not-allowed'
-              }`}
+              className={`w-full bg-[#7C25BA] flex items-center justify-center py-3 px-6 rounded-md text-white font-semibold hover:bg-[#6a1fa0] transition${isLoading && 'opacity-50 cursor-not-allowed'
+                }`}
               disabled={isLoading}
               aria-busy={isLoading}
             >
