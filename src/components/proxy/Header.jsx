@@ -68,16 +68,14 @@ const Header = ({ darkMode, fetchProxies }) => {
   return (
     <div className={`px-4 py-3 md:px-8 rounded-lg`}>
       <h1
-        className={`text-2xl ${
-          darkMode ? 'text-white' : 'text-black'
-        }font-semibold `}
+        className={`text-2xl ${darkMode ? 'text-white' : 'text-black'
+          }font-semibold `}
       >
         Select Country
       </h1>
       <div
-        className={`flex flex-wrap items-center gap-3 md:gap-4 lg:gap-6 ${
-          darkMode ? 'bg-[#131312]' : 'bg-white'
-        }`}
+        className={`flex flex-wrap items-center gap-3 md:gap-4 lg:gap-6 ${darkMode ? 'bg-[#131312]' : 'bg-white'
+          }`}
       >
         {visibleCountries.map((country) => (
           <CountryButton
@@ -92,11 +90,10 @@ const Header = ({ darkMode, fetchProxies }) => {
           <div ref={dropdownRef} className="relative">
             <button
               onClick={() => setShowDropdown((prev) => !prev)}
-              className={`flex items-center gap-2 px-3 md:px-4 py-2 text-sm  rounded-full border  ${
-                darkMode
+              className={`flex items-center gap-2 px-3 md:px-4 py-2 text-sm  rounded-full border  ${darkMode
                   ? 'bg-[#131312] text-white border-gray-700 hover:bg-gray-100 hover:text-black'
                   : 'bg-white text-black border-gray-400'
-              }   transition-all duration-300`}
+                }   transition-all duration-300`}
               aria-expanded={showDropdown}
               aria-haspopup="true"
             >
@@ -124,11 +121,10 @@ const Header = ({ darkMode, fetchProxies }) => {
 const CountryButton = ({ country, selectedCountry, handleCountrySelect }) => (
   <button
     onClick={() => handleCountrySelect(country)}
-    className={`flex items-center gap-2 px-4 py-2 text-sm rounded-full border transition-all duration-300 ${
-      selectedCountry?.code === country.code
+    className={`flex items-center gap-2 px-4 py-2 text-sm rounded-full border transition-all duration-300 ${selectedCountry?.code === country.code
         ? 'bg-purple-600 text-white border-purple-700 shadow-md'
         : 'bg-white text-gray-700 border-gray-300 hover:bg-blue-100 hover:border-purple-400'
-    } `}
+      } `}
     aria-label={`Select country ${country.name}`}
   >
     <span>{countryFlag(country.code)}</span>

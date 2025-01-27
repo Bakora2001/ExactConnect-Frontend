@@ -7,14 +7,12 @@ const FilterModal = ({
   darkMode,
 }) => (
   <div
-    className={`fixed inset-0 z-50 flex items-center justify-center ${
-      darkMode ? 'bg-black text-white' : 'bg-black text-black'
-    } bg-opacity-50 `}
+    className={`fixed inset-0 z-50 flex items-center justify-center ${darkMode ? 'bg-black text-white' : 'bg-black text-black'
+      } bg-opacity-50 `}
   >
     <div
-      className={`${
-        darkMode ? 'bg-[#131312] border border-gray-700' : 'bg-white'
-      } p-6 rounded-lg w-96`}
+      className={`${darkMode ? 'bg-[#131312] border border-gray-700' : 'bg-white'
+        } p-6 rounded-lg w-96`}
     >
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-lg font-bold">Filter</h2>
@@ -34,9 +32,8 @@ const FilterModal = ({
           value={filters.location}
           onChange={handleFilterChange}
           placeholder="Location"
-          className={`${
-            darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
-          } border border-gray-600 rounded-md p-2 w-full`}
+          className={`${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
+            } border border-gray-600 rounded-md p-2 w-full`}
         />
       </div>
       <div className="mb-4">
@@ -47,9 +44,8 @@ const FilterModal = ({
           value={filters.location}
           onChange={handleFilterChange}
           placeholder="City"
-          className={`${
-            darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
-          } border border-gray-600 rounded-md p-2 w-full`}
+          className={`${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
+            } border border-gray-600 rounded-md p-2 w-full`}
         />
       </div>
       <div className="mb-4">
@@ -60,9 +56,8 @@ const FilterModal = ({
           value={filters.location}
           onChange={handleFilterChange}
           placeholder="Location"
-          className={`${
-            darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
-          } border border-gray-600 rounded-md p-2 w-full`}
+          className={`${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
+            } border border-gray-600 rounded-md p-2 w-full`}
         />
       </div>
       <div className="mb-4">
@@ -73,9 +68,8 @@ const FilterModal = ({
           value={filters.isp}
           onChange={handleFilterChange}
           placeholder="ISP"
-          className={`${
-            darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
-          } border border-gray-600 rounded-md p-2 w-full`}
+          className={`${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
+            } border border-gray-600 rounded-md p-2 w-full`}
         />
       </div>
       <div className="flex items-center justify-end gap-2">
