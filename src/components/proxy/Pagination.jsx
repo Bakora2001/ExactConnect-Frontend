@@ -26,11 +26,10 @@ const Pagination = ({
         return (
           <button
             key={index}
-            className={`px-4 py-2 ${
-              index === currentPage
+            className={`px-4 py-2 ${index === currentPage
                 ? 'bg-[#7e22ce] text-white'
                 : 'bg-gray-700 text-white'
-            } rounded-md shadow-md hover:bg-gray-600 transition`}
+              } rounded-md shadow-md hover:bg-gray-600 transition`}
             onClick={() => setCurrentPage(index)}
           >
             {index + 1}

@@ -12,7 +12,7 @@ import Home from './components/layout/Home';
 //Components for handling all authentication processes
 import Signup from './components/auth/Signup';
 import Login from './components/auth/Login';
-import ChangePassword from './components/auth/ChangePassword';
+import ForgotPassword from './components/auth/ForgotPassword';
 import OTPVerification from './components/auth/OTPVerification';
 
 //Components for the admin section
@@ -27,14 +27,17 @@ import Configure from './components/Configure';
 
 import ContactUs from '../src/components/contact/ContactUs';
 import Mpesa from '../src/components/payment/Mpesa';
+import ChangePassword from './components/auth/ChangePassword';
+import CheckMail from './components/auth/CheckMail';
+import Delivered from './components/pages/Delivered';
 
 export const router = createBrowserRouter([
   {
-    path: '/signup',
+    path: '/account/signup',
     element: <Signup />,
   },
   {
-    path: '/login',
+    path: '/account/login',
     element: <Login />,
   },
   {
@@ -58,12 +61,20 @@ export const router = createBrowserRouter([
     element: <Rdp />,
   },
   {
-    path: '/forgot-password',
+    path: '/account/forgotpassword',
+    element: <ForgotPassword />,
+  },
+  {
+    path: '/account/changepassword',
     element: <ChangePassword />,
   },
   {
-    path: '/otp',
+    path: '/account/otp',
     element: <OTPVerification />,
+  },
+  {
+    path: '/account/email',
+    element: <CheckMail />,
   },
   {
     path: '/checkout',
@@ -93,4 +104,8 @@ export const router = createBrowserRouter([
     path: '/mpesa-checkout',
     element: <Mpesa />,
   },
+  {
+    path: '/delivered',
+    element: <Delivered />
+  }
 ]);

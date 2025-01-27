@@ -17,16 +17,15 @@ const NavBar = () => {
 
   // Get Started button handler
   const handleGetStartedClick = () => {
-    navigate('/signup');
+    navigate('/account/signup');
   };
 
   return (
     <header
-      className={`w-full fixed top-0 left-0 right-0 z-50  bg-opacity-90 backdrop-blur-md border-b border-gray-500 ${
-        darkMode ? 'bg-[#131312] text-white' : 'bg-[#7C25BA] text-white'
-      }`}
+      className={`w-full  fixed top-0 left-0 right-0 z-50  bg-opacity-90 backdrop-blur-xl border-b border-gray-500 ${darkMode ? 'bg-[#131312] text-white' : 'bg-[#7C25BA] text-white'
+        } mx-auto items-center`}
     >
-      <div className="flex items-center justify-between px-3 py-2 md:px-12">
+      <div className=" w-full mx-auto flex items-center justify-between px-3 py-2 md:px-8 lg:px-72">
         {/* Logo */}
         <div className="flex items-center space-x-2">
           <div className="text-sm font-bold text-white  transition cursor-pointer">
@@ -55,10 +54,9 @@ const NavBar = () => {
             </span>
           ))}
         </nav>
-
         {/* Get Started Button */}
         <button
-          className="hidden md:block bg-[#7C25BA] text-white px-6 py-2 rounded-lg shadow-lg hover:bg-[#6a1fa0] transition duration-200 border border-white"
+          className="hidden md:block bg-[#6a1fa0] text-white px-6 py-2 rounded-lg shadow-lg hover:bg-[#7C25BA] transition duration-200  "
           onClick={handleGetStartedClick}
         >
           Get Started
@@ -75,11 +73,9 @@ const NavBar = () => {
 
       {/* Mobile Menu */}
       <div
-        className={`fixed bottom-0 left-0 top-0 h-screen w-2/3  ${
-          darkMode ? 'bg-[#131312] text-white' : 'bg-[#7C25BA] text-white  '
-        } z-20 transform ${
-          isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full '
-        } transition-transform duration-300 shadow-lg border border-gray-600 rounded-[16px] mb-2 mt-2`}
+        className={`fixed bottom-0 left-0 top-0 h-screen w-2/3  ${darkMode ? 'bg-[#131312] text-white' : 'bg-[#7C25BA] text-white  '
+          } z-20 transform ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full '
+          } transition-transform duration-300 shadow-lg border border-gray-600 rounded-[16px] mb-2 mt-2`}
       >
         <div className="p-6 flex flex-col space-y-6">
           {/* Close Button */}

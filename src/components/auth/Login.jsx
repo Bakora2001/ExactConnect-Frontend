@@ -25,8 +25,6 @@ function Login() {
   const [isLoading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setError] = useState('');
-  const [success, setSuccess] = useState('');
-  const [forgotPassword, setForgotPassword] = useState(false);
 
   const navigate = useNavigate();
   const { darkMode } = useContext(DarkModeContext);
@@ -54,7 +52,8 @@ function Login() {
 
       const result = await response.json();
       if (response.ok) {
-        localStorage.setItem('token', result.access_token);
+        navigate('/');
+        localStorage.setItem('customerReference', result.customerReference);
         toast.success('Login successsful');
       }
     } catch (err) {
@@ -67,39 +66,23 @@ function Login() {
         setError(formattedErrors);
       } else {
         // Handle network/server errors
-        toast.error('Something went wrong. Please try again.');
+        toast.error('Invalid credentials.');
       }
     } finally {
       setLoading(false);
     }
   };
 
-  // const handleForgotPassword = async () => {
-  //   setForgotPassword(true);
-  //   const newPassword = prompt('Please enter your new password:');
-  //   if (newPassword) {
-  //     try {
-  //       const response = await axios.post(
-  //         `${SERVER_URL}/customers/customers/${formData.email}/change-passwordverify-otp/reset`,
-  //         { newPassword }
-  //       );
-  //       setSuccess('Password changed successfully!');
-  //     } catch (err) {
-  //       setError('Failed to change password. Please try again.');
-  //     }
-  //   }
-  // };
-
   return (
     <div
-      className={`min-h-screen flex items-center justify-center ${
-        darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
-      }`}
+      className={`min-h-screen w-screen h-screen flex items-center justify-center ${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
+        }`}
     >
       <div
-        className={`${
-          darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
-        } p-6 rounded-lg shadow-lg w-full max-w-md border `}
+        className={`${darkMode
+          ? 'bg-[#131312] text-white border-gray-700'
+          : 'bg-white text-black border-gray-100'
+          } p-6 rounded-lg shadow-lg w-5/6 max-w-sm border `}
       >
         <h2 className="text-2xl font-normal font-circular mb-6  hover:text-[#7C25BA]">
           Welcome Back
@@ -110,9 +93,8 @@ function Login() {
           <div className="mb-4">
             <label
               htmlFor="email"
-              className={`block text-sm font-medium ${
-                darkMode ? 'text-white' : 'text-black'
-              }`}
+              className={`block text-sm font-medium ${darkMode ? 'text-white' : 'text-black'
+                }`}
             >
               Email
             </label>
@@ -123,13 +105,10 @@ function Login() {
               placeholder="you@example.com"
               value={formData.email}
               onChange={handleChange}
-              className={`w-full ${
-                darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
-              } px-4 py-2 border border-gray-600  ${
-                errors.email ? 'border-red-500' : 'border-gray-300'
-              } rounded-lg text-sm focus:outline-none focus:ring-2 ${
-                errors.email ? 'focus:ring-red-500' : 'focus:ring-gray-500'
-              }`}
+              className={`w-full ${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
+                } px-4 py-2 border border-gray-600  ${errors.email ? 'border-red-500' : 'border-gray-300'
+                } rounded-lg text-sm focus:outline-none focus:ring-2 ${errors.email ? 'focus:ring-red-500' : 'focus:ring-gray-500'
+                }`}
               aria-invalid={!!errors.email}
               aria-describedby="email_error"
             />
@@ -142,9 +121,8 @@ function Login() {
           <div className="mb-4 relative">
             <label
               htmlFor="password"
-              className={`mb-1 block text-sm font-medium ${
-                darkMode ? 'text-white' : 'text-black'
-              }`}
+              className={`mb-1 block text-sm font-medium ${darkMode ? 'text-white' : 'text-black'
+                }`}
             >
               Password
             </label>
@@ -157,13 +135,10 @@ function Login() {
                 placeholder="********"
                 value={formData.password}
                 onChange={handleChange}
-                className={`w-full ${
-                  darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
-                } px-4 py-2 pr-10 border ${
-                  errors.password ? 'border-red-500' : 'border-gray-600'
-                } rounded-lg text-sm  focus:outline-none focus:ring-2 ${
-                  errors.password ? 'focus:ring-red-500' : 'focus:ring-gray-500'
-                }`}
+                className={`w-full ${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
+                  } px-4 py-2 pr-10 border ${errors.password ? 'border-red-500' : 'border-gray-600'
+                  } rounded-lg text-sm  focus:outline-none focus:ring-2 ${errors.password ? 'focus:ring-red-500' : 'focus:ring-gray-500'
+                  }`}
                 aria-invalid={!!errors.password}
                 aria-describedby="password_error"
               />
@@ -181,7 +156,7 @@ function Login() {
 
             <div className="flex justify-end mt-2 text-gray-600">
               <Link
-                to="/forgot-password"
+                to="/account/forgotpassword"
                 className="text-sm font-medium text-muted-foreground hover:opacity-75"
               >
                 Forgot password?
@@ -197,9 +172,8 @@ function Login() {
 
           <button
             type="submit"
-            className={`w-full flex items-center justify-center bg-[#7C25BA] text-white py-2 rounded-lg hover:bg-[#5b21a8] focus:outline-none focus:ring-2 focus:ring-purple-500 ${
-              isLoading && 'opacity-50 cursor-not-allowed'
-            }`}
+            className={`w-full flex items-center justify-center bg-[#7C25BA] text-white py-2 rounded-lg hover:bg-[#5b21a8] focus:outline-none focus:ring-2 focus:ring-purple-500 ${isLoading && 'opacity-50 cursor-not-allowed'
+              }`}
             disabled={isLoading}
             aria-busy={isLoading}
           >
@@ -230,19 +204,12 @@ function Login() {
           </button>
         </form>
 
-        {/* Forgot Password Button */}
-        {/* <button
-          onClick={handleForgotPassword}
-          className="mt-4 text-xs text-blue-500 hover:underline"
-        >
-          {forgotPassword ? 'Set A New Password' : 'Forgot Password?'}
-        </button> */}
         <p
           className={`text-sm  mt-4 ${darkMode ? 'text-white' : 'text-black'}`}
         >
-          Don't have and account?{' '}
+          Don't have an account?{' '}
           <Link
-            to="/signup"
+            to="/account/signup"
             className="text-[#7C25BA] font-bold hover:underline"
           >
             Sign in

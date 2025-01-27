@@ -6,6 +6,7 @@ import toast from 'react-hot-toast';
 
 //Dark mode
 import { DarkModeContext } from '../../context/DarkModeContext';
+import { useNavigate } from 'react-router-dom';
 
 //Handling passing in correct mobile numbers
 const phoneRegex = new RegExp(
@@ -22,7 +23,7 @@ const contactSchema = z.object({
   }),
   phone_number: z.string().regex(phoneRegex, 'Invalid Phone Number!'),
   message: z.string().min(10, {
-    message: 'Message is required',
+    message: 'Message is should be more than 10 words',
   }),
 });
 
@@ -34,9 +35,17 @@ const ContactUs = () => {
     message: '',
   });
 
+  //State to handle switching between dark and light mode
   const { darkMode } = useContext(DarkModeContext);
+
+  //State to handle zode errors
   const [errors, setError] = useState({});
+
+  //State to handle and disable the button when the form is submitting
   const [isLoading, setLoading] = useState(false);
+
+  //Function to handle navigation
+  const navigate = useNavigate();
 
   //Handling input change
   const handleChange = (e) => {
@@ -49,28 +58,61 @@ const ContactUs = () => {
     setLoading(true);
 
     try {
+      // Validate form data using Zod
       contactSchema.parse(formData);
       setError({});
 
+      // Construct the payload
+      const payload = {
+        recipients: [
+          {
+            name: 'ExactConnect',
+            recipient: 'maxwellbakora93@gmail.com',
+          },
+          {
+            name: 'Exact Connect',
+            recipient: 'charleskibet101@gmail.com',
+          },
+        ],
+        subject: 'VIBE',
+        body: `
+          Name: ${formData.fullName}
+          Email: ${formData.email}
+          Phone Number: ${formData.phone_number}
+          Message: ${formData.message}
+        `,
+        deliveryMode: 'EMAIL',
+        countryCode: 'KE',
+      };
+
+      // Send the data to the server
       const response = await fetch(`${SERVER_URL}/messages`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          email: formData.email,
-          fullName: formData.fullName,
-          phone_number: formData.phone_number,
-          message: formData.message,
-        }),
+        body: JSON.stringify(payload),
       });
 
-      const result = await response.json();
-      if (response.ok) {
-        toast.success('Submitted successful');
-        navigate('/otp');
+      let responseData;
+
+      const contentType = response.headers.get('Content-Type');
+
+      if (contentType && contentType.includes('application/json')) {
+        responseData = await response.json();
       } else {
-        toast.error('Error');
+        responseData = await response.text();
+      }
+
+      if (response.status === 200) {
+        navigate('/delivered');
+        toast.success('Message sent successfully!');
+        setFormData({
+          email: '',
+          fullName: '',
+          phone_number: '',
+          message: '',
+        });
       }
     } catch (err) {
       if (err instanceof z.ZodError) {
@@ -86,18 +128,18 @@ const ContactUs = () => {
       setLoading(false);
     }
   };
+
   return (
     <div
-      className={`min-h-screen ${
-        darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
-      }`}
+      className={`min-h-screen ${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
+        }`}
     >
       <Navbar />
       <div className="container mx-auto py-20 px-6">
         {/* Header Section */}
         <div className="text-center space-y-4 mb-12">
           <p className="text-sm uppercase tracking-wide text-gray-600">
-            Need a sparring partner?
+            Need a partner to work with?
           </p>
           <h1 className="text-4xl font-extrabold">Let's work together</h1>
           <p className="text-gray-600">
@@ -116,7 +158,7 @@ const ContactUs = () => {
                 onClick={() =>
                   navigator.clipboard.writeText('charleskibet101@gmail.com')
                 }
-                className="flex items-center space-x-2 bg-[#7C25BA] px-4 py-2 rounded-md border shadow-lg hover:bg-[#6a1fa0]"
+                className="flex items-center space-x-2 bg-[#7C25BA] px-4 py-2 rounded-md  shadow-lg hover:bg-[#6a1fa0]"
               >
                 <span className="text-white font-circular">Copy Email</span>
                 <svg
@@ -140,9 +182,10 @@ const ContactUs = () => {
 
         {/* Form Section */}
         <div
-          className={`  ${
-            darkMode ? 'bg-[#131312]' : 'bg-white'
-          } p-8 rounded-lg shadow-lg max-w-4xl mx-auto border  border-gray-600 `}
+          className={`  ${darkMode
+              ? 'bg-[#131312] border-gray-700'
+              : 'bg-white border-gray-100'
+            } p-8 rounded-lg shadow-lg max-w-4xl mx-auto border   `}
         >
           <form className="space-y-6" onSubmit={onSubmit}>
             <div>
@@ -156,13 +199,10 @@ const ContactUs = () => {
                 value={formData.fullName}
                 onChange={handleChange}
                 placeholder="John Doe"
-                className={`mt-2 w-full ${
-                  darkMode ? 'bg-black' : 'bg-white text-white'
-                }  px-4 py-3 border border-gray-600  ${
-                  errors.fullName ? 'border-red-500' : 'border-gray-300'
-                } rounded-lg text-sm focus:outline-none focus:ring-2 ${
-                  errors.fullName ? 'focus:ring-red-500' : 'focus:ring-gray-500'
-                }`}
+                className={`mt-2 w-full ${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
+                  }  px-4 py-3 border border-gray-600  ${errors.fullName ? 'border-red-500' : 'border-gray-300'
+                  } rounded-lg text-sm focus:outline-none focus:ring-2 ${errors.fullName ? 'focus:ring-red-500' : 'focus:ring-gray-500'
+                  }`}
                 aria-invalid={!!errors.fullName}
                 aria-describedby="fullName_error"
               />
@@ -183,13 +223,10 @@ const ContactUs = () => {
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="you@example.com"
-                className={`mt-2 w-full  px-4 py-3 border border-gray-600 ${
-                  darkMode ? 'bg-black' : 'bg-white text-white'
-                } ${
-                  errors.email ? 'border-red-500' : 'border-gray-300'
-                } rounded-lg text-sm focus:outline-none focus:ring-2 ${
-                  errors.email ? 'focus:ring-red-500' : 'focus:ring-gray-500'
-                }`}
+                className={`mt-2 w-full  px-4 py-3 border border-gray-600 ${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
+                  } ${errors.email ? 'border-red-500' : 'border-gray-300'
+                  } rounded-lg text-sm focus:outline-none focus:ring-2 ${errors.email ? 'focus:ring-red-500' : 'focus:ring-gray-500'
+                  }`}
                 aria-invalid={!!errors.email}
                 aria-describedby="fullName_error"
               />
@@ -210,15 +247,12 @@ const ContactUs = () => {
                 value={formData.phone_number}
                 onChange={handleChange}
                 placeholder="0712345678"
-                className={`mt-2 w-full  px-4 py-3 border border-gray-600 ${
-                  darkMode ? 'bg-black' : 'bg-white text-white'
-                } ${
-                  errors.phone_number ? 'border-red-500' : 'border-gray-300'
-                } rounded-lg text-sm focus:outline-none focus:ring-2 ${
-                  errors.phone_number
+                className={`mt-2 w-full  px-4 py-3 border border-gray-600 ${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
+                  } ${errors.phone_number ? 'border-red-500' : 'border-gray-300'
+                  } rounded-lg text-sm focus:outline-none focus:ring-2 ${errors.phone_number
                     ? 'focus:ring-red-500'
                     : 'focus:ring-gray-500'
-                }`}
+                  }`}
                 aria-invalid={!!errors.phone_number}
                 aria-describedby="fullName_error"
               />
@@ -239,13 +273,10 @@ const ContactUs = () => {
                 value={formData.message}
                 onChange={handleChange}
                 placeholder="Write your message here..."
-                className={`mt-2 w-full ${
-                  darkMode ? 'bg-black' : 'bg-white text-white'
-                } px-4 py-3 border border-gray-600  ${
-                  errors.message ? 'border-red-500' : 'border-gray-300'
-                } rounded-lg text-sm focus:outline-none focus:ring-2 ${
-                  errors.message ? 'focus:ring-red-500' : 'focus:ring-gray-500'
-                }`}
+                className={`mt-2 w-full ${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
+                  } px-4 py-3 border border-gray-600  ${errors.message ? 'border-red-500' : 'border-gray-300'
+                  } rounded-lg text-sm focus:outline-none focus:ring-2 ${errors.message ? 'focus:ring-red-500' : 'focus:ring-gray-500'
+                  }`}
                 aria-invalid={!!errors.message}
                 aria-describedby="fullName_error"
               ></textarea>
@@ -255,11 +286,38 @@ const ContactUs = () => {
                 </p>
               )}
             </div>
+
             <button
               type="submit"
-              className="w-full bg-[#7C25BA] py-3 px-6 rounded-md text-white font-semibold hover:bg-[#6a1fa0] transition"
+              className={`w-full bg-[#7C25BA] flex items-center justify-center py-3 px-6 rounded-md text-white font-semibold hover:bg-[#6a1fa0] transition${isLoading && 'opacity-50 cursor-not-allowed'
+                }`}
+              disabled={isLoading}
+              aria-busy={isLoading}
             >
-              Send Message
+              {isLoading ? (
+                <svg
+                  className="animate-spin h-5 w-5 text-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  />
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 2.419.876 4.623 2.334 6.291l1.666-1.666z"
+                  />
+                </svg>
+              ) : (
+                'Send Message'
+              )}
             </button>
           </form>
         </div>

@@ -198,9 +198,8 @@ const Proxy = () => {
 
   return (
     <div
-      className={`${
-        darkMode ? 'bg-[#030816] text-white' : 'bg-white text-black'
-      } min-h-screen p-6 sm:p-8 flex flex-col gap-8`}
+      className={`${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
+        } min-h-screen   flex flex-col gap-2`}
     >
       <div className="w-full mb-10 sm:mb-12">
         <Navbar />
@@ -216,6 +215,7 @@ const Proxy = () => {
         error={error}
         filteredProxies={filteredProxies}
       />
+
       <ProxyCard
         filteredProxies={filteredProxies}
         darkMode={darkMode}

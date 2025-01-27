@@ -10,19 +10,15 @@ const ProxyCard = ({
   selectedRow,
   handleRowClick,
 }) => (
-  <div className="grid grid-cols-1 gap-6 p-4 md:grid-cols-2 lg:grid-cols-4">
+  <div
+    className={`w-full grid grid-cols-1 gap-6 p-6 md:grid-cols-2 lg:grid-cols-4`}
+  >
     {filteredProxies.map((proxy, index) => (
       <div
         key={proxy.id}
-        className={`${
-          darkMode
-            ? 'bg-[#131312] text-white border border-white'
-            : 'bg-white text-black border border-gray-300'
-        } p-6 rounded-lg shadow-md hover:shadow-lg transition-transform transform ${
-          index === selectedRow
-            ? 'scale-105 border-[#7265c4]'
-            : 'border-transparent'
-        } cursor-pointer`}
+        className={`p-6 rounded-lg shadow-lg hover:shadow-lg transition-transform transform border ${darkMode ? 'border-gray-700' : 'border-gray-100'
+          } ${index === selectedRow ? 'scale-105 border-purple-400' : ''
+          } cursor-pointer`}
         onClick={() => handleRowClick(index, proxy)}
       >
         {/* Proxy Header */}
@@ -32,35 +28,38 @@ const ProxyCard = ({
 
         {/* Proxy Information */}
         <div
-          className={`space-y-2 text-sm ${
-            darkMode ? 'text-white' : 'text-black'
-          }`}
+          className={`space-y-2 text-sm ${darkMode ? 'text-white' : 'text-black'
+            }`}
         >
           <div className="flex justify-between items-center">
-            <div>
+            <div className="w-1/3">
               <p>Location</p>
               <div className="flex items-center gap-2">
                 <img
                   src={`https://flagsapi.com/${proxy.loc.cc}/flat/64.png`}
-                  // alt={proxy.loc.cc}
                   className="w-6 h-4 rounded-sm shadow-md"
                 />
-                <p className="font-semibold">{proxy.loc.cc}</p>
+                <p className="font-semibold truncate">{proxy.loc.cc}</p>
               </div>
             </div>
-            <div>
+            <div className="w-1/3">
               <p>City</p>
-              <p className="font-semibold">{proxy.loc.city}</p>
+              <p className="font-semibold truncate">{proxy.loc.city}</p>{' '}
+              {/* Added truncate here */}
             </div>
-            <div>
+            <div className="w-1/3">
               <p>ISP</p>
-              <p className="font-semibold">{proxy.loc.isp}</p>
+              <p className="font-semibold truncate">{proxy.loc.isp}</p>{' '}
+              {/* Added truncate here */}
             </div>
           </div>
         </div>
 
         {/* Proxy Stats */}
-        <div className="space-y-2 text-gray-400 items-center flex justify-between">
+        <div
+          className={`space-y-2 ${darkMode ? 'text-white' : 'text-black'
+            } items-center flex justify-between`}
+        >
           <div>
             <p>Conn</p>
             <div
