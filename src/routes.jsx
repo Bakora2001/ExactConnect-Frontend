@@ -105,7 +105,7 @@ export const router = createBrowserRouter([
     element: <Mpesa />,
   },
   {
-    path:'/delivered',
-    element:<Delivered/>
+    path: '/delivered',
+    element: <Delivered />
   }
 ]);
