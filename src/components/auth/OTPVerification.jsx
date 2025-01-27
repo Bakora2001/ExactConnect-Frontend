@@ -78,14 +78,12 @@ const OTPVerification = () => {
 
   return (
     <div
-      className={`min-h-screen flex items-center justify-center ${
-        darkMode ? 'bg-[#131312] text-black' : 'bg-white text-black'
-      }`}
+      className={`min-h-screen flex items-center justify-center ${darkMode ? 'bg-[#131312] text-black' : 'bg-white text-black'
+        }`}
     >
       <div
-        className={`max-w-md mx-auto p-6 rounded-lg shadow-lg ${
-          darkMode ? 'text-white border-gray-700' : 'text-black'
-        } border`}
+        className={`max-w-md mx-auto p-6 rounded-lg shadow-lg ${darkMode ? 'text-white border-gray-700' : 'text-black'
+          } border`}
       >
         <h2 className="text-lg font-semibold mb-4">
           Two-factor Authentication
@@ -102,22 +100,20 @@ const OTPVerification = () => {
               autoComplete="off"
               placeholder="Enter your OTP"
               onChange={handleOtpChange}
-              className={`w-full h-12 ${
-                darkMode
+              className={`w-full h-12 ${darkMode
                   ? 'bg-[#131312] text-white border-gray-600'
                   : 'bg-white text-black'
-              } border  rounded-lg text-center  text-lg focus:outline-none focus:ring-2 focus:ring-gray-500`}
+                } border  rounded-lg text-center  text-lg focus:outline-none focus:ring-2 focus:ring-gray-500`}
             />
           </div>
           {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
           <button
             type="submit"
             disabled={isVerifyDisabled}
-            className={`w-full text-white text-sm font-medium py-2 rounded-lg transition ${
-              isVerifyDisabled
+            className={`w-full text-white text-sm font-medium py-2 rounded-lg transition ${isVerifyDisabled
                 ? 'bg-[#7C25BA] cursor-not-allowed'
                 : 'bg-gray-700 hover:bg-gray-600'
-            }`}
+              }`}
           >
             {loading ? 'Verifying...' : 'Verify'}
           </button>

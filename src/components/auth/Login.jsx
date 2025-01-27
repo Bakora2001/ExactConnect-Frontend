@@ -75,16 +75,14 @@ function Login() {
 
   return (
     <div
-      className={`min-h-screen w-screen h-screen flex items-center justify-center ${
-        darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
-      }`}
+      className={`min-h-screen w-screen h-screen flex items-center justify-center ${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
+        }`}
     >
       <div
-        className={`${
-          darkMode
+        className={`${darkMode
             ? 'bg-[#131312] text-white border-gray-700'
             : 'bg-white text-black border-gray-100'
-        } p-6 rounded-lg shadow-lg w-5/6 max-w-sm border `}
+          } p-6 rounded-lg shadow-lg w-5/6 max-w-sm border `}
       >
         <h2 className="text-2xl font-normal font-circular mb-6  hover:text-[#7C25BA]">
           Welcome Back
@@ -95,9 +93,8 @@ function Login() {
           <div className="mb-4">
             <label
               htmlFor="email"
-              className={`block text-sm font-medium ${
-                darkMode ? 'text-white' : 'text-black'
-              }`}
+              className={`block text-sm font-medium ${darkMode ? 'text-white' : 'text-black'
+                }`}
             >
               Email
             </label>
@@ -108,13 +105,10 @@ function Login() {
               placeholder="you@example.com"
               value={formData.email}
               onChange={handleChange}
-              className={`w-full ${
-                darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
-              } px-4 py-2 border border-gray-600  ${
-                errors.email ? 'border-red-500' : 'border-gray-300'
-              } rounded-lg text-sm focus:outline-none focus:ring-2 ${
-                errors.email ? 'focus:ring-red-500' : 'focus:ring-gray-500'
-              }`}
+              className={`w-full ${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
+                } px-4 py-2 border border-gray-600  ${errors.email ? 'border-red-500' : 'border-gray-300'
+                } rounded-lg text-sm focus:outline-none focus:ring-2 ${errors.email ? 'focus:ring-red-500' : 'focus:ring-gray-500'
+                }`}
               aria-invalid={!!errors.email}
               aria-describedby="email_error"
             />
@@ -127,9 +121,8 @@ function Login() {
           <div className="mb-4 relative">
             <label
               htmlFor="password"
-              className={`mb-1 block text-sm font-medium ${
-                darkMode ? 'text-white' : 'text-black'
-              }`}
+              className={`mb-1 block text-sm font-medium ${darkMode ? 'text-white' : 'text-black'
+                }`}
             >
               Password
             </label>
@@ -142,13 +135,10 @@ function Login() {
                 placeholder="********"
                 value={formData.password}
                 onChange={handleChange}
-                className={`w-full ${
-                  darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
-                } px-4 py-2 pr-10 border ${
-                  errors.password ? 'border-red-500' : 'border-gray-600'
-                } rounded-lg text-sm  focus:outline-none focus:ring-2 ${
-                  errors.password ? 'focus:ring-red-500' : 'focus:ring-gray-500'
-                }`}
+                className={`w-full ${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
+                  } px-4 py-2 pr-10 border ${errors.password ? 'border-red-500' : 'border-gray-600'
+                  } rounded-lg text-sm  focus:outline-none focus:ring-2 ${errors.password ? 'focus:ring-red-500' : 'focus:ring-gray-500'
+                  }`}
                 aria-invalid={!!errors.password}
                 aria-describedby="password_error"
               />
@@ -182,9 +172,8 @@ function Login() {
 
           <button
             type="submit"
-            className={`w-full flex items-center justify-center bg-[#7C25BA] text-white py-2 rounded-lg hover:bg-[#5b21a8] focus:outline-none focus:ring-2 focus:ring-purple-500 ${
-              isLoading && 'opacity-50 cursor-not-allowed'
-            }`}
+            className={`w-full flex items-center justify-center bg-[#7C25BA] text-white py-2 rounded-lg hover:bg-[#5b21a8] focus:outline-none focus:ring-2 focus:ring-purple-500 ${isLoading && 'opacity-50 cursor-not-allowed'
+              }`}
             disabled={isLoading}
             aria-busy={isLoading}
           >
