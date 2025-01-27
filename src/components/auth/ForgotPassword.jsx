@@ -70,7 +70,7 @@ function ForgotPassword() {
       );
 
       if (response.ok) {
-        navigate('/account/otp');
+        navigate('/account/email');
         toast.success('Reset successful');
       }
     } catch (err) {
