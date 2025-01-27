@@ -16,11 +16,9 @@ const ProxyCard = ({
     {filteredProxies.map((proxy, index) => (
       <div
         key={proxy.id}
-        className={`p-6 rounded-lg shadow-lg hover:shadow-lg transition-transform transform border ${
-          darkMode ? 'border-gray-700' : 'border-gray-100'
-        } ${
-          index === selectedRow ? 'scale-105 border-purple-400' : ''
-        } cursor-pointer`}
+        className={`p-6 rounded-lg shadow-lg hover:shadow-lg transition-transform transform border ${darkMode ? 'border-gray-700' : 'border-gray-100'
+          } ${index === selectedRow ? 'scale-105 border-purple-400' : ''
+          } cursor-pointer`}
         onClick={() => handleRowClick(index, proxy)}
       >
         {/* Proxy Header */}
@@ -30,9 +28,8 @@ const ProxyCard = ({
 
         {/* Proxy Information */}
         <div
-          className={`space-y-2 text-sm ${
-            darkMode ? 'text-white' : 'text-black'
-          }`}
+          className={`space-y-2 text-sm ${darkMode ? 'text-white' : 'text-black'
+            }`}
         >
           <div className="flex justify-between items-center">
             <div className="w-1/3">
@@ -60,9 +57,8 @@ const ProxyCard = ({
 
         {/* Proxy Stats */}
         <div
-          className={`space-y-2 ${
-            darkMode ? 'text-white' : 'text-black'
-          } items-center flex justify-between`}
+          className={`space-y-2 ${darkMode ? 'text-white' : 'text-black'
+            } items-center flex justify-between`}
         >
           <div>
             <p>Conn</p>
