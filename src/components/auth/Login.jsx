@@ -66,7 +66,7 @@ function Login() {
         setError(formattedErrors);
       } else {
         // Handle network/server errors
-        toast.error('Something went wrong. Please try again.');
+        toast.error('Invalid credentials.');
       }
     } finally {
       setLoading(false);
