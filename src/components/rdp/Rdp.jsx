@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import rdp1 from '/rdp1.png'; 
-import ubuntu from '/ubuntu.svg'; 
-import windows from '/windows.svg'; 
-import centOs from '/centOs.svg'; 
-import debian from '/debian.svg'; 
+import rdp1 from '/rdp1.png';
+import ubuntu from '/ubuntu.svg';
+import windows from '/windows.svg';
+import centOs from '/centOs.svg';
+import debian from '/debian.svg';
 import NavBar from '../../components/reusables/Navbar';
 
 const Rdp = () => {
@@ -12,7 +12,7 @@ const Rdp = () => {
     const navigate = useNavigate();
     return (
         <div>
-            <NavBar/>
+            <NavBar />
             {/* New Section with Text and Image */}
             <div className="flex flex-col-reverse lg:flex-row justify-between bg-white p-4 sm:p-8 lg:p-16 max-w-screen-xl mx-auto mb-8">
                 {/* Text on the left */}
@@ -126,19 +126,19 @@ const Rdp = () => {
             </section>
 
             {/* Beyond Shared Hosting Section */}
-<div className="">
-    <section className="bg-[#DEE2E6] items-center py-6 sm:py-10 mb-16 sm:mb-24 pb-12 sm:pb-20">
-        <h2 className="text-center text-xl sm:text-2xl font-bold">Beyond Shared Hosting</h2>
-        <div className="flex flex-wrap justify-center gap-6 sm:space-x-12 mt-8 sm:mt-12">
-            {['Web Hosting', 'WordPress Hosting', 'Website Builder', 'SSL Certificate'].map((service, index) => (
-                <div key={index} className="bg-white shadow-lg rounded-lg p-4 sm:p-6 w-40 sm:w-64 text-center flex flex-col items-center">
-                    <img src="https://placehold.co/64x64" alt={`${service} icon`} className="mx-auto mb-2 sm:mb-4" />
-                    <p className="text-sm sm:text-base">{service}</p>
-                </div>
-            ))}
-        </div>
-    </section>
-</div>
+            <div className="">
+                <section className="bg-[#DEE2E6] items-center py-6 sm:py-10 mb-16 sm:mb-24 pb-12 sm:pb-20">
+                    <h2 className="text-center text-xl sm:text-2xl font-bold">Beyond Shared Hosting</h2>
+                    <div className="flex flex-wrap justify-center gap-6 sm:space-x-12 mt-8 sm:mt-12">
+                        {['Web Hosting', 'WordPress Hosting', 'Website Builder', 'SSL Certificate'].map((service, index) => (
+                            <div key={index} className="bg-white shadow-lg rounded-lg p-4 sm:p-6 w-40 sm:w-64 text-center flex flex-col items-center">
+                                <img src="https://placehold.co/64x64" alt={`${service} icon`} className="mx-auto mb-2 sm:mb-4" />
+                                <p className="text-sm sm:text-base">{service}</p>
+                            </div>
+                        ))}
+                    </div>
+                </section>
+            </div>
 
 
             {/* Footer Section */}
