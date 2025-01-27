@@ -60,7 +60,7 @@ function ForgotPassword() {
 
       if (response.ok) {
         navigate('/account/otp');
-        
+
         toast.success('Reset successful');
       }
     } catch (err) {
@@ -80,19 +80,16 @@ function ForgotPassword() {
 
   return (
     <div
-      className={`min-h-screen flex items-center justify-center ${
-        darkMode ? 'bg-[#131312]' : 'bg-white'
-      }`}
+      className={`min-h-screen flex items-center justify-center ${darkMode ? 'bg-[#131312]' : 'bg-white'
+        }`}
     >
       <div
-        className={`max-w-sm mx-auto p-4  rounded-lg shadow-lg ${
-          darkMode ? 'text-white border-gray-700' : 'text-black border-gray-100'
-        } border `}
+        className={`max-w-sm mx-auto p-4  rounded-lg shadow-lg ${darkMode ? 'text-white border-gray-700' : 'text-black border-gray-100'
+          } border `}
       >
         <h2
-          className={`text-lg font-semibold mb-4 ${
-            darkMode ? 'text-white' : 'text-black'
-          }`}
+          className={`text-lg font-semibold mb-4 ${darkMode ? 'text-white' : 'text-black'
+            }`}
         >
           Forgot Password
         </h2>
@@ -103,9 +100,8 @@ function ForgotPassword() {
         <form onSubmit={onSubmit}>
           <label
             htmlFor="email"
-            className={`block text-sm font-medium ${
-              darkMode ? 'text-white' : 'text-black'
-            } mb-2`}
+            className={`block text-sm font-medium ${darkMode ? 'text-white' : 'text-black'
+              } mb-2`}
           >
             Email
           </label>
@@ -116,13 +112,10 @@ function ForgotPassword() {
             placeholder="name@example.com"
             value={formData.email}
             onChange={handleChange}
-            className={`w-full ${
-              darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
-            } px-4 py-2 border border-gray-600  ${
-              errors.email ? 'border-red-500' : 'border-gray-300'
-            } rounded-lg text-sm focus:outline-none focus:ring-2 ${
-              errors.email ? 'focus:ring-red-500' : 'focus:ring-gray-500'
-            }`}
+            className={`w-full ${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
+              } px-4 py-2 border border-gray-600  ${errors.email ? 'border-red-500' : 'border-gray-300'
+              } rounded-lg text-sm focus:outline-none focus:ring-2 ${errors.email ? 'focus:ring-red-500' : 'focus:ring-gray-500'
+              }`}
             aria-invalid={!!errors.email}
             aria-describedby="email_error"
           />
@@ -134,9 +127,8 @@ function ForgotPassword() {
           <div className="mb-4 relative">
             <label
               htmlFor="password"
-              className={`mb-1 block text-sm font-medium ${
-                darkMode ? 'text-white' : 'text-black'
-              }`}
+              className={`mb-1 block text-sm font-medium ${darkMode ? 'text-white' : 'text-black'
+                }`}
             >
               New Password
             </label>
@@ -149,15 +141,12 @@ function ForgotPassword() {
                 placeholder="********"
                 value={formData.newPassword}
                 onChange={handleChange}
-                className={`w-full ${
-                  darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
-                } px-4 py-2 pr-10 border ${
-                  errors.newPassword ? 'border-red-500' : 'border-gray-600'
-                } rounded-lg text-sm  focus:outline-none focus:ring-2 ${
-                  errors.newPassword
+                className={`w-full ${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
+                  } px-4 py-2 pr-10 border ${errors.newPassword ? 'border-red-500' : 'border-gray-600'
+                  } rounded-lg text-sm  focus:outline-none focus:ring-2 ${errors.newPassword
                     ? 'focus:ring-red-500'
                     : 'focus:ring-gray-500'
-                }`}
+                  }`}
                 aria-invalid={!!errors.newPassword}
                 aria-describedby="password_error"
               />

@@ -10,14 +10,12 @@ const CheckMail = () => {
   const { darkMode } = useContext(DarkModeContext);
   return (
     <div
-      className={`flex items-center justify-center min-h-screen h-screen w-screen ${
-        darkMode ? 'bg-[#131312]' : ' bg-gray-100'
-      }`}
+      className={`flex items-center justify-center min-h-screen h-screen w-screen ${darkMode ? 'bg-[#131312]' : ' bg-gray-100'
+        }`}
     >
       <div
-        className={` ${
-          darkMode ? 'bg-[#131312] border-gray-700' : 'bg-white'
-        } p-8 rounded-lg shadow-lg border w-5/6 text-center max-w-sm`}
+        className={` ${darkMode ? 'bg-[#131312] border-gray-700' : 'bg-white'
+          } p-8 rounded-lg shadow-lg border w-5/6 text-center max-w-sm`}
       >
         <img
           src="/icons8-unread-messages-100.png"
@@ -25,9 +23,8 @@ const CheckMail = () => {
           className="mx-auto mb-6 animate-bounce"
         />
         <h2
-          className={`text-xl font-bold  ${
-            darkMode ? 'text-white' : 'text-gray-800'
-          } mb-4`}
+          className={`text-xl font-bold  ${darkMode ? 'text-white' : 'text-gray-800'
+            } mb-4`}
         >
           Check your mail
         </h2>
@@ -39,9 +36,8 @@ const CheckMail = () => {
         <Link
           to="/account/otp"
           // target="_blank"
-          className={`flex items-center justify-center w-full py-3 bg-[#7C25BA]   ${
-            darkMode ? 'text-white' : 'text-white'
-          } rounded-md hover:bg-[#5b21a8] focus:outline-none`}
+          className={`flex items-center justify-center w-full py-3 bg-[#7C25BA]   ${darkMode ? 'text-white' : 'text-white'
+            } rounded-md hover:bg-[#5b21a8] focus:outline-none`}
         >
           Input OTP
         </Link>
