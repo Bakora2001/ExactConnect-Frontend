@@ -23,13 +23,23 @@ function ForgotPassword() {
     email: '',
     newPassword: '',
   });
-  console.log(formData);
+
+  //To handle navigation
   const navigate = useNavigate()
+
+  //State to handle toggling the password visibility
   const [showPassword, setShowPassword] = useState(false);
+
+  //State for handling zod/server errors
   const [errors, setError] = useState('');
+
+  //State for disabling the submit button when making server requests
   const [loading, setLoading] = useState(false);
 
+  //State for handling light and dark mode
   const { darkMode } = useContext(DarkModeContext);
+
+
   // Handle form input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -39,6 +49,7 @@ function ForgotPassword() {
     }));
   };
 
+  //Function for handling form submittions
   const onSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -60,7 +71,6 @@ function ForgotPassword() {
 
       if (response.ok) {
         navigate('/account/otp');
-
         toast.success('Reset successful');
       }
     } catch (err) {
@@ -170,9 +180,35 @@ function ForgotPassword() {
           </div>
           <button
             type="submit"
-            className="w-full bg-[#7C25BA] text-white text-sm font-medium py-2 rounded-lg hover:bg-gray-600 transition mt-4"
+            className={`w-full flex items-center justify-center bg-[#7C25BA] text-white text-sm font-medium py-2 rounded-lg hover:bg-gray-600 transition mt-4 ${loading && 'opacity-50 cursor-not-allowed'
+              }`}
+            disabled={loading}
+            aria-busy={loading}
           >
-            Continue
+            {loading ? (
+              <svg
+                className="animate-spin h-5 w-5 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                />
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 2.419.876 4.623 2.334 6.291l1.666-1.666z"
+                />
+              </svg>
+            ) : (
+              'Continue'
+            )}
           </button>
         </form>
         <p className="text-sm text-center text-gray-400 mt-6">
