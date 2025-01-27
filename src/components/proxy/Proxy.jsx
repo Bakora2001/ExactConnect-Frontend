@@ -20,7 +20,6 @@ import ProxyDetails from './ProxyDetails';
 import ProxyCard from './ProxyCard';
 import ProxyHeader from './ProxyHeader';
 
-//TODO --> Add the filter section
 
 const Proxy = () => {
   //Handling state of the proxies
@@ -28,14 +27,22 @@ const Proxy = () => {
 
   //Handling state and filtering proxies
   const [filteredProxies, setFilteredProxies] = useState([]);
+
+  //Handling the selected proxies
   const [selectedRow, setSelectedRow] = useState(null);
+console.log(selectedRow);
+
+  //To handle and display the proxies details
   const [rowData, setRowData] = useState({});
+  console.log(rowData);
 
   //State manangement of the loader
   const [loading, setLoading] = useState(true);
 
   //State management for handling any server errors
   const [error, setError] = useState(null);
+
+  //State for handling paginations
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
 
@@ -49,40 +56,7 @@ const Proxy = () => {
 
   const { darkMode } = useContext(DarkModeContext);
 
-  // Fetching proxies from API
-  // const fetchProxies = async (page = 0, countryCode = '') => {
-  //   try {
-  //     setLoading(true);
-  //     setError(null);  // Clear any previous errors
-
-  //     // Construct the API URL with optional country code filter
-  //     const url = `${SERVER_URL}/products/proxies?page=${page}${countryCode ? `&countryCode=${countryCode}` : ''}`;
-
-  //     const response = await fetch(url);
-
-  //     if (!response.ok) {
-  //       throw new Error('Failed to fetch proxies. Please reload the page.');
-  //     }
-
-  //     const data = await response.json();
-
-  //     if (!data.agents || data.agents.length === 0) {
-  //       throw new Error('No proxies found for the selected country.');
-  //     }
-
-  //     // Update state with fetched proxies
-  //     setProxies(data.agents);
-  //     setFilteredProxies(data.agents.filter(proxy =>
-  //       countryCode ? proxy.loc.cc === countryCode : true
-  //     ));
-  //     setTotalPages(data.total || 0);
-
-  //   } catch (error) {
-  //     setError(error.message);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
+ 
   const fetchProxies = async (page = 0, countryCode = '') => {
     try {
       setLoading(true);
@@ -102,10 +76,14 @@ const Proxy = () => {
     }
   };
 
+//Fetching proxy details from a selected proxy
+// const fetchProxiesDetails = async ()
+
   useEffect(() => {
     fetchProxies(currentPage);
   }, [currentPage]);
 
+  //This is the function to pass in the details of the selected proxy
   const handleRowClick = useCallback((rowIndex, proxy) => {
     setSelectedRow(rowIndex);
     setRowData(proxy);
