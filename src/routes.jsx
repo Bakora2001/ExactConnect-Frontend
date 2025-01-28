@@ -30,6 +30,7 @@ import Mpesa from '../src/components/payment/Mpesa';
 import ChangePassword from './components/auth/ChangePassword';
 import CheckMail from './components/auth/CheckMail';
 import Delivered from './components/pages/Delivered';
+import Dashboard from './components/client/dashboard/Dashboard';
 
 export const router = createBrowserRouter([
   {
@@ -107,5 +108,8 @@ export const router = createBrowserRouter([
   {
     path: '/delivered',
     element: <Delivered />
+  }, {
+    path: '/dashboard',
+    element: <Dashboard />
   }
 ]);
