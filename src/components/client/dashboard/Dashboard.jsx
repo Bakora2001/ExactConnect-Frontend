@@ -1,6 +1,6 @@
 //This is will be the client's dashboard
-import server from '../../../../public/servertwo.svg'
-import mobile from '../../../../public/mobiletower.svg'
+import server from '/servertwo.svg'
+import mobile from '/mobiletower.svg'
 import React, { useState, useContext, useEffect } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import SideBar from '../reusable/Sidebar';
@@ -13,6 +13,10 @@ import { SERVER_URL } from '../../../services/data';
 const Dashboard = () => {
 
   const [proxy, setProxies] = useState([])
+
+  //retreiving user details from the storage
+  const userDetails = JSON.parse(localStorage.getItem('userDetails'));
+ 
 
   useEffect(() => {
     fetch(`${SERVER_URL}/products/proxies?page=${0}`, {
@@ -67,7 +71,7 @@ const Dashboard = () => {
         </button>
   
         <div className="flex-1 flex justify-end">
-    <UserMenu />
+    <UserMenu userDetails={userDetails}/>
   </div>
       </header>
   

@@ -5,6 +5,7 @@ import React, {
   useMemo,
   useCallback,
 } from 'react';
+import Sidebar from '../../components/client/reusable/Sidebar'
 import Navbar from '../reusables/Navbar';
 
 //Base url
@@ -180,7 +181,7 @@ console.log(selectedRow);
         } min-h-screen   flex flex-col gap-2`}
     >
       <div className="w-full mb-10 sm:mb-12">
-        <Navbar />
+        <Navbar/>
       </div>
 
       <ProxyHeader
