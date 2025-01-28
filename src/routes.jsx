@@ -27,10 +27,12 @@ import Configure from './components/Configure';
 
 import ContactUs from '../src/components/contact/ContactUs';
 import Mpesa from '../src/components/payment/Mpesa';
-import ChangePassword from './components/auth/ChangePassword';
+import ChangePassword from './components/client/account/ChangePassword';
 import CheckMail from './components/auth/CheckMail';
 import Delivered from './components/pages/Delivered';
 import Dashboard from './components/client/dashboard/Dashboard';
+import SettingsPage from './components/client/account/SettingsPage';
+import Notification from './components/client/account/Notification';
 
 export const router = createBrowserRouter([
   {
@@ -111,5 +113,8 @@ export const router = createBrowserRouter([
   }, {
     path: '/dashboard',
     element: <Dashboard />
+  }, {
+    path: '/account/settings',
+    element: <SettingsPage />
   }
 ]);
