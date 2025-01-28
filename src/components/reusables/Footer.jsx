@@ -128,7 +128,7 @@ const Footer = () => {
                 {darkMode ? (
                   <Light className="text-gray-700" />
                 ) : (
-                  <Moon className="text-gray-500" />
+                  <Moon className="text-gray-700" />
                 )}
               </button>
             </div>

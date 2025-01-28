@@ -2,8 +2,8 @@ import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import LogoIcon from './LogoIcon';
+;
 import { DarkModeContext } from '../../context/DarkModeContext';
-
 const NavBar = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
