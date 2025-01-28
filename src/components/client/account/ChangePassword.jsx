@@ -26,6 +26,7 @@ const changePasswordSchema = z.object({
 
 const ChangePassword = () => {
 
+  const userDetails = JSON.parse(localStorage.getItem('userDetails'));
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const toggleSidebar = () => {
@@ -144,7 +145,7 @@ const ChangePassword = () => {
             {isSidebarOpen ? <FaTimes /> : <FaBars />}
           </button>
           <div className="flex-1 flex justify-end">
-            <UserMenu />
+            <UserMenu userDetails={userDetails} />
           </div>
         </header>
         <div className='grid  lg:grid-cols-5'>
