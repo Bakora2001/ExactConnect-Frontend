@@ -12,7 +12,7 @@ import Notification from "./Notification";
 
 
 function SettingsPage() {
-
+  const userDetails = JSON.parse(localStorage.getItem('userDetails'));
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const { darkMode } = useContext(DarkModeContext);
 
@@ -45,7 +45,7 @@ function SettingsPage() {
             {isSidebarOpen ? <FaTimes /> : <FaBars />}
           </button>
           <div className="flex-1 flex justify-end">
-            <UserMenu />
+            <UserMenu userDetails={userDetails} />
           </div>
         </header>
 
