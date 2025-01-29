@@ -1,7 +1,7 @@
 import { useState, useMemo, useCallback, useRef, useEffect } from 'react';
 import { IoChevronDown } from 'react-icons/io5';
 import countryList from 'react-select-country-list';
-import countryFlag from '../../services/countryFlag';
+import countryFlag from '../../../services/countryFlag';
 
 const Header = ({ darkMode, fetchProxies }) => {
   const [selectedCountry, setSelectedCountry] = useState(null);

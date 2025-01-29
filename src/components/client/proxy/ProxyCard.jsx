@@ -1,6 +1,6 @@
 // This component renders the proxies in cards
-import Wifi from '../icons/Wifi';
-import Cell from '../icons/Cell';
+import Wifi from '../../icons/Wifi';
+import Cell from '../../icons/Cell';
 
 // import countryFlag from '../../services/countryFlag';
 // console.log(countryFlag());

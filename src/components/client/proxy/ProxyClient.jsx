@@ -5,13 +5,13 @@ import React, {
   useMemo,
   useCallback,
 } from 'react';
-import Sidebar from '../../components/client/reusable/Sidebar'
-import Navbar from '../reusables/Navbar';
+import Sidebar from '../reusable/Sidebar'
+
 
 //Base url
 // import { SERVER_URL } from '../../services/data';
 import { fetchProxyData } from './utils/proxyService';
-import { DarkModeContext } from '../../context/DarkModeContext';
+import { DarkModeContext } from '../../../context/DarkModeContext';
 
 //Importing proxy components
 import Pagination from './Pagination';
@@ -181,7 +181,7 @@ console.log(selectedRow);
         } min-h-screen   flex flex-col gap-2`}
     >
       <div className="w-full mb-10 sm:mb-12">
-        <Navbar/>
+       <Sidebar/>
       </div>
 
       <ProxyHeader

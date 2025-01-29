@@ -1,4 +1,4 @@
-import { SERVER_URL } from '../../../services/data';
+import { SERVER_URL } from '../../../../services/data';
 
 export const fetchProxyData = async (page, countryCode) => {
   try {
