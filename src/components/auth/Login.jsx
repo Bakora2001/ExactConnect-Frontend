@@ -218,7 +218,7 @@ function Login() {
             to="/account/signup"
             className="text-[#7C25BA] font-bold hover:underline"
           >
-            Sign in
+            Sign up
           </Link>
         </p>
       </div>

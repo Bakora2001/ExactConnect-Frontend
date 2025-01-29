@@ -41,7 +41,7 @@ const ChangePassword = () => {
   });
 
   //Accessing the customer reference from the backend
-  const customerId = localStorage.getItem('customerReference');
+  const customerId = userDetails.customerId
 
   //To handle the loading state when the form is submitting
   const [isLoading, setLoading] = useState(false);
