@@ -88,7 +88,7 @@ const Dashboard = () => {
               Proxies
             </h2>
             <Link
-              to="/proxy"
+              to="/client/proxy"
               className={`mt-4 px-4 py-2 text-sm font-medium rounded-lg shadow-md ${darkMode ? 'bg-purple-600 text-white hover:bg-purple-700' : 'bg-blue-500 text-white hover:bg-blue-600'
                 } transition duration-200`}
             >

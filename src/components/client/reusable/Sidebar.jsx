@@ -11,11 +11,8 @@ import { DarkModeContext } from '../../../context/DarkModeContext'
 
 function Sidebar({ isOpen, onClose }) {
 
-
-
   //For allowing toggling of the sidebar on and off
   const { darkMode } = useContext(DarkModeContext)
-
 
   return (
     <aside className={`fixed inset-y-0 left-0 w-64   h-full ${darkMode ? 'bg-[#131312] text-white' : 'text-white bg-[#7C25BA] '}  p-4 md:p-6 z-20 shadow-lg transform ${isOpen ? 'translate-x-0 ' : '-translate-x-full'} transition-transform duration-300 ease-in-out md:translate-x-0 `}>
@@ -26,7 +23,7 @@ function Sidebar({ isOpen, onClose }) {
         <ul className="flex flex-col space-y-4 mt-8 ">
           {[
             { to: '/dashboard', icon: <LayoutDashboard className="text-2xl" />, label: 'Dashboard' },
-            { to: '/proxy', icon: <RadioTower className="text-2xl" />, label: 'Residential Proxy' },
+            { to: '/client/proxy', icon: <RadioTower className="text-2xl" />, label: 'Residential Proxy' },
             { to: '/rdp', icon: <Server className="text-2xl" />, label: 'Vps Server' },
             { to: '/maintainance', icon: <Card className="text-2xl" />, label: 'VCC Card' },
             { to: '/maintainance', icon: <PhoneCall className="text-2xl" />, label: 'Non Voip Numbers' },
