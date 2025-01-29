@@ -37,7 +37,7 @@ const Proxy = () => {
 
   const toggleSidebar = () => {
     setIsSidebarOpen((prev) => !prev);
-    document.body.style.overflow = isSidebarOpen ? 'auto' : 'hidden';
+    // document.body.style.overflow = isSidebarOpen ? 'auto' : 'hidden';
   };
 
   //Handling state and filtering proxies
@@ -199,7 +199,7 @@ const Proxy = () => {
 
       {isSidebarOpen && (
         <div
-          className="fixed inset-0  z-40"
+          className="fixed inset-0  z-10"
           onClick={toggleSidebar}
         ></div>
       )}
