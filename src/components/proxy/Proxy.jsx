@@ -5,7 +5,7 @@ import React, {
   useMemo,
   useCallback,
 } from 'react';
-import Sidebar from '../../components/client/reusable/Sidebar'
+import Sidebar from '../client/reusable/Sidebar'
 import Navbar from '../reusables/Navbar';
 
 //Base url

@@ -14,25 +14,30 @@ import Signup from './components/auth/Signup';
 import Login from './components/auth/Login';
 import ForgotPassword from './components/auth/ForgotPassword';
 import OTPVerification from './components/auth/OTPVerification';
+import ChangePassword from './components/client/account/ChangePassword';
+import CheckMail from './components/auth/CheckMail';
 
 //Components for the admin section
 import AdminHome from '../src/components/admin/AdminHome';
 import AdminProducts from '../src/components/admin/AdminProducts';
 import AddProductForm from '../src/components/admin/AddProductsForm';
 
-import Proxy from '../src/components/proxy/Proxy';
+import Proxy from './components/proxy/Proxy';
 import Rdp from '../src/components/rdp/Rdp';
 import Checkout from './components/Checkout';
 import Configure from './components/Configure';
 
 import ContactUs from '../src/components/contact/ContactUs';
 import Mpesa from '../src/components/payment/Mpesa';
-import ChangePassword from './components/client/account/ChangePassword';
-import CheckMail from './components/auth/CheckMail';
+
+//Component for showing when the contact us page has now worked well
 import Delivered from './components/pages/Delivered';
+
+//Component pages for the when the user has signed in
 import Dashboard from './components/client/dashboard/Dashboard';
+import ProxyClient from './components/client/proxy/ProxyClient'
 import SettingsPage from './components/client/account/SettingsPage';
-import Notification from './components/client/account/Notification';
+
 
 export const router = createBrowserRouter([
   {
@@ -116,5 +121,9 @@ export const router = createBrowserRouter([
   }, {
     path: '/account/settings',
     element: <SettingsPage />
+  },
+  {
+    path: '/client/proxy',
+    element: <ProxyClient />
   }
 ]);

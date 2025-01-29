@@ -15,7 +15,7 @@ const Home = () => {
   const { darkMode } = useContext(DarkModeContext);
 
   const handleGetStartedClick = () => {
-    navigate('/signup');
+    navigate('/account/signup');
   };
   setTimeout(() => {
     setIsLoading(false)
