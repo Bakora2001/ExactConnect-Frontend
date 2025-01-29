@@ -1,7 +1,7 @@
 //This is will be the client's dashboard
 import server from '/servertwo.svg'
 import mobile from '/mobiletower.svg'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import React, { useState, useContext, useEffect } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import SideBar from '../reusable/Sidebar';
@@ -17,9 +17,9 @@ const Dashboard = () => {
 
   //retreiving user details from the storage
   const userDetails = JSON.parse(localStorage.getItem('userDetails'));
- console.log(userDetails);
+  console.log(userDetails);
 
- 
+
   useEffect(() => {
     fetch(`${SERVER_URL}/products/proxies?page=${0}`, {
       method: 'GET'
@@ -27,15 +27,19 @@ const Dashboard = () => {
       .then((data) => data.json())
       .then((proxies) => setProxies(proxies.total))
   }, [])
- 
+
 
   //State for handling switching the sidebar open and close
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const { darkMode } = useContext(DarkModeContext);
 
+
   const toggleSidebar = () => {
+    console.log('hey it is me again');
+    // setIsSidebarOpen(false);
     setIsSidebarOpen((prev) => !prev);
-    document.body.style.overflow = isSidebarOpen ? 'auto' : 'hidden';
+    // console.log('Hello');
+    // document.body.style.overflow = isSidebarOpen ? 'auto' : 'hidden';
   };
 
 
@@ -47,7 +51,7 @@ const Dashboard = () => {
       {/* Overlay for Small Screens */}
       {isSidebarOpen && (
         <div
-          className="fixed inset-0  z-40"
+          className="fixed inset-0  z-10"
           onClick={toggleSidebar}
         ></div>
       )}
@@ -74,7 +78,7 @@ const Dashboard = () => {
             <UserMenu userDetails={userDetails} />
           </div>
         </header>
-       
+
         {/* Dashboard Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4 lg:p-8">
           {/* Proxy Card */}
