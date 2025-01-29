@@ -5,6 +5,7 @@ import React, {
   useMemo,
   useCallback,
 } from 'react';
+import { FaBars, FaTimes } from 'react-icons/fa';
 import Sidebar from '../reusable/Sidebar'
 
 
@@ -20,18 +21,31 @@ import Loading from './Loading';
 import ProxyDetails from './ProxyDetails';
 import ProxyCard from './ProxyCard';
 import ProxyHeader from './ProxyHeader';
+import UserMenu from '../reusable/UserMenu';
 
 
 const Proxy = () => {
   //Handling state of the proxies
   const [proxies, setProxies] = useState([]);
 
+  //retreiving user details from the storage
+  const userDetails = JSON.parse(localStorage.getItem('userDetails'));
+
+  //State for handling switching the sidebar open and close
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen((prev) => !prev);
+    document.body.style.overflow = isSidebarOpen ? 'auto' : 'hidden';
+  };
+
   //Handling state and filtering proxies
   const [filteredProxies, setFilteredProxies] = useState([]);
 
   //Handling the selected proxies
   const [selectedRow, setSelectedRow] = useState(null);
-console.log(selectedRow);
+  console.log(selectedRow);
 
   //To handle and display the proxies details
   const [rowData, setRowData] = useState({});
@@ -57,7 +71,7 @@ console.log(selectedRow);
 
   const { darkMode } = useContext(DarkModeContext);
 
- 
+
   const fetchProxies = async (page = 0, countryCode = '') => {
     try {
       setLoading(true);
@@ -77,8 +91,8 @@ console.log(selectedRow);
     }
   };
 
-//Fetching proxy details from a selected proxy
-// const fetchProxiesDetails = async ()
+  //Fetching proxy details from a selected proxy
+  // const fetchProxiesDetails = async ()
 
   useEffect(() => {
     fetchProxies(currentPage);
@@ -180,48 +194,72 @@ console.log(selectedRow);
       className={`${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
         } min-h-screen   flex flex-col gap-2`}
     >
-      <div className="w-full mb-10 sm:mb-12">
-       <Sidebar/>
-      </div>
 
-      <ProxyHeader
-        darkMode={darkMode}
-        toggleFilterModal={toggleFilterModal}
-        fetchProxies={fetchProxies}
-      />
-      <Loading
-        loading={loading}
-        error={error}
-        filteredProxies={filteredProxies}
-      />
+      <Sidebar isOpen={isSidebarOpen} onClose={toggleSidebar} />
 
-      <ProxyCard
-        filteredProxies={filteredProxies}
-        darkMode={darkMode}
-        selectedRow={selectedRow}
-        handleRowClick={handleRowClick}
-      />
+      {isSidebarOpen && (
+        <div
+          className="fixed inset-0  z-40"
+          onClick={toggleSidebar}
+        ></div>
+      )}
 
-      {isFilterModalOpen && (
-        <FilterModal
-          filters={filters}
+      <main
+        className={`flex-1 ${darkMode ? 'bg-[#030917]' : 'bg-white'} transition-all duration-300 ease-in-out ${isSidebarOpen ? 'blur-sm pointer-events-none md:pointer-events-auto' : ''
+          } md:ml-64`}
+      >
+        <header className={`flex justify-between items-center py-4 px-6 border-b backdrop-blur-xl bg-opacity-90 shadow-sm sticky top-0 z-50 ${darkMode ? 'bg-[#131312] border-gray-700' : 'bg-[#7C25BA] border-[#7C25BA]'
+          }`}>
+          <button
+            className={`md:hidden text-3xl z-50 ${darkMode ? 'text-white' : 'text-white'}`}
+            onClick={toggleSidebar}
+          >
+            {isSidebarOpen ? <FaTimes /> : <FaBars />}
+          </button>
+          <div className="flex-1 flex justify-end">
+            <UserMenu userDetails={userDetails} />
+          </div>
+        </header>
+        <ProxyHeader
           darkMode={darkMode}
-          handleFilterChange={handleFilterChange}
           toggleFilterModal={toggleFilterModal}
+          fetchProxies={fetchProxies}
         />
-      )}
+        <Loading
+          loading={loading}
+          error={error}
+          filteredProxies={filteredProxies}
+        />
 
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        handlePreviousPage={handlePreviousPage}
-        handleNextPage={handleNextPage}
-        setCurrentPage={setCurrentPage}
-      />
-      {/* Sidebar */}
-      {selectedRow !== null && (
-        <ProxyDetails rowData={rowData} setSelectedRow={setSelectedRow} />
-      )}
+        <ProxyCard
+          filteredProxies={filteredProxies}
+          darkMode={darkMode}
+          selectedRow={selectedRow}
+          handleRowClick={handleRowClick}
+        />
+
+        {isFilterModalOpen && (
+          <FilterModal
+            filters={filters}
+            darkMode={darkMode}
+            handleFilterChange={handleFilterChange}
+            toggleFilterModal={toggleFilterModal}
+          />
+        )}
+
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          handlePreviousPage={handlePreviousPage}
+          handleNextPage={handleNextPage}
+          setCurrentPage={setCurrentPage}
+        />
+        {/* Sidebar */}
+        {selectedRow !== null && (
+          <ProxyDetails rowData={rowData} setSelectedRow={setSelectedRow} />
+        )}
+      </main>
+
     </div>
   );
 };
