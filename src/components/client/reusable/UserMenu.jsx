@@ -17,7 +17,7 @@ const UserMenu = ({ userDetails }) => {
   const { darkMode, toggleDarkMode } = useContext(DarkModeContext);
 
 
-console.log(userDetails);
+// console.log(userDetails);
 
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate(); // Initialize the navigate function
