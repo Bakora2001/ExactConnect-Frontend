@@ -5,6 +5,7 @@ export const fetchProxyData = async (page, countryCode) => {
     const url = `${SERVER_URL}/products/proxies?page=${page}${countryCode ? `&countryCode=${countryCode}` : ''
       }`;
     const response = await fetch(url);
+    console.log(countryCode);
     if (!response.ok) throw new Error('Failed to fetch proxies');
     return await response.json();
   } catch (error) {

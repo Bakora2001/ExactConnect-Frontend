@@ -3,8 +3,12 @@ import { IoChevronDown } from 'react-icons/io5';
 import countryList from 'react-select-country-list';
 import countryFlag from '../../services/countryFlag';
 
-const Header = ({ darkMode, fetchProxies }) => {
-  const [selectedCountry, setSelectedCountry] = useState(null);
+
+//We need to pass in us as default until the user passes in another country
+
+const Header = ({ darkMode, fetchProxies, setSelectedCountry }) => {
+  // const [selectedCountry, setSelectedCountry] = useState('');
+
   const [showDropdown, setShowDropdown] = useState(false);
   const [visibleCountries, setVisibleCountries] = useState([]);
   const [dropdownCountries, setDropdownCountries] = useState([]);
@@ -37,9 +41,11 @@ const Header = ({ darkMode, fetchProxies }) => {
     return () => window.removeEventListener('resize', updateVisibleCountries);
   }, [countries]);
 
+
+
   const handleCountrySelect = useCallback(
     async (country) => {
-      setSelectedCountry(country);
+      setSelectedCountry(country.code);
       setShowDropdown(false);
       try {
         await fetchProxies(0, country.code);
@@ -47,7 +53,7 @@ const Header = ({ darkMode, fetchProxies }) => {
         console.error('Failed to fetch country proxies:', error);
       }
     },
-    [fetchProxies]
+    [fetchProxies, setSelectedCountry]
   );
 
   const handleClickOutside = useCallback((e) => {
@@ -81,7 +87,7 @@ const Header = ({ darkMode, fetchProxies }) => {
           <CountryButton
             key={country.id}
             country={country}
-            selectedCountry={selectedCountry}
+            // selectedCountry={selectedCountry}
             handleCountrySelect={handleCountrySelect}
           />
         ))}
@@ -128,7 +134,9 @@ const CountryButton = ({ country, selectedCountry, handleCountrySelect }) => (
     aria-label={`Select country ${country.name}`}
   >
     <span>{countryFlag(country.code)}</span>
+
     <span className="truncate max-w-[150px]">
+
       {' '}
       {/* Truncate and limit the width */}
       {country.name}
