@@ -25,6 +25,7 @@ import ProxyHeader from './ProxyHeader';
 const Proxy = () => {
   //Handling state of the proxies
   const [proxies, setProxies] = useState([]);
+  console.log(proxies);
 
   //Handling state and filtering proxies
   const [filteredProxies, setFilteredProxies] = useState([]);
