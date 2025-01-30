@@ -1,7 +1,8 @@
-// tailwind.config.js
+import tailwindDottedBackground from 'tailwindcss-dotted-background';
+
 export default {
   content: ['./src/**/*.{html,js,jsx,ts,tsx}'],
-  darkMode:'class',
+  darkMode: 'class',
   theme: {
     extend: {
       fontFamily: {
@@ -10,7 +11,7 @@ export default {
       backgroundImage: {
         dots: "radial-gradient(circle, #2c2c2c 1px, transparent 1px)",
       },
-      animation:{
+      animation: {
         blink: "blink 1s step-end infinite",
       },
       keyframes: {
@@ -19,9 +20,7 @@ export default {
           "50%": { opacity: 0 },
         },
       },
-      }
     },
-  plugins: [
-    require('tailwindcss-dotted-background')
-  ],
+  },
+  plugins: [tailwindDottedBackground],
 };
