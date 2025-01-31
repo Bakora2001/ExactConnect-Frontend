@@ -254,12 +254,10 @@ const Home = () => {
           {/* Repeat similar structure for other sections */}
           <Footer />
         </div>
-      </section>
+      }
 
-      {/* Reusable Footer Component */}
-      <Footer />
     </div>
-  );
+  )
 };
 
 export default Home;
