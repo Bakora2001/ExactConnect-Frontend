@@ -216,7 +216,6 @@ console.log(filters);
       {isFilterModalOpen && (
         <FilterModal
           filters={filters}
-         uniqueCCs={uniqueCCs}
           darkMode={darkMode}
           handleFilterChange={handleFilterChange}
           toggleFilterModal={toggleFilterModal}
