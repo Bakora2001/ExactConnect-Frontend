@@ -21,9 +21,9 @@ const Home = () => {
     setIsLoading(false)
   }, 2000)
   return (
-    <div className={`${darkMode ? 'bg-[#131312] text-white' : 'bg-gray-900 text-white'} relative`}>
+    <div className={`${darkMode ? 'bg-[#292929] text-white' : 'bg-white text-black'} relative`}>
       {/* Header Section */}
-      <div className={`h-auto sm:h-[655px] flex flex-col items-center mb-10 ${darkMode ? 'bg-[#131312]' : 'bg-purple-700'} text-white`}>
+      <div className={`h-auto sm:h-[655px] flex flex-col items-center mb-10 ${darkMode ? 'bg-[#292929]' : 'bg-purple-700'} text-white`}>
         {/* NavBar */}
         <div className="w-full mb-16 sm:mb-32">
           <NavBar /> {/* Render the reusable NavBar component */}
@@ -62,7 +62,7 @@ const Home = () => {
       </div>
 
       {/* Residential Proxies Section */}
-      <section className={`text-center py-6 ${darkMode ? 'bg-[#131312] text-white' : 'bg-[#F9F7F2] text-black'}`}>
+      <section className={`text-center py-6 ${darkMode ? 'bg-[#292929] text-white' : 'bg-[#F9F7F2] text-black'}`}>
         <div>
           <h3 className="text-lg sm:text-xl font-bold mb-1">Residential Proxies</h3>
           <div className="border-b-4 sm:border-b-8 border-purple-700 w-8 sm:w-16 mx-auto mb-4 rounded-full thick-line"></div>
@@ -106,7 +106,7 @@ const Home = () => {
       </section>
 
       {/* VPS Server Section */}
-      <section className={`text-center mt-4 py-6 px-4 sm:px-24 mb-12 w-full ${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'}`}>
+      <section className={`text-center mt-4 py-6 px-4 sm:px-24 mb-12 w-full ${darkMode ? 'bg-[#292929] text-white' : 'bg-white text-black'}`}>
         <div>
           <h3 className="text-lg sm:text-xl font-bold mb-1">VPS Server</h3>
           <div className="border-b-4 sm:border-b-8 border-purple-700 w-12 sm:w-16 mx-auto sm:mx-[480px] mb-4 rounded-full thick-line"></div>
@@ -145,7 +145,7 @@ const Home = () => {
       </section>
 
       {/* Virtual Credit Card Section */}
-      <section className={`text-center py-6 mb-32 px-4 sm:px-24 w-full ${darkMode ? 'bg-[#131312] text-white' : 'bg-[#EEEEEE] text-black'}`}>
+      <section className={`text-center py-6 mb-32 px-4 sm:px-24 w-full ${darkMode ? 'bg-[#292929] text-white' : 'bg-[#EEEEEE] text-black'}`}>
         <div>
           <h3 className="text-lg sm:text-xl font-bold mb-1 text-center">Virtual Credit Card</h3>
           <div className="border-b-4 sm:border-b-8 border-purple-700 w-12 sm:w-20 mx-auto sm:ml-[450px] mb-4 rounded-full thick-line"></div>
@@ -199,7 +199,7 @@ const Home = () => {
       </section>
 
       {/* Virtual Number Section */}
-      <section className={`py-6 mb-12 px-4 sm:px-24 ${darkMode ? 'bg-[#131312] text-white' : 'bg-[#E3F6F4] text-black'}`}>
+      <section className={`py-6 mb-12 px-4 sm:px-24 ${darkMode ? 'bg-[#292929] text-white' : 'bg-[#E3F6F4] text-black'}`}>
         <div className="max-w-7xl mx-auto">
           {/* Heading Section */}
           <div className="grid lg:grid-cols-3 items-start gap-6">
