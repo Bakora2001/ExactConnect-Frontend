@@ -25,11 +25,14 @@ import ProxyHeader from './ProxyHeader';
 const Proxy = () => {
   //Handling state of the proxies
   const [proxies, setProxies] = useState([]);
-  console.log(proxies);
+ 
 
+console.log(proxies);
   //Handling state and filtering proxies
   const [filteredProxies, setFilteredProxies] = useState([]);
 
+  // const uniqueCCs = [...new Set(proxies.map((proxy) => proxy.loc.reg))];
+  // console.log("filteredProxies:", filteredProxies);
   //Getting the total proxies of a selected country
   // const [passedIn,setPassedIn] = useState([])
   const [selectedCountry, setSelectedCountry] = useState('US'); // Default country
@@ -51,26 +54,27 @@ const Proxy = () => {
   //State for handling paginations
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
-
+  console.log(totalPages);
   const [filters, setFilters] = useState({
-    location: '',
+    reg: '',
     isp: '',
+    cities:'',
     conn: '',
   });
-
+console.log(filters);
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
 
   const { darkMode } = useContext(DarkModeContext);
 
 
   //Using us to be the default proxies
-  const fetchProxies = async (page = 0, countryCode =selectedCountry) => {
+  const fetchProxies = async (page = 0, countryCode = selectedCountry) => {
     try {
       setLoading(true);
       setError(null);
 
       const data = await fetchProxyData(page, countryCode);
-     
+
       setProxies(data.agents);
       setFilteredProxies(
         data.agents.filter((proxy) => proxy.loc.cc === countryCode)
@@ -87,7 +91,7 @@ const Proxy = () => {
 
   useEffect(() => {
     fetchProxies(currentPage, selectedCountry);
-  }, [currentPage, selectedCountry]); 
+  }, [currentPage, selectedCountry]);
 
   //This is the function to pass in the details of the selected proxy
   const handleRowClick = useCallback((rowIndex, proxy) => {
@@ -173,7 +177,7 @@ const Proxy = () => {
   // }, [filters]);
 
   const toggleFilterModal = () => {
-    console.log('Hey');
+    // console.log('Hey');
     setIsFilterModalOpen(!isFilterModalOpen);
   };
   // if (error) {
@@ -190,7 +194,7 @@ const Proxy = () => {
       </div>
 
       <ProxyHeader
-      setSelectedCountry={setSelectedCountry}
+        setSelectedCountry={setSelectedCountry}
         darkMode={darkMode}
         toggleFilterModal={toggleFilterModal}
         fetchProxies={fetchProxies}
@@ -212,6 +216,7 @@ const Proxy = () => {
       {isFilterModalOpen && (
         <FilterModal
           filters={filters}
+         uniqueCCs={uniqueCCs}
           darkMode={darkMode}
           handleFilterChange={handleFilterChange}
           toggleFilterModal={toggleFilterModal}

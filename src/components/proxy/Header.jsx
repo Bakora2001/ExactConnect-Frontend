@@ -10,7 +10,7 @@ const Header = ({ darkMode, fetchProxies, setSelectedCountry }) => {
   const [selectedCountry, setSelectedCountryState] = useState("US"); // Keep track of selected country
   const [showDropdown, setShowDropdown] = useState(false);
   const [visibleCountries, setVisibleCountries] = useState([]);
-  console.log(visibleCountries);
+  // console.log(visibleCountries);
   const [dropdownCountries, setDropdownCountries] = useState([]);
   const dropdownRef = useRef(null);
 
@@ -35,10 +35,10 @@ const Header = ({ darkMode, fetchProxies, setSelectedCountry }) => {
         .concat(countries.filter((c) => !prioritizedCountries.includes(c.code)));
 
       if (window.innerWidth < 768) {
-        console.log("Small screen detected.");
+        // console.log("Small screen detected.");
 
         const selected = sortedCountries.find((c) => c.code === selectedCountry);
-        console.log("Selected country:", selected);
+        // console.log("Selected country:", selected);
 
         setVisibleCountries(selected ? [selected] : [sortedCountries[0]]);
         setDropdownCountries(sortedCountries.filter((c) => c.code !== selectedCountry));
@@ -53,7 +53,6 @@ const Header = ({ darkMode, fetchProxies, setSelectedCountry }) => {
     window.addEventListener("resize", updateVisibleCountries);
     return () => window.removeEventListener("resize", updateVisibleCountries);
   }, [countries, selectedCountry]);
-
 
 
 
