@@ -3,10 +3,14 @@ import { IoChevronDown } from 'react-icons/io5';
 import countryList from 'react-select-country-list';
 import countryFlag from '../../services/countryFlag';
 
-const Header = ({ darkMode, fetchProxies }) => {
-  const [selectedCountry, setSelectedCountry] = useState(null);
+
+//We need to pass in us as default until the user passes in another country
+
+const Header = ({ darkMode, fetchProxies, setSelectedCountry }) => {
+  const [selectedCountry, setSelectedCountryState] = useState("US"); // Keep track of selected country
   const [showDropdown, setShowDropdown] = useState(false);
   const [visibleCountries, setVisibleCountries] = useState([]);
+  // console.log(visibleCountries);
   const [dropdownCountries, setDropdownCountries] = useState([]);
   const dropdownRef = useRef(null);
 
@@ -24,22 +28,38 @@ const Header = ({ darkMode, fetchProxies }) => {
 
   useEffect(() => {
     const updateVisibleCountries = () => {
+      const prioritizedCountries = ["US", "CA", 'GB', 'AE', 'CN']; // US first, then China
+      const sortedCountries = prioritizedCountries
+        .map((code) => countries.find((c) => c.code === code))
+        .filter(Boolean) // Remove any undefined values
+        .concat(countries.filter((c) => !prioritizedCountries.includes(c.code)));
+
       if (window.innerWidth < 768) {
-        setVisibleCountries(countries.slice(0, 1));
-        setDropdownCountries(countries.slice(1));
+        // console.log("Small screen detected.");
+
+        const selected = sortedCountries.find((c) => c.code === selectedCountry);
+        // console.log("Selected country:", selected);
+
+        setVisibleCountries(selected ? [selected] : [sortedCountries[0]]);
+        setDropdownCountries(sortedCountries.filter((c) => c.code !== selectedCountry));
+        setDropdownCountries(sortedCountries.slice(1));
       } else {
-        setVisibleCountries(countries.slice(0, 6));
-        setDropdownCountries(countries.slice(6));
+        setVisibleCountries(sortedCountries.slice(0, 6));
+        setDropdownCountries(sortedCountries.slice(6));
       }
     };
+
     updateVisibleCountries();
-    window.addEventListener('resize', updateVisibleCountries);
-    return () => window.removeEventListener('resize', updateVisibleCountries);
-  }, [countries]);
+    window.addEventListener("resize", updateVisibleCountries);
+    return () => window.removeEventListener("resize", updateVisibleCountries);
+  }, [countries, selectedCountry]);
+
+
 
   const handleCountrySelect = useCallback(
     async (country) => {
-      setSelectedCountry(country);
+      setSelectedCountry(country.code);
+      setSelectedCountryState(country.code);
       setShowDropdown(false);
       try {
         await fetchProxies(0, country.code);
@@ -47,7 +67,7 @@ const Header = ({ darkMode, fetchProxies }) => {
         console.error('Failed to fetch country proxies:', error);
       }
     },
-    [fetchProxies]
+    [fetchProxies, setSelectedCountry]
   );
 
   const handleClickOutside = useCallback((e) => {
@@ -121,14 +141,16 @@ const Header = ({ darkMode, fetchProxies }) => {
 const CountryButton = ({ country, selectedCountry, handleCountrySelect }) => (
   <button
     onClick={() => handleCountrySelect(country)}
-    className={`flex items-center gap-2 px-4 py-2 text-sm rounded-full border transition-all duration-300 ${selectedCountry?.code === country.code
+    className={`flex items-center gap-2 px-4 py-2 text-sm rounded-full border transition-all duration-300 ${selectedCountry === country.code
       ? 'bg-purple-600 text-white border-purple-700 shadow-md'
       : 'bg-white text-gray-700 border-gray-300 hover:bg-blue-100 hover:border-purple-400'
       } `}
     aria-label={`Select country ${country.name}`}
   >
     <span>{countryFlag(country.code)}</span>
+
     <span className="truncate max-w-[150px]">
+
       {' '}
       {/* Truncate and limit the width */}
       {country.name}

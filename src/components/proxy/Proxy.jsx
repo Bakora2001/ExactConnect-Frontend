@@ -5,7 +5,7 @@ import React, {
   useMemo,
   useCallback,
 } from 'react';
-import Sidebar from '../client/reusable/Sidebar'
+
 import Navbar from '../reusables/Navbar';
 
 //Base url
@@ -25,17 +25,25 @@ import ProxyHeader from './ProxyHeader';
 const Proxy = () => {
   //Handling state of the proxies
   const [proxies, setProxies] = useState([]);
+ 
 
+console.log(proxies);
   //Handling state and filtering proxies
   const [filteredProxies, setFilteredProxies] = useState([]);
 
+  // const uniqueCCs = [...new Set(proxies.map((proxy) => proxy.loc.reg))];
+  // console.log("filteredProxies:", filteredProxies);
+  //Getting the total proxies of a selected country
+  // const [passedIn,setPassedIn] = useState([])
+  const [selectedCountry, setSelectedCountry] = useState('US'); // Default country
+
   //Handling the selected proxies
   const [selectedRow, setSelectedRow] = useState(null);
-console.log(selectedRow);
+  // console.log(selectedRow);
 
   //To handle and display the proxies details
   const [rowData, setRowData] = useState({});
-  console.log(rowData);
+  // console.log(rowData);
 
   //State manangement of the loader
   const [loading, setLoading] = useState(true);
@@ -46,43 +54,44 @@ console.log(selectedRow);
   //State for handling paginations
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
-
+  console.log(totalPages);
   const [filters, setFilters] = useState({
-    location: '',
+    reg: '',
     isp: '',
+    cities:'',
     conn: '',
   });
-
+console.log(filters);
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
 
   const { darkMode } = useContext(DarkModeContext);
 
- 
-  const fetchProxies = async (page = 0, countryCode = '') => {
+
+  //Using us to be the default proxies
+  const fetchProxies = async (page = 0, countryCode = selectedCountry) => {
     try {
       setLoading(true);
       setError(null);
+
       const data = await fetchProxyData(page, countryCode);
+
       setProxies(data.agents);
       setFilteredProxies(
-        data.agents.filter((proxy) =>
-          countryCode ? proxy.loc.cc === countryCode : true
-        )
+        data.agents.filter((proxy) => proxy.loc.cc === countryCode)
       );
-      setTotalPages(data.total || 0);
+      setTotalPages(data.total);
     } catch (error) {
       setError(error.message);
     } finally {
       setLoading(false);
     }
   };
-
-//Fetching proxy details from a selected proxy
-// const fetchProxiesDetails = async ()
+  //Fetching proxy details from a selected proxy
+  // const fetchProxiesDetails = async ()
 
   useEffect(() => {
-    fetchProxies(currentPage);
-  }, [currentPage]);
+    fetchProxies(currentPage, selectedCountry);
+  }, [currentPage, selectedCountry]);
 
   //This is the function to pass in the details of the selected proxy
   const handleRowClick = useCallback((rowIndex, proxy) => {
@@ -168,7 +177,7 @@ console.log(selectedRow);
   // }, [filters]);
 
   const toggleFilterModal = () => {
-    console.log('Hey');
+    // console.log('Hey');
     setIsFilterModalOpen(!isFilterModalOpen);
   };
   // if (error) {
@@ -181,16 +190,18 @@ console.log(selectedRow);
         } min-h-screen   flex flex-col gap-2`}
     >
       <div className="w-full mb-10 sm:mb-12">
-        <Navbar/>
+        <Navbar />
       </div>
 
       <ProxyHeader
+        setSelectedCountry={setSelectedCountry}
         darkMode={darkMode}
         toggleFilterModal={toggleFilterModal}
         fetchProxies={fetchProxies}
       />
       <Loading
         loading={loading}
+        totalPages={totalPages}
         error={error}
         filteredProxies={filteredProxies}
       />
@@ -205,6 +216,7 @@ console.log(selectedRow);
       {isFilterModalOpen && (
         <FilterModal
           filters={filters}
+         uniqueCCs={uniqueCCs}
           darkMode={darkMode}
           handleFilterChange={handleFilterChange}
           toggleFilterModal={toggleFilterModal}
@@ -213,6 +225,7 @@ console.log(selectedRow);
 
       <Pagination
         currentPage={currentPage}
+        loading={loading}
         totalPages={totalPages}
         handlePreviousPage={handlePreviousPage}
         handleNextPage={handleNextPage}

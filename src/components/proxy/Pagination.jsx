@@ -7,7 +7,7 @@ const Pagination = ({
   handleNextPage,
   setCurrentPage,
 }) => (
-  <div className="flex flex-wrap items-center justify-center gap-2 mt-8">
+  <div className="flex flex-wrap items-center justify-center gap-2  mb-5">
     <button
       className="px-4 py-2 bg-gray-700 text-white rounded-lg shadow-md hover:bg-gray-600 transition disabled:opacity-50"
       onClick={handlePreviousPage}
@@ -16,7 +16,7 @@ const Pagination = ({
       Previous
     </button>
 
-    {/* Pagination Numbers */}
+   
     {Array.from({ length: totalPages }, (_, index) => {
       if (
         index === 0 || // First Page
@@ -38,13 +38,13 @@ const Pagination = ({
       }
 
       if (
-        index === currentPage - 3 || // Ellipsis before current page
+        // Ellipsis before current page
         index === currentPage + 3 // Ellipsis after current page
       ) {
         return (
           <span
             key={`ellipsis-${index}`}
-            className="px-2 text-gray-500 select-none"
+            className=" px-2 text-gray-500 select-none"
           >
             ...
           </span>
