@@ -16,6 +16,8 @@ const numberSchema = z.object({
 
 export default function PaymentPage() {
   const location = useLocation();
+
+  //To be confirmed if it passes back to the country
   const amount = location.state?.amount || 0;
   console.log(amount);
   const convertedAmount = Convert(amount)
