@@ -8,6 +8,9 @@ import Convert from "./Convert";
 
 import { z } from "zod";
 
+
+//TODO --> Pass in dynamic data for the metadata
+
 const numberSchema = z.object({
   phoneNumber: z.string()
     .regex(/^254\d{9}$/, "Phone number must start with 254 and have 12 digits in total")
@@ -20,13 +23,26 @@ export default function PaymentPage() {
   //To be confirmed if it passes back to the country
   const amount = location.state?.amount || 0;
 
+  //Accession the isp
+  const isp = location.state?.isp;
+
+  //Accessing th country code
+  const countryCode = location.state?.countryCode
+
+  //Accessing the ip of the proxy
+  const id = location.state?.proxyId
+
+  //Accessing the rating of a proxy
+  const rating = location.state?.rating
+
 
   const convertedAmount = Convert(amount)
-  console.log(convertedAmount);
+  // console.log(convertedAmount);
 
-  //Rounding off the amount
+  //Rounding off the converted amount
   const roundedAmount = Math.ceil(convertedAmount)
-  console.log(roundedAmount);
+
+  // console.log(roundedAmount);
   const { darkMode } = useContext(DarkModeContext);
   const [paymentMethod, setPaymentMethod] = useState("mpesa");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -65,7 +81,6 @@ export default function PaymentPage() {
     const validation = numberSchema.safeParse({ phoneNumber });
     if (!validation.success) {
       setErrors(validation.error.errors[0].message);
-      // toast.error(validation.error.errors[0].message);
       setIsConfirming(false);
       return;
     }
@@ -85,10 +100,10 @@ export default function PaymentPage() {
           currencyCode: "KES",
           createdBy: "tester",
           "metaData": {
-            proxyId: "677143541944afe8afe51e6b",
-            rating: "5",
-            proxyCountryCode: "KE",
-            isp: "Faiba",
+            proxyId: id,
+            rating: rating,
+            proxyCountryCode: countryCode,
+            isp: isp,
             proxyState: "SHARED",
             requestedService: "PROXIES",
             customerId: "81324514-df6a-4fca-9717-d94fe00cad05"
