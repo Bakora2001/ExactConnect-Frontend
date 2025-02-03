@@ -125,8 +125,8 @@ function Signup() {
     >
       <div
         className={`${darkMode
-            ? 'bg-[#131312] text-white border-gray-700'
-            : 'bg-white text-black border-gray-100'
+          ? 'bg-[#131312] text-white border-gray-700'
+          : 'bg-white text-black border-gray-100'
           } p-4 rounded-lg shadow-lg w-5/6 max-w-sm border `}
       >
         <h2 className="text-2xl font-bold mb-1 text-[#7C25BA] hover:text-[#806cff]">
@@ -152,7 +152,7 @@ function Signup() {
               id="firstName"
               value={formData.firstName}
               onChange={handleChange}
-              className={`w-full ${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
+              className={`w-full h-12 ${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
                 } px-4 py-2 border border-gray-600  ${errors.firstName ? 'border-red-500' : 'border-gray-300'
                 } rounded-lg text-sm focus:outline-none focus:ring-2 ${errors.firstName ? 'focus:ring-red-500' : 'focus:ring-gray-500'
                 }`}
@@ -180,7 +180,7 @@ function Signup() {
               id="lastName"
               value={formData.lastName}
               onChange={handleChange}
-              className={`w-full  px-4 py-2 border border-gray-600 ${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
+              className={`w-full h-12 px-4 py-2 border border-gray-600 ${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
                 } ${errors.lastName ? 'border-red-500' : 'border-gray-300'
                 } rounded-lg text-sm focus:outline-none focus:ring-2 ${errors.lastName ? 'focus:ring-red-500' : 'focus:ring-gray-500'
                 }`}
@@ -208,7 +208,7 @@ function Signup() {
               id="email"
               value={formData.email}
               onChange={handleChange}
-              className={`w-full ${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
+              className={`w-full h-12 ${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
                 } px-4 py-2 border border-gray-600  ${errors.email ? 'border-red-500' : 'border-gray-300'
                 } rounded-lg text-sm focus:outline-none focus:ring-2 ${errors.email ? 'focus:ring-red-500' : 'focus:ring-gray-500'
                 }`}
@@ -237,7 +237,7 @@ function Signup() {
               options={countryOptions}
               value={selectedCountry}
               onChange={handleCountryChange}
-              className="mt-1  p-2 block w-full border rounded-md"
+              className={`mt-1  p-2 block w-full border rounded-md ${darkMode ? 'bg-[#131312] text-black' : 'bg-white text-black'}`}
               placeholder="Search and Select Country"
             />
           </div>
@@ -258,7 +258,7 @@ function Signup() {
                 placeholder="********"
                 value={formData.password}
                 onChange={handleChange}
-                className={`w-full  px-4 py-2 border border-gray-600 ${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
+                className={`w-full h-12 px-4 py-2 border border-gray-600 ${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
                   } ${errors.password ? 'border-red-500' : 'border-gray-300'
                   } rounded-lg text-sm focus:outline-none focus:ring-2 ${errors.password ? 'focus:ring-red-500' : 'focus:ring-gray-500'
                   }`}
