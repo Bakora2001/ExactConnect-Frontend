@@ -19,9 +19,14 @@ export default function PaymentPage() {
 
   //To be confirmed if it passes back to the country
   const amount = location.state?.amount || 0;
-  console.log(amount);
+
+
   const convertedAmount = Convert(amount)
   console.log(convertedAmount);
+
+  //Rounding off the amount
+  const roundedAmount = Math.ceil(convertedAmount)
+  console.log(roundedAmount);
   const { darkMode } = useContext(DarkModeContext);
   const [paymentMethod, setPaymentMethod] = useState("mpesa");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -71,7 +76,7 @@ export default function PaymentPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           accountNumber: phoneNumber,
-          amount: convertedAmount,
+          amount: roundedAmount,
           description: "Test Payment",
           mode: "STK",
           provider: "MPESA",
@@ -151,7 +156,7 @@ export default function PaymentPage() {
         )}
 
         <button onClick={handleSubmit} disabled={isConfirming} className={`mt-8 w-full py-3 ${paymentMethod === "mpesa" ? "bg-green-600" : "bg-yellow-600"} text-white font-semibold rounded-lg hover:${paymentMethod === "mpesa" ? "bg-green-700" : "bg-yellow-700"} transition-all`}>
-          {isConfirming ? "Confirming..." : paymentMethod === "mpesa" ? `Pay ${convertedAmount} with M-Pesa` : "Confirm Litecoin Payment"}
+          {isConfirming ? "Confirming..." : paymentMethod === "mpesa" ? `Pay ${roundedAmount} with M-Pesa` : "Confirm Litecoin Payment"}
         </button>
       </div>
     </div>
