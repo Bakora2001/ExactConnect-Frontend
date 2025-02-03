@@ -7,6 +7,8 @@ import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 //Dark mode
 import { DarkModeContext } from '../../context/DarkModeContext';
 
+{/* <h2 className="text-2xl font-bold  text-gray-700">Login</h2> */ }
+
 //Base url
 import { SERVER_URL } from '../../services/data';
 
@@ -55,11 +57,11 @@ function Login() {
         navigate('/dashboard');
         localStorage.setItem('userDetails', JSON.stringify({
           customerReference: result.customerReference,
-          firstName: result.firstName, 
-          lastName: result.lastName,  
-          email:result.email
+          firstName: result.firstName,
+          lastName: result.lastName,
+          email: result.email
         }));
-        
+
         toast.success('Login successsful');
       }
     } catch (err) {
@@ -93,7 +95,7 @@ function Login() {
         <h2 className="text-2xl font-normal font-circular mb-6  hover:text-[#7C25BA]">
           Welcome Back
         </h2>
-        <h2 className="text-2xl font-bold  text-gray-700">Login</h2>
+
         <p className="text-sm text-gray-600 mb-4">Sign in to your account</p>
         <form onSubmit={handleLoginSubmit}>
           <div className="mb-4">
@@ -111,7 +113,7 @@ function Login() {
               placeholder="you@example.com"
               value={formData.email}
               onChange={handleChange}
-              className={`w-full ${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
+              className={`w-full h-12 ${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
                 } px-4 py-2 border border-gray-600  ${errors.email ? 'border-red-500' : 'border-gray-300'
                 } rounded-lg text-sm focus:outline-none focus:ring-2 ${errors.email ? 'focus:ring-red-500' : 'focus:ring-gray-500'
                 }`}
@@ -141,7 +143,7 @@ function Login() {
                 placeholder="********"
                 value={formData.password}
                 onChange={handleChange}
-                className={`w-full ${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
+                className={`w-full h-12 ${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
                   } px-4 py-2 pr-10 border ${errors.password ? 'border-red-500' : 'border-gray-600'
                   } rounded-lg text-sm  focus:outline-none focus:ring-2 ${errors.password ? 'focus:ring-red-500' : 'focus:ring-gray-500'
                   }`}

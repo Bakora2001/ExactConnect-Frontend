@@ -24,6 +24,7 @@ import AddProductForm from '../src/components/admin/AddProductsForm';
 
 import Proxy from './components/proxy/Proxy';
 import Rdp from '../src/components/rdp/Rdp';
+import Test from './components/payment/Test'
 import Checkout from './components/Checkout';
 import Configure from './components/Configure';
 
@@ -37,6 +38,8 @@ import Delivered from './components/pages/Delivered';
 import Dashboard from './components/client/dashboard/Dashboard';
 import ProxyClient from './components/client/proxy/ProxyClient'
 import SettingsPage from './components/client/account/SettingsPage';
+import Orders from './components/client/order/Orders';
+// import Rating from './components/icons/Rating';
 
 
 export const router = createBrowserRouter([
@@ -125,5 +128,14 @@ export const router = createBrowserRouter([
   {
     path: '/client/proxy',
     element: <ProxyClient />
-  }
+  },
+  {
+    path:'/test',
+    element:<Test />
+  },
+  {
+    path:'/orders',
+    element:<Orders />
+  },
+ 
 ]);

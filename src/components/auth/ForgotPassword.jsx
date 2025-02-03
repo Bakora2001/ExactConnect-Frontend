@@ -90,11 +90,11 @@ function ForgotPassword() {
 
   return (
     <div
-      className={`min-h-screen flex items-center justify-center ${darkMode ? 'bg-[#131312]' : 'bg-white'
+      className={`min-h-screen w-screen h-screen flex items-center justify-center ${darkMode ? 'bg-[#131312]' : 'bg-white'
         }`}
     >
       <div
-        className={`max-w-sm mx-auto p-4  rounded-lg shadow-lg ${darkMode ? 'text-white border-gray-700' : 'text-black border-gray-100'
+        className={`max-w-sm w-5/6 p-4  rounded-lg shadow-lg ${darkMode ? 'text-white border-gray-700' : 'text-black border-gray-100'
           } border `}
       >
         <h2
@@ -122,7 +122,7 @@ function ForgotPassword() {
             placeholder="name@example.com"
             value={formData.email}
             onChange={handleChange}
-            className={`w-full ${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
+            className={`w-full h-12 ${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
               } px-4 py-2 border border-gray-600  ${errors.email ? 'border-red-500' : 'border-gray-300'
               } rounded-lg text-sm focus:outline-none focus:ring-2 ${errors.email ? 'focus:ring-red-500' : 'focus:ring-gray-500'
               }`}
@@ -134,7 +134,7 @@ function ForgotPassword() {
               {errors.email}
             </p>
           )}
-          <div className="mb-4 relative">
+          <div className="mb-4 mt-5 relative">
             <label
               htmlFor="password"
               className={`mb-1 block text-sm font-medium ${darkMode ? 'text-white' : 'text-black'
@@ -151,7 +151,7 @@ function ForgotPassword() {
                 placeholder="********"
                 value={formData.newPassword}
                 onChange={handleChange}
-                className={`w-full ${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
+                className={`w-full h-12 ${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
                   } px-4 py-2 pr-10 border ${errors.newPassword ? 'border-red-500' : 'border-gray-600'
                   } rounded-lg text-sm  focus:outline-none focus:ring-2 ${errors.newPassword
                     ? 'focus:ring-red-500'
