@@ -8,21 +8,18 @@ import { DarkModeContext } from '../../../context/DarkModeContext'
 
 function Sidebar({ isOpen, onClose }) {
 
-   //State for handling switching the sidebar open and close
-    // const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
 
   const location = useLocation()
   const { darkMode } = useContext(DarkModeContext)
-const greeting = () =>{
-  console.log('hey from link');
-}
+
   const navItems = [
     { to: "/dashboard", icon: <LayoutDashboard className="text-2xl" />, label: "Dashboard" },
     { to: "/client/proxy", icon: <RadioTower className="text-2xl" />, label: "Residential Proxy" },
     { to: "/rdp", icon: <Server className="text-2xl" />, label: "Vps Server" },
     { to: "/maintainance", icon: <Card className="text-2xl" />, label: "VCC Card" },
     { to: "/maintainance", icon: <PhoneCall className="text-2xl" />, label: "Non Voip Numbers" },
-    { to: "/maintainance", icon: <ShoppingBasket className="text-2xl" />, label: "Orders" },
+    { to: "/orders", icon: <ShoppingBasket className="text-2xl" />, label: "Orders" },
   ];
 
   return (
@@ -37,7 +34,7 @@ const greeting = () =>{
             return (
 
               <li key={index} className={`relative flex items-center p-4 rounded-lg transition-colors duration-300 ${isActive ? "bg-neutral-700 dark:bg-gray-700" : "hover:bg-neutral-800 dark:hover:bg-gray-800"}`} >
-                <Link to={to} onClick={()=>greeting()}>
+                <Link to={to} >
                   <span className="flex items-center space-x-4">
                     <span className="text-white">{icon}</span>
                     <span className="text-md font-medium text-white">{label}</span>
