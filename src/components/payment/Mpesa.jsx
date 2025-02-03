@@ -5,7 +5,7 @@
 // import { useNavigate } from "react-router-dom";
 // import toast, { Toaster } from "react-hot-toast";
 
-// import { SERVER_URL } from "../data";
+// import {SERVER_URL} from '../../services/data'
 
 // const schema = z.object({
 //   accountNumber: z
@@ -211,8 +211,8 @@
 //   );
 // }
 
-// export default Subscription;
-import React from 'react'
+// // export default Subscription;
+// // import React from 'react'
 
 function Mpesa() {
   return (
