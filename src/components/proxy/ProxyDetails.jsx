@@ -2,7 +2,7 @@
 import { Link } from 'react-router-dom';
 
 function ProxyDetails({ rowData, setSelectedRow }) {
-  console.log(rowData);
+  // console.log(rowData);
   return (
     <div className="fixed inset-0 z-50 flex">
       <div className="w-[350px] p-6 text-white bg-[#1f1f1e] h-full shadow-lg">

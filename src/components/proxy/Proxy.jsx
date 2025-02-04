@@ -27,7 +27,7 @@ const Proxy = () => {
   const [proxies, setProxies] = useState([]);
 
 
-  console.log(proxies);
+  // console.log(proxies);
   //Handling state and filtering proxies
   const [filteredProxies, setFilteredProxies] = useState([]);
 
@@ -39,11 +39,11 @@ const Proxy = () => {
 const {proxyState} = 'NEW'
   //Handling the selected proxies
   const [selectedRow, setSelectedRow] = useState(null);
-  console.log(selectedRow);
+  // console.log(selectedRow);
 
   //To handle and display the proxies details
   const [rowData, setRowData] = useState({});
-  console.log(rowData);
+  // console.log(rowData);
 
   //State manangement of the loader
   const [loading, setLoading] = useState(true);
@@ -92,7 +92,7 @@ const {proxyState} = 'NEW'
       const response = await fetch(`${SERVER_URL}/products/proxy/details/global-config?&isp=${isp}`)
       if (!response.ok) throw new Error('Failed to fetch details')
       const data = await response.json()
-    console.log(data);
+    // console.log(data);
       setRowData(data)
     } catch (error) {
       console.error('Error fetching proxy details', error)
