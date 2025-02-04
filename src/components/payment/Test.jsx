@@ -46,7 +46,7 @@ export default function PaymentPage() {
   const { darkMode } = useContext(DarkModeContext);
   const [paymentMethod, setPaymentMethod] = useState("mpesa");
   const [phoneNumber, setPhoneNumber] = useState("");
-  console.log(phoneNumber);
+ 
   const [transactionId, setTransactionId] = useState(null);
   const [errors, setErrors] = useState("");
   const [isConfirming, setIsConfirming] = useState(false);
