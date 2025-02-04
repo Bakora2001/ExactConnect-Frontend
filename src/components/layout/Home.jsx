@@ -48,8 +48,8 @@ const Home = () => {
                 </p>
                 <button
                   onClick={handleGetStartedClick}
-                  className={`${darkMode ? ' text-white border-gray-700' : 'bg-[#7C25BA]'
-                    }  font-medium py-1.5 px-3 rounded-lg shadow-lg hover:opacity-90 transition-all duration-200 border  mb-5`}
+                  className={`${darkMode ? ' text-white border-gray-700 ' : 'bg-[#7C25BA]'
+                    }  font-medium py-1.5 px-3 rounded-lg shadow-lg hover:opacity-90 transition-all duration-200 border mb-5`  } 
                 >
                   Get Started
                 </button>
@@ -268,3 +268,5 @@ const Home = () => {
 };
 
 export default Home;
+
+<div class="relative h-2 w-2 rounded-full bg-green-500 transition-colors ease-in-out"><div class="absolute inset-0 rounded-full bg-green-500" style="transform: scale(1.6502);"></div></div>

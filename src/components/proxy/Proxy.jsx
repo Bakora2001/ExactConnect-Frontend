@@ -58,7 +58,7 @@ const {proxyState} = 'NEW'
   const [filters, setFilters] = useState({
     reg: '',
     isp: '',
-    cities: '',
+    city: '',
     conn: '',
   });
 
@@ -178,12 +178,12 @@ const {proxyState} = 'NEW'
       (!filters.conn ||
         proxy.conn?.toLowerCase().includes(filters.conn.toLowerCase())) &&
       (!filters.location ||
-        proxy.loc?.cc?.toLowerCase().includes(filters.location.toLowerCase())) &&
+        proxy.loc?.city?.toLowerCase().includes(filters.location.toLowerCase())) &&
       (!filters.isp ||
         proxy.loc?.isp?.toLowerCase().includes(filters.isp.toLowerCase()))
   );
 }, [filters, proxies]);
-
+console.log(filteredResults);
 
   useEffect(() => {
     setFilteredProxies(filteredResults);
@@ -241,6 +241,7 @@ const {proxyState} = 'NEW'
       {isFilterModalOpen && (
         <FilterModal
           filters={filters}
+          proxies={proxies}
           darkMode={darkMode}
           handleFilterChange={handleFilterChange}
           toggleFilterModal={toggleFilterModal}
