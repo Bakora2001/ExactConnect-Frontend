@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import React, { useState, useContext, useEffect } from 'react';
 import { BsFillLightningChargeFill } from "react-icons/bs";
 import { FiChevronRight } from 'react-icons/fi';
-import { FaStar, FaDollarSign, FaCalendarAlt, FaWifi } from "react-icons/fa";
+// import { FaStar, FaDollarSign, FaCalendarAlt, FaWifi } from "react-icons/fa";
 import { FaBars, FaTimes } from 'react-icons/fa';
 import SideBar from '../reusable/Sidebar';
 import UserMenu from '../reusable/UserMenu';
@@ -21,7 +21,7 @@ const Dashboard = () => {
 
   //retreiving user details from the storage
   const userDetails = JSON.parse(localStorage.getItem('userDetails'));
-  console.log(userDetails);
+  // console.log(userDetails);
 
 
   useEffect(() => {
@@ -39,7 +39,7 @@ const Dashboard = () => {
 
 
   const toggleSidebar = () => {
-    console.log('hey it is me again');
+    // console.log('hey it is me again');
     // setIsSidebarOpen(false);
     setIsSidebarOpen((prev) => !prev);
     // console.log('Hello');
@@ -67,7 +67,7 @@ const Dashboard = () => {
       >
         {/* Header Section */}
         <header
-          className={`flex justify-between items-center py-4 px-6 border-b backdrop-blur-xl bg-opacity-90 shadow-sm sticky top-0 z-50 ${darkMode ? 'bg-[#131312] border-gray-700' : 'bg-[#7C25BA] border-[#7C25BA]'
+          className={`flex justify-between items-center py-4 px-6 border-b backdrop-blur-xl bg-opacity-90 shadow-sm sticky top-0 z-50 ${darkMode ? 'bg-[#131312]/50 border-gray-700' : 'bg-[#7C25BA] border-[#7C25BA]'
             }`}
         >
           {/* Sidebar Toggle Button */}

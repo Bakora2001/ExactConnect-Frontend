@@ -27,7 +27,7 @@ function SettingsPage() {
       {/* Overlay for Small Screens */}
       {isSidebarOpen && (
         <div
-          className="fixed inset-0  z-40"
+          className="fixed inset-0  z-10"
           onClick={toggleSidebar}
         ></div>
       )}

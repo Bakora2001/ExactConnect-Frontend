@@ -85,27 +85,31 @@ const Footer = () => {
             <h4 className="text-lg font-semibold text-[#7C25BA] mb-4">Socials</h4>
             <div className="flex space-x-4">
               <a
-                href="#"
+              target='__blank'
+                href="https://www.facebook.com/profile.php?id=61572727113037"
                 className="p-2 rounded-full bg-gray-800 hover:bg-purple-600 transition"
                 aria-label="Facebook"
               >
                 <FaFacebookF className="text-white" />
               </a>
               <a
-                href="#"
+               target='__blank'
+                href="https://www.instagram.com/exact_connect/"
                 className="p-2 rounded-full bg-gray-800 hover:bg-purple-600 transition"
                 aria-label="Instagram"
               >
                 <FaInstagram className="text-white" />
               </a>
               <a
-                href="#"
+               target='__blank'
+                href="https://x.com/exact_connect"
                 className="p-2 rounded-full bg-gray-800 hover:bg-purple-600 transition"
                 aria-label="Twitter"
               >
                 <FaXTwitter className="text-white" />
               </a>
               <a
+               target='__blank'
                 href="#"
                 className="p-2 rounded-full bg-gray-800 hover:bg-purple-600 transition"
                 aria-label="TikTok"
@@ -114,6 +118,7 @@ const Footer = () => {
               </a>
               <a
                 href="#"
+                 target='__blank'
                 className="p-2 rounded-full bg-gray-800 hover:bg-purple-600 transition"
                 aria-label="Pinterest"
               >
