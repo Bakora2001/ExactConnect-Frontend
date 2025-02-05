@@ -27,7 +27,7 @@ const Proxy = () => {
   const [proxies, setProxies] = useState([]);
 
 
-  console.log(proxies);
+  // console.log(proxies);
   //Handling state and filtering proxies
   const [filteredProxies, setFilteredProxies] = useState([]);
 
@@ -39,11 +39,11 @@ const Proxy = () => {
 const {proxyState} = 'NEW'
   //Handling the selected proxies
   const [selectedRow, setSelectedRow] = useState(null);
-  console.log(selectedRow);
+  // console.log(selectedRow);
 
   //To handle and display the proxies details
   const [rowData, setRowData] = useState({});
-  console.log(rowData);
+  // console.log(rowData);
 
   //State manangement of the loader
   const [loading, setLoading] = useState(true);
@@ -58,7 +58,7 @@ const {proxyState} = 'NEW'
   const [filters, setFilters] = useState({
     reg: '',
     isp: '',
-    cities: '',
+    city: '',
     conn: '',
   });
 
@@ -92,7 +92,7 @@ const {proxyState} = 'NEW'
       const response = await fetch(`${SERVER_URL}/products/proxy/details/global-config?&isp=${isp}`)
       if (!response.ok) throw new Error('Failed to fetch details')
       const data = await response.json()
-    console.log(data);
+    // console.log(data);
       setRowData(data)
     } catch (error) {
       console.error('Error fetching proxy details', error)
@@ -178,12 +178,12 @@ const {proxyState} = 'NEW'
       (!filters.conn ||
         proxy.conn?.toLowerCase().includes(filters.conn.toLowerCase())) &&
       (!filters.location ||
-        proxy.loc?.cc?.toLowerCase().includes(filters.location.toLowerCase())) &&
+        proxy.loc?.city?.toLowerCase().includes(filters.location.toLowerCase())) &&
       (!filters.isp ||
         proxy.loc?.isp?.toLowerCase().includes(filters.isp.toLowerCase()))
   );
 }, [filters, proxies]);
-
+console.log(filteredResults);
 
   useEffect(() => {
     setFilteredProxies(filteredResults);
@@ -241,6 +241,7 @@ const {proxyState} = 'NEW'
       {isFilterModalOpen && (
         <FilterModal
           filters={filters}
+          proxies={proxies}
           darkMode={darkMode}
           handleFilterChange={handleFilterChange}
           toggleFilterModal={toggleFilterModal}
