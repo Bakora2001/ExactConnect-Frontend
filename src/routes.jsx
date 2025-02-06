@@ -5,6 +5,8 @@ import Loader from './components/pages/Loader';
 //The sites landing page
 import Home from './components/layout/Home';
 
+//Implementing lazy loading
+
 //Components for handling all authentication processes
 const Signup = lazy(() => import('./components/auth/Signup'))
 const Login = lazy(() => import('./components/auth/Login'))
@@ -13,22 +15,13 @@ const ForgotPassword = lazy(() => import('./components/auth/ForgotPassword'))
 const ChangePassword = lazy(() => import('./components/client/account/ChangePassword'))
 const CheckMail = lazy(() => import('./components/auth/CheckMail'))
 
-//Components for the admin section
+//Pages for handling page visit errors
+const NotFound = lazy(() => import('../src/components/errors/NotFound'))
+const MaintenancePage = lazy(() => import('../src/components/errors/MaintainancePage'))
 
-import AdminProducts from '../src/components/admin/AdminProducts';
-
-
-// import Proxy from './components/proxy/Proxy';
-import Rdp from '../src/components/rdp/Rdp';
 import Test from './components/payment/Test'
 import Checkout from './components/Checkout';
 import Configure from './components/Configure';
-
-import ContactUs from '../src/components/contact/ContactUs';
-import Mpesa from '../src/components/payment/Mpesa';
-
-//Component for showing when the contact us page has now worked well
-import Delivered from './components/pages/Delivered';
 
 //Component pages for the when the user has signed in
 const Dashboard = lazy(() => import('./components/client/dashboard/Dashboard'))
@@ -36,15 +29,13 @@ const ProxyClient = lazy(() => import('./components/client/proxy/ProxyClient'))
 const SettingsPage = lazy(() => import('./components/client/account/SettingsPage'))
 const Orders = lazy(() => import('./components/client/order/Orders'))
 
-// import Rating from './components/icons/Rating';
-
-//Implementing lazy loading
-const NotFound = lazy(() => import('../src/components/errors/NotFound'))
-const MaintenancePage = lazy(() => import('../src/components/errors/MaintainancePage'))
 const Proxy = lazy(() => import('./components/proxy/Proxy'))
 const AdminHome = lazy(() => import('../src/components/admin/AdminHome'))
 const AddProductForm = lazy(() => import('../src/components/admin/AddProductsForm'))
-
+const ContactUs = lazy(() => import('../src/components/contact/ContactUs'))
+const Rdp = lazy(() => import('../src/components/rdp/Rdp'))
+const AdminProducts = lazy(() => import('../src/components/admin/AdminProducts'))
+const Delivered = lazy(() => import('./components/pages/Delivered'))
 
 
 export const router = createBrowserRouter([
@@ -94,7 +85,12 @@ export const router = createBrowserRouter([
   },
   {
     path: '/rdp',
-    element: <Rdp />,
+    element: (
+      <Suspense fallback={<Loader />}>
+        <Rdp />
+      </Suspense>
+
+    ),
   },
   {
     path: '/account/forgotpassword',
@@ -141,7 +137,12 @@ export const router = createBrowserRouter([
   },
   {
     path: '/admin/products',
-    element: <AdminProducts />,
+    element: (
+      <Suspense fallback={<Loader />}>
+        <AdminProducts />
+      </Suspense>
+
+    ),
   },
   {
     path: '/admin/products/new',
@@ -161,15 +162,20 @@ export const router = createBrowserRouter([
   },
   {
     path: '/contact',
-    element: <ContactUs />,
-  },
-  {
-    path: '/mpesa-checkout',
-    element: <Mpesa />,
+    element: (
+      <Suspense>
+        <ContactUs />
+      </Suspense>
+
+    ),
   },
   {
     path: '/delivered',
-    element: <Delivered />
+    element: (
+      <Suspense>
+        <Delivered />
+      </Suspense>
+    )
   }, {
     path: '/dashboard',
     element: (
