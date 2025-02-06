@@ -1,4 +1,6 @@
 import { DarkModeContext } from '../../context/DarkModeContext';
+//Component for lazy loading the image
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { Link, useNavigate } from 'react-router-dom';
 import NavBar from '../reusables/Navbar';
 import Footer from '../reusables/Footer';
@@ -55,8 +57,9 @@ const Home = () => {
                 </button>
               </div>
               <div className="md:w-1/2 flex justify-center">
-                <img
+                <LazyLoadImage
                   src={techImage}
+                  width={600} height={400}
                   alt="Tech Solutions"
                   className="max-h-[350px] md:max-h-[400px] mb-5"
                 />
