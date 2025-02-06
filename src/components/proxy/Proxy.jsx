@@ -4,6 +4,7 @@ import React, {
   useContext,
   useMemo,
   useCallback,
+  lazy,
 } from 'react';
 
 import Navbar from '../reusables/Navbar';
@@ -15,19 +16,21 @@ import { DarkModeContext } from '../../context/DarkModeContext';
 
 //Importing proxy components
 import Pagination from './Pagination';
-import FilterModal from './FilterModal';
+// import FilterModal from './FilterModal';
 import Loading from './Loading';
 import ProxyDetails from './ProxyDetails';
 import ProxyCard from './ProxyCard';
 import ProxyHeader from './ProxyHeader';
 
+//Lazy loading
+const FilterModal = lazy(()=> import('./FilterModal'))
 
 const Proxy = () => {
   //Handling state of the proxies
   const [proxies, setProxies] = useState([]);
 
 
-  console.log(proxies);
+  // console.log(proxies);
   //Handling state and filtering proxies
   const [filteredProxies, setFilteredProxies] = useState([]);
 
@@ -37,7 +40,7 @@ const Proxy = () => {
   //Getting the total proxies of a selected country
   // const [passedIn,setPassedIn] = useState([])
   const [selectedCountry, setSelectedCountry] = useState('US'); // Default country
-const {proxyState} = 'NEW'
+  const { proxyState } = 'NEW'
   //Handling the selected proxies
   const [selectedRow, setSelectedRow] = useState(null);
   // console.log(selectedRow);
@@ -69,7 +72,7 @@ const {proxyState} = 'NEW'
 
 
   //Using us to be the default proxies
-  const fetchProxies = useCallback(async (page=0, countryCode = selectedCountry) => {
+  const fetchProxies = useCallback(async (page = 0, countryCode = selectedCountry) => {
     try {
       setLoading(true);
       setError(null);
@@ -87,14 +90,14 @@ const {proxyState} = 'NEW'
       setLoading(false);
     }
   });
-  
+
   //Fetching proxy details from a selected proxy
-  const fetchProxiesDetails = async (  isp='') => {
+  const fetchProxiesDetails = async (isp = '') => {
     try {
       const response = await fetch(`${SERVER_URL}/products/proxy/details/global-config?&isp=${isp}`)
       if (!response.ok) throw new Error('Failed to fetch details')
       const data = await response.json()
-    // console.log(data);
+      // console.log(data);
       setRowData(data)
     } catch (error) {
       console.error('Error fetching proxy details', error)
@@ -106,26 +109,26 @@ const {proxyState} = 'NEW'
   // }, [])
 
   useEffect(() => {
-   
+
     fetchProxies(currentPage, selectedCountry);
   }, [currentPage, selectedCountry]);
 
   //This is the function to pass in the details of the selected proxy
   const handleRowClick = useCallback((rowIndex, proxy) => {
 
-  //   console.log("Row Index:", rowIndex);
-  // console.log("Selected Proxy:", proxy);
+    //   console.log("Row Index:", rowIndex);
+    // console.log("Selected Proxy:", proxy);
     setSelectedRow(rowIndex);
     // Extract the necessary values dynamically
     setRowData(proxy)
 
-     // Extract the necessary values dynamically
-   // Ensure a default value if undefined
-  // const isp = proxy.loc.isp || "Safaricom";     // Ensure a default ISP if undefined
-  // console.log(isp);
+    // Extract the necessary values dynamically
+    // Ensure a default value if undefined
+    // const isp = proxy.loc.isp || "Safaricom";     // Ensure a default ISP if undefined
+    // console.log(isp);
 
-  // Fetch proxy details with extracted values
-  // fetchProxiesDetails(isp);
+    // Fetch proxy details with extracted values
+    // fetchProxiesDetails(isp);
   }, []);
 
   //Handling the page for viewing the payment
@@ -175,18 +178,18 @@ const {proxyState} = 'NEW'
 
   //   setFilteredProxies(filtered);
   // };
- const filteredResults = useMemo(() => {
-  return (proxies || []).filter(
-    (proxy) =>
-      (!filters.conn ||
-        proxy.conn?.toLowerCase().includes(filters.conn.toLowerCase())) &&
-      (!filters.location ||
-        proxy.loc?.city?.toLowerCase().includes(filters.location.toLowerCase())) &&
-      (!filters.isp ||
-        proxy.loc?.isp?.toLowerCase().includes(filters.isp.toLowerCase()))
-  );
-}, [filters, proxies]);
-// console.log(filteredResults);
+  const filteredResults = useMemo(() => {
+    return (proxies || []).filter(
+      (proxy) =>
+        (!filters.conn ||
+          proxy.conn?.toLowerCase().includes(filters.conn.toLowerCase())) &&
+        (!filters.location ||
+          proxy.loc?.city?.toLowerCase().includes(filters.location.toLowerCase())) &&
+        (!filters.isp ||
+          proxy.loc?.isp?.toLowerCase().includes(filters.isp.toLowerCase()))
+    );
+  }, [filters, proxies]);
+  // console.log(filteredResults);
 
   useEffect(() => {
     setFilteredProxies(filteredResults);
@@ -228,7 +231,7 @@ const {proxyState} = 'NEW'
         fetchProxies={fetchProxies}
       />
       <Loading
-      darkMode={darkMode}
+        darkMode={darkMode}
         loading={loading}
         totalPages={totalPages}
         error={error}
