@@ -19,10 +19,6 @@ const CheckMail = lazy(() => import('./components/auth/CheckMail'))
 const NotFound = lazy(() => import('../src/components/errors/NotFound'))
 const MaintenancePage = lazy(() => import('../src/components/errors/MaintainancePage'))
 
-import Test from './components/payment/Test'
-import Checkout from './components/Checkout';
-import Configure from './components/Configure';
-
 //Component pages for the when the user has signed in
 const Dashboard = lazy(() => import('./components/client/dashboard/Dashboard'))
 const ProxyClient = lazy(() => import('./components/client/proxy/ProxyClient'))
@@ -36,7 +32,9 @@ const ContactUs = lazy(() => import('../src/components/contact/ContactUs'))
 const Rdp = lazy(() => import('../src/components/rdp/Rdp'))
 const AdminProducts = lazy(() => import('../src/components/admin/AdminProducts'))
 const Delivered = lazy(() => import('./components/pages/Delivered'))
-
+const Test = lazy(() => import('./components/payment/Test'))
+const Configure = lazy(() => import('./components/Configure'))
+const Checkout = lazy(() => import('./components/Checkout'))
 
 export const router = createBrowserRouter([
   {
@@ -129,11 +127,20 @@ export const router = createBrowserRouter([
   },
   {
     path: '/checkout',
-    element: <Checkout />,
+    element: (
+      <Suspense>
+        <Checkout />
+      </Suspense>
+
+    ),
   },
   {
     path: '/configure',
-    element: <Configure />,
+    element: (
+      <Suspense>
+        <Configure />
+      </Suspense>
+    ),
   },
   {
     path: '/admin/products',
@@ -203,7 +210,11 @@ export const router = createBrowserRouter([
   },
   {
     path: '/test',
-    element: <Test />
+    element: (
+      <Suspense>
+        <Test />
+      </Suspense>
+    )
   },
   {
     path: '/orders',
