@@ -31,10 +31,11 @@ import Mpesa from '../src/components/payment/Mpesa';
 import Delivered from './components/pages/Delivered';
 
 //Component pages for the when the user has signed in
-import Dashboard from './components/client/dashboard/Dashboard';
-import ProxyClient from './components/client/proxy/ProxyClient'
-import SettingsPage from './components/client/account/SettingsPage';
-import Orders from './components/client/order/Orders';
+const Dashboard = lazy(() => import('./components/client/dashboard/Dashboard'))
+const ProxyClient = lazy(() => import('./components/client/proxy/ProxyClient'))
+const SettingsPage = lazy(() => import('./components/client/account/SettingsPage'))
+const Orders = lazy(() => import('./components/client/order/Orders'))
+
 // import Rating from './components/icons/Rating';
 
 //Implementing lazy loading
@@ -43,6 +44,7 @@ const MaintenancePage = lazy(() => import('../src/components/errors/Maintainance
 const Proxy = lazy(() => import('./components/proxy/Proxy'))
 const AdminHome = lazy(() => import('../src/components/admin/AdminHome'))
 const AddProductForm = lazy(() => import('../src/components/admin/AddProductsForm'))
+
 
 
 export const router = createBrowserRouter([
@@ -170,14 +172,28 @@ export const router = createBrowserRouter([
     element: <Delivered />
   }, {
     path: '/dashboard',
-    element: <Dashboard />
+    element: (
+      <Suspense fallback={<Loader />}>
+        <Dashboard />
+      </Suspense>
+    )
   }, {
     path: '/account/settings',
-    element: <SettingsPage />
+    element: (
+      <Suspense fallback={<Loader />}>
+        <SettingsPage />
+      </Suspense>
+
+    )
   },
   {
     path: '/client/proxy',
-    element: <ProxyClient />
+    element: (
+      <Suspense fallback={<Loader />}>
+        <ProxyClient />
+      </Suspense>
+
+    )
   },
   {
     path: '/test',
@@ -185,7 +201,12 @@ export const router = createBrowserRouter([
   },
   {
     path: '/orders',
-    element: <Orders />
+    element: (
+      <Suspense fallback={<Loader />}>
+        <Orders />
+      </Suspense>
+
+    )
   },
 
 ]);
