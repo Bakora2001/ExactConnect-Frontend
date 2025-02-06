@@ -33,6 +33,7 @@ const Proxy = () => {
 
   // const uniqueCCs = [...new Set(proxies.map((proxy) => proxy.loc.reg))];
   // console.log("filteredProxies:", filteredProxies);
+  // const debugMode = filteredProxies.map((proxy, index) => console.log("priceShrc:", proxy.priceShrc, "Type:", typeof proxy.priceShrc))
   //Getting the total proxies of a selected country
   // const [passedIn,setPassedIn] = useState([])
   const [selectedCountry, setSelectedCountry] = useState('US'); // Default country

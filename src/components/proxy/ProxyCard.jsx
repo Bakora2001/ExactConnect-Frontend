@@ -1,6 +1,8 @@
 // This component renders the proxies in cards
 import Wifi from '../icons/Wifi';
 import Cell from '../icons/Cell';
+import { FiDollarSign } from "react-icons/fi";
+
 
 // import countryFlag from '../../services/countryFlag';
 // console.log(countryFlag());
@@ -24,6 +26,10 @@ const ProxyCard = ({
         {/* Proxy Header */}
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-bold truncate">{proxy.ip}</h2>
+          <span className="flex items-center text-purple-600 font-semibold">
+            <FiDollarSign className="h-5 w-5" />
+            {proxy.priceShrC}
+          </span>
         </div>
 
         {/* Proxy Information */}
