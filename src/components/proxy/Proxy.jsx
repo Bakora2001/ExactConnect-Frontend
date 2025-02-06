@@ -228,6 +228,7 @@ const {proxyState} = 'NEW'
         fetchProxies={fetchProxies}
       />
       <Loading
+      darkMode={darkMode}
         loading={loading}
         totalPages={totalPages}
         error={error}
