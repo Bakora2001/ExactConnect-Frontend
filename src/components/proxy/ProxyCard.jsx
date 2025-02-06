@@ -2,7 +2,7 @@
 import Wifi from '../icons/Wifi';
 import Cell from '../icons/Cell';
 import { FiDollarSign } from "react-icons/fi";
-
+import React from 'react';
 
 // import countryFlag from '../../services/countryFlag';
 // console.log(countryFlag());
@@ -98,4 +98,4 @@ const ProxyCard = ({
   </div>
 );
 
-export default ProxyCard;
+export default React.memo(ProxyCard);

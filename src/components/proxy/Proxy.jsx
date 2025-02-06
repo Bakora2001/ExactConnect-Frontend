@@ -27,7 +27,7 @@ const Proxy = () => {
   const [proxies, setProxies] = useState([]);
 
 
-  // console.log(proxies);
+  console.log(proxies);
   //Handling state and filtering proxies
   const [filteredProxies, setFilteredProxies] = useState([]);
 
@@ -69,7 +69,7 @@ const {proxyState} = 'NEW'
 
 
   //Using us to be the default proxies
-  const fetchProxies = async (page=0, countryCode = selectedCountry) => {
+  const fetchProxies = useCallback(async (page=0, countryCode = selectedCountry) => {
     try {
       setLoading(true);
       setError(null);
@@ -86,7 +86,8 @@ const {proxyState} = 'NEW'
     } finally {
       setLoading(false);
     }
-  };
+  });
+  
   //Fetching proxy details from a selected proxy
   const fetchProxiesDetails = async (  isp='') => {
     try {
@@ -105,6 +106,7 @@ const {proxyState} = 'NEW'
   // }, [])
 
   useEffect(() => {
+   
     fetchProxies(currentPage, selectedCountry);
   }, [currentPage, selectedCountry]);
 

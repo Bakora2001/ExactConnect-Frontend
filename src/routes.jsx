@@ -1,28 +1,24 @@
 import { createBrowserRouter } from 'react-router-dom';
-
-//404 error handling page
-import NotFound from '../src/components/errors/NotFound';
-
-//Under maintainance page
-import MaintenancePage from '../src/components/errors/MaintainancePage';
+import { lazy, Suspense } from 'react';
+import Loader from './components/pages/Loader';
 
 //The sites landing page
 import Home from './components/layout/Home';
 
 //Components for handling all authentication processes
-import Signup from './components/auth/Signup';
-import Login from './components/auth/Login';
-import ForgotPassword from './components/auth/ForgotPassword';
-import OTPVerification from './components/auth/OTPVerification';
-import ChangePassword from './components/client/account/ChangePassword';
-import CheckMail from './components/auth/CheckMail';
+const Signup = lazy(() => import('./components/auth/Signup'))
+const Login = lazy(() => import('./components/auth/Login'))
+const OTPVerification = lazy(() => import('./components/auth/OTPVerification'))
+const ForgotPassword = lazy(() => import('./components/auth/ForgotPassword'))
+const ChangePassword = lazy(() => import('./components/client/account/ChangePassword'))
+const CheckMail = lazy(() => import('./components/auth/CheckMail'))
 
 //Components for the admin section
-import AdminHome from '../src/components/admin/AdminHome';
-import AdminProducts from '../src/components/admin/AdminProducts';
-import AddProductForm from '../src/components/admin/AddProductsForm';
 
-import Proxy from './components/proxy/Proxy';
+import AdminProducts from '../src/components/admin/AdminProducts';
+
+
+// import Proxy from './components/proxy/Proxy';
 import Rdp from '../src/components/rdp/Rdp';
 import Test from './components/payment/Test'
 import Checkout from './components/Checkout';
@@ -41,15 +37,30 @@ import SettingsPage from './components/client/account/SettingsPage';
 import Orders from './components/client/order/Orders';
 // import Rating from './components/icons/Rating';
 
+//Implementing lazy loading
+const NotFound = lazy(() => import('../src/components/errors/NotFound'))
+const MaintenancePage = lazy(() => import('../src/components/errors/MaintainancePage'))
+const Proxy = lazy(() => import('./components/proxy/Proxy'))
+const AdminHome = lazy(() => import('../src/components/admin/AdminHome'))
+const AddProductForm = lazy(() => import('../src/components/admin/AddProductsForm'))
+
 
 export const router = createBrowserRouter([
   {
     path: '/account/signup',
-    element: <Signup />,
+    element: (
+      <Suspense fallback={<Loader />}>
+        <Signup />
+      </Suspense>
+    ),
   },
   {
     path: '/account/login',
-    element: <Login />,
+    element: (
+      <Suspense fallback={<Loader />}>
+        <Login />
+      </Suspense>
+    ),
   },
   {
     path: '/',
@@ -57,15 +68,27 @@ export const router = createBrowserRouter([
   },
   {
     path: '*',
-    element: <NotFound />,
+    element: (
+      <Suspense fallback={<Loader />}>
+        <NotFound />
+      </Suspense>
+    ),
   },
   {
     path: '/proxy',
-    element: <Proxy />,
+    element: (
+      <Suspense fallback={<Loader />}>
+        <Proxy />
+      </Suspense>
+    ),
   },
   {
     path: '/admin',
-    element: <AdminHome />,
+    element: (
+      <Suspense fallback={<Loader />}>
+        <AdminHome />
+      </Suspense>
+    ),
   },
   {
     path: '/rdp',
@@ -73,19 +96,38 @@ export const router = createBrowserRouter([
   },
   {
     path: '/account/forgotpassword',
-    element: <ForgotPassword />,
+    element: (
+      <Suspense fallback={<Loader />}>
+        <ForgotPassword />
+      </Suspense>
+    )
   },
   {
     path: '/account/changepassword',
-    element: <ChangePassword />,
+    element: (
+      <Suspense fallback={<Loader />}>
+        <ChangePassword />
+      </Suspense>
+
+    ),
   },
   {
     path: '/account/otp',
-    element: <OTPVerification />,
+    element: (
+      <Suspense fallback={<Loader />}>
+        <OTPVerification />
+      </Suspense>
+
+    )
   },
   {
     path: '/account/email',
-    element: <CheckMail />,
+    element: (
+      <Suspense fallback={<Loader />}>
+        <CheckMail />
+      </Suspense>
+
+    ),
   },
   {
     path: '/checkout',
@@ -101,11 +143,19 @@ export const router = createBrowserRouter([
   },
   {
     path: '/admin/products/new',
-    element: <AddProductForm />,
+    element: (
+      <Suspense fallback={<Loader />}>
+        <AddProductForm />
+      </Suspense>
+    ),
   },
   {
     path: '/maintainance',
-    element: <MaintenancePage />,
+    element: (
+      <Suspense fallback={<Loader />}>
+        <MaintenancePage />
+      </Suspense>
+    ),
   },
   {
     path: '/contact',
@@ -130,12 +180,12 @@ export const router = createBrowserRouter([
     element: <ProxyClient />
   },
   {
-    path:'/test',
-    element:<Test />
+    path: '/test',
+    element: <Test />
   },
   {
-    path:'/orders',
-    element:<Orders />
+    path: '/orders',
+    element: <Orders />
   },
- 
+
 ]);

@@ -1,7 +1,7 @@
 //Component which handles the loading
 import React from 'react';
 
-function Loading({ loading, filteredProxies, error,totalPages}) {
+function Loading({ loading, filteredProxies, error, totalPages }) {
   return (
     <div>
       {loading ? (
@@ -11,7 +11,7 @@ function Loading({ loading, filteredProxies, error,totalPages}) {
         </div>
       ) : error ? (
         <div className="text-red-600 text-center">Error: {error}</div>
-      ) : filteredProxies.length === 0 && totalPages === 0 ? (
+      ) : filteredProxies.length === 0  ? (
         <div className="flex flex-col items-center justify-center py-20 text-gray-400">
           <svg
             xmlns="http://www.w3.org/2000/svg"
