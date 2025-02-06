@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 const api = import.meta.env.VITE_API_KEY
-
+console.log(api)
 //To be tested on production
 function Convert(amount) {
   const [rate, setRate] = useState(160); // Default fallback rate
