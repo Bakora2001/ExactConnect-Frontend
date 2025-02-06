@@ -183,7 +183,7 @@ const {proxyState} = 'NEW'
         proxy.loc?.isp?.toLowerCase().includes(filters.isp.toLowerCase()))
   );
 }, [filters, proxies]);
-console.log(filteredResults);
+// console.log(filteredResults);
 
   useEffect(() => {
     setFilteredProxies(filteredResults);
