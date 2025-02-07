@@ -6,7 +6,7 @@ function Loading({ loading, filteredProxies, error, darkMode }) {
     <div>
       {loading ? (
         <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 p-6">
-          {Array.from({ length: 6 }).map((_, index) => (
+          {Array.from({ length: 8 }).map((_, index) => (
             <div
               key={index}
               className={` p-6 border rounded-lg shadow-lg bg-gray-200 dark:bg-[#131312] animate-pulse ${darkMode ? 'border-gray-700' : 'border-gray-100'}`}

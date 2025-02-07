@@ -16,21 +16,21 @@ import { DarkModeContext } from '../../context/DarkModeContext';
 
 //Importing proxy components
 import Pagination from './Pagination';
-// import FilterModal from './FilterModal';
+import FilterModal from './FilterModal';
 import Loading from './Loading';
 import ProxyDetails from './ProxyDetails';
 import ProxyCard from './ProxyCard';
 import ProxyHeader from './ProxyHeader';
 
-//Lazy loading
-const FilterModal = lazy(()=> import('./FilterModal'))
+
+
 
 const Proxy = () => {
   //Handling state of the proxies
   const [proxies, setProxies] = useState([]);
 
 
-  // console.log(proxies);
+  console.log(proxies);
   //Handling state and filtering proxies
   const [filteredProxies, setFilteredProxies] = useState([]);
 
@@ -78,7 +78,7 @@ const Proxy = () => {
       setError(null);
 
       const data = await fetchProxyData(page, countryCode);
-
+      console.log(data);
       setProxies(data);
       setFilteredProxies(
         data.filter((proxy) => proxy.loc.cc === countryCode)

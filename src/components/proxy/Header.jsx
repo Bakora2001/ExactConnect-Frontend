@@ -121,7 +121,7 @@ const Header = ({ darkMode, fetchProxies, setSelectedCountry }) => {
             </button>
 
             {showDropdown && (
-              <div className="absolute top-full left-0 mt-2 max-w-[250px] bg-white border border-gray-300 rounded-md shadow-md z-40 max-h-[300px] overflow-y-auto">
+              <div className={`absolute top-full left-0 mt-2 max-w-[250px] bg-white border border-gray-300 rounded-md shadow-md z-40 max-h-[300px] overflow-y-auto`}>
                 {dropdownCountries.map((country) => (
                   <CountryDropdownItem
                     key={country.id}
