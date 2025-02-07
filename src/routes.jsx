@@ -128,7 +128,7 @@ export const router = createBrowserRouter([
   {
     path: '/checkout',
     element: (
-      <Suspense>
+      <Suspense fallback={<Loader />}>
         <Checkout />
       </Suspense>
 
@@ -137,7 +137,7 @@ export const router = createBrowserRouter([
   {
     path: '/configure',
     element: (
-      <Suspense>
+      <Suspense fallback={<Loader />}>
         <Configure />
       </Suspense>
     ),
@@ -170,7 +170,7 @@ export const router = createBrowserRouter([
   {
     path: '/contact',
     element: (
-      <Suspense>
+      <Suspense fallback={<Loader />}>
         <ContactUs />
       </Suspense>
 
@@ -179,7 +179,7 @@ export const router = createBrowserRouter([
   {
     path: '/delivered',
     element: (
-      <Suspense>
+      <Suspense fallback={<Loader />}>
         <Delivered />
       </Suspense>
     )
@@ -211,7 +211,7 @@ export const router = createBrowserRouter([
   {
     path: '/test',
     element: (
-      <Suspense>
+      <Suspense fallback={<Loader />}>
         <Test />
       </Suspense>
     )

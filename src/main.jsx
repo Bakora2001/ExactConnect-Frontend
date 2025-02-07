@@ -5,21 +5,26 @@ import { router } from './routes';
 import './index.css';
 import { Toaster } from 'react-hot-toast';
 import { DarkModeProvider } from '../src/context/DarkModeContext';
+import { ErrorBoundary } from 'react-error-boundary';
+import ErrorPage from './components/pages/ErrorPage';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <DarkModeProvider>
-      <Toaster
-        position="top-center"
-        toastOptions={{
-          success: {
-            iconTheme: {
-              primary: '#4a3da0',
+    <ErrorBoundary FallbackComponent={ErrorPage} onReset={() => location.href = '/'}>
+      <DarkModeProvider>
+        <Toaster
+          position="top-center"
+          toastOptions={{
+            success: {
+              iconTheme: {
+                primary: '#4a3da0',
+              },
             },
-          },
-        }}
-      />
-      <RouterProvider router={router} />
-    </DarkModeProvider>
+          }}
+        />
+        <RouterProvider router={router} />
+      </DarkModeProvider>
+    </ErrorBoundary>
+
   </React.StrictMode>
 );
