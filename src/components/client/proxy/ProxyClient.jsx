@@ -5,6 +5,7 @@ import React, {
   useMemo,
   useCallback,
 } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import Sidebar from '../reusable/Sidebar'
 
@@ -25,11 +26,21 @@ import UserMenu from '../reusable/UserMenu';
 
 
 const Proxy = () => {
+
+  const navigate = useNavigate()
+  //retreiving user details from the storage
+  const userDetails = JSON.parse(localStorage.getItem('userDetails'));
+  //Checking if the user even has the logged in
+  useEffect(() => {
+    if (!userDetails) {
+      navigate("account/login");
+    }
+  }, [navigate]);
+
   //Handling state of the proxies
   const [proxies, setProxies] = useState([]);
 
-  //retreiving user details from the storage
-  const userDetails = JSON.parse(localStorage.getItem('userDetails'));
+
 
   //State for handling switching the sidebar open and close
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);

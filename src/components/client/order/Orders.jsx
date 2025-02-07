@@ -1,8 +1,9 @@
 import { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FiSearch, FiChevronRight, FiPackage, FiDollarSign, FiCalendar } from 'react-icons/fi';
 import { HiOutlineStatusOnline } from 'react-icons/hi';
 import { FaBars, FaTimes } from 'react-icons/fa';
-import { IoIosStarOutline,IoIosCellular } from "react-icons/io";
+import { IoIosStarOutline, IoIosCellular } from "react-icons/io";
 
 import SideBar from '../reusable/Sidebar'; // Your Sidebar component
 import UserMenu from '../reusable/UserMenu'; // Your UserMenu component
@@ -10,7 +11,17 @@ import { DarkModeContext } from '../../../context/DarkModeContext';
 import React from 'react'
 
 
+
 const OrdersPage = () => {
+  const navigate = useNavigate()
+  const userDetails = JSON.parse(localStorage.getItem('userDetails'));
+  //Checking if the user even has the logged in
+  useEffect(() => {
+    if (!userDetails) {
+      navigate("account/login");
+    }
+  }, [navigate]);
+
   const { darkMode } = useContext(DarkModeContext);
 
   const [searchTerm, setSearchTerm] = useState('');
@@ -23,13 +34,13 @@ const OrdersPage = () => {
 
   };
 
-  const userDetails = JSON.parse(localStorage.getItem('userDetails'));
+
   // Sample orders data
   const orders = [
-    { id: '#1234', customer: 'Sarah Johnson', date: '2024-03-15', total: 4.99, status: 'Completed', rating: 3 ,isp:'Safaricom',countyCode:'KE'},
-    { id: '#1235', customer: 'Mike Chen', date: '2024-03-14', total: 2.99, status: 'Processing', rating: 2 ,isp:'Vijiji',countyCode:'KE'},
-    { id: '#1236', customer: 'Emma Wilson', date: '2024-03-13', total: 1.99, status: 'Shipped', rating: 5,isp:'Faiba' ,countyCode:'KE'},
-    { id: '#1237', customer: 'James Brown', date: '2024-03-12', total: 1, status: 'Pending', rating: 4,isp:'Wananchi',countyCode:'KE' },
+    { id: '#1234', customer: 'Sarah Johnson', date: '2024-03-15', total: 4.99, status: 'Completed', rating: 3, isp: 'Safaricom', countyCode: 'KE' },
+    { id: '#1235', customer: 'Mike Chen', date: '2024-03-14', total: 2.99, status: 'Processing', rating: 2, isp: 'Vijiji', countyCode: 'KE' },
+    { id: '#1236', customer: 'Emma Wilson', date: '2024-03-13', total: 1.99, status: 'Shipped', rating: 5, isp: 'Faiba', countyCode: 'KE' },
+    { id: '#1237', customer: 'James Brown', date: '2024-03-12', total: 1, status: 'Pending', rating: 4, isp: 'Wananchi', countyCode: 'KE' },
   ];
 
   const filteredOrders = orders.filter(order =>

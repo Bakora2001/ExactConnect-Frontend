@@ -1,6 +1,7 @@
 //Account setting page
 import { useState, useContext } from "react";
 import { FaTimes, FaBars } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 import UserMenu from "../reusable/UserMenu";
 import Sidebar from "../reusable/Sidebar";
 import { DarkModeContext } from '../../../context/DarkModeContext'
@@ -12,7 +13,15 @@ import Notification from "./Notification";
 
 
 function SettingsPage() {
+  const navigate = useNavigate()
   const userDetails = JSON.parse(localStorage.getItem('userDetails'));
+
+  //Checking if the user even has the logged in
+  useEffect(() => {
+    if (!userDetails) {
+      navigate("account/login");
+    }
+  }, [navigate]);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const { darkMode } = useContext(DarkModeContext);
 

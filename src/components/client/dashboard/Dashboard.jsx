@@ -18,11 +18,17 @@ import { IoIosCellular } from 'react-icons/io';
 const Dashboard = () => {
 
   const [proxy, setProxies] = useState([])
-
+  const navigate = useNavigate()
   //retreiving user details from the storage
   const userDetails = JSON.parse(localStorage.getItem('userDetails'));
   // console.log(userDetails);
 
+  //Checking if the user even has the logged in
+  useEffect(() => {
+    if (!userDetails) {
+      navigate("account/login");
+    }
+  }, [navigate]);
 
   useEffect(() => {
     fetch(`${SERVER_URL}/products/proxies?page=${0}`, {
@@ -87,8 +93,8 @@ const Dashboard = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4 lg:p-8">
           <div
             className={`relative rounded-xl p-6 shadow-xl border overflow-hidden transition-transform transform hover:scale-[1.02] ${darkMode
-                ? "bg-[#1a1b1f] border-gray-700 shadow-purple-500/50"
-                : "bg-white border-gray-200 shadow-lg"
+              ? "bg-[#1a1b1f] border-gray-700 shadow-purple-500/50"
+              : "bg-white border-gray-200 shadow-lg"
               }`}
           >
             {/* Neon Glow Effect */}
@@ -105,8 +111,8 @@ const Dashboard = () => {
               </span>
               <span
                 className={`flex items-center gap-1 text-xs font-semibold px-3 py-1 rounded-full shadow-md ${darkMode
-                    ? "bg-green-900 text-green-300"
-                    : "bg-green-100 text-green-700"
+                  ? "bg-green-900 text-green-300"
+                  : "bg-green-100 text-green-700"
                   }`}
               >
                 <IoIosCellular className="w-4 h-4 animate-spin-slow" />
@@ -117,8 +123,8 @@ const Dashboard = () => {
             {/* Divider with Glowing Effect */}
             <hr
               className={`my-4 transition-all duration-300 ${darkMode
-                  ? "border-gray-700 hover:border-purple-400"
-                  : "border-gray-200 hover:border-purple-600"
+                ? "border-gray-700 hover:border-purple-400"
+                : "border-gray-200 hover:border-purple-600"
                 }`}
             />
 
@@ -133,8 +139,8 @@ const Dashboard = () => {
                 </p>
                 <p
                   className={`text-3xl font-bold transition-all duration-300 ${darkMode
-                      ? "text-white drop-shadow-[0_0px_10px_rgba(255,255,255,0.5)]"
-                      : "text-gray-800"
+                    ? "text-white drop-shadow-[0_0px_10px_rgba(255,255,255,0.5)]"
+                    : "text-gray-800"
                     }`}
                 >
                   {proxy}
@@ -143,8 +149,8 @@ const Dashboard = () => {
               <Link to="/client/proxy">
                 <button
                   className={`p-3 rounded-full flex items-center justify-center transition-all duration-300 ${darkMode
-                      ? "text-purple-400 bg-purple-900 hover:bg-purple-700 shadow-md shadow-purple-500/40"
-                      : "text-purple-600 bg-purple-100 hover:bg-purple-200 shadow-lg"
+                    ? "text-purple-400 bg-purple-900 hover:bg-purple-700 shadow-md shadow-purple-500/40"
+                    : "text-purple-600 bg-purple-100 hover:bg-purple-200 shadow-lg"
                     }`}
                 >
                   <FiChevronRight className="w-6 h-6 animate-bounce" />
