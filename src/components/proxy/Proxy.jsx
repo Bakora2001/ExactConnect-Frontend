@@ -4,7 +4,6 @@ import React, {
   useContext,
   useMemo,
   useCallback,
-  lazy,
 } from 'react';
 
 import Navbar from '../reusables/Navbar';
@@ -21,6 +20,7 @@ import Loading from './Loading';
 import ProxyDetails from './ProxyDetails';
 import ProxyCard from './ProxyCard';
 import ProxyHeader from './ProxyHeader';
+import ErrorBoundary from '../pages/ErrorBoundary';
 
 
 
@@ -85,7 +85,7 @@ const Proxy = () => {
       );
       setTotalPages(data.length);
     } catch (error) {
-      setError(error.message);
+      setError(error);
     } finally {
       setLoading(false);
     }
@@ -216,7 +216,8 @@ const Proxy = () => {
   // }
 
   return (
-    <div
+    <ErrorBoundary>
+       <div
       className={`${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
         } min-h-screen   flex flex-col gap-2`}
     >
@@ -268,6 +269,8 @@ const Proxy = () => {
         <ProxyDetails rowData={rowData} setSelectedRow={setSelectedRow} />
       )}
     </div>
+    </ErrorBoundary>
+   
   );
 };
 
