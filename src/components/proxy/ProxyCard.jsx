@@ -30,7 +30,7 @@ const ProxyCard = ({
             ${darkMode
               ? 'bg-[#131312] border-b border-slate-700'
               : 'bg-gradient-to-r from-gray-200/60 to-gray-300/40'}
-            py-2.5 px-4
+            py-2.5 px-4 
           `}
         >
           <div className="flex items-center justify-between">
