@@ -1,8 +1,9 @@
 // This component renders the proxies in cards
 import Wifi from '../icons/Wifi';
 import Cell from '../icons/Cell';
-import { FiDollarSign } from "react-icons/fi";
+import { MapPin, Globe, DollarSign } from "lucide-react";
 import React from 'react';
+
 
 // import countryFlag from '../../services/countryFlag';
 // console.log(countryFlag());
@@ -24,16 +25,16 @@ const ProxyCard = ({
         onClick={() => handleRowClick(index, proxy)}
       >
         {/* Proxy Header */}
-        <div 
+        <div
           className={`
-            ${darkMode 
-              ? 'bg-[#131312] border-b border-slate-700' 
+            ${darkMode
+              ? 'bg-[#131312] border-b border-slate-700'
               : 'bg-gradient-to-r from-gray-200/60 to-gray-300/40'}
             py-2.5 px-4
           `}
         >
           <div className="flex items-center justify-between">
-            <h2 
+            <h2
               className={`
                 text-sm font-medium 
                 ${darkMode ? 'text-white' : 'text-black'}
@@ -41,7 +42,7 @@ const ProxyCard = ({
             >
               IP Address:
             </h2>
-            <span 
+            <span
               className={`
                 font-medium text-sm 
                 ${darkMode ? 'text-white' : 'text-black'}
@@ -62,22 +63,21 @@ const ProxyCard = ({
                 <img
                   src={`https://flagsapi.com/${proxy.loc.cc}/flat/64.png`}
                   className="w-5 h-3.5 rounded-sm shadow-sm"
-                 
                 />
-                <span 
+                <span
                   className={`
-                    text-sm 
-                    ${darkMode ? 'text-slate-400' : 'text-gray-600'}
-                  `}
+            text-sm 
+            ${darkMode ? 'text-slate-400' : 'text-gray-600'}
+          `}
                 >
                   Country:
                 </span>
               </div>
-              <span 
+              <span
                 className={`
-                  text-sm font-medium 
-                  ${darkMode ? 'text-slate-200' : 'text-gray-800'}
-                `}
+          text-sm font-medium 
+          ${darkMode ? 'text-slate-200' : 'text-gray-800'}
+        `}
               >
                 {proxy.loc.cc}
               </span>
@@ -85,19 +85,22 @@ const ProxyCard = ({
 
             {/* City Info */}
             <div className="flex items-center justify-between py-1">
-              <span 
+              <div className="flex items-center gap-2">
+                <MapPin size={14} className="text-purple-700" />
+                <span
+                  className={`
+            text-sm 
+            ${darkMode ? 'text-slate-400' : 'text-gray-600'}
+          `}
+                >
+                  City:
+                </span>
+              </div>
+              <span
                 className={`
-                  text-sm 
-                  ${darkMode ? 'text-slate-400' : 'text-gray-600'}
-                `}
-              >
-                City:
-              </span>
-              <span 
-                className={`
-                  text-sm font-medium 
-                  ${darkMode ? 'text-slate-200' : 'text-gray-800'}
-                `}
+          text-sm font-medium 
+          ${darkMode ? 'text-slate-200' : 'text-gray-800'}
+        `}
               >
                 {proxy.loc.city}
               </span>
@@ -105,92 +108,112 @@ const ProxyCard = ({
 
             {/* ISP Info */}
             <div className="flex items-center justify-between py-1">
-              <span 
+              <div className="flex items-center gap-2">
+                <Globe size={14} className="text-purple-700" />
+                <span
+                  className={`
+            text-sm 
+            ${darkMode ? 'text-slate-400' : 'text-gray-600'}
+          `}
+                >
+                  ISP:
+                </span>
+              </div>
+              <span
                 className={`
-                  text-sm 
-                  ${darkMode ? 'text-slate-400' : 'text-gray-600'}
-                `}
-              >
-                ISP:
-              </span>
-              <span 
-                className={`
-                  text-sm font-medium text-right max-w-[70%]
-                  ${darkMode ? 'text-slate-200' : 'text-gray-800'}
-                `}
+          text-sm font-medium text-right max-w-[70%]
+          ${darkMode ? 'text-slate-200' : 'text-gray-800'}
+        `}
               >
                 {proxy.loc.isp}
+              </span>
+            </div>
+            <div className="flex items-center justify-between py-1">
+              <div className="flex items-center gap-2">
+                <DollarSign size={14} className="text-purple-700" />
+                <span
+                  className={`
+            text-sm 
+            ${darkMode ? 'text-slate-400' : 'text-gray-600'}
+          `}
+                >
+                  Price:
+                </span>
+              </div>
+              <span
+                className={`
+          text-sm font-medium 
+          ${darkMode ? 'text-slate-200' : 'text-gray-800'}
+        `}
+              >
+                {proxy.priceExcC}
               </span>
             </div>
           </div>
 
           {/* Stats Section */}
-          <div 
+          <div
             className={`
-              grid grid-cols-3 gap-2 pt-2 mt-1 
-              ${darkMode ? 'border-t border-slate-700' : 'border-t border-gray-300'}
-            `}
+      grid grid-cols-3 gap-2 pt-2 mt-1 
+      ${darkMode ? 'border-t border-slate-700' : 'border-t border-gray-300'}
+    `}
           >
             <div className="flex flex-col items-center py-2">
-              <span 
+              <span
                 className={`
-                  text-xs mb-1 
-                  ${darkMode ? 'text-slate-400' : 'text-gray-600'}
-                `}
+          text-xs mb-1 
+          ${darkMode ? 'text-slate-400' : 'text-gray-600'}
+        `}
               >
                 Connection
               </span>
-              <div 
-                className='
-                  text-purple-700
-                '
-              >
+              <div className="text-purple-700">
                 {proxy.conn === 'cell' ? <Cell /> : <Wifi />}
               </div>
             </div>
 
             <div className="flex flex-col items-center py-2">
-              <span 
+              <span
                 className={`
-                  text-xs mb-1 
-                  ${darkMode ? 'text-slate-400' : 'text-gray-600'}
-                `}
+          text-xs mb-1 
+          ${darkMode ? 'text-slate-400' : 'text-gray-600'}
+        `}
               >
                 Stars
               </span>
-              <span 
+              <span
                 className={`
-                  text-sm font-medium 
-                  ${darkMode ? 'text-slate-200' : 'text-gray-800'}
-                `}
+          text-sm font-medium 
+          ${darkMode ? 'text-slate-200' : 'text-gray-800'}
+        `}
               >
                 {proxy.stars}
               </span>
             </div>
 
             <div className="flex flex-col items-center py-2">
-              <span 
+              <span
                 className={`
-                  text-xs mb-1 
-                  ${darkMode ? 'text-slate-400' : 'text-gray-600'}
-                `}
+          text-xs mb-1 
+          ${darkMode ? 'text-slate-400' : 'text-gray-600'}
+        `}
               >
                 Speed
               </span>
-              <span 
+              <span
                 className={`
-                  text-sm font-medium 
-                  ${darkMode ? 'text-slate-200' : 'text-gray-800'}
-                `}
+          text-sm font-medium 
+          ${darkMode ? 'text-slate-200' : 'text-gray-800'}
+        `}
               >
                 {proxy.speed?.speed
-                ? (proxy.speed.speed / 1000000).toFixed(2) + ' Mbps'
-                : 'N/A'}
+                  ? (proxy.speed.speed / 1000000).toFixed(2) + ' Mbps'
+                  : 'N/A'}
               </span>
             </div>
           </div>
         </div>
-        </div>
+      </div>
     ))}
   </div>
 );
