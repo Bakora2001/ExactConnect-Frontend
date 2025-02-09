@@ -18,6 +18,9 @@ const numberSchema = z.object({
 });
 
 export default function PaymentPage() {
+
+  const userDetails = JSON.parse(localStorage.getItem('userDetails'));
+  const customerId = userDetails.customerReference;
   const location = useLocation();
 
   //To be confirmed if it passes back to the country
@@ -35,6 +38,11 @@ export default function PaymentPage() {
   //Accessing the rating of a proxy
   const rating = location.state?.rating
 
+  //Accessign the proxy state
+  const proxyState = location.state?.proxyState
+
+  //Checking the proxySate
+  // console.log(proxyState);
 
   const convertedAmount = Convert(amount)
   // console.log(convertedAmount);
@@ -46,7 +54,7 @@ export default function PaymentPage() {
   const { darkMode } = useContext(DarkModeContext);
   const [paymentMethod, setPaymentMethod] = useState("mpesa");
   const [phoneNumber, setPhoneNumber] = useState("");
- 
+
   const [transactionId, setTransactionId] = useState(null);
   const [errors, setErrors] = useState("");
   const [isConfirming, setIsConfirming] = useState(false);
@@ -104,9 +112,9 @@ export default function PaymentPage() {
             rating: rating,
             proxyCountryCode: countryCode,
             isp: isp,
-            proxyState: "SHARED",
+            proxyState: proxyState === true ? 'OLD' : 'NEW',
             requestedService: "PROXIES",
-            customerId: "81324514-df6a-4fca-9717-d94fe00cad05"
+            customerId: customerId
           }
         }),
       });

@@ -6,8 +6,7 @@ const FilterModal = ({
   darkMode,
 }) => {
 
-  //Region city isp
- console.log(filters);
+  
   // Extract unique values for filters
   const uniqueRegions = [...new Set(proxies.map((proxy) => proxy.loc.reg))];
 

@@ -1,7 +1,7 @@
 import Header from './Header';
 import FilterButton from './FilterButton';
 
-const ProxyHeader = ({ darkMode, toggleFilterModal, fetchProxies }) => (
+const ProxyHeader = ({ darkMode, toggleFilterModal, fetchProxies,setSelectedCountry }) => (
   <>
     <div
       className={`   ${darkMode
@@ -9,7 +9,7 @@ const ProxyHeader = ({ darkMode, toggleFilterModal, fetchProxies }) => (
           : 'bg-white text-gray-800 shadow-md'
         }`}
     >
-      <Header darkMode={darkMode} fetchProxies={fetchProxies} />
+      <Header darkMode={darkMode} fetchProxies={fetchProxies} setSelectedCountry={setSelectedCountry}/>
     </div>
     {/* Filter button */}
     <div className="flex items-center gap-4 justify-end w-full">

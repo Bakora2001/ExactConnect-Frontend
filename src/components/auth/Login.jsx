@@ -1,13 +1,12 @@
 import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { z } from 'zod';
+import { FcGoogle } from "react-icons/fc";
 import toast from 'react-hot-toast';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 
 //Dark mode
 import { DarkModeContext } from '../../context/DarkModeContext';
-
-{/* <h2 className="text-2xl font-bold  text-gray-700">Login</h2> */ }
 
 //Base url
 import { SERVER_URL } from '../../services/data';
@@ -55,13 +54,7 @@ function Login() {
       const result = await response.json();
       if (response.ok) {
         navigate('/dashboard');
-        localStorage.setItem('userDetails', JSON.stringify({
-          customerReference: result.customerReference,
-          firstName: result.firstName,
-          lastName: result.lastName,
-          email: result.email
-        }));
-
+        localStorage.setItem('customerReference', result.customerReference);
         toast.success('Login successsful');
       }
     } catch (err) {
@@ -83,7 +76,7 @@ function Login() {
 
   return (
     <div
-      className={`min-h-screen w-screen h-screen flex items-center justify-center ${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
+      className={`min-h-screen  w-screen h-screen flex items-center justify-center ${darkMode ? "bg-[#1A1A1A] text-white" : "bg-gray-100 text-black"
         }`}
     >
       <div
@@ -92,19 +85,19 @@ function Login() {
           : 'bg-white text-black border-gray-100'
           } p-6 rounded-lg shadow-lg w-5/6 max-w-sm border `}
       >
-        <h2 className="text-2xl font-normal font-circular mb-6  hover:text-[#7C25BA]">
+        <h2 className="text-3xl font-circular text-center hover:text-purple-600 transition duration-300">
           Welcome Back
         </h2>
+        <p className="text-white text-sm text-center mt-2 font-semibold">Sign in to your account</p>
 
-        <p className="text-sm text-gray-600 mb-4">Sign in to your account</p>
-        <form onSubmit={handleLoginSubmit}>
-          <div className="mb-4">
+        <form onSubmit={handleLoginSubmit} >
+          {/* Email Field */}
+          <div className='mb-4'>
             <label
               htmlFor="email"
-              className={`block text-sm font-medium ${darkMode ? 'text-white' : 'text-black'
+              className={`mb-1 block text-sm font-medium ${darkMode ? 'text-white' : 'text-black'
                 }`}
-            >
-              Email
+            >Email
             </label>
             <input
               type="email"
@@ -126,6 +119,8 @@ function Login() {
               </p>
             )}
           </div>
+
+          {/* Password Field */}
           <div className="mb-4 relative">
             <label
               htmlFor="password"
@@ -134,7 +129,6 @@ function Login() {
             >
               Password
             </label>
-
             <div className="relative">
               <input
                 type={showPassword ? 'text' : 'password'}
@@ -161,7 +155,11 @@ function Login() {
                 )}
               </span>
             </div>
-
+            {errors.password && (
+              <p id="password_error" className="text-red-500 text-sm mt-1">
+                {errors.password}
+              </p>
+            )}
             <div className="flex justify-end mt-2 text-gray-600">
               <Link
                 to="/account/forgotpassword"
@@ -171,35 +169,21 @@ function Login() {
               </Link>
             </div>
 
-            {errors.password && (
-              <p id="password_error" className="text-red-500 text-sm mt-1">
-                {errors.password}
-              </p>
-            )}
           </div>
 
+          {/* Forgot Password */}
+
+
+
+          {/* Login Button */}
           <button
             type="submit"
-            className={`w-full flex items-center justify-center bg-[#7C25BA] text-white py-2 rounded-lg hover:bg-[#5b21a8] focus:outline-none focus:ring-2 focus:ring-purple-500 ${isLoading && 'opacity-50 cursor-not-allowed'
-              }`}
+            className="w-full bg-purple-600 text-white py-3 rounded-lg text-lg font-medium hover:bg-purple-700 transition duration-300 flex items-center justify-center"
             disabled={isLoading}
-            aria-busy={isLoading}
           >
             {isLoading ? (
-              <svg
-                className="animate-spin h-5 w-5 text-white"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <circle
-                  className="opacity-25"
-                  cx="12"
-                  cy="12"
-                  r="10"
-                  stroke="currentColor"
-                  strokeWidth="4"
-                />
+              <svg className="animate-spin h-5 w-5 mr-2" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                 <path
                   className="opacity-75"
                   fill="currentColor"
@@ -207,19 +191,28 @@ function Login() {
                 />
               </svg>
             ) : (
-              'Login'
+              "Login"
             )}
           </button>
         </form>
 
-        <p
-          className={`text-sm  mt-4 ${darkMode ? 'text-white' : 'text-black'}`}
-        >
-          Don't have an account?{' '}
-          <Link
-            to="/account/signup"
-            className="text-[#7C25BA] font-bold hover:underline"
-          >
+        {/* Divider */}
+        <div className="flex items-center my-6">
+          <div className="flex-grow border-t border-gray-700"></div>
+          <span className="mx-3 text-sm text-white">Or continue with</span>
+          <div className="flex-grow border-t border-gray-700"></div>
+        </div>
+
+        {/* Google Login */}
+        <button className="w-full flex items-center justify-center border border-gray-700 py-3 px-4 rounded-lg hover:bg-gray-100 transition duration-300">
+          <FcGoogle className="mr-2 h-5 w-5" />
+          Sign in with Google
+        </button>
+
+        {/* Sign Up Link */}
+        <p className="text-center text-sm mt-4">
+          Don't have an account?{" "}
+          <Link to="/signup" className="text-purple-600 font-semibold hover:underline">
             Sign up
           </Link>
         </p>

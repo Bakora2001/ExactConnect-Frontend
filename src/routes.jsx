@@ -1,55 +1,57 @@
 import { createBrowserRouter } from 'react-router-dom';
-
-//404 error handling page
-import NotFound from '../src/components/errors/NotFound';
-
-//Under maintainance page
-import MaintenancePage from '../src/components/errors/MaintainancePage';
+import { lazy, Suspense } from 'react';
+import Loader from './components/pages/Loader';
 
 //The sites landing page
 import Home from './components/layout/Home';
 
+//Implementing lazy loading
+
 //Components for handling all authentication processes
-import Signup from './components/auth/Signup';
-import Login from './components/auth/Login';
-import ForgotPassword from './components/auth/ForgotPassword';
-import OTPVerification from './components/auth/OTPVerification';
-import ChangePassword from './components/client/account/ChangePassword';
-import CheckMail from './components/auth/CheckMail';
+const Signup = lazy(() => import('./components/auth/Signup'))
+const Login = lazy(() => import('./components/auth/Login'))
+const OTPVerification = lazy(() => import('./components/auth/OTPVerification'))
+const ForgotPassword = lazy(() => import('./components/auth/ForgotPassword'))
+const ChangePassword = lazy(() => import('./components/client/account/ChangePassword'))
+const CheckMail = lazy(() => import('./components/auth/CheckMail'))
 
-//Components for the admin section
-import AdminHome from '../src/components/admin/AdminHome';
-import AdminProducts from '../src/components/admin/AdminProducts';
-import AddProductForm from '../src/components/admin/AddProductsForm';
-
-import Proxy from './components/proxy/Proxy';
-import Rdp from '../src/components/rdp/Rdp';
-import Test from './components/payment/Test'
-import Checkout from './components/Checkout';
-import Configure from './components/Configure';
-
-import ContactUs from '../src/components/contact/ContactUs';
-import Mpesa from '../src/components/payment/Mpesa';
-
-//Component for showing when the contact us page has now worked well
-import Delivered from './components/pages/Delivered';
+//Pages for handling page visit errors
+const NotFound = lazy(() => import('../src/components/errors/NotFound'))
+const MaintenancePage = lazy(() => import('../src/components/errors/MaintainancePage'))
 
 //Component pages for the when the user has signed in
-import Dashboard from './components/client/dashboard/Dashboard';
-import ProxyClient from './components/client/proxy/ProxyClient'
-import SettingsPage from './components/client/account/SettingsPage';
-import Orders from './components/client/order/Orders';
-// import Rating from './components/icons/Rating';
+const Dashboard = lazy(() => import('./components/client/dashboard/Dashboard'))
+const ProxyClient = lazy(() => import('./components/client/proxy/ProxyClient'))
+const SettingsPage = lazy(() => import('./components/client/account/SettingsPage'))
+const Orders = lazy(() => import('./components/client/order/Orders'))
 
+const Proxy = lazy(() => import('./components/proxy/Proxy'))
+const AdminHome = lazy(() => import('../src/components/admin/AdminHome'))
+const AddProductForm = lazy(() => import('../src/components/admin/AddProductsForm'))
+const ContactUs = lazy(() => import('../src/components/contact/ContactUs'))
+const Rdp = lazy(() => import('../src/components/rdp/Rdp'))
+const AdminProducts = lazy(() => import('../src/components/admin/AdminProducts'))
+const Delivered = lazy(() => import('./components/pages/Delivered'))
+const Test = lazy(() => import('./components/payment/Test'))
+const Configure = lazy(() => import('./components/Configure'))
+const Checkout = lazy(() => import('./components/Checkout'))
 
 export const router = createBrowserRouter([
   {
     path: '/account/signup',
-    element: <Signup />,
+    element: (
+      <Suspense fallback={<Loader />}>
+        <Signup />
+      </Suspense>
+    ),
   },
   {
     path: '/account/login',
-    element: <Login />,
+    element: (
+      <Suspense fallback={<Loader />}>
+        <Login />
+      </Suspense>
+    ),
   },
   {
     path: '/',
@@ -57,85 +59,171 @@ export const router = createBrowserRouter([
   },
   {
     path: '*',
-    element: <NotFound />,
+    element: (
+      <Suspense fallback={<Loader />}>
+        <NotFound />
+      </Suspense>
+    ),
   },
   {
     path: '/proxy',
-    element: <Proxy />,
+    element: (
+      <Suspense fallback={<Loader />}>
+        <Proxy />
+      </Suspense>
+    ),
   },
   {
     path: '/admin',
-    element: <AdminHome />,
+    element: (
+      <Suspense fallback={<Loader />}>
+        <AdminHome />
+      </Suspense>
+    ),
   },
   {
     path: '/rdp',
-    element: <Rdp />,
+    element: (
+      <Suspense fallback={<Loader />}>
+        <Rdp />
+      </Suspense>
+
+    ),
   },
   {
     path: '/account/forgotpassword',
-    element: <ForgotPassword />,
+    element: (
+      <Suspense fallback={<Loader />}>
+        <ForgotPassword />
+      </Suspense>
+    )
   },
   {
     path: '/account/changepassword',
-    element: <ChangePassword />,
+    element: (
+      <Suspense fallback={<Loader />}>
+        <ChangePassword />
+      </Suspense>
+
+    ),
   },
   {
     path: '/account/otp',
-    element: <OTPVerification />,
+    element: (
+      <Suspense fallback={<Loader />}>
+        <OTPVerification />
+      </Suspense>
+
+    )
   },
   {
     path: '/account/email',
-    element: <CheckMail />,
+    element: (
+      <Suspense fallback={<Loader />}>
+        <CheckMail />
+      </Suspense>
+
+    ),
   },
   {
     path: '/checkout',
-    element: <Checkout />,
+    element: (
+      <Suspense fallback={<Loader />}>
+        <Checkout />
+      </Suspense>
+
+    ),
   },
   {
     path: '/configure',
-    element: <Configure />,
+    element: (
+      <Suspense fallback={<Loader />}>
+        <Configure />
+      </Suspense>
+    ),
   },
   {
     path: '/admin/products',
-    element: <AdminProducts />,
+    element: (
+      <Suspense fallback={<Loader />}>
+        <AdminProducts />
+      </Suspense>
+
+    ),
   },
   {
     path: '/admin/products/new',
-    element: <AddProductForm />,
+    element: (
+      <Suspense fallback={<Loader />}>
+        <AddProductForm />
+      </Suspense>
+    ),
   },
   {
     path: '/maintainance',
-    element: <MaintenancePage />,
+    element: (
+      <Suspense fallback={<Loader />}>
+        <MaintenancePage />
+      </Suspense>
+    ),
   },
   {
     path: '/contact',
-    element: <ContactUs />,
-  },
-  {
-    path: '/mpesa-checkout',
-    element: <Mpesa />,
+    element: (
+      <Suspense fallback={<Loader />}>
+        <ContactUs />
+      </Suspense>
+
+    ),
   },
   {
     path: '/delivered',
-    element: <Delivered />
+    element: (
+      <Suspense fallback={<Loader />}>
+        <Delivered />
+      </Suspense>
+    )
   }, {
     path: '/dashboard',
-    element: <Dashboard />
+    element: (
+      <Suspense fallback={<Loader />}>
+        <Dashboard />
+      </Suspense>
+    )
   }, {
     path: '/account/settings',
-    element: <SettingsPage />
+    element: (
+      <Suspense fallback={<Loader />}>
+        <SettingsPage />
+      </Suspense>
+
+    )
   },
   {
     path: '/client/proxy',
-    element: <ProxyClient />
+    element: (
+      <Suspense fallback={<Loader />}>
+        <ProxyClient />
+      </Suspense>
+
+    )
   },
   {
-    path:'/test',
-    element:<Test />
+    path: '/test',
+    element: (
+      <Suspense fallback={<Loader />}>
+        <Test />
+      </Suspense>
+    )
   },
   {
-    path:'/orders',
-    element:<Orders />
+    path: '/orders',
+    element: (
+      <Suspense fallback={<Loader />}>
+        <Orders />
+      </Suspense>
+
+    )
   },
- 
+
 ]);

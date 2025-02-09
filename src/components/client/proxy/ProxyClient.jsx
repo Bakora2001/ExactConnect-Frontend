@@ -5,6 +5,7 @@ import React, {
   useMemo,
   useCallback,
 } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import Sidebar from '../reusable/Sidebar'
 
@@ -25,11 +26,21 @@ import UserMenu from '../reusable/UserMenu';
 
 
 const Proxy = () => {
+
+  const navigate = useNavigate()
+  //retreiving user details from the storage
+  const userDetails = JSON.parse(localStorage.getItem('userDetails'));
+  //Checking if the user even has the logged in
+  useEffect(() => {
+    if (!userDetails) {
+      navigate("account/login");
+    }
+  }, [navigate]);
+
   //Handling state of the proxies
   const [proxies, setProxies] = useState([]);
 
-  //retreiving user details from the storage
-  const userDetails = JSON.parse(localStorage.getItem('userDetails'));
+  const [selectedCountry, setSelectedCountry] = useState('US'); // Default country
 
   //State for handling switching the sidebar open and close
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -79,11 +90,10 @@ const Proxy = () => {
       const data = await fetchProxyData(page, countryCode);
       setProxies(data.agents);
       setFilteredProxies(
-        data.agents.filter((proxy) =>
-          countryCode ? proxy.loc.cc === countryCode : true
-        )
+        data.filter((proxy) => proxy.loc.cc === countryCode)
       );
-      setTotalPages(data.total || 0);
+
+      setTotalPages(data.length);
     } catch (error) {
       setError(error.message);
     } finally {
@@ -95,8 +105,9 @@ const Proxy = () => {
   // const fetchProxiesDetails = async ()
 
   useEffect(() => {
-    fetchProxies(currentPage);
-  }, [currentPage]);
+
+    fetchProxies(currentPage, selectedCountry);
+  }, [currentPage, selectedCountry]);
 
   //This is the function to pass in the details of the selected proxy
   const handleRowClick = useCallback((rowIndex, proxy) => {
@@ -152,16 +163,14 @@ const Proxy = () => {
   //   setFilteredProxies(filtered);
   // };
   const filteredResults = useMemo(() => {
-    return proxies.filter(
+    return (proxies || []).filter(
       (proxy) =>
         (!filters.conn ||
-          proxy.conn.toLowerCase().includes(filters.conn.toLowerCase())) &&
+          proxy.conn?.toLowerCase().includes(filters.conn.toLowerCase())) &&
         (!filters.location ||
-          proxy.loc.cc
-            .toLowerCase()
-            .includes(filters.location.toLowerCase())) &&
+          proxy.loc?.city?.toLowerCase().includes(filters.location.toLowerCase())) &&
         (!filters.isp ||
-          proxy.loc.isp.toLowerCase().includes(filters.isp.toLowerCase()))
+          proxy.loc?.isp?.toLowerCase().includes(filters.isp.toLowerCase()))
     );
   }, [filters, proxies]);
 
@@ -205,7 +214,7 @@ const Proxy = () => {
       )}
 
       <main
-        className={`flex-1 ${darkMode ? 'bg-[#030917]' : 'bg-white'} transition-all duration-300 ease-in-out ${isSidebarOpen ? 'blur-sm pointer-events-none md:pointer-events-auto' : ''
+        className={`flex-1 ${darkMode ? 'bg-[#131312]' : 'bg-white'} transition-all duration-300 ease-in-out ${isSidebarOpen ? 'blur-sm pointer-events-none md:pointer-events-auto' : ''
           } md:ml-64`}
       >
         <header className={`flex justify-between items-center py-4 px-6 border-b backdrop-blur-xl bg-opacity-90 shadow-sm sticky top-0 z-50 ${darkMode ? 'bg-[#131312]/50 border-gray-700' : 'bg-[#7C25BA] border-[#7C25BA]'
@@ -221,6 +230,7 @@ const Proxy = () => {
           </div>
         </header>
         <ProxyHeader
+          setSelectedCountry={setSelectedCountry}
           darkMode={darkMode}
           toggleFilterModal={toggleFilterModal}
           fetchProxies={fetchProxies}
@@ -228,6 +238,7 @@ const Proxy = () => {
         <Loading
           loading={loading}
           error={error}
+          darkMode={darkMode}
           filteredProxies={filteredProxies}
         />
 

@@ -1,4 +1,6 @@
 import { DarkModeContext } from '../../context/DarkModeContext';
+//Component for lazy loading the image
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { Link, useNavigate } from 'react-router-dom';
 import NavBar from '../reusables/Navbar';
 import Footer from '../reusables/Footer';
@@ -55,8 +57,9 @@ const Home = () => {
                 </button>
               </div>
               <div className="md:w-1/2 flex justify-center">
-                <img
+                <LazyLoadImage
                   src={techImage}
+                  width={600} height={400}
                   alt="Tech Solutions"
                   className="max-h-[350px] md:max-h-[400px] mb-5"
                 />
@@ -73,7 +76,7 @@ const Home = () => {
           </div>
 
           {/* Residential Proxies Section */}
-          <section className={`text-center py-6 px-4 sm:px-8 ${darkMode ? 'bg-[#131312] text-white' : 'bg-[#F9F7F2] text-black'}`}>
+          <section className={`text-center py-6 px-4 sm:px-8 ${darkMode ? 'bg-[#131312] text-white' : 'bg-[#fffe] text-black'}`}>
             <div>
               <h3 className="text-lg sm:text-xl font-bold mb-2">Residential Proxies</h3>
               <div className="border-b-4 sm:border-b-8 border-purple-700 w-12 sm:w-16 mx-auto mb-6"></div>
@@ -125,7 +128,7 @@ const Home = () => {
 
 
           {/* bg-[#fefffe] */}
-          <section className={`text-center mt-6 py-8 px-4 sm:px-16 lg:px-24 mb-12 w-full ${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'}`}>
+          <section className={`text-center  py-8 px-4 sm:px-16 lg:px-24  w-full ${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'}`}>
             <div>
               <h3 className="text-lg sm:text-xl font-bold mb-2">VPS Server</h3>
               <div className="border-b-4 sm:border-b-8 border-purple-700 w-12 sm:w-16 mx-auto mb-6 rounded-full"></div>
@@ -212,7 +215,7 @@ const Home = () => {
 
           {/* Verification Process Section */}
           {/* bg-[#e2f7f4] */}
-          <section className={`py-6 mb-12 px-4 sm:px-24 ${darkMode ? 'bg-[#131312] text-white' : 'bg-[#E3F6F4] text-black'}`}>
+          <section className={`py-6  px-4 sm:px-24 ${darkMode ? 'bg-[#131312] text-white' : 'bg-[#E3F6F4] text-black'}`}>
             <div className="max-w-7xl mx-auto">
               {/* Heading Section */}
               <div className="grid lg:grid-cols-3 items-start gap-6">
@@ -269,4 +272,3 @@ const Home = () => {
 
 export default Home;
 
-<div class="relative h-2 w-2 rounded-full bg-green-500 transition-colors ease-in-out"><div class="absolute inset-0 rounded-full bg-green-500" style="transform: scale(1.6502);"></div></div>

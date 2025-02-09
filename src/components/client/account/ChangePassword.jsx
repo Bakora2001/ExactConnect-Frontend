@@ -25,8 +25,16 @@ const changePasswordSchema = z.object({
 });
 
 const ChangePassword = () => {
-
+ //Function to handle the navigation
+ const navigate = useNavigate();
   const userDetails = JSON.parse(localStorage.getItem('userDetails'));
+
+  //Checking if the user even has the logged in
+   useEffect(() => {
+     if (!userDetails) {
+       navigate("account/login");
+     }
+   }, [navigate]);
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const toggleSidebar = () => {
@@ -58,8 +66,7 @@ const ChangePassword = () => {
     setShowPassword((prev) => !prev);
   };
 
-  //Function to handle the navigation
-  const navigate = useNavigate();
+ 
 
   //State to manage the darkmode and light mode
   const { darkMode } = useContext(DarkModeContext);
