@@ -1,2 +1,1 @@
-# Exact Connect website.
-
+# Exact Connect website
