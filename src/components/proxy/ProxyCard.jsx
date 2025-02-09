@@ -146,7 +146,7 @@ const ProxyCard = ({
           ${darkMode ? 'text-slate-200' : 'text-gray-800'}
         `}
               >
-                {proxy.priceExcC}
+                {proxy.priceShrc}
               </span>
             </div>
           </div>

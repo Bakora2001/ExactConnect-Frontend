@@ -9,7 +9,7 @@ import React, {
 import Navbar from '../reusables/Navbar';
 
 //Base url
-import { SERVER_URL } from '../../services/data';
+// import { SERVER_URL } from '../../services/data';
 import { fetchProxyData } from './utils/proxyService';
 import { DarkModeContext } from '../../context/DarkModeContext';
 
@@ -23,14 +23,13 @@ import ProxyHeader from './ProxyHeader';
 import ErrorBoundary from '../pages/ErrorBoundary';
 
 
-
-
 const Proxy = () => {
+
+
   //Handling state of the proxies
   const [proxies, setProxies] = useState([]);
 
-
-  console.log(proxies);
+  // console.log(proxies);
   //Handling state and filtering proxies
   const [filteredProxies, setFilteredProxies] = useState([]);
 
@@ -40,7 +39,7 @@ const Proxy = () => {
   //Getting the total proxies of a selected country
   // const [passedIn,setPassedIn] = useState([])
   const [selectedCountry, setSelectedCountry] = useState('US'); // Default country
-  const { proxyState } = 'NEW'
+
   //Handling the selected proxies
   const [selectedRow, setSelectedRow] = useState(null);
   // console.log(selectedRow);
@@ -78,8 +77,9 @@ const Proxy = () => {
       setError(null);
 
       const data = await fetchProxyData(page, countryCode);
-      console.log(data);
+      // console.log(data);
       setProxies(data);
+    
       setFilteredProxies(
         data.filter((proxy) => proxy.loc.cc === countryCode)
       );
@@ -92,17 +92,17 @@ const Proxy = () => {
   });
 
   //Fetching proxy details from a selected proxy
-  const fetchProxiesDetails = async (isp = '') => {
-    try {
-      const response = await fetch(`${SERVER_URL}/products/proxy/details/global-config?&isp=${isp}`)
-      if (!response.ok) throw new Error('Failed to fetch details')
-      const data = await response.json()
-      // console.log(data);
-      setRowData(data)
-    } catch (error) {
-      console.error('Error fetching proxy details', error)
-    }
-  }
+  // const fetchProxiesDetails = async (isp = '') => {
+  //   try {
+  //     const response = await fetch(`${SERVER_URL}/products/proxy/details/global-config?&isp=${isp}`)
+  //     if (!response.ok) throw new Error('Failed to fetch details')
+  //     const data = await response.json()
+  //     // console.log(data);
+  //     setRowData(data)
+  //   } catch (error) {
+  //     console.error('Error fetching proxy details', error)
+  //   }
+  // }
 
   // useEffect(() => {
   //   fetchProxiesDetails(currentPage)
@@ -121,20 +121,10 @@ const Proxy = () => {
     setSelectedRow(rowIndex);
     // Extract the necessary values dynamically
     setRowData(proxy)
-
-    // Extract the necessary values dynamically
-    // Ensure a default value if undefined
-    // const isp = proxy.loc.isp || "Safaricom";     // Ensure a default ISP if undefined
-    // console.log(isp);
-
-    // Fetch proxy details with extracted values
-    // fetchProxiesDetails(isp);
+   
   }, []);
 
-  //Handling the page for viewing the payment
-  const navigateToPayment = (rowData) => {
-    setRowData(rowData.id);
-  };
+
   const handleNextPage = () => {
     if (currentPage < totalPages - 1) {
       setCurrentPage((prevPage) => prevPage + 1);
@@ -147,37 +137,6 @@ const Proxy = () => {
     }
   };
 
-  // const applyFilters = () => {
-  //   let filtered = proxies;
-
-  //   if (filters.conn) {
-  //     {
-  //       filtered = filtered.filter(
-  //         (proxy) =>
-  //           proxy.conn.toLowerCase().includes(filters.conn.toLowerCase()) ||
-  //           proxy.conn.toLowerCase().includes(filters.conn.toLowerCase())
-  //       );
-  //     }
-  //   }
-
-  //   if (filters.location) {
-  //     filtered = filtered.filter(
-  //       (proxy) =>
-  //         proxy.loc.cc
-  //           .toLowerCase()
-  //           .includes(filters.location.toLowerCase()) ||
-  //         proxy.loc.reg.toLowerCase().includes(filters.location.toLowerCase())
-  //     );
-  //   }
-
-  //   if (filters.isp) {
-  //     filtered = filtered.filter((proxy) =>
-  //       proxy.loc.isp.toLowerCase().includes(filters.isp.toLowerCase())
-  //     );
-  //   }
-
-  //   setFilteredProxies(filtered);
-  // };
   const filteredResults = useMemo(() => {
     return (proxies || []).filter(
       (proxy) =>
@@ -217,60 +176,61 @@ const Proxy = () => {
 
   return (
     <ErrorBoundary>
-       <div
-      className={`${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
-        } min-h-screen   flex flex-col gap-2`}
-    >
-      <div className="w-full mb-10 sm:mb-12">
-        <Navbar />
-      </div>
+      <div
+        className={`${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
+          } min-h-screen   flex flex-col gap-2`}
+      >
+        <div className="w-full mb-10 sm:mb-12">
+          <Navbar />
+        </div>
 
-      <ProxyHeader
-        setSelectedCountry={setSelectedCountry}
-        darkMode={darkMode}
-        toggleFilterModal={toggleFilterModal}
-        fetchProxies={fetchProxies}
-      />
-      <Loading
-        darkMode={darkMode}
-        loading={loading}
-        totalPages={totalPages}
-        error={error}
-        filteredProxies={filteredProxies}
-      />
-
-      <ProxyCard
-        filteredProxies={filteredProxies}
-        darkMode={darkMode}
-        selectedRow={selectedRow}
-        handleRowClick={handleRowClick}
-      />
-
-      {isFilterModalOpen && (
-        <FilterModal
-          filters={filters}
-          proxies={proxies}
+        <ProxyHeader
+          setSelectedCountry={setSelectedCountry}
           darkMode={darkMode}
-          handleFilterChange={handleFilterChange}
           toggleFilterModal={toggleFilterModal}
+          fetchProxies={fetchProxies}
         />
-      )}
+        <Loading
+          darkMode={darkMode}
+          loading={loading}
+          totalPages={totalPages}
+          error={error}
+          filteredProxies={filteredProxies}
+        />
 
-      <Pagination
-        currentPage={currentPage}
-        loading={loading}
-        totalPages={totalPages}
-        handlePreviousPage={handlePreviousPage}
-        handleNextPage={handleNextPage}
-        setCurrentPage={setCurrentPage}
-      />
-      {/* Sidebar */}
-      {selectedRow !== null && (
-        <ProxyDetails rowData={rowData} setSelectedRow={setSelectedRow} />
-      )}
-    </div>
+        <ProxyCard
+          rowData={rowData}
+          filteredProxies={filteredProxies}
+          darkMode={darkMode}
+          selectedRow={selectedRow}
+          handleRowClick={handleRowClick}
+        />
+
+        {isFilterModalOpen && (
+          <FilterModal
+            filters={filters}
+            proxies={proxies}
+            darkMode={darkMode}
+            handleFilterChange={handleFilterChange}
+            toggleFilterModal={toggleFilterModal}
+          />
+        )}
+
+        <Pagination
+          currentPage={currentPage}
+          loading={loading}
+          totalPages={totalPages}
+          handlePreviousPage={handlePreviousPage}
+          handleNextPage={handleNextPage}
+          setCurrentPage={setCurrentPage}
+        />
+        {/* Sidebar */}
+        {selectedRow !== null && (
+          <ProxyDetails rowData={rowData} setSelectedRow={setSelectedRow} />
+        )}
+      </div>
     </ErrorBoundary>
-   
+
   );
 };
 
