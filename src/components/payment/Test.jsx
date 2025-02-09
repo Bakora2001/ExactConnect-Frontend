@@ -42,7 +42,7 @@ export default function PaymentPage() {
   const proxyState = location.state?.proxyState
 
   //Checking the proxySate
-  console.log(proxyState);
+  // console.log(proxyState);
 
   const convertedAmount = Convert(amount)
   // console.log(convertedAmount);
