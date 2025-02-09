@@ -35,7 +35,8 @@ const ContactUs = lazy(() => import('../src/components/contact/ContactUs'))
 const Rdp = lazy(() => import('../src/components/rdp/Rdp'))
 const AdminProducts = lazy(() => import('../src/components/admin/AdminProducts'))
 const Delivered = lazy(() => import('./components/pages/Delivered'))
-const Test = lazy(() => import('./components/payment/Test'))
+import Test from './components/payment/Test'
+// const Test = lazy(() => import('./components/payment/Test'))
 const Configure = lazy(() => import('./components/Configure'))
 const Checkout = lazy(() => import('./components/Checkout'))
 
@@ -208,11 +209,11 @@ export const router = createBrowserRouter([
   },
   {
     path: '/test',
-    element: (
-      <Suspense fallback={<Loader />}>
+    element: 
+     
         <Test />
-      </Suspense>
-    )
+     
+    
   },
   {
     path: '/orders',
