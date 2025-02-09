@@ -138,7 +138,7 @@ const Header = ({ darkMode, fetchProxies, setSelectedCountry }) => {
 const CountryButton = ({ country, selectedCountry, handleCountrySelect }) => (
   <button
     onClick={() => handleCountrySelect(country)}
-    className={`flex items-center gap-2 px-4 py-2 text-sm rounded-full border transition-all duration-300 ${selectedCountry?.code === country.code
+    className={`flex items-center gap-2 px-4 py-2 text-sm rounded-full border transition-all duration-300 ${selectedCountry === country.code
       ? 'bg-purple-600 text-white border-purple-700 shadow-md'
       : 'bg-white text-gray-700 border-gray-300 hover:bg-blue-100 hover:border-purple-400'
       } `}
