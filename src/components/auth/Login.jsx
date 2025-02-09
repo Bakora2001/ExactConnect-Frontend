@@ -199,7 +199,7 @@ function Login() {
         {/* Divider */}
         <div className="flex items-center my-6">
           <div className="flex-grow border-t border-gray-700"></div>
-          <span className="mx-3 text-sm text-white">Or continue with</span>
+          <span className={`mx-3 text-sm ${darkMode?'text-white':'text-black'}`}>Or continue with</span>
           <div className="flex-grow border-t border-gray-700"></div>
         </div>
 
