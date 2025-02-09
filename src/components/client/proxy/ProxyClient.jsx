@@ -238,6 +238,7 @@ const Proxy = () => {
         <Loading
           loading={loading}
           error={error}
+          darkMode={darkMode}
           filteredProxies={filteredProxies}
         />
 
