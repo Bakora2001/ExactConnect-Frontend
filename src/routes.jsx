@@ -22,9 +22,11 @@ const MaintenancePage = lazy(() => import('../src/components/errors/Maintainance
 //Component pages for the when the user has signed in
 // const Dashboard = lazy(() => import('./components/client/dashboard/Dashboard'))
 import Dashboard from './components/client/dashboard/Dashboard'
-const ProxyClient = lazy(() => import('./components/client/proxy/ProxyClient'))
+import ProxyClient from './components/client/proxy/ProxyClient'
+import Orders from './components/client/order/Orders'
+// const ProxyClient = lazy(() => import('./components/client/proxy/ProxyClient'))
 const SettingsPage = lazy(() => import('./components/client/account/SettingsPage'))
-const Orders = lazy(() => import('./components/client/order/Orders'))
+// const Orders = lazy(() => import('./components/client/order/Orders'))
 
 const Proxy = lazy(() => import('./components/proxy/Proxy'))
 const AdminHome = lazy(() => import('../src/components/admin/AdminHome'))
@@ -198,12 +200,11 @@ export const router = createBrowserRouter([
   },
   {
     path: '/client/proxy',
-    element: (
-      <Suspense fallback={<Loader />}>
-        <ProxyClient />
-      </Suspense>
+    element:
 
-    )
+      <ProxyClient />
+
+
   },
   {
     path: '/test',
@@ -215,12 +216,10 @@ export const router = createBrowserRouter([
   },
   {
     path: '/orders',
-    element: (
-      <Suspense fallback={<Loader />}>
-        <Orders />
-      </Suspense>
+    element:
 
-    )
+      <Orders />
+
   },
 
 ]);
