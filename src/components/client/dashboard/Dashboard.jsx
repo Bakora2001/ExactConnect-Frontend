@@ -20,17 +20,17 @@ import ErrorPage from '../../pages/ErrorPage';
 const Dashboard = () => {
 
   const [proxy, setProxies] = useState([])
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
   //retreiving user details from the storage
   const userDetails = JSON.parse(localStorage.getItem('userDetails'));
   // console.log(userDetails);
 
   // Checking if the user even has the logged in
-  useEffect(() => {
-    if (!userDetails) {
-      navigate("/account/login");
-    }
-  }, [navigate]);
+  // useEffect(() => {
+  //   if (!userDetails) {
+  //     navigate("/account/login");
+  //   }
+  // }, [navigate]);
 
   useEffect(() => {
     fetch(`${SERVER_URL}/products/proxies?page=${0}`, {
