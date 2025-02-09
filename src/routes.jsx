@@ -20,7 +20,8 @@ const NotFound = lazy(() => import('../src/components/errors/NotFound'))
 const MaintenancePage = lazy(() => import('../src/components/errors/MaintainancePage'))
 
 //Component pages for the when the user has signed in
-const Dashboard = lazy(() => import('./components/client/dashboard/Dashboard'))
+// const Dashboard = lazy(() => import('./components/client/dashboard/Dashboard'))
+import Dashboard from './components/client/dashboard/Dashboard'
 const ProxyClient = lazy(() => import('./components/client/proxy/ProxyClient'))
 const SettingsPage = lazy(() => import('./components/client/account/SettingsPage'))
 const Orders = lazy(() => import('./components/client/order/Orders'))
@@ -185,11 +186,7 @@ export const router = createBrowserRouter([
     )
   }, {
     path: '/dashboard',
-    element: (
-      <Suspense fallback={<Loader />}>
-        <Dashboard />
-      </Suspense>
-    )
+    element: <Dashboard />
   }, {
     path: '/account/settings',
     element: (
