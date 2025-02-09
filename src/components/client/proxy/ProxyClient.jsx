@@ -27,15 +27,15 @@ import UserMenu from '../reusable/UserMenu';
 
 const Proxy = () => {
 
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
   //retreiving user details from the storage
   const userDetails = JSON.parse(localStorage.getItem('userDetails'));
   //Checking if the user even has the logged in
-  useEffect(() => {
-    if (!userDetails) {
-      navigate("account/login");
-    }
-  }, [navigate]);
+  // useEffect(() => {
+  //   if (!userDetails) {
+  //     navigate("account/login");
+  //   }
+  // }, [navigate]);
 
   //Handling state of the proxies
   const [proxies, setProxies] = useState([]);
