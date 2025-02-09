@@ -29,7 +29,7 @@ const Proxy = () => {
   //Handling state of the proxies
   const [proxies, setProxies] = useState([]);
 
-  // console.log(proxies);
+  console.log(proxies);
   //Handling state and filtering proxies
   const [filteredProxies, setFilteredProxies] = useState([]);
 
@@ -121,7 +121,8 @@ const Proxy = () => {
     setSelectedRow(rowIndex);
     // Extract the necessary values dynamically
     setRowData(proxy)
-   
+   const proxyState = proxy.leases.worn
+   console.log(proxyState);
   }, []);
 
 
