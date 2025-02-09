@@ -28,7 +28,7 @@ const Dashboard = () => {
   // Checking if the user even has the logged in
   useEffect(() => {
     if (!userDetails) {
-      navigate("account/login");
+      navigate("/account/login");
     }
   }, [navigate]);
 
