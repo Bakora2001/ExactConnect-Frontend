@@ -209,7 +209,7 @@ const ProxyCard = ({
         </div>
 
         {/* Proxy Stats */}
-        <div
+        {/* <div
           className={`space-y-2 ${darkMode ? 'text-white' : 'text-black'
             } items-center flex justify-between`}
         >
@@ -239,7 +239,7 @@ const ProxyCard = ({
                 : 'N/A'}
             </span>
           </div>
-        </div>
+        </div> */}
       </div>
     ))}
   </div>
