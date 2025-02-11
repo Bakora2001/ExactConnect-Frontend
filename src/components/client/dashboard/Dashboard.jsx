@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import React, { useState, useContext, useEffect } from 'react';
 import { BsFillLightningChargeFill } from "react-icons/bs";
 import { FiChevronRight } from 'react-icons/fi';
-// import { FaStar, FaDollarSign, FaCalendarAlt, FaWifi } from "react-icons/fa";
+
 import { FaBars, FaTimes } from 'react-icons/fa';
 import SideBar from '../reusable/Sidebar';
 import UserMenu from '../reusable/UserMenu';
