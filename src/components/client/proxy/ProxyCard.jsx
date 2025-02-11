@@ -3,8 +3,7 @@ import Wifi from '../../icons/Wifi';
 import Cell from '../../icons/Cell';
 import { MapPin, Globe, DollarSign } from "lucide-react";
 
-// import countryFlag from '../../services/countryFlag';
-// console.log(countryFlag());
+
 const ProxyCard = ({
   filteredProxies,
   darkMode,
@@ -152,7 +151,7 @@ const ProxyCard = ({
       ${darkMode ? 'border-t border-slate-700' : 'border-t border-gray-300'}
     `}
           >
-            <div className="flex flex-col items-center py-2">
+            <div className="flex flex-col items-center py-2 justify-between space-y-2">
               <span
                 className={`
           text-xs mb-1 
@@ -205,39 +204,6 @@ const ProxyCard = ({
                   : 'N/A'}
               </span>
             </div>
-          </div>
-        </div>
-
-        {/* Proxy Stats */}
-        <div
-          className={`space-y-2 ${darkMode ? 'text-white' : 'text-black'
-            } items-center flex justify-between`}
-        >
-          <div>
-            <p>Conn</p>
-            <div
-              className={`font-bold ${darkMode ? 'text-white' : 'text-black'}`}
-            >
-              {proxy.conn === 'cell' ? <Cell /> : <Wifi />}
-            </div>
-          </div>
-          <div>
-            <p>Stars</p>
-            <span
-              className={`font-bold ${darkMode ? 'text-white' : 'text-black'}`}
-            >
-              {proxy.stars}
-            </span>
-          </div>
-          <div>
-            <p>Speed</p>
-            <span
-              className={`font-bold ${darkMode ? 'text-white' : 'text-black'}`}
-            >
-              {proxy.speed?.speed
-                ? (proxy.speed.speed / 1000000).toFixed(2) + ' Mbps'
-                : 'N/A'}
-            </span>
           </div>
         </div>
       </div>
