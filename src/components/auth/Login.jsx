@@ -54,7 +54,12 @@ function Login() {
       const result = await response.json();
       if (response.ok) {
         navigate('/dashboard');
-        localStorage.setItem('customerReference', result.customerReference);
+        localStorage.setItem('userDetails', JSON.stringify({
+          customerReference: result.customerReference,
+          email: result.email,
+          firstName:result.firstName,
+          lastName:result.lastName
+        }));
         toast.success('Login successsful');
       }
     } catch (err) {
