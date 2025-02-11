@@ -166,13 +166,39 @@ const Dashboard = () => {
             </div>
             {/* Servers Card */}
             <div
-              className={`rounded-lg p-6 shadow-md flex flex-col items-center border ${darkMode ? 'bg-[#1a1b1f] border-gray-700' : 'bg-white border-gray-200'
-                }`}
+              className="rounded-lg p-6 shadow-md flex flex-col items-center border dark:border-gray-700 transition-all duration-300 hover:scale-105 hover:shadow-lg"
+
             >
-              <img src={mobile} alt="Total Servers" className="w-20 h-20 mb-4" />
-              <p className={`text-4xl font-semibold ${darkMode ? 'text-white' : 'text-black'}`}>0</p>
-              <h2 className={`text-lg font-medium ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+              {/* Icon with a subtle glow effect */}
+              <div className="relative">
+                <img
+                  src={mobile}
+                  alt="Total Servers"
+                  className="w-20 h-20 mb-4 filter drop-shadow-lg"
+                />
+                {/* Optional: Add a glowing effect */}
+                <div
+                  className="absolute inset-0 bg-purple-500 rounded-full opacity-10 blur-md"
+                  style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '110%', height: '110%' }}
+                ></div>
+              </div>
+
+              {/* Number with a gradient text effect */}
+              <p
+                className={`text-4xl font-semibold bg-gradient-to-r ${darkMode ? 'from-blue-400 to-purple-400' : 'from-blue-600 to-purple-600'} bg-clip-text text-transparent`}
+              >
+                0
+              </p>
+
+              {/* Title with a subtle underline animation */}
+              <h2
+                className={`text-lg font-medium relative inline-block ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}
+              >
                 Servers
+                {/* Optional: Add an animated underline */}
+                <span
+                  className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-500 transition-all duration-300 group-hover:w-full"
+                ></span>
               </h2>
             </div>
 
