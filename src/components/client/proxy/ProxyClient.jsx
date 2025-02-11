@@ -8,10 +8,6 @@ import React, {
 import { useNavigate } from 'react-router-dom';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import Sidebar from '../reusable/Sidebar'
-
-
-//Base url
-// import { SERVER_URL } from '../../services/data';
 import { fetchProxyData } from './utils/proxyService';
 import { DarkModeContext } from '../../../context/DarkModeContext';
 
@@ -28,9 +24,12 @@ import UserMenu from '../reusable/UserMenu';
 const Proxy = () => {
 
   const navigate = useNavigate()
+
   //retreiving user details from the storage
   const userDetails = JSON.parse(localStorage.getItem('userDetails'));
-  //Checking if the user even has the logged in
+
+
+  // Checking if the user even has the logged in
   useEffect(() => {
     if (!userDetails) {
       navigate("account/login");
@@ -83,12 +82,12 @@ const Proxy = () => {
   const { darkMode } = useContext(DarkModeContext);
 
 
-  const fetchProxies = async (page = 0, countryCode = '') => {
+  const fetchProxies = useCallback(async (page = 0, countryCode = selectedCountry) => {
     try {
       setLoading(true);
       setError(null);
       const data = await fetchProxyData(page, countryCode);
-      setProxies(data.agents);
+      setProxies(data);
       setFilteredProxies(
         data.filter((proxy) => proxy.loc.cc === countryCode)
       );
@@ -99,7 +98,7 @@ const Proxy = () => {
     } finally {
       setLoading(false);
     }
-  };
+  });
 
   //Fetching proxy details from a selected proxy
   // const fetchProxiesDetails = async ()
