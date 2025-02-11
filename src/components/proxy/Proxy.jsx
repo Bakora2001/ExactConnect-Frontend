@@ -7,7 +7,7 @@ import React, {
 } from 'react';
 
 import Navbar from '../reusables/Navbar';
-
+import { SERVER_URL } from '../../services/data';
 
 import { fetchProxyData } from './utils/proxyService';
 import { DarkModeContext } from '../../context/DarkModeContext';
@@ -21,31 +21,20 @@ import ProxyCard from './ProxyCard';
 import ProxyHeader from './ProxyHeader';
 import ErrorBoundary from '../pages/ErrorBoundary';
 
-
 const Proxy = () => {
-
-
   //Handling state of the proxies
   const [proxies, setProxies] = useState([]);
 
-  console.log(proxies);
   //Handling state and filtering proxies
   const [filteredProxies, setFilteredProxies] = useState([]);
 
-  // const uniqueCCs = [...new Set(proxies.map((proxy) => proxy.loc.reg))];
-  // console.log("filteredProxies:", filteredProxies);
-  // const debugMode = filteredProxies.map((proxy, index) => console.log("priceShrc:", proxy.priceShrc, "Type:", typeof proxy.priceShrc))
-  //Getting the total proxies of a selected country
-  // const [passedIn,setPassedIn] = useState([])
   const [selectedCountry, setSelectedCountry] = useState('US'); // Default country
 
-  //Handling the selected proxies
+  //Handling selecting a row
   const [selectedRow, setSelectedRow] = useState(null);
-  // console.log(selectedRow);
 
   //To handle and display the proxies details
   const [rowData, setRowData] = useState({});
-  // console.log(rowData);
 
   //State manangement of the loader
   const [loading, setLoading] = useState(true);
@@ -55,8 +44,9 @@ const Proxy = () => {
 
   //State for handling paginations
   const [currentPage, setCurrentPage] = useState(0);
+
   const [totalPages, setTotalPages] = useState(0);
-  // console.log(totalPages);
+
   const [filters, setFilters] = useState({
     reg: '',
     isp: '',
@@ -68,62 +58,59 @@ const Proxy = () => {
 
   const { darkMode } = useContext(DarkModeContext);
 
-
   //Using us to be the default proxies
-  const fetchProxies = useCallback(async (page = 0, countryCode = selectedCountry) => {
-    try {
-      setLoading(true);
-      setError(null);
+  const fetchProxies = useCallback(
+    async (page = 0, countryCode = selectedCountry) => {
+      try {
+        setLoading(true);
+        setError(null);
 
-      const data = await fetchProxyData(page, countryCode);
-      
-      setProxies(data);
-    
-      setFilteredProxies(
-        data.filter((proxy) => proxy.loc.cc === countryCode)
-      );
-      setTotalPages(data.length);
-    } catch (error) {
-      setError(error);
-    } finally {
-      setLoading(false);
+        const data = await fetchProxyData(page, countryCode);
+
+        setProxies(data);
+
+        setFilteredProxies(
+          data.filter((proxy) => proxy.loc.cc === countryCode)
+        );
+      } catch (error) {
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
     }
-  });
-
-  //Fetching proxy details from a selected proxy
-  // const fetchProxiesDetails = async (isp = '') => {
-  //   try {
-  //     const response = await fetch(`${SERVER_URL}/products/proxy/details/global-config?&isp=${isp}`)
-  //     if (!response.ok) throw new Error('Failed to fetch details')
-  //     const data = await response.json()
-  //     // console.log(data);
-  //     setRowData(data)
-  //   } catch (error) {
-  //     console.error('Error fetching proxy details', error)
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   fetchProxiesDetails(currentPage)
-  // }, [])
-
+  );
   useEffect(() => {
-
     fetchProxies(currentPage, selectedCountry);
   }, [currentPage, selectedCountry]);
 
-  //This is the function to pass in the details of the selected proxy
+  //Fetching the total page of a given country
+  const fetchProxyTotals = useCallback(
+    async (page = 0, countryCode = selectedCountry) => {
+      try {
+        const response = await fetch(
+          `${SERVER_URL}/products/proxies?page=${page}&countryCode=${countryCode}`
+        );
+
+        if (!response.ok) throw new Error('Failed to fetch proxies totals');
+        const data = await response.json();
+
+        setTotalPages(data.total);
+      } catch (error) {
+        setError(error.message);
+        console.error('Error fetching proxies:', error);
+      }
+    },
+    [selectedCountry]
+  );
+
+  useEffect(() => {
+    fetchProxyTotals(currentPage, selectedCountry);
+  }, [currentPage, selectedCountry,fetchProxyTotals]);
+
   const handleRowClick = useCallback((rowIndex, proxy) => {
-
-    //   console.log("Row Index:", rowIndex);
-    // console.log("Selected Proxy:", proxy);
     setSelectedRow(rowIndex);
-    // Extract the necessary values dynamically
-    setRowData(proxy)
-   const proxyState = proxy.leases.worn
-   console.log(proxyState);
+    setRowData(proxy);
   }, []);
-
 
   const handleNextPage = () => {
     if (currentPage < totalPages - 1) {
@@ -143,12 +130,13 @@ const Proxy = () => {
         (!filters.conn ||
           proxy.conn?.toLowerCase().includes(filters.conn.toLowerCase())) &&
         (!filters.location ||
-          proxy.loc?.city?.toLowerCase().includes(filters.location.toLowerCase())) &&
+          proxy.loc?.city
+            ?.toLowerCase()
+            .includes(filters.location.toLowerCase())) &&
         (!filters.isp ||
           proxy.loc?.isp?.toLowerCase().includes(filters.isp.toLowerCase()))
     );
   }, [filters, proxies]);
-  // console.log(filteredResults);
 
   useEffect(() => {
     setFilteredProxies(filteredResults);
@@ -162,23 +150,16 @@ const Proxy = () => {
     }));
   };
 
-  // useEffect(() => {
-  //   applyFilters();
-  // }, [filters]);
-
   const toggleFilterModal = () => {
-    // console.log('Hey');
     setIsFilterModalOpen(!isFilterModalOpen);
   };
-  // if (error) {
-  //   return <div>Error: {error}</div>;
-  // }
 
   return (
     <ErrorBoundary>
       <div
-        className={`${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
-          } min-h-screen   flex flex-col gap-2`}
+        className={`${
+          darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
+        } min-h-screen   flex flex-col gap-2`}
       >
         <div className="w-full mb-10 sm:mb-12">
           <Navbar />
@@ -230,7 +211,6 @@ const Proxy = () => {
         )}
       </div>
     </ErrorBoundary>
-
   );
 };
 

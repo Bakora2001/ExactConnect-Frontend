@@ -1,15 +1,25 @@
 import Header from './Header';
 import FilterButton from './FilterButton';
 
-const ProxyHeader = ({ darkMode, toggleFilterModal, fetchProxies ,setSelectedCountry}) => (
+const ProxyHeader = ({
+  darkMode,
+  toggleFilterModal,
+  fetchProxies,
+  setSelectedCountry,
+}) => (
   <>
     <div
-      className={`   ${darkMode
+      className={`   ${
+        darkMode
           ? 'bg-[#131312] text-white'
           : 'bg-white text-gray-800 shadow-md'
-        }`}
+      }`}
     >
-      <Header darkMode={darkMode} fetchProxies={fetchProxies} setSelectedCountry={setSelectedCountry}/>
+      <Header
+        darkMode={darkMode}
+        fetchProxies={fetchProxies}
+        setSelectedCountry={setSelectedCountry}
+      />
     </div>
     {/* Filter button */}
     <div className="flex items-center gap-4 justify-end w-full">
@@ -20,7 +30,6 @@ const ProxyHeader = ({ darkMode, toggleFilterModal, fetchProxies ,setSelectedCou
         />
       </button>
     </div>
-
   </>
 );
 
