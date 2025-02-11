@@ -8,8 +8,7 @@ import React, {
 
 import Navbar from '../reusables/Navbar';
 
-//Base url
-// import { SERVER_URL } from '../../services/data';
+
 import { fetchProxyData } from './utils/proxyService';
 import { DarkModeContext } from '../../context/DarkModeContext';
 
@@ -77,7 +76,7 @@ const Proxy = () => {
       setError(null);
 
       const data = await fetchProxyData(page, countryCode);
-      // console.log(data);
+      
       setProxies(data);
     
       setFilteredProxies(
