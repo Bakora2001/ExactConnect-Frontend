@@ -9,7 +9,6 @@ import React, {
 import Navbar from '../reusables/Navbar';
 import { SERVER_URL } from '../../services/data';
 
-import { fetchProxyData } from './utils/proxyService';
 import { DarkModeContext } from '../../context/DarkModeContext';
 
 //Importing proxy components
@@ -25,9 +24,13 @@ const Proxy = () => {
   //Handling state of the proxies
   const [proxies, setProxies] = useState([]);
 
+  console.log(`These are the proxies ${proxies}`);
+
+  //State for storing the country details
+  const [countryDetails, setCountryDetails] = useState({});
   //Handling state and filtering proxies
   const [filteredProxies, setFilteredProxies] = useState([]);
-
+  // console.log(filteredProxies);
   const [selectedCountry, setSelectedCountry] = useState('US'); // Default country
 
   //Handling selecting a row
@@ -48,10 +51,9 @@ const Proxy = () => {
   const [totalPages, setTotalPages] = useState(0);
 
   const [filters, setFilters] = useState({
-    reg: '',
+    regions: '',
     isp: '',
-    city: '',
-    conn: '',
+    cities: '',
   });
 
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
@@ -63,17 +65,17 @@ const Proxy = () => {
     async (page = 0, countryCode = selectedCountry) => {
       try {
         setLoading(true);
-        setError(null);
 
-        const data = await fetchProxyData(page, countryCode);
-
+        const response = await fetch(
+          `${SERVER_URL}/products/proxy/details/global-config?pageNum=${page}&countryCode=${countryCode}`
+        );
+        const data = await response.json();
         setProxies(data);
-
         setFilteredProxies(
           data.filter((proxy) => proxy.loc.cc === countryCode)
         );
       } catch (error) {
-        setError(error);
+        console.error('There is an an err', error);
       } finally {
         setLoading(false);
       }
@@ -84,28 +86,24 @@ const Proxy = () => {
   }, [currentPage, selectedCountry]);
 
   //Fetching the total page of a given country
-  const fetchProxyTotals = useCallback(
-    async (page = 0, countryCode = selectedCountry) => {
-      try {
-        const response = await fetch(
-          `${SERVER_URL}/products/proxies?page=${page}&countryCode=${countryCode}`
-        );
+  //TODO --> Use callback
+  const fetchProxyTotals = async (page = 0, countryCode = selectedCountry) => {
+    try {
+      const url = `${SERVER_URL}/products/proxies?page=${page}&countryCode=${countryCode}&segments=${true}`;
+      const response = await fetch(url);
 
-        if (!response.ok) throw new Error('Failed to fetch proxies totals');
-        const data = await response.json();
-
-        setTotalPages(data.total);
-      } catch (error) {
-        setError(error.message);
-        console.error('Error fetching proxies:', error);
-      }
-    },
-    [selectedCountry]
-  );
+      const data = await response.json();
+      // console.log(data);
+      setTotalPages(data.total);
+      setCountryDetails(data.segments || {});
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     fetchProxyTotals(currentPage, selectedCountry);
-  }, [currentPage, selectedCountry,fetchProxyTotals]);
+  }, [currentPage, selectedCountry]);
 
   const handleRowClick = useCallback((rowIndex, proxy) => {
     setSelectedRow(rowIndex);
@@ -127,17 +125,17 @@ const Proxy = () => {
   const filteredResults = useMemo(() => {
     return (proxies || []).filter(
       (proxy) =>
-        (!filters.conn ||
-          proxy.conn?.toLowerCase().includes(filters.conn.toLowerCase())) &&
-        (!filters.location ||
-          proxy.loc?.city
-            ?.toLowerCase()
-            .includes(filters.location.toLowerCase())) &&
+        (!filters.regions ||
+          proxy.loc.reg?.includes(filters.regions.toLowerCase())) &&
+        (!filters.cities ||
+          proxy.loc.cc?.includes(filters.cities.toLowerCase())) &&
         (!filters.isp ||
           proxy.loc?.isp?.toLowerCase().includes(filters.isp.toLowerCase()))
     );
   }, [filters, proxies]);
-
+  //This is returning the filtered results
+  // console.log(filteredResults);
+  const test = filteredProxies.map((proxies) => console.log(proxies.loc.isp));
   useEffect(() => {
     setFilteredProxies(filteredResults);
   }, [filteredResults]);
@@ -149,7 +147,6 @@ const Proxy = () => {
       [name]: value,
     }));
   };
-
   const toggleFilterModal = () => {
     setIsFilterModalOpen(!isFilterModalOpen);
   };
@@ -159,7 +156,7 @@ const Proxy = () => {
       <div
         className={`${
           darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
-        } min-h-screen   flex flex-col gap-2`}
+        } min-h-screen     flex flex-col gap-2`}
       >
         <div className="w-full mb-10 sm:mb-12">
           <Navbar />
@@ -190,7 +187,7 @@ const Proxy = () => {
         {isFilterModalOpen && (
           <FilterModal
             filters={filters}
-            proxies={proxies}
+            countryDetails={countryDetails}
             darkMode={darkMode}
             handleFilterChange={handleFilterChange}
             toggleFilterModal={toggleFilterModal}

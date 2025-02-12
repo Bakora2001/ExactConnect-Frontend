@@ -22,11 +22,11 @@ const ProxyHeader = ({
       />
     </div>
     {/* Filter button */}
-    <div className="flex items-center gap-4 justify-end w-full">
-      <button className="flex items-center gap-3 text-white px-6 py-3 transition-all duration-300">
+    <div className="flex items-center gap-4 justify-end w-full ">
+      <button className="flex items-center gap-3 text-white px-3 py-2 transition-all duration-300 rounded-md ">
         <FilterButton
           toggleFilterModal={toggleFilterModal}
-          className="text-white p-3 transition-all duration-300 focus:ring-4 focus:ring-gray-500"
+          className="text-white p-3 transition-all duration-300 focus:ring-4 focus:ring-gray-500 "
         />
       </button>
     </div>
