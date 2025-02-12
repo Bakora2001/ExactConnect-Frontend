@@ -14,7 +14,6 @@ function ProxyDetails({ rowData, setSelectedRow }) {
         </button>
         <h2 className="mb-4 text-xl font-bold">Proxy Details</h2>
         <div className="space-y-2 text-sm text-gray-400">
-
           <p>
             <strong>IP:</strong> {rowData.ip}
           </p>
@@ -49,16 +48,22 @@ function ProxyDetails({ rowData, setSelectedRow }) {
             <strong>New:</strong> {rowData.new ? 'Yes' : 'No'}
           </p>
           <p>
-            <strong>Price:</strong> $ {rowData.
-              priceShrC
-            }
+            <strong>Price:</strong> $ {rowData.priceShrC}
           </p>
         </div>
-        <Link to="/test" state={{ amount: rowData.priceShrC,isp:rowData.loc.isp ,proxyId:rowData.id,countryCode:rowData.loc.cc,rating:rowData.stars,proxyState:rowData.leases.worn}}>
-          <button
-            // onClick={() => navigateToPayment(rowData.id)}
-            className="w-full px-4 py-2 mt-6 text-white bg-[#7e22ce] rounded-lg hover:bg-[#5c1ca1] transition"
-          >
+        <Link
+          to="/test"
+          state={{
+            amount: rowData.priceShrC,
+            isp: rowData.loc.isp,
+            
+            proxyId: rowData.id,
+            countryCode: rowData.loc.cc,
+            rating: rowData.stars,
+            proxyState: rowData.leases.worn,
+          }}
+        >
+          <button className="w-full px-4 py-2 mt-6 text-white bg-[#7e22ce] rounded-lg hover:bg-[#5c1ca1] transition">
             Purchase proxy
           </button>
         </Link>
