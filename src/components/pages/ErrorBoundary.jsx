@@ -21,7 +21,7 @@ class ErrorBoundary extends Component {
   }
 
   handleRetry = () => {
-    if (this.state.retryCount < 3) {
+    if (this.state.retryCount < 2) {
       // Set retry state to true and disable the button
       this.setState({ isRetrying: true });
 
@@ -53,11 +53,11 @@ class ErrorBoundary extends Component {
             </h1>
             <p className="text-gray-700 dark:text-gray-300 text-sm md:text-base mb-4">
               An unexpected error occurred. 
-              {this.state.retryCount < 3 ? " Please try again." : " You may need to reload the page."}
+              {this.state.retryCount < 2 ? " Please try again." : " You may need to reload the page."}
             </p>
 
             {/* Show "Try Again" button if retries are available */}
-            {this.state.retryCount < 3 ? (
+            {this.state.retryCount < 2 ? (
               <button
                 onClick={this.handleRetry}
                 disabled={this.state.isRetrying} // Disable button during retry

@@ -9,7 +9,9 @@ function Loading({ loading, filteredProxies, error, darkMode }) {
           {Array.from({ length: 8 }).map((_, index) => (
             <div
               key={index}
-              className={` p-6 border rounded-lg shadow-lg bg-gray-200 dark:bg-[#131312] animate-pulse ${darkMode ? 'border-gray-700' : 'border-gray-100'}`}
+              className={` p-6 border rounded-lg shadow-lg bg-gray-200 dark:bg-[#131312] animate-pulse ${
+                darkMode ? 'border-gray-800' : 'border-gray-100'
+              }`}
             >
               <div className="h-6 bg-gray-300 dark:bg-gray-600 rounded w-3/4 mb-2"></div>
               <div className="h-4 bg-gray-300 dark:bg-gray-600 rounded w-1/2 mb-4"></div>
@@ -33,7 +35,6 @@ function Loading({ loading, filteredProxies, error, darkMode }) {
         </div>
       ) : null}
     </div>
-
   );
 }
 

@@ -1,12 +1,12 @@
 import { useState, useContext,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FiSearch, FiChevronRight, FiPackage, FiDollarSign, FiCalendar } from 'react-icons/fi';
+import { FiSearch, FiChevronRight, FiDollarSign, FiCalendar } from 'react-icons/fi';
 import { HiOutlineStatusOnline } from 'react-icons/hi';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { IoIosStarOutline, IoIosCellular } from "react-icons/io";
 
-import SideBar from '../reusable/Sidebar'; // Your Sidebar component
-import UserMenu from '../reusable/UserMenu'; // Your UserMenu component
+import SideBar from '../reusable/Sidebar';
+import UserMenu from '../reusable/UserMenu'; 
 import { DarkModeContext } from '../../../context/DarkModeContext';
 import React from 'react'
 

@@ -8,10 +8,6 @@ import React, {
 import { useNavigate } from 'react-router-dom';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import Sidebar from '../reusable/Sidebar'
-
-
-//Base url
-// import { SERVER_URL } from '../../services/data';
 import { fetchProxyData } from './utils/proxyService';
 import { DarkModeContext } from '../../../context/DarkModeContext';
 
@@ -27,15 +23,18 @@ import UserMenu from '../reusable/UserMenu';
 
 const Proxy = () => {
 
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
+
   //retreiving user details from the storage
   const userDetails = JSON.parse(localStorage.getItem('userDetails'));
-  //Checking if the user even has the logged in
-  // useEffect(() => {
-  //   if (!userDetails) {
-  //     navigate("account/login");
-  //   }
-  // }, [navigate]);
+
+
+  // Checking if the user even has the logged in
+  useEffect(() => {
+    if (!userDetails) {
+      navigate("account/login");
+    }
+  }, [navigate]);
 
   //Handling state of the proxies
   const [proxies, setProxies] = useState([]);
@@ -83,12 +82,12 @@ const Proxy = () => {
   const { darkMode } = useContext(DarkModeContext);
 
 
-  const fetchProxies = async (page = 0, countryCode = '') => {
+  const fetchProxies = useCallback(async (page = 0, countryCode = selectedCountry) => {
     try {
       setLoading(true);
       setError(null);
       const data = await fetchProxyData(page, countryCode);
-      setProxies(data.agents);
+      setProxies(data);
       setFilteredProxies(
         data.filter((proxy) => proxy.loc.cc === countryCode)
       );
@@ -99,7 +98,7 @@ const Proxy = () => {
     } finally {
       setLoading(false);
     }
-  };
+  });
 
   //Fetching proxy details from a selected proxy
   // const fetchProxiesDetails = async ()
@@ -200,7 +199,7 @@ const Proxy = () => {
 
   return (
     <div
-      className={`${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
+      className={`${darkMode ? 'bg-[#1a1a1a] text-white' : 'bg-white text-black'
         } min-h-screen   flex flex-col gap-2`}
     >
 
@@ -214,7 +213,7 @@ const Proxy = () => {
       )}
 
       <main
-        className={`flex-1 ${darkMode ? 'bg-[#131312]' : 'bg-white'} transition-all duration-300 ease-in-out ${isSidebarOpen ? 'blur-sm pointer-events-none md:pointer-events-auto' : ''
+        className={`flex-1 ${darkMode ? 'bg-[#1a1a1a]' : 'bg-white'} transition-all duration-300 ease-in-out ${isSidebarOpen ? 'blur-sm pointer-events-none md:pointer-events-auto' : ''
           } md:ml-64`}
       >
         <header className={`flex justify-between items-center py-4 px-6 border-b backdrop-blur-xl bg-opacity-90 shadow-sm sticky top-0 z-50 ${darkMode ? 'bg-[#131312]/50 border-gray-700' : 'bg-[#7C25BA] border-[#7C25BA]'

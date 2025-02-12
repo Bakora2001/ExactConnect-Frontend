@@ -3,8 +3,7 @@ import Wifi from '../../icons/Wifi';
 import Cell from '../../icons/Cell';
 import { MapPin, Globe, DollarSign } from "lucide-react";
 
-// import countryFlag from '../../services/countryFlag';
-// console.log(countryFlag());
+
 const ProxyCard = ({
   filteredProxies,
   darkMode,
@@ -12,12 +11,12 @@ const ProxyCard = ({
   handleRowClick,
 }) => (
   <div
-    className={`w-full grid grid-cols-1 gap-6 p-6 md:grid-cols-2 lg:grid-cols-4`}
+    className={`w-full grid grid-cols-1 gap-6 p-6 md:grid-cols-2 lg:grid-cols-4 `}
   >
     {filteredProxies.map((proxy, index) => (
       <div
         key={proxy.id}
-        className={`p-6 rounded-lg shadow-lg hover:shadow-lg transition-transform transform border ${darkMode ? 'border-gray-700' : 'border-gray-100'
+        className={`p-6  dark:bg-[#181918] rounded-lg shadow-lg hover:shadow-lg transition-transform transform border ${darkMode ? 'border-gray-700' : 'border-gray-100'
           } ${index === selectedRow ? 'scale-105 border-purple-400' : ''
           } cursor-pointer`}
         onClick={() => handleRowClick(index, proxy)}
@@ -25,7 +24,7 @@ const ProxyCard = ({
         {/* Proxy Header */}
         <div className={`
             ${darkMode
-            ? 'bg-[#131312] border-b '
+            ? 'bg-[] border-b '
             : 'bg-gradient-to-r from-gray-200/60 to-gray-300/40'}
             py-2.5 px-4 
           `}>
@@ -152,7 +151,7 @@ const ProxyCard = ({
       ${darkMode ? 'border-t border-slate-700' : 'border-t border-gray-300'}
     `}
           >
-            <div className="flex flex-col items-center py-2">
+            <div className="flex flex-col items-center py-2 justify-between space-y-2">
               <span
                 className={`
           text-xs mb-1 
@@ -207,39 +206,6 @@ const ProxyCard = ({
             </div>
           </div>
         </div>
-
-        {/* Proxy Stats */}
-        {/* <div
-          className={`space-y-2 ${darkMode ? 'text-white' : 'text-black'
-            } items-center flex justify-between`}
-        >
-          <div>
-            <p>Conn</p>
-            <div
-              className={`font-bold ${darkMode ? 'text-white' : 'text-black'}`}
-            >
-              {proxy.conn === 'cell' ? <Cell /> : <Wifi />}
-            </div>
-          </div>
-          <div>
-            <p>Stars</p>
-            <span
-              className={`font-bold ${darkMode ? 'text-white' : 'text-black'}`}
-            >
-              {proxy.stars}
-            </span>
-          </div>
-          <div>
-            <p>Speed</p>
-            <span
-              className={`font-bold ${darkMode ? 'text-white' : 'text-black'}`}
-            >
-              {proxy.speed?.speed
-                ? (proxy.speed.speed / 1000000).toFixed(2) + ' Mbps'
-                : 'N/A'}
-            </span>
-          </div>
-        </div> */}
       </div>
     ))}
   </div>
