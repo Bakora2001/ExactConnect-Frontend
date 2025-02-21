@@ -47,6 +47,7 @@ const AdminProducts = lazy(() =>
 const Delivered = lazy(() => import('./components/pages/Delivered'));
 import Test from './components/payment/Test';
 import Mpesa from './components/payment/Mpesa';
+import MailConfirmation from './components/pages/Mail';
 // const Test = lazy(() => import('./components/payment/Test'))
 const Configure = lazy(() => import('./components/Configure'));
 const Checkout = lazy(() => import('./components/Checkout'));
@@ -220,4 +221,8 @@ export const router = createBrowserRouter([
     path: '/test',
     element: <Mpesa />,
   },
+  {
+    path:'/openmail',
+    element:<MailConfirmation />
+  }
 ]);
