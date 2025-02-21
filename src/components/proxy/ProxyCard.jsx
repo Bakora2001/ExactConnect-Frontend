@@ -1,9 +1,8 @@
 // This component renders the proxies in cards
 import Wifi from '../icons/Wifi';
 import Cell from '../icons/Cell';
-import { MapPin, Globe, DollarSign } from "lucide-react";
+import { MapPin, Globe, DollarSign } from 'lucide-react';
 import React from 'react';
-
 
 // import countryFlag from '../../services/countryFlag';
 // console.log(countryFlag());
@@ -16,20 +15,24 @@ const ProxyCard = ({
   <div
     className={`w-full grid grid-cols-1 gap-6 p-6 md:grid-cols-2 lg:grid-cols-4`}
   >
-   {(filteredProxies || []).map((proxy, index) => (
+    {(filteredProxies || []).map((proxy, index) => (
       <div
         key={proxy.id}
-        className={`p-6 rounded-lg shadow-lg hover:shadow-lg transition-transform transform border ${darkMode ? 'border-gray-700' : 'border-gray-100'
-          } ${index === selectedRow ? 'scale-105 border-purple-400' : ''
-          } cursor-pointer`}
+        className={`p-6 rounded-lg shadow-lg hover:shadow-lg transition-transform transform border ${
+          darkMode ? 'border-gray-700' : 'border-gray-100'
+        } ${
+          index === selectedRow ? 'scale-105 border-purple-400' : ''
+        } cursor-pointer`}
         onClick={() => handleRowClick(index, proxy)}
       >
         {/* Proxy Header */}
         <div
           className={`
-            ${darkMode
-              ? 'bg-[#131312] border-b border-slate-700'
-              : 'bg-gradient-to-r from-gray-200/60 to-gray-300/40'}
+            ${
+              darkMode
+                ? 'bg-[#131312] border-b border-slate-700'
+                : 'bg-gradient-to-r from-gray-200/60 to-gray-300/40'
+            }
             py-2.5 px-4 
           `}
         >
@@ -146,7 +149,9 @@ const ProxyCard = ({
           ${darkMode ? 'text-slate-200' : 'text-gray-800'}
         `}
               >
-                {proxy.priceShrc}
+                {proxy?.priceExcC !== null
+                  ? proxy?.priceExcC
+                  : proxy?.priceShrC}
               </span>
             </div>
           </div>

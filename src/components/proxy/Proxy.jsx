@@ -19,12 +19,15 @@ import ProxyDetails from './ProxyDetails';
 import ProxyCard from './ProxyCard';
 import ProxyHeader from './ProxyHeader';
 import ErrorBoundary from '../pages/ErrorBoundary';
+import { object } from 'zod';
 
 const Proxy = () => {
   //Handling state of the proxies
   const [proxies, setProxies] = useState([]);
 
-  console.log(`These are the proxies ${proxies}`);
+  console.log(proxies);
+  //State for getting price
+  const [prices, setPrices] = useState([]);
 
   //State for storing the country details
   const [countryDetails, setCountryDetails] = useState({});
@@ -71,6 +74,7 @@ const Proxy = () => {
         );
         const data = await response.json();
         setProxies(data);
+        console.log(data?.priceExcC);
         setFilteredProxies(
           data.filter((proxy) => proxy.loc.cc === countryCode)
         );
@@ -122,6 +126,13 @@ const Proxy = () => {
     }
   };
 
+  //trying to retreive prices
+  const pricing = filteredProxies.map((prices) => {
+    console.log(
+      prices?.priceExcC !== null ? prices?.priceExcC : prices?.priceShrC
+    );
+  });
+
   const filteredResults = useMemo(() => {
     return (proxies || []).filter(
       (proxy) =>
@@ -133,9 +144,7 @@ const Proxy = () => {
           proxy.loc?.isp?.toLowerCase().includes(filters.isp.toLowerCase()))
     );
   }, [filters, proxies]);
-  //This is returning the filtered results
-  // console.log(filteredResults);
-  const test = filteredProxies.map((proxies) => console.log(proxies.loc.isp));
+
   useEffect(() => {
     setFilteredProxies(filteredResults);
   }, [filteredResults]);

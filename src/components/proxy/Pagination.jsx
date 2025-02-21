@@ -1,4 +1,5 @@
 //Component which has the pagination logic
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const Pagination = ({
   currentPage,
@@ -9,14 +10,13 @@ const Pagination = ({
 }) => (
   <div className="flex flex-wrap items-center justify-center gap-2  mb-5">
     <button
-      className="px-4 py-2 bg-gray-700 text-white rounded-lg shadow-md hover:bg-gray-600 transition disabled:opacity-50"
+      className="p-2 bg-gray-700 text-white rounded-lg shadow-md hover:bg-gray-600 transition disabled:opacity-50"
       onClick={handlePreviousPage}
       disabled={currentPage === 0}
     >
-      Previous
+      <ChevronLeft className="h-4 w-4"/>
     </button>
 
-   
     {Array.from({ length: totalPages }, (_, index) => {
       if (
         index === 0 || // First Page
@@ -26,10 +26,11 @@ const Pagination = ({
         return (
           <button
             key={index}
-            className={`px-4 py-2 ${index === currentPage
+            className={`px-4 py-2 ${
+              index === currentPage
                 ? 'bg-[#7e22ce] text-white'
                 : 'bg-gray-700 text-white'
-              } rounded-md shadow-md hover:bg-gray-600 transition`}
+            } rounded-md shadow-md hover:bg-gray-600 transition`}
             onClick={() => setCurrentPage(index)}
           >
             {index + 1}
@@ -39,7 +40,8 @@ const Pagination = ({
 
       if (
         // Ellipsis before current page
-        index === currentPage + 3 // Ellipsis after current page
+        index ===
+        currentPage + 3 // Ellipsis after current page
       ) {
         return (
           <span
@@ -55,11 +57,11 @@ const Pagination = ({
     })}
 
     <button
-      className="px-4 py-2 bg-gray-700 text-white rounded-lg shadow-md hover:bg-gray-600 transition disabled:opacity-50"
+      className=" p-2 bg-gray-700 text-white rounded-lg shadow-md hover:bg-gray-600 transition disabled:opacity-50"
       onClick={handleNextPage}
       disabled={currentPage === totalPages - 1}
     >
-      Next
+       <ChevronRight className="h-4 w-4"/>
     </button>
   </div>
 );
