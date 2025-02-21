@@ -38,6 +38,8 @@ export default function PaymentPage() {
   const [isConfirming, setIsConfirming] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState('');
 
+  //
+
   // Format phone number to include 254 prefix
   const formatPhoneNumber = (phoneNumber) => {
     if (phoneNumber.startsWith('0') && phoneNumber.length === 10) {
@@ -47,7 +49,6 @@ export default function PaymentPage() {
   };
 
   const formattedNumber = formatPhoneNumber(phoneNumber);
-  console.log(formattedNumber);
 
   //Function to handle mpesa push submittion
   const MpesaStkPushSubmitted = () => {
@@ -78,6 +79,7 @@ export default function PaymentPage() {
       pauseOnHover: false,
     });
 
+  //Handling stk push cancellation
   const StkPushCancelledByUser = () =>
     toast.error('StkPush was rejected by the user', {
       position: 'top-center',
@@ -105,7 +107,7 @@ export default function PaymentPage() {
     try {
       const { data } = await axios.post(`${SERVER_URL}/payments`, {
         accountNumber: formattedNumber,
-        amount: 1,
+        amount: 3,
         description: 'test',
         mode: 'STK',
         provider: 'MPESA',
@@ -123,14 +125,15 @@ export default function PaymentPage() {
           customerId: customerId,
         },
       });
-      console.log(data);
+      console.log('STK Push Response:', data);
       MpesaStkPushSubmitted();
       setIsConfirming(false);
       setIsLoading(false);
-      MpesaStkPushSuccess();
+
+      // Validate the transaction
       await validateTransaction(data);
     } catch (error) {
-      console.log(error);
+      console.error('STK Push Error:', error);
       setIsLoading(false);
       setIsConfirming(false);
       MpesaStkPushFailed();
@@ -138,26 +141,28 @@ export default function PaymentPage() {
   };
 
   const validateTransaction = async (payload) => {
+    console.log('Transaction Payload:', payload);
     const checkStatus = async () => {
       try {
-        const { data } = await axios.post(
-          `${SERVER_URL}/payments/stk/callback`,
-          {
-            payload: {
-              CheckoutRequestID: payload.receiptNumber,
-              ResultCode: payload.ResultCode,
-              ResultDesc: payload.providerDescription,
-            },
-          }
-        );
-        const transaction = data.transaction;
-        console.log(transaction);
-        switch (transaction['ResultCode']) {
-          case 0:
+        const { data } = await axios.get(`${SERVER_URL}/payments/search`, {
+          params: {
+            countryCode: 'KE',
+            currencyCode: 'KES',
+            paymentId: payload.paymentId,
+            transactionStatus: payload.transactionStatus,
+          },
+        });
+        console.log('Full Response:', data.content); // Log the entire response
+
+        const transaction = data.content;
+        console.log('Transaction Status:', transaction);
+
+        switch (transaction['transactionStatus']) {
+          case 'ACCEPTED':
             console.log('Transaction Successful');
             MpesaStkPushSuccess();
             break;
-          case 1032:
+          case 'FAILED':
             console.log('Transaction cancelled by user');
             StkPushCancelledByUser();
             break;

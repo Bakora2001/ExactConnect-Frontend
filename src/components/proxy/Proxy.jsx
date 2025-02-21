@@ -25,7 +25,7 @@ const Proxy = () => {
   //Handling state of the proxies
   const [proxies, setProxies] = useState([]);
 
-  console.log(proxies);
+  // console.log(proxies);
   //State for getting price
   const [prices, setPrices] = useState([]);
 
@@ -74,7 +74,7 @@ const Proxy = () => {
         );
         const data = await response.json();
         setProxies(data);
-        console.log(data?.priceExcC);
+
         setFilteredProxies(
           data.filter((proxy) => proxy.loc.cc === countryCode)
         );
@@ -127,11 +127,11 @@ const Proxy = () => {
   };
 
   //trying to retreive prices
-  const pricing = filteredProxies.map((prices) => {
-    console.log(
-      prices?.priceExcC !== null ? prices?.priceExcC : prices?.priceShrC
-    );
-  });
+  // const pricing = filteredProxies.map((prices) => {
+  //   console.log(
+  //     prices?.priceExcC !== null ? prices?.priceExcC : prices?.priceShrC
+  //   );
+  // });
 
   const filteredResults = useMemo(() => {
     return (proxies || []).filter(
@@ -164,7 +164,7 @@ const Proxy = () => {
     <ErrorBoundary>
       <div
         className={`${
-          darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
+          darkMode ? 'bg-[#010100] text-white' : 'bg-white text-black'
         } min-h-screen     flex flex-col gap-2`}
       >
         <div className="w-full mb-10 sm:mb-12">

@@ -54,7 +54,7 @@ function ProxyDetails({ rowData, setSelectedRow }) {
             }
           </p>
         </div>
-        <Link to="/test" state={{ amount: rowData.priceShrC,isp:rowData.loc.isp ,proxyId:rowData.id,countryCode:rowData.loc.cc,rating:rowData.stars,proxyState:rowData.leases.worn}}>
+        <Link to="/checkout/mpesa" state={{ amount: rowData.priceShrC,isp:rowData.loc.isp ,proxyId:rowData.id,countryCode:rowData.loc.cc,rating:rowData.stars,proxyState:rowData.leases.worn}}>
           <button
             // onClick={() => navigateToPayment(rowData.id)}
             className="w-full px-4 py-2 mt-6 text-white bg-[#7e22ce] rounded-lg hover:bg-[#5c1ca1] transition"
