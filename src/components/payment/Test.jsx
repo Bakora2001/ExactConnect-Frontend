@@ -2,12 +2,10 @@ import { useState, useContext } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import { Smartphone, Bitcoin } from 'lucide-react';
-// import toast from 'react-hot-toast';
 import { SERVER_URL } from '../../services/data';
 import { DarkModeContext } from '../../context/DarkModeContext';
 import { useLocation } from 'react-router-dom';
 import Convert from './Convert';
-
 import { z } from 'zod';
 
 // Define phone number validation schema using Zod
@@ -36,7 +34,6 @@ export default function PaymentPage() {
   const { darkMode } = useContext(DarkModeContext);
   const [paymentMethod, setPaymentMethod] = useState('mpesa');
   const [isLoading, setIsLoading] = useState(false);
-  const [transactionId, setTransactionId] = useState(null);
   const [errors, setErrors] = useState('');
   const [isConfirming, setIsConfirming] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -51,11 +48,6 @@ export default function PaymentPage() {
 
   const formattedNumber = formatPhoneNumber(phoneNumber);
   console.log(formattedNumber);
-  // const [formattedPhoneNumber, setFormattedPhoneNumber] = useState('');
-  // Format phone number
-  // const formattedNumber = formatPhoneNumber(phoneNumber);
-  // setFormattedPhoneNumber(formattedNumber);
-  // console.log(formattedNumber);
 
   //Function to handle mpesa push submittion
   const MpesaStkPushSubmitted = () => {
@@ -76,7 +68,7 @@ export default function PaymentPage() {
     toast.info('Mpesa STK Push Success,transaction completed successfully');
   };
 
-  //Function to handle mpesa push failes
+  //Function to handle mpesa push fail
   const MpesaStkPushFailed = () =>
     toast.error('Mpesa Stk Push Failed, Please try again', {
       position: 'top-center',
