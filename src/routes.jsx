@@ -209,7 +209,7 @@ export const router = createBrowserRouter([
     element: <ProxyClient />,
   },
   {
-    path: '/mpesa',
+    path: '/checkout/mpesa',
     element: <Test />,
   },
   {
