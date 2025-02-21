@@ -30,21 +30,21 @@
 //   });
 //   // const session = JSON.parse(localStorage.getItem('session'));
 //   // const token = session?.accessToken;
-  
+
 //   const pollPaymentStatus = async () => {
 //     try {
 //       const response = await fetch(`${SERVER_URL}/payments`, {
 //         headers: {
-       
+
 //           "Content-Type": "application/json",
 //         },
 //       });
 //       const result = await response.json();
-  
+
 //       if (response.ok) {
 //         if (result.status === 'completed') {
 //           toast.success("Payment received successfully!");
-//           navigate("/lawyers"); 
+//           navigate("/lawyers");
 //         } else {
 //           toast.error("Payment not completed. Please try again.");
 //         }
@@ -58,7 +58,7 @@
 //       setIsConfirming(false); // Reset the button after checking the status
 //     }
 //   };
-  
+
 //   const onSubmit = async (data) => {
 //     setIsConfirming(true); // Disable the button and show "Confirming"
 //     try {
@@ -66,7 +66,7 @@
 //         method: "POST",
 //         headers: {
 //           "Content-Type": "application/json",
-       
+
 //         },
 //         body: JSON.stringify({
 //           accountNumber: data.accountNumber,
@@ -88,7 +88,7 @@
 
 //         const pollingInterval = setInterval(() => {
 //           pollPaymentStatus(result.transaction_id).then(() => {
-//             clearInterval(pollingInterval); 
+//             clearInterval(pollingInterval);
 //           });
 //         }, 10000);
 //       } else {
@@ -214,10 +214,176 @@
 // // export default Subscription;
 // // import React from 'react'
 
+import React, { useState } from 'react';
+import axios from 'axios';
+import { SERVER_URL } from '../../services/data';
+import { useLocation } from 'react-router-dom';
+import Convert from './Convert';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 function Mpesa() {
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const userDetails = JSON.parse(localStorage.getItem('userDetails'));
+  const customerId = userDetails.customerReference;
+  const location = useLocation();
+
+  // Accessing state from navigation
+  const amount = location.state?.amount || 0;
+  const isp = location.state?.isp;
+  const countryCode = location.state?.countryCode;
+  const id = location.state?.proxyId;
+  const rating = location.state?.rating;
+  const proxyState = location.state?.proxyState;
+
+  // Convert and round the amount
+  const convertedAmount = Convert(amount);
+  const roundedAmount = Math.ceil(convertedAmount);
+  const handlePhoneNumberChange = (e) => {
+    setPhoneNumber(e.target.value);
+  };
+
+  const MpesaStkPushSubmitted = () =>
+    toast(
+      'Mpesa Stk Push Submitted Successfully, Enter your Pin to complete the transaction',
+      {
+        position: 'top-center',
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+      }
+    );
+
+  const MpesaStkPushSuccess = () =>
+    toast.info('Mpesa Stk Push Success, transaction completed successfully');
+
+  const MpesaStkPushFailed = () =>
+    toast.error('Mpesa Stk Push Failed, Please try again', {
+      position: 'top-center',
+      autoClose: 2000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: false,
+    });
+
+  const StkPushCancelledByUser = () =>
+    toast.error('StkPush was rejected by the user', {
+      position: 'top-center',
+      autoClose: 2000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: false,
+    });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    try {
+      const  { data } = await axios.post(`${SERVER_URL}/payments`, {
+        accountNumber: phoneNumber,
+        amount: 1,
+        description: 'test',
+        mode: 'STK',
+        provider: 'MPESA',
+        category: 'COLLECTIONS',
+        countryCode: 'KE',
+        currencyCode: 'KES',
+        createdBy: 'tester',
+        metaData: {
+          proxyId: id,
+          rating: rating,
+          proxyCountryCode: countryCode,
+          isp: isp,
+          proxyState: proxyState === true ? 'OLD' : 'NEW',
+          requestedService: 'PROXIES',
+          customerId: customerId,
+        },
+      });
+      console.log(data);
+      setIsLoading(false);
+      MpesaStkPushSuccess();
+      await validateTransaction(data);
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false);
+      MpesaStkPushFailed();
+    }
+  };
+
+  const validateTransaction = async (payload) => {
+    const checkStatus = async () => {
+      try {
+        const { data } = await axios.post(
+          `${SERVER_URL}/payments/stk/callback`,
+          {
+            payload: {
+              MerchantRequestID: payload.MerchantRequestID,
+            },
+          }
+        );
+        const transaction = data.transaction;
+        switch (transaction['ResultCode']) {
+          case 0:
+            console.log('Transaction Successful');
+            MpesaStkPushSuccess();
+            break;
+          case 1032:
+            console.log('Transaction cancelled by user');
+            StkPushCancelledByUser();
+            break;
+          default:
+            console.log('Transaction Failed');
+            MpesaStkPushFailed();
+            await checkStatus();
+            break;
+        }
+      } catch (error) {
+        console.log(error);
+        MpesaStkPushFailed();
+      }
+    };
+    setTimeout(checkStatus, 10000);
+  };
+
   return (
-    <div>Mpesa</div>
-  )
+    <div className="App bg-slate-700 h-screen text-white w-full">
+      <header className="App-header">
+        <p className="text-center pt-9">Please Enter your Details Below</p>
+      </header>
+      <div className="flex items-center justify-center">
+        <form className="flex flex-col items-center" onSubmit={handleSubmit}>
+          <input
+            className="border-2 border-gray-500 rounded-md p-2 m-2 text-black"
+            type="text"
+            placeholder="2547XXXXXXXX"
+            value={phoneNumber}
+            onChange={handlePhoneNumberChange}
+          />
+
+          <button
+            className={`border-2 border-gray-500 rounded-md p-2 m-2 bg-green-600 
+            hover:bg-green-700 ${
+              !phoneNumber || !amount ? 'opacity-50 cursor-not-allowed' : ''
+            }`}
+            type="submit"
+            disabled={!phoneNumber || !amount || isLoading}
+            onClick={MpesaStkPushSubmitted}
+          >
+            Submit
+          </button>
+          <ToastContainer />
+          {isLoading && (
+            <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
+              <p className="text-white absolute">Loading...</p>
+              <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-white"></div>
+            </div>
+          )}
+        </form>
+      </div>
+    </div>
+  );
 }
 
-export default Mpesa
+export default Mpesa;

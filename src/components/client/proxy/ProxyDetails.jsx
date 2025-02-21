@@ -52,7 +52,7 @@ function ProxyDetails({ rowData, setSelectedRow }) {
           </p>
         </div>
         <Link
-          to="/test"
+          to="/mpesa"
           state={{
             amount: rowData.priceShrC,
             isp: rowData.loc.isp,

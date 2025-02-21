@@ -3,7 +3,7 @@ import server from '/servertwo.svg';
 import mobile from '/mobiletower.svg';
 import { Link, useNavigate } from 'react-router-dom';
 import React, { useState, useContext, useEffect } from 'react';
-import { Moon, CloudSun } from 'lucide-react';
+import { Moon, CloudSun, Unplug, PlugZap, Plug } from 'lucide-react';
 import { FaSun, FaMoon } from 'react-icons/fa';
 import { WiSunrise } from 'react-icons/wi';
 import { BsFillLightningChargeFill } from 'react-icons/bs';
@@ -251,13 +251,13 @@ const Dashboard = () => {
                 </div>
                 <Link to="/client/proxy">
                   <button
-                    className={`p-3 rounded-full flex items-center justify-center transition-all duration-300 ${
+                    className={`p-3 rotate-90 rounded-full flex items-center justify-center transition-all duration-300 ${
                       darkMode
                         ? 'text-purple-400 bg-purple-900 hover:bg-purple-700 shadow-md shadow-purple-500/40'
                         : 'text-purple-600 bg-purple-100 hover:bg-purple-200 shadow-lg'
                     }`}
                   >
-                    <FiChevronRight className="w-6 h-6 animate-bounce" />
+                    <Plug className="w-6 h-6  animate-bounce " />
                   </button>
                 </Link>
               </div>
