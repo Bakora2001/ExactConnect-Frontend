@@ -8,6 +8,7 @@ import {
   LayoutDashboard,
   ShoppingBasket,
   PhoneCall,
+  PanelLeft 
 } from 'lucide-react';
 import { DarkModeContext } from '../../../context/DarkModeContext';
 
