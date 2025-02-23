@@ -41,7 +41,7 @@ const Proxy = () => {
   });
 
   const fetchProxies = useCallback(
-    async ({ countryCode = selectedCountry, regionName, isp } = {}) => {
+    async ({ countryCode = selectedCountry, regionName, isp,city } = {}) => {
       try {
         setLoading(true);
 
