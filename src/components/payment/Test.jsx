@@ -4,7 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { Smartphone, Bitcoin } from 'lucide-react';
 import { SERVER_URL } from '../../services/data';
 import { DarkModeContext } from '../../context/DarkModeContext';
-import { useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Convert from './Convert';
 import { z } from 'zod';
 
@@ -37,8 +37,7 @@ export default function PaymentPage() {
   const [errors, setErrors] = useState('');
   const [isConfirming, setIsConfirming] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState('');
-
-  //
+  const navigate = useNavigate();
 
   // Format phone number to include 254 prefix
   const formatPhoneNumber = (phoneNumber) => {
@@ -107,7 +106,7 @@ export default function PaymentPage() {
     try {
       const { data } = await axios.post(`${SERVER_URL}/payments`, {
         accountNumber: formattedNumber,
-        amount: 3,
+        amount: 1,
         description: 'test',
         mode: 'STK',
         provider: 'MPESA',
@@ -142,6 +141,7 @@ export default function PaymentPage() {
 
   const validateTransaction = async (payload) => {
     console.log('Transaction Payload:', payload);
+
     const checkStatus = async () => {
       try {
         const { data } = await axios.get(`${SERVER_URL}/payments/search`, {
@@ -152,31 +152,44 @@ export default function PaymentPage() {
             transactionStatus: payload.transactionStatus,
           },
         });
-        console.log('Full Response:', data.content); // Log the entire response
 
-        const transaction = data.content;
-        console.log('Transaction Status:', transaction);
+        console.log('Full Response:', JSON.stringify(data.content, null, 2)); // Log full response
 
-        switch (transaction['transactionStatus']) {
+        // Check if response contains expected data
+        if (!data.content || data.content.length === 0) {
+          console.log('No transaction data found');
+          return MpesaStkPushFailed();
+        }
+
+        // Ensure we access the correct transaction
+        const transaction = Array.isArray(data.content)
+          ? data.content[0]
+          : data.content;
+        console.log('Transaction Status:', transaction?.transactionStatus);
+
+        // Normalize status
+        const status = transaction?.transactionStatus?.trim().toUpperCase();
+
+        switch (status) {
           case 'ACCEPTED':
             console.log('Transaction Successful');
             MpesaStkPushSuccess();
-            break;
+            navigate('/openmail');
+            return;
           case 'FAILED':
             console.log('Transaction cancelled by user');
-            StkPushCancelledByUser();
-            break;
+            return StkPushCancelledByUser();
           default:
-            console.log('Transaction Failed');
-            MpesaStkPushFailed();
-            await checkStatus();
+            console.log('Transaction Pending... Retrying in 10 seconds');
+            setTimeout(checkStatus, 10000);
             break;
         }
       } catch (error) {
-        console.log(error);
+        console.error('Error fetching transaction:', error);
         MpesaStkPushFailed();
       }
     };
+
     setTimeout(checkStatus, 10000);
   };
 

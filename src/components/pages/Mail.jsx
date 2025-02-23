@@ -10,9 +10,9 @@ export default function MailConfirmation() {
 
   return (
     <div
-      className={`min-h-screen flex items-center justify-center  dark:bg-[#010100]`}
+      className={`min-h-screen w-screen h-screen flex items-center justify-center  dark:bg-[#010100]`}
     >
-      <div className="w-full max-w-md p-8 dark:bg-[#010100] rounded-xl shadow-lg text-center space-y-6 border border-gray-700">
+      <div className=" max-w-sm p-6 dark:bg-[#010100] rounded-xl shadow-lg text-center space-y-6 border border-gray-700 w-5/6">
         <div className="mx-auto w-16 h-16 bg-red-500 rounded-lg flex items-center justify-center">
           <Mail className="w-10 h-10 text-white" />
         </div>
