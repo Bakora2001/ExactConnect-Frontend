@@ -1,5 +1,5 @@
 //Account setting page
-import { useState, useContext } from "react";
+import { useState, useContext,useEffect } from "react";
 import { FaTimes, FaBars } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import UserMenu from "../reusable/UserMenu";

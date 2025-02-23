@@ -55,11 +55,11 @@ const Proxy = () => {
 
   //Handling the selected proxies
   const [selectedRow, setSelectedRow] = useState(null);
-  console.log(selectedRow);
+  // console.log(selectedRow);
 
   //To handle and display the proxies details
   const [rowData, setRowData] = useState({});
-  console.log(rowData);
+  // console.log(rowData);
 
   //State manangement of the loader
   const [loading, setLoading] = useState(true);
