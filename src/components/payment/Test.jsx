@@ -8,6 +8,11 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import Convert from './Convert';
 import { z } from 'zod';
 
+
+//TODO --> Check when the payment status is in processing
+//Research on how we can prevent the user from reloading the page when the payment is still being confirmed
+
+
 // Define phone number validation schema using Zod
 const numberSchema = z.object({
   phoneNumber: z.string().min(10, 'Phone number must be at least 10 digits'),
