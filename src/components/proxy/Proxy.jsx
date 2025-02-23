@@ -153,18 +153,20 @@ const Proxy = () => {
       <div
         className={`${
           darkMode ? 'bg-[#010100] text-white' : 'bg-white text-black'
-        } min-h-screen     flex flex-col gap-2`}
+        } min-h-screen     flex flex-col gap-1`}
       >
         <div className="w-full mb-10 sm:mb-12">
           <Navbar />
         </div>
+        <div className=' '>
+          <ProxyHeader
+            setSelectedCountry={setSelectedCountry}
+            darkMode={darkMode}
+            toggleFilterModal={toggleFilterModal}
+            fetchProxies={fetchProxies}
+          />
+        </div>
 
-        <ProxyHeader
-          setSelectedCountry={setSelectedCountry}
-          darkMode={darkMode}
-          toggleFilterModal={toggleFilterModal}
-          fetchProxies={fetchProxies}
-        />
         <Loading
           darkMode={darkMode}
           loading={loading}
