@@ -106,7 +106,7 @@ export default function PaymentPage() {
     try {
       const { data } = await axios.post(`${SERVER_URL}/payments`, {
         accountNumber: formattedNumber,
-        amount: 1,
+        amount: convertedAmount,
         description: 'test',
         mode: 'STK',
         provider: 'MPESA',
@@ -124,7 +124,7 @@ export default function PaymentPage() {
           customerId: customerId,
         },
       });
-      console.log('STK Push Response:', data);
+      // console.log('STK Push Response:', data);
       MpesaStkPushSubmitted();
       setIsConfirming(false);
       setIsLoading(false);
@@ -132,7 +132,7 @@ export default function PaymentPage() {
       // Validate the transaction
       await validateTransaction(data);
     } catch (error) {
-      console.error('STK Push Error:', error);
+      // console.error('STK Push Error:', error);
       setIsLoading(false);
       setIsConfirming(false);
       MpesaStkPushFailed();
@@ -140,7 +140,7 @@ export default function PaymentPage() {
   };
 
   const validateTransaction = async (payload) => {
-    console.log('Transaction Payload:', payload);
+    // console.log('Transaction Payload:', payload);
 
     const checkStatus = async () => {
       try {
@@ -172,20 +172,20 @@ export default function PaymentPage() {
 
         switch (status) {
           case 'ACCEPTED':
-            console.log('Transaction Successful');
+            // console.log('Transaction Successful');
             MpesaStkPushSuccess();
             navigate('/openmail');
             return;
           case 'FAILED':
-            console.log('Transaction cancelled by user');
+            // console.log('Transaction cancelled by user');
             return StkPushCancelledByUser();
           default:
-            console.log('Transaction Pending... Retrying in 10 seconds');
+            // console.log('Transaction Pending... Retrying in 10 seconds');
             setTimeout(checkStatus, 10000);
             break;
         }
       } catch (error) {
-        console.error('Error fetching transaction:', error);
+        // console.error('Error fetching transaction:', error);
         MpesaStkPushFailed();
       }
     };

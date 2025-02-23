@@ -6,7 +6,7 @@ export default function MailConfirmation() {
   const { darkMode } = useContext(DarkModeContext);
   const userDetails = JSON.parse(localStorage.getItem('userDetails'));
   const getEmail = userDetails.email;
-  console.log(getEmail);
+  // console.log(getEmail);
 
   return (
     <div
