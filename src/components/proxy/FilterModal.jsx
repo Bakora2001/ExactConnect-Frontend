@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Select from 'react-select';
 
 const FilterModal = ({
@@ -5,12 +6,13 @@ const FilterModal = ({
   countryDetails,
   handleFilterChange,
   toggleFilterModal,
+  applyFilters, // <-- Call fetchProxies when applying filters
+  resetFilters, // <-- Reset all selected filters
   darkMode,
 }) => {
-  // Extract unique values and map them to react-select format
+  //States
   const formatOptions = (items) =>
     items.map((item) => ({ value: item, label: item }));
-
   const uniqueRegions = formatOptions(
     [...new Set(countryDetails.regions || [])].sort()
   );
@@ -38,6 +40,7 @@ const FilterModal = ({
       ...styles,
       color: darkMode ? '#fff' : '#000',
     }),
+    indicatorSeparator: () => ({ display: 'none' }),
   };
 
   return (
@@ -61,26 +64,26 @@ const FilterModal = ({
               darkMode
                 ? 'text-gray-700 hover:text-gray-200'
                 : 'text-gray-500 hover:text-gray-700'
-            } transition duration-300`}
+            } transition duration-300 `}
           >
             ×
           </button>
         </div>
 
         {/* Filters */}
-        <div className="space-y-4">
+        <div className="space-y-4 ">
           {/* Region Filter */}
           <div>
             <label className="block text-sm font-medium mb-2">Region</label>
             <Select
-              name="regions"
+              name="regionName"
               options={uniqueRegions}
               value={uniqueRegions.find(
                 (option) => option.value === filters.regions
               )}
               onChange={(selected) =>
                 handleFilterChange({
-                  target: { name: 'regions', value: selected?.value || '' },
+                  target: { name: 'regionName', value: selected?.value || '' },
                 })
               }
               styles={selectStyles}
@@ -93,14 +96,14 @@ const FilterModal = ({
           <div>
             <label className="block text-sm font-medium mb-2">City</label>
             <Select
-              name="cities"
+              name="city"
               options={uniqueCities}
               value={uniqueCities.find(
                 (option) => option.value === filters.cities
               )}
               onChange={(selected) =>
                 handleFilterChange({
-                  target: { name: 'cities', value: selected?.value || '' },
+                  target: { name: 'city', value: selected?.value || '' },
                 })
               }
               styles={selectStyles}
@@ -131,7 +134,10 @@ const FilterModal = ({
         {/* Buttons */}
         <div className="flex items-center justify-end gap-3 mt-6">
           <button
-            onClick={toggleFilterModal}
+            onClick={() => {
+              resetFilters();
+              toggleFilterModal();
+            }}
             className={`px-5 py-2 text-sm font-medium ${
               darkMode
                 ? 'text-gray-300 bg-gray-700 hover:bg-gray-600'
@@ -141,7 +147,10 @@ const FilterModal = ({
             Reset
           </button>
           <button
-            onClick={toggleFilterModal}
+            onClick={() => {
+              applyFilters();
+              toggleFilterModal();
+            }}
             className="px-5 py-2 text-sm font-medium text-white bg-purple-600 rounded-md hover:bg-purple-700 transition duration-300"
           >
             Apply Now

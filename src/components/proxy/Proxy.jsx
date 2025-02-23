@@ -19,58 +19,41 @@ import ProxyDetails from './ProxyDetails';
 import ProxyCard from './ProxyCard';
 import ProxyHeader from './ProxyHeader';
 import ErrorBoundary from '../pages/ErrorBoundary';
-import { object } from 'zod';
 
 const Proxy = () => {
-  //Handling state of the proxies
+  //States and contexts
   const [proxies, setProxies] = useState([]);
-
-  // console.log(proxies);
-  //State for getting price
-  const [prices, setPrices] = useState([]);
-
-  //State for storing the country details
   const [countryDetails, setCountryDetails] = useState({});
-  //Handling state and filtering proxies
   const [filteredProxies, setFilteredProxies] = useState([]);
-  // console.log(filteredProxies);
-  const [selectedCountry, setSelectedCountry] = useState('US'); // Default country
-
-  //Handling selecting a row
+  const [selectedCountry, setSelectedCountry] = useState('US');
   const [selectedRow, setSelectedRow] = useState(null);
-
-  //To handle and display the proxies details
   const [rowData, setRowData] = useState({});
-
-  //State manangement of the loader
   const [loading, setLoading] = useState(true);
-
-  //State management for handling any server errors
   const [error, setError] = useState(null);
-
-  //State for handling paginations
   const [currentPage, setCurrentPage] = useState(0);
-
   const [totalPages, setTotalPages] = useState(0);
-
+  const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
+  const { darkMode } = useContext(DarkModeContext);
   const [filters, setFilters] = useState({
-    regions: '',
+    regionName: '',
     isp: '',
-    cities: '',
+    city: '',
   });
 
-  const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
-
-  const { darkMode } = useContext(DarkModeContext);
-
-  //Using us to be the default proxies
   const fetchProxies = useCallback(
-    async (page = 0, countryCode = selectedCountry) => {
+    async ({ countryCode = selectedCountry, regionName, isp } = {}) => {
       try {
         setLoading(true);
 
+        //Construct query params dynamically
+        const params = new URLSearchParams();
+        if (countryCode) params.append('countryCode', countryCode);
+        if (isp) params.append('isp', isp);
+        if (regionName) params.append('regionName', regionName);
+        if (city) params.append('city', city);
+
         const response = await fetch(
-          `${SERVER_URL}/products/proxy/details/global-config?pageNum=${page}&countryCode=${countryCode}`
+          `${SERVER_URL}/products/proxy/details/global-config?${params.toString()}`
         );
         const data = await response.json();
         setProxies(data);
@@ -86,8 +69,8 @@ const Proxy = () => {
     }
   );
   useEffect(() => {
-    fetchProxies(currentPage, selectedCountry);
-  }, [currentPage, selectedCountry]);
+    fetchProxies(selectedCountry);
+  }, [selectedCountry]);
 
   //Fetching the total page of a given country
   //TODO --> Use callback
@@ -126,13 +109,6 @@ const Proxy = () => {
     }
   };
 
-  //trying to retreive prices
-  // const pricing = filteredProxies.map((prices) => {
-  //   console.log(
-  //     prices?.priceExcC !== null ? prices?.priceExcC : prices?.priceShrC
-  //   );
-  // });
-
   const filteredResults = useMemo(() => {
     return (proxies || []).filter(
       (proxy) =>
@@ -155,6 +131,18 @@ const Proxy = () => {
       ...prevFilters,
       [name]: value,
     }));
+  };
+
+  const resetFilters = () => {
+    setFilters({
+      regionName: '',
+      city: '',
+      isp: '',
+    });
+  };
+
+  const applyFilters = () => {
+    fetchProxies(filters);
   };
   const toggleFilterModal = () => {
     setIsFilterModalOpen(!isFilterModalOpen);
@@ -196,6 +184,8 @@ const Proxy = () => {
         {isFilterModalOpen && (
           <FilterModal
             filters={filters}
+            resetFilters={resetFilters}
+            applyFilters={applyFilters}
             countryDetails={countryDetails}
             darkMode={darkMode}
             handleFilterChange={handleFilterChange}

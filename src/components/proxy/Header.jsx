@@ -6,12 +6,10 @@ import countryFlag from '../../services/countryFlag';
 //We need to pass in us as default until the user passes in another country
 
 const Header = ({ darkMode, fetchProxies, setSelectedCountry }) => {
-  //To track the selected country
+  //State and contexts
   const [selectedCountry, setSelectedCountryState] = useState('US');
-
   const [showDropdown, setShowDropdown] = useState(false);
   const [visibleCountries, setVisibleCountries] = useState([]);
-
   const [dropdownCountries, setDropdownCountries] = useState([]);
   const dropdownRef = useRef(null);
 
@@ -130,7 +128,7 @@ const Header = ({ darkMode, fetchProxies, setSelectedCountry }) => {
 
             {showDropdown && (
               <div
-                className={`absolute top-full left-0 mt-2 max-w-[250px] bg-white border border-gray-300 rounded-md shadow-md z-40 max-h-[300px] overflow-y-auto`}
+                className={`absolute top-full left-0 mt-2 max-w-[250px] bg-white border border-gray-300 rounded-md shadow-md z-40 max-h-[300px] overflow-y-auto no-scrollbar`}
               >
                 {dropdownCountries.map((country) => (
                   <CountryDropdownItem

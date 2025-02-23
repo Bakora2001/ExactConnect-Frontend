@@ -31,3 +31,38 @@ body {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
+
+@layer utilities {
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+}
+
+.react-select__menu::-webkit-scrollbar {
+  width: 4px;
+  height: 0px;
+}
+.react-select__menu::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+.react-select__menu::-webkit-scrollbar-thumb {
+  background: #888;
+}
+.react-select__menu::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+/* Hide scrollbar for react-select dropdown */
+/* .react-select__menu {
+  scrollbar-width: none;
+  -ms-overflow-style: none; 
+}
+
+.react-select__menu::-webkit-scrollbar {
+  width: 0px; 
+} */
