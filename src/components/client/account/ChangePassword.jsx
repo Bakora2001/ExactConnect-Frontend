@@ -1,8 +1,8 @@
 //Changepassword page
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { z } from 'zod';
-import UserMenu from "../reusable/UserMenu";
-import { FaTimes, FaBars } from "react-icons/fa";
+import UserMenu from '../reusable/UserMenu';
+import { FaTimes, FaBars } from 'react-icons/fa';
 import toast from 'react-hot-toast';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import Sidebar from '../reusable/Sidebar';
@@ -12,7 +12,6 @@ import SideNav from './SideNav';
 //Base url
 import { SERVER_URL } from '../../../services/data';
 import { useNavigate } from 'react-router-dom';
-
 
 //zod from validation
 const changePasswordSchema = z.object({
@@ -25,16 +24,16 @@ const changePasswordSchema = z.object({
 });
 
 const ChangePassword = () => {
- //Function to handle the navigation
- const navigate = useNavigate();
+  //Function to handle the navigation
+  const navigate = useNavigate();
   const userDetails = JSON.parse(localStorage.getItem('userDetails'));
 
   //Checking if the user even has the logged in
-   useEffect(() => {
-     if (!userDetails) {
-       navigate("account/login");
-     }
-   }, [navigate]);
+  useEffect(() => {
+    if (!userDetails) {
+      navigate('account/login');
+    }
+  }, [navigate]);
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const toggleSidebar = () => {
@@ -49,7 +48,7 @@ const ChangePassword = () => {
   });
 
   //Accessing the customer reference from the backend
-  const customerId = userDetails.customerReference
+  const customerId = userDetails.customerReference;
   // console.log(customerId);
 
   //To handle the loading state when the form is submitting
@@ -65,8 +64,6 @@ const ChangePassword = () => {
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
   };
-
- 
 
   //State to manage the darkmode and light mode
   const { darkMode } = useContext(DarkModeContext);
@@ -131,23 +128,35 @@ const ChangePassword = () => {
 
   return (
     <div
-      className={`min-h-screen flex relative  ${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
-        }`}
+      className={`min-h-screen flex relative  ${
+        darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
+      }`}
     >
       <Sidebar isOpen={isSidebarOpen} onClose={toggleSidebar} />
       {/* Overlay for Small Screens */}
       {isSidebarOpen && (
-        <div
-          className="fixed inset-0  z-40"
-          onClick={toggleSidebar}
-        ></div>
+        <div className="fixed inset-0  z-40" onClick={toggleSidebar}></div>
       )}
-      <main className={`flex-1 ${darkMode ? 'bg-[#131312]' : 'bg-white'} transition-all duration-300 ease-in-out ${isSidebarOpen ? 'blur-sm pointer-events-none md:pointer-events-auto' : ''
-        } md:ml-64`}>
-        <header className={`flex justify-between items-center py-4 px-6 border-b backdrop-blur-xl bg-opacity-90 shadow-sm sticky top-0 z-50 ${darkMode ? 'bg-[#131312] border-gray-700' : 'bg-[#7C25BA] border-[#7C25BA]'
-          }`}>
+      <main
+        className={`flex-1 ${
+          darkMode ? 'bg-[#131312]' : 'bg-white'
+        } transition-all duration-300 ease-in-out ${
+          isSidebarOpen
+            ? 'blur-sm pointer-events-none md:pointer-events-auto'
+            : ''
+        } md:ml-64`}
+      >
+        <header
+          className={`flex justify-between items-center py-4 px-6 border-b backdrop-blur-xl bg-opacity-90 shadow-sm sticky top-0 z-50 ${
+            darkMode
+              ? 'bg-[#131312] border-gray-700'
+              : 'bg-[#7C25BA] border-[#7C25BA]'
+          }`}
+        >
           <button
-            className={`md:hidden text-3xl z-50 ${darkMode ? 'text-white' : 'text-white'}`}
+            className={`md:hidden text-3xl z-50 ${
+              darkMode ? 'text-white' : 'text-white'
+            }`}
             onClick={toggleSidebar}
           >
             {isSidebarOpen ? <FaTimes /> : <FaBars />}
@@ -156,24 +165,30 @@ const ChangePassword = () => {
             <UserMenu userDetails={userDetails} />
           </div>
         </header>
-        <div className='grid  lg:grid-cols-5'>
+        <div className="grid  lg:grid-cols-5">
           <SideNav />
           <div
-            className={`lg:col-span-2 p-6 border rounded-md   ${darkMode ? 'bg-[#131312] border-gray-700' : 'bg-white border-gray-200'} mt-10 `}
+            className={`lg:col-span-2 p-6 border rounded-md   ${
+              darkMode
+                ? 'bg-[#131312] border-gray-700'
+                : 'bg-white border-gray-200'
+            } mt-10 `}
           >
             <h2
-              className={`text-xl font-bold mb-6  ${darkMode ? 'text-white' : 'text-gray-800'
-                } text-center`}
+              className={`text-xl font-bold mb-6  ${
+                darkMode ? 'text-white' : 'text-gray-800'
+              } text-center`}
             >
               Reset your password
             </h2>
 
-            <form onSubmit={handleResetPassword} className='w-full'>
+            <form onSubmit={handleResetPassword} className="w-full">
               <div className="mb-4 relative">
                 <label
                   htmlFor="oldPassword"
-                  className={`mb-1 block text-sm font-medium ${darkMode ? 'text-white' : 'text-black'
-                    }`}
+                  className={`mb-1 block text-sm font-medium ${
+                    darkMode ? 'text-white' : 'text-black'
+                  }`}
                 >
                   Old Password
                 </label>
@@ -185,12 +200,17 @@ const ChangePassword = () => {
                     placeholder="********"
                     value={formData.oldPassword}
                     onChange={handleChange}
-                    className={`w-full ${darkMode ? 'bg-[#131312] h-12 text-white' : 'bg-white text-black'
-                      } px-4 py-2 pr-10 border ${errors.oldPassword ? 'border-red-500' : 'border-gray-600'
-                      } rounded-lg text-sm  focus:outline-none focus:ring-2 ${errors.oldPassword
+                    className={`w-full ${
+                      darkMode
+                        ? 'bg-[#131312] h-12 text-white'
+                        : 'bg-white text-black'
+                    } px-4 py-2 pr-10 border ${
+                      errors.oldPassword ? 'border-red-500' : 'border-gray-600'
+                    } rounded-lg text-sm  focus:outline-none focus:ring-2 ${
+                      errors.oldPassword
                         ? 'focus:ring-red-500'
                         : 'focus:ring-gray-500'
-                      }`}
+                    }`}
                     aria-invalid={!!errors.oldPassword}
                     aria-describedby="password_error"
                   />
@@ -216,8 +236,9 @@ const ChangePassword = () => {
               <div className="mb-4 relative">
                 <label
                   htmlFor="newPassword"
-                  className={`mb-1 block text-sm font-medium ${darkMode ? 'text-white' : 'text-black'
-                    }`}
+                  className={`mb-1 block text-sm font-medium ${
+                    darkMode ? 'text-white' : 'text-black'
+                  }`}
                 >
                   New Password
                 </label>
@@ -229,12 +250,17 @@ const ChangePassword = () => {
                     placeholder="********"
                     value={formData.newPassword}
                     onChange={handleChange}
-                    className={`w-full ${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
-                      } px-4 py-2 pr-10 border ${errors.newPassword ? 'border-red-500' : 'border-gray-600'
-                      } rounded-lg text-sm  focus:outline-none focus:ring-2 ${errors.newPassword
+                    className={`w-full ${
+                      darkMode
+                        ? 'bg-[#131312] text-white'
+                        : 'bg-white text-black'
+                    } px-4 py-2 pr-10 border ${
+                      errors.newPassword ? 'border-red-500' : 'border-gray-600'
+                    } rounded-lg text-sm  focus:outline-none focus:ring-2 ${
+                      errors.newPassword
                         ? 'focus:ring-red-500'
                         : 'focus:ring-gray-500'
-                      }`}
+                    }`}
                     aria-invalid={!!errors.newPassword}
                     aria-describedby="password_error"
                   />
@@ -266,8 +292,9 @@ const ChangePassword = () => {
                 </button>
                 <button
                   type="submit"
-                  className={`px-6 py-2 bg-[#7C25BA] text-white rounded-md hover:bg-[#5b21a8]   ${isLoading && 'opacity-50 cursor-not-allowed'
-                    }`}
+                  className={`px-6 py-2 bg-[#7C25BA] text-white rounded-md hover:bg-[#5b21a8]   ${
+                    isLoading && 'opacity-50 cursor-not-allowed'
+                  }`}
                   disabled={isLoading}
                   aria-busy={isLoading}
                 >
@@ -300,9 +327,7 @@ const ChangePassword = () => {
             </form>
           </div>
         </div>
-
       </main>
-
     </div>
   );
 };
