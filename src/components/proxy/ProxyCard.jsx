@@ -13,7 +13,7 @@ const ProxyCard = ({
   handleRowClick,
 }) => (
   <div
-  className={`mt-48 w-full grid grid-cols-1 gap-6 p-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4`}
+  className={`xl:mt-24 mt-28 w-full grid grid-cols-1 gap-6 p-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ipad-grid`}
 >
   {(filteredProxies || []).map((proxy, index) => (
     <div

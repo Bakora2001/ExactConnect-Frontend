@@ -7,30 +7,22 @@ const ProxyHeader = ({
   fetchProxies,
   setSelectedCountry,
 }) => (
-  <div className='fixed z-10 w-full border-b border-gray-700'>
-    <div
-      className={`   ${
-        darkMode
-          ? 'bg-[#131312] text-white'
-          : 'bg-white text-gray-800 shadow-md'
-      }`}
-    >
-      <Header
-        darkMode={darkMode}
-        fetchProxies={fetchProxies}
-        setSelectedCountry={setSelectedCountry}
-      />
-       <div className="flex items-center  justify-end w-full ">
-      <button className="flex items-center gap-3 text-white px-3 py-2 transition-all duration-300 rounded-md ">
-        <FilterButton
-          toggleFilterModal={toggleFilterModal}
-          className="text-white p-3 transition-all duration-300 focus:ring-4 focus:ring-gray-500 "
-        />
-      </button>
-    </div>
-    </div>
-    {/* Filter button */}
-   
+  <div
+    className={` custom-class fixed z-10 w-full border-b  flex  justify-between ${
+      darkMode
+        ? 'bg-[#131312] text-white border-gray-700'
+        : 'bg-white text-gray-800 shadow-lg'
+    } `}
+  >
+    <Header
+      darkMode={darkMode}
+      fetchProxies={fetchProxies}
+      setSelectedCountry={setSelectedCountry}
+    />
+
+    <button className={`mt-6 px-4 py-3  gap-3 text-black `}>
+      <FilterButton toggleFilterModal={toggleFilterModal} />
+    </button>
   </div>
 );
 

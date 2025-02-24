@@ -91,7 +91,7 @@ const Header = ({ darkMode, fetchProxies, setSelectedCountry }) => {
   return (
     <div className={`px-4 py-3 md:px-8 rounded-lg`}>
       <h1
-        className={`text-2xl ${
+        className={`text-xl  ${
           darkMode ? 'text-white' : 'text-black'
         }font-semibold `}
       >
