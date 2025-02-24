@@ -5,7 +5,7 @@ function Loading({ loading, filteredProxies, error, darkMode }) {
   return (
     <div>
       {loading ? (
-        <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 p-6">
+        <div className="mt-48 w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 p-6">
           {Array.from({ length: 8 }).map((_, index) => (
             <div
               key={index}
