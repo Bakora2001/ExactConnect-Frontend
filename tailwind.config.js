@@ -9,15 +9,19 @@ export default {
         circular: ['"Helvetica Neue"', 'Helvetica', 'Arial', 'sans-serif'],
       },
       backgroundImage: {
-        dots: "radial-gradient(circle, #2c2c2c 1px, transparent 1px)",
+        dots: 'radial-gradient(circle, #2c2c2c 1px, transparent 1px)',
       },
       animation: {
-        blink: "blink 1s step-end infinite",
+        blink: 'blink 1s step-end infinite',
+        border: 'border 4s linear infinite',
       },
       keyframes: {
         blink: {
-          "0%, 100%": { opacity: 1 },
-          "50%": { opacity: 0 },
+          '0%, 100%': { opacity: 1 },
+          '50%': { opacity: 0 },
+        },
+        border: {
+          to: { '--border-angle': '360deg' },
         },
       },
     },
