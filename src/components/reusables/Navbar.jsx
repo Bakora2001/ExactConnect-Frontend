@@ -27,15 +27,15 @@ const NavBar = () => {
     >
       <div className=" w-full mx-auto flex items-center justify-between px-3 py-2 md:px-8 lg:px-20 xl:px-32 2xl:px-72 max-w-screen ">
         {/* Logo */}
-        <div className="flex items-center space-x-2 logo-container">
-          <div className="text-sm font-bold text-white  transition cursor-pointer ">
-            <Link to="/" className="flex flex-col">
-              Exact<span className="text-white">Connect.</span>
-            </Link>
+        <Link to="/" className="flex flex-col">
+          <div className="flex items-center space-x-2 ">
+            <img
+              src="/public/assets/world_7139124.png"
+              alt="Logo"
+              className="w-9 h-9 md:w-10 md:h-10 lg:w-8 lg:h-8 object-contain filter invert -rotate-15"
+            />
           </div>
-          <LogoIcon />
-        </div>
-
+        </Link>
         {/* Desktop Navigation */}
         <nav className="hidden md:flex space-x-8 text-white text-xs font-medium">
           {[
