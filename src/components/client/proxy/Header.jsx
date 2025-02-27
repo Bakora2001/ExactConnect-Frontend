@@ -88,7 +88,7 @@ const Header = ({ darkMode, fetchProxies, setSelectedCountry }) => {
 
   return (
     <div
-      className={`px-4 py-3 md:px-8 border-gray-700 dark:bg-[#181918] border-b border-transparent`}
+      className={`px-4 py-3 md:px-8 border-gray-700 dark:bg-[#131312] border-b border-transparent`}
     >
       <h1
         className={`text-2xl ${
@@ -99,7 +99,7 @@ const Header = ({ darkMode, fetchProxies, setSelectedCountry }) => {
       </h1>
       <div
         className={`flex flex-wrap items-center gap-3 md:gap-4 lg:gap-6 ${
-          darkMode ? 'bg-[#181918]' : 'bg-white'
+          darkMode ? 'bg-[#131312]' : 'bg-white'
         }`}
       >
         {visibleCountries.map((country) => (
