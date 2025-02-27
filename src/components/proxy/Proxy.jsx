@@ -42,7 +42,7 @@ const Proxy = () => {
   });
 
   const fetchProxies = useCallback(
-    async ({ countryCode = selectedCountry, regionName, isp,city } = {}) => {
+    async ({ countryCode = selectedCountry, regionName, isp, city } = {}) => {
       try {
         setLoading(true);
 
@@ -73,19 +73,17 @@ const Proxy = () => {
     fetchProxies(selectedCountry);
   }, [selectedCountry]);
 
-  //Fetching the total page of a given country
-  //TODO --> Use callback
   const fetchProxyTotals = async (page = 0, countryCode = selectedCountry) => {
     try {
       const url = `${SERVER_URL}/products/proxies?page=${page}&countryCode=${countryCode}&segments=${true}`;
       const response = await fetch(url);
-
+      console.log(response);
       const data = await response.json();
       // console.log(data);
       setTotalPages(data.total);
       setCountryDetails(data.segments || {});
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -159,7 +157,7 @@ const Proxy = () => {
         <div className="w-full mb-10 sm:mb-12">
           <Navbar />
         </div>
-        <div className=' '>
+        <div className=" ">
           <ProxyHeader
             setSelectedCountry={setSelectedCountry}
             darkMode={darkMode}

@@ -124,7 +124,7 @@ const Dashboard = () => {
   const toggleSidebar = () => {
     setIsSidebarOpen((prev) => !prev);
   };
-
+  // shadow-purple-500/50
   return (
     <ErrorBoundary
       FallbackComponent={ErrorPage}
@@ -192,7 +192,7 @@ const Dashboard = () => {
             <div
               className={`relative  rounded-xl p-6 shadow-xl border overflow-hidden transition-transform transform hover:scale-[1.02]   [background:linear-gradient(45deg,#1a1a1a,theme(colors.black)_50%,#1a1a1a)_padding-box,conic-gradient(from_var(--border-angle),theme(colors.gray.600/.48)_80%,_theme(colors.white)_86%,_theme(colors.white)_90%,_theme(colors.white)_94%,_theme(colors.slate.600/.48))_border-box] border-transparent animate-border ${
                 darkMode
-                  ? 'bg-[#181918] border-gray-700 shadow-purple-500/50'
+                  ? 'bg-[#181918] border-gray-700 '
                   : 'bg-white border-gray-200 shadow-lg'
               }`}
             >

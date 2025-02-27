@@ -8,7 +8,6 @@ import { Files, ClipboardCheck } from 'lucide-react';
 //Dark mode
 import { DarkModeContext } from '../../context/DarkModeContext';
 import { useNavigate } from 'react-router-dom';
-import { faL } from '@fortawesome/free-solid-svg-icons';
 
 //Handling passing in correct mobile numbers
 const phoneRegex = new RegExp(

@@ -85,7 +85,7 @@ export default function PaymentFailed() {
                   <span className="text-gray-500 dark:text-gray-400">
                     Amount:
                   </span>
-                  <span className="font-medium">{errors.amount}</span>
+                  <span className="font-medium">{errors.amount} KES</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-500 dark:text-gray-400">

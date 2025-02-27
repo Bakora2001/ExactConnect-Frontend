@@ -5,12 +5,14 @@ import { router } from './routes';
 import './index.css';
 import { Toaster } from 'react-hot-toast';
 import { DarkModeProvider } from '../src/context/DarkModeContext';
-import { ErrorBoundary } from 'react-error-boundary';
 import ErrorPage from './components/pages/ErrorPage';
+import ErrorBoundary from './components/pages/ErrorBoundary';
+
+
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <ErrorBoundary FallbackComponent={ErrorPage} onReset={() => location.href = '/'}>
+    <ErrorBoundary FallbackComponent={ErrorPage} onReset={() => (location.href = '/')}>
       <DarkModeProvider>
         <Toaster
           position="top-center"
@@ -25,6 +27,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <RouterProvider router={router} />
       </DarkModeProvider>
     </ErrorBoundary>
-
   </React.StrictMode>
 );

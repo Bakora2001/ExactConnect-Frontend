@@ -8,10 +8,8 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import Convert from './Convert';
 import { z } from 'zod';
 
-
 //TODO --> Check when the payment status is in processing
 //Research on how we can prevent the user from reloading the page when the payment is still being confirmed
-
 
 // Define phone number validation schema using Zod
 const numberSchema = z.object({
@@ -39,8 +37,10 @@ export default function PaymentPage() {
   const { darkMode } = useContext(DarkModeContext);
   const [paymentMethod, setPaymentMethod] = useState('mpesa');
   const [isLoading, setIsLoading] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
   const [errors, setErrors] = useState('');
   const [isConfirming, setIsConfirming] = useState(false);
+
   const [phoneNumber, setPhoneNumber] = useState('');
   const navigate = useNavigate();
 
@@ -97,7 +97,7 @@ export default function PaymentPage() {
     e.preventDefault();
     setIsLoading(true);
     setIsConfirming(true);
-
+    setIsProcessing(true);
     // Validate phone number
     const validation = numberSchema.safeParse({ phoneNumber });
     if (!validation.success) {
@@ -158,11 +158,11 @@ export default function PaymentPage() {
           },
         });
 
-        console.log('Full Response:', JSON.stringify(data.content, null, 2)); // Log full response
-
+        // console.log('Full Response:', JSON.stringify(data.content, null, 2));
+        // console.log(data);
         // Check if response contains expected data
         if (!data.content || data.content.length === 0) {
-          console.log('No transaction data found');
+          // console.log('No transaction data found');
           return MpesaStkPushFailed();
         }
 
@@ -170,20 +170,29 @@ export default function PaymentPage() {
         const transaction = Array.isArray(data.content)
           ? data.content[0]
           : data.content;
-        console.log('Transaction Status:', transaction?.transactionStatus);
+        // console.log('Transaction Status:', transaction?.transactionStatus);
 
         // Normalize status
         const status = transaction?.transactionStatus?.trim().toUpperCase();
-
+        const response = data.content;
+        console.log(response);
         switch (status) {
           case 'ACCEPTED':
             // console.log('Transaction Successful');
             MpesaStkPushSuccess();
-            navigate('/openmail');
+            navigate('/status/success', { state: { response } });
             return;
           case 'FAILED':
             // console.log('Transaction cancelled by user');
-            return StkPushCancelledByUser();
+            navigate('/status/failed', { state: { response } });
+            return;
+          case 'DECLINED':
+            // console.log('Transaction cancelled by user');
+            navigate('/failed', { state: { response } });
+            return;
+          case 'PROCESSING':
+            // console.log('Transaction cancelled by user');
+            setIsProcessing(true);
           default:
             // console.log('Transaction Pending... Retrying in 10 seconds');
             setTimeout(checkStatus, 10000);
@@ -295,15 +304,21 @@ export default function PaymentPage() {
 
         <button
           onClick={handleSubmit}
-          disabled={isConfirming}
+          disabled={isConfirming || isProcessing} // Disable if confirming or processing
           className={`mt-8 w-full py-3 ${
             paymentMethod === 'mpesa' ? 'bg-green-600' : 'bg-yellow-600'
-          } text-white font-semibold rounded-lg hover:${
-            paymentMethod === 'mpesa' ? 'bg-green-700' : 'bg-yellow-700'
+          } text-white font-semibold rounded-lg ${
+            isConfirming || isProcessing
+              ? 'opacity-50 cursor-not-allowed' // Dim and disable cursor when processing
+              : paymentMethod === 'mpesa'
+              ? 'hover:bg-green-700'
+              : 'hover:bg-yellow-700'
           } transition-all`}
         >
           {isConfirming
             ? 'Confirming...'
+            : isProcessing
+            ? 'Processing...'
             : paymentMethod === 'mpesa'
             ? `Pay ${roundedAmount} with M-Pesa`
             : 'Confirm Litecoin Payment'}

@@ -30,7 +30,7 @@ const NavBar = () => {
         <Link to="/" className="flex flex-col">
           <div className="flex items-center space-x-2 ">
             <img
-              src="/public/assets/world_7139124.png"
+              src="/assets/world_7139124.png"
               alt="Logo"
               className="w-9 h-9 md:w-8 md:h-8 lg:w-8 lg:h-8 object-contain filter invert -rotate-15"
             />
