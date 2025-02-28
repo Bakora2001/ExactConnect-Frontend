@@ -4,4 +4,4 @@
  */
 // export const SERVER_URL = import.meta.env.VITE_BASE_URL;
 // console.log(SERVER_URL);
-export const SERVER_URL = 'https://api.exactconnect.online';
+export const SERVER_URL = 'https://exact-connect-latest.onrender.com';
