@@ -28,10 +28,10 @@ export default function PaymentSuccessful() {
   const location = useLocation();
   const transactionData = location.state?.response || {};
   const success = transactionData[0];
-  
+
   return (
-    <ErrorBoundary >
-      <div className="min-h-screen w-screen h-screen flex items-center justify-center dark:bg-[#010100]">
+    <ErrorBoundary>
+      <div className="min-h-screen  flex items-center justify-center dark:bg-[#010100]">
         <div className="w-full max-w-md mx-auto p-4">
           <div className="border border-green-200 shadow-md rounded-lg overflow-hidden dark:border-gray-700">
             <div className="bg-green-50 p-6 text-center">
@@ -55,20 +55,20 @@ export default function PaymentSuccessful() {
                 </p>
                 <p className="text-sm text-green-600">
                   Your payment of{' '}
-                  <span className="font-semibold">{success?.amount }</span> has
+                  <span className="font-semibold">{success?.amount}</span> has
                   been successfully processed.
                 </p>
               </div>
 
               <div className="space-y-3">
-                <h3 className="text-sm font-medium text-gray-300">
+                <h3 className="text-sm font-medium dark:text-gray-300">
                   Transaction Details
                 </h3>
                 <div className="space-y-2 text-sm ">
                   {['Amount', 'Payment Method', 'Phone Number'].map(
                     (label, index) => (
                       <div key={index} className="flex justify-between">
-                        <span className="text-white">{label}:</span>
+                        <span className="dark:text-white">{label}:</span>
                         <span className="font-medium">
                           {index === 0
                             ? success?.amount
@@ -91,8 +91,9 @@ export default function PaymentSuccessful() {
                 <p className="text-sm text-gray-600">
                   You can view your order details on{' '}
                   <a
-                    href={`mailto:${getEmail}`} // Open email client
-                    className="text-purple-600 hover:text-purple-800 underline" // Styling
+                    href={'https://gmail.com'} // Open email client
+                    className="text-purple-600 hover:text-purple-800 underline"
+                    target="_blank"
                   >
                     {getEmail}
                   </a>{' '}
@@ -114,15 +115,14 @@ export default function PaymentSuccessful() {
                 </button>
 
                 {/* Continue Shopping Button */}
-                <button
-                  className="w-full bg-green-600 hover:bg-green-700 text-white rounded-md py-3 sm:py-2 flex items-center justify-center transition-colors"
-                  // onClick={onContinueShopping}
-                >
-                  <ShoppingBag className="mr-2 h-5 w-5 sm:h-4 sm:w-4" />{' '}
-                  <span className="text-sm sm:text-base">
-                    Continue Shopping
-                  </span>
-                </button>
+                <Link to="/client/proxy">
+                  <button className="w-full bg-green-600 hover:bg-green-700 text-white rounded-md py-3 sm:py-2 flex items-center justify-center transition-colors">
+                    <ShoppingBag className="mr-2 h-5 w-5 sm:h-4 sm:w-4" />{' '}
+                    <span className="text-sm sm:text-base">
+                      Continue Shopping
+                    </span>
+                  </button>
+                </Link>
               </div>
 
               {/* Go to Dashboard Link */}

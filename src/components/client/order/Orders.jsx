@@ -21,6 +21,7 @@ const OrdersPage = () => {
   const navigate = useNavigate();
   const userDetails = JSON.parse(localStorage.getItem('userDetails'));
 
+  // const customerId = userDetails.customerReference;
   const customerId = 'f455b47e-85b2-45db-b8d5-11b6298b4caa';
   //Checking if the user even has the logged in
   useEffect(() => {
@@ -106,10 +107,9 @@ const OrdersPage = () => {
   });
   console.log(allOrders);
   const statusStyles = {
-    Completed: 'bg-green-100 text-green-800',
-    Processing: 'bg-blue-100 text-blue-800',
-    Shipped: 'bg-purple-100 text-purple-800',
-    Pending: 'bg-yellow-100 text-yellow-800',
+    COMPLETED: 'bg-green-100 text-green-800',
+    DECLINED: 'bg-purple-100 text-purple-800',
+    FAILED: 'bg-yellow-100 text-yellow-800',
   };
 
   return (
@@ -196,13 +196,13 @@ const OrdersPage = () => {
             {orderList.map((order) => (
               <div
                 key={order.id}
-                className={`p-4 rounded-xl shadow-sm transition-all hover:shadow-md  hover:bg-[#1e1e1e] ${
+                className={`p-4 rounded-xl shadow-sm transition-all hover:shadow-md  hover:bg-[#1e1e1e]  ${
                   darkMode ? 'bg-[#131312] border-gray-700' : 'bg-white'
                 } border`}
               >
                 <div className="flex justify-between items-start mb-4">
                   <span className="font-mono text-sm text-purple-600">
-                    {order.orderId}
+                    #{order.orderId.slice(0,7)}..
                   </span>
                   <span
                     className={`px-2.5 py-1 rounded-full text-xs font-medium ${

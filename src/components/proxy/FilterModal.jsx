@@ -39,6 +39,7 @@ const FilterModal = ({
   const handleLoadMore = () => {
     setDisplayedOptions((prev) => {
       const nextItems = uniqueCities.slice(prev.length, prev.length + 50);
+      console.log('Next Items:', nextItems); // Debugging
       return [...prev, ...nextItems];
     });
   };
@@ -136,7 +137,7 @@ const FilterModal = ({
                 })
               }
               styles={selectStyles}
-              placeholder="Select Region"
+              placeholder="Search and Select Region"
               isClearable
               onMenuOpen={() => handleDropdownClick('region')}
               isLoading={
@@ -151,6 +152,12 @@ const FilterModal = ({
             <Select
               name="city"
               options={displayedOptions}
+              onMenuScrollToBottom={() => {
+                console.log('Scrolling detected!');
+                if (uniqueCities.length > displayedOptions.length) {
+                  handleLoadMore();
+                }
+              }}
               value={uniqueCities.find(
                 (option) => option.value === filters.cities
               )}
@@ -159,16 +166,12 @@ const FilterModal = ({
                   target: { name: 'city', value: selected?.value || '' },
                 })
               }
+              
               styles={selectStyles}
-              placeholder="Select City"
+              placeholder="Search and Select City"
               isClearable
               onMenuOpen={() => handleDropdownClick('city')}
               onInputChange={handleInputChange}
-              onMenuScrollToBottom={() => {
-                if (displayedOptions.length < uniqueCities.length) {
-                  handleLoadMore();
-                }
-              }}
               noOptionsMessage={() =>
                 displayedOptions.length < uniqueCities.length ? (
                   <FaSpinner className="animate-spin flex  items-center justify-center" />
@@ -195,7 +198,7 @@ const FilterModal = ({
                 })
               }
               styles={selectStyles}
-              placeholder="Select ISP"
+              placeholder="Search and Select ISP"
               isClearable
               onMenuOpen={() => handleDropdownClick('isp')}
               noOptionsMessage={() => 'No Isps Found'}

@@ -303,8 +303,9 @@ export default function PaymentPage() {
         )}
 
         <button
+        
           onClick={handleSubmit}
-          disabled={isConfirming || isProcessing} // Disable if confirming or processing
+          disabled={isConfirming || isProcessing}
           className={`mt-8 w-full py-3 ${
             paymentMethod === 'mpesa' ? 'bg-green-600' : 'bg-yellow-600'
           } text-white font-semibold rounded-lg ${

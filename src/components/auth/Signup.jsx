@@ -65,6 +65,20 @@ function Signup() {
     });
   };
 
+  const selectStyles = {
+    control: (styles) => ({
+      ...styles,
+      backgroundColor: darkMode ? '#131312' : '#ccc',
+      borderColor: darkMode ? '#131312' : '#ccc',
+      color: darkMode ? '#fff' : '#000',
+    }),
+    menu: (styles) => ({
+      ...styles,
+      backgroundColor: darkMode ? '#131312' : '#fff',
+      color: darkMode ? '#fff' : '#000',
+    }),
+  };
+
   //Handling input change
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -98,13 +112,30 @@ function Signup() {
           password: formData.password,
         }),
       });
+      //Check the content-type header
+      const contentType = response.headers.get('Content-Type');
+      let result;
+      let errorMessage;
+      if (contentType && contentType.includes('application/json')) {
+        result = await response.json();
+      } else if (contentType && contentType.includes('text/plain')) {
+        errorMessage = await response.text();
+      }
 
-      const result = await response.json();
       if (response.ok) {
+        localStorage.setItem(
+          'userDetails',
+          JSON.stringify({
+            customerReference: result.customerReference,
+            email: result.email,
+            firstName: result.firstName,
+            lastName: result.lastName,
+          })
+        );
         toast.success('Registation successful');
-        navigate('/account/login');
+        navigate('/dashboard');
       } else {
-        toast.error('Error');
+        toast.error(errorMessage);
       }
     } catch (err) {
       if (err instanceof z.ZodError) {
@@ -114,7 +145,7 @@ function Signup() {
         });
         setError(formattedErrors);
       } else {
-        toast.error('Something went wrong. Please try again.');
+        toast.error(errorMessage);
       }
     } finally {
       setLoading(false);
@@ -251,11 +282,12 @@ function Signup() {
             <Select
               name="country"
               id="country"
+              styles={selectStyles}
               options={countryOptions}
               value={selectedCountry}
               onChange={handleCountryChange}
               className={`mt-1  p-2 block w-full border rounded-md ${
-                darkMode ? 'bg-[#131312] text-black' : 'bg-white text-black'
+                darkMode ? 'bg-[#131312] text-black border-gray-700' : 'bg-white text-black'
               }`}
               placeholder="Search and Select Country"
             />
