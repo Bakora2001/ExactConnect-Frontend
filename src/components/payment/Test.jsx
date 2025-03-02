@@ -188,7 +188,7 @@ export default function PaymentPage() {
             return;
           case 'DECLINED':
             // console.log('Transaction cancelled by user');
-            navigate('/failed', { state: { response } });
+            navigate('/status/failed', { state: { response } });
             return;
           case 'PROCESSING':
             // console.log('Transaction cancelled by user');
