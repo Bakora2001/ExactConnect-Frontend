@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import Select from 'react-select';
+import { FaSpinner } from 'react-icons/fa';
 
 const FilterModal = ({
   filters,
   countryDetails,
   handleFilterChange,
   toggleFilterModal,
-  applyFilters, // <-- Call fetchProxies when applying filters
-  resetFilters, // <-- Reset all selected filters
+  applyFilters,
+  resetFilters,
   darkMode,
 }) => {
   //States
@@ -16,12 +17,60 @@ const FilterModal = ({
   const uniqueRegions = formatOptions(
     [...new Set(countryDetails.regions || [])].sort()
   );
+
   const uniqueCities = formatOptions(
     [...new Set(countryDetails.cities || [])].sort()
   );
+
   const uniqueISPs = formatOptions(
     [...new Set(countryDetails.isps || [])].sort()
   );
+  //Lazy loading cities
+  const [displayedOptions, setDisplayedOptions] = useState(
+    uniqueCities.slice(0, 50)
+  );
+
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const [loadingRegions, setLoadingRegions] = useState(false);
+  const [loadingCities, setLoadingCities] = useState(false);
+  const [loadingISPs, setLoadingISPs] = useState(false);
+
+  const handleLoadMore = () => {
+    setDisplayedOptions((prev) => {
+      const nextItems = uniqueCities.slice(prev.length, prev.length + 50);
+      return [...prev, ...nextItems];
+    });
+  };
+
+  const handleInputChange = (inputValue) => {
+    setSearchQuery(inputValue);
+
+    if (inputValue.length > 0) {
+      //Search in the full dataset,not just the loaded ones
+      const filtered = uniqueCities.filter((option) =>
+        option.label.toLowerCase().includes(inputValue.toLowerCase())
+      );
+      setDisplayedOptions(filtered.slice(0, 50));
+    } else {
+      // Reset back to lazy-loading when no search query
+      setDisplayedOptions(uniqueCities.slice(0, 50));
+    }
+  };
+  const handleDropdownClick = (filterType) => {
+    if (filterType === 'region') {
+      setLoadingRegions(true);
+      setTimeout(() => setLoadingRegions(false), 1000);
+    }
+    if (filterType === 'city') {
+      setLoadingCities(true);
+      setTimeout(() => setLoadingCities(false), 1000);
+    }
+    if (filterType === 'isp') {
+      setLoadingISPs(true);
+      setTimeout(() => setLoadingISPs(false), 1000);
+    }
+  };
 
   // Custom Styles for React-Select
   const selectStyles = {
@@ -89,6 +138,10 @@ const FilterModal = ({
               styles={selectStyles}
               placeholder="Select Region"
               isClearable
+              onMenuOpen={() => handleDropdownClick('region')}
+              isLoading={
+                loadingRegions && <FaSpinner className="animate-spin" />
+              }
             />
           </div>
 
@@ -97,7 +150,7 @@ const FilterModal = ({
             <label className="block text-sm font-medium mb-2">City</label>
             <Select
               name="city"
-              options={uniqueCities}
+              options={displayedOptions}
               value={uniqueCities.find(
                 (option) => option.value === filters.cities
               )}
@@ -109,6 +162,23 @@ const FilterModal = ({
               styles={selectStyles}
               placeholder="Select City"
               isClearable
+              onMenuOpen={() => handleDropdownClick('city')}
+              onInputChange={handleInputChange}
+              onMenuScrollToBottom={() => {
+                if (displayedOptions.length < uniqueCities.length) {
+                  handleLoadMore();
+                }
+              }}
+              noOptionsMessage={() =>
+                displayedOptions.length < uniqueCities.length ? (
+                  <FaSpinner className="animate-spin flex  items-center justify-center" />
+                ) : (
+                  'No cities found'
+                )
+              }
+              isLoading={
+                loadingCities && <FaSpinner className="animate-spin" />
+              }
             />
           </div>
 
@@ -127,6 +197,9 @@ const FilterModal = ({
               styles={selectStyles}
               placeholder="Select ISP"
               isClearable
+              onMenuOpen={() => handleDropdownClick('isp')}
+              noOptionsMessage={() => 'No Isps Found'}
+              isLoading={loadingISPs && <FaSpinner className="animate-spin" />}
             />
           </div>
         </div>

@@ -26,7 +26,7 @@ const Proxy = () => {
   const [countryDetails, setCountryDetails] = useState({});
   const [filteredProxies, setFilteredProxies] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState('US');
-  console.log(selectedCountry);
+  // console.log(selectedCountry);
   const [selectedRow, setSelectedRow] = useState(null);
   const [rowData, setRowData] = useState({});
   const [loading, setLoading] = useState(true);
@@ -77,7 +77,7 @@ const Proxy = () => {
     try {
       const url = `${SERVER_URL}/products/proxies?page=${page}&countryCode=${countryCode}&segments=${true}`;
       const response = await fetch(url);
-      console.log(response);
+
       const data = await response.json();
       // console.log(data);
       setTotalPages(data.total);
