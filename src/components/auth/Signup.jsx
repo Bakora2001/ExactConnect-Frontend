@@ -23,6 +23,9 @@ const registerSchema = z.object({
   lastName: z.string().min(1, {
     message: 'Last name is required',
   }),
+  countryCode: z.string().min(1, {
+    message: 'Country is required',
+  }),
   password: z
     .string()
     .min(8, { message: 'Password must be at least 8 characters long' })
@@ -120,14 +123,15 @@ function Signup() {
 
   return (
     <div
-      className={`min-h-screen flex w-screen h-screen items-center justify-center overflow-hidden
+      className={`min-h-screen flex  items-center justify-center 
      ${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'}`}
     >
       <div
-        className={`${darkMode
-          ? 'bg-[#131312] text-white border-gray-700'
-          : 'bg-white text-black border-gray-100'
-          } p-4 rounded-lg shadow-lg w-5/6 max-w-sm border `}
+        className={`${
+          darkMode
+            ? 'bg-[#131312] text-white border-gray-700'
+            : 'bg-white text-black border-gray-100'
+        } p-4 rounded-lg shadow-lg w-5/6 max-w-sm border `}
       >
         <h2 className="text-2xl font-bold mb-1 text-[#7C25BA] hover:text-[#806cff]">
           Exact
@@ -141,8 +145,9 @@ function Signup() {
           <div className="mb-4">
             <label
               htmlFor="firstName"
-              className={`block text-sm font-medium ${darkMode ? 'text-white' : 'text-black'
-                }`}
+              className={`block text-sm font-medium ${
+                darkMode ? 'text-white' : 'text-black'
+              }`}
             >
               First Name
             </label>
@@ -152,10 +157,13 @@ function Signup() {
               id="firstName"
               value={formData.firstName}
               onChange={handleChange}
-              className={`w-full h-12 ${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
-                } px-4 py-2 border border-gray-600  ${errors.firstName ? 'border-red-500' : 'border-gray-300'
-                } rounded-lg text-sm focus:outline-none focus:ring-2 ${errors.firstName ? 'focus:ring-red-500' : 'focus:ring-gray-500'
-                }`}
+              className={`w-full h-12 ${
+                darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
+              } px-4 py-2 border border-gray-600  ${
+                errors.firstName ? 'border-red-500' : 'border-gray-300'
+              } rounded-lg text-sm focus:outline-none focus:ring-2 ${
+                errors.firstName ? 'focus:ring-red-500' : 'focus:ring-gray-500'
+              }`}
               placeholder="John"
               aria-invalid={!!errors.firstName}
               aria-describedby="email_error"
@@ -169,8 +177,9 @@ function Signup() {
           <div className="mb-4">
             <label
               htmlFor="lastName"
-              className={`block text-sm font-medium ${darkMode ? 'text-white' : 'text-black'
-                }`}
+              className={`block text-sm font-medium ${
+                darkMode ? 'text-white' : 'text-black'
+              }`}
             >
               Last Name
             </label>
@@ -180,10 +189,13 @@ function Signup() {
               id="lastName"
               value={formData.lastName}
               onChange={handleChange}
-              className={`w-full h-12 px-4 py-2 border border-gray-600 ${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
-                } ${errors.lastName ? 'border-red-500' : 'border-gray-300'
-                } rounded-lg text-sm focus:outline-none focus:ring-2 ${errors.lastName ? 'focus:ring-red-500' : 'focus:ring-gray-500'
-                }`}
+              className={`w-full h-12 px-4 py-2 border border-gray-600 ${
+                darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
+              } ${
+                errors.lastName ? 'border-red-500' : 'border-gray-300'
+              } rounded-lg text-sm focus:outline-none focus:ring-2 ${
+                errors.lastName ? 'focus:ring-red-500' : 'focus:ring-gray-500'
+              }`}
               aria-invalid={!!errors.lastName}
               aria-describedby="user_name_error"
               placeholder="Doe"
@@ -197,21 +209,25 @@ function Signup() {
           <div className="mb-4">
             <label
               htmlFor="email"
-              className={`block text-sm font-medium ${darkMode ? 'text-white' : 'text-black'
-                }`}
+              className={`block text-sm font-medium ${
+                darkMode ? 'text-white' : 'text-black'
+              }`}
             >
               Email
             </label>
             <input
-              type="email"
+              type="text"
               name="email"
               id="email"
               value={formData.email}
               onChange={handleChange}
-              className={`w-full h-12 ${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
-                } px-4 py-2 border border-gray-600  ${errors.email ? 'border-red-500' : 'border-gray-300'
-                } rounded-lg text-sm focus:outline-none focus:ring-2 ${errors.email ? 'focus:ring-red-500' : 'focus:ring-gray-500'
-                }`}
+              className={`w-full h-12 ${
+                darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
+              } px-4 py-2 border border-gray-600  ${
+                errors.email ? 'border-red-500' : 'border-gray-300'
+              } rounded-lg text-sm focus:outline-none focus:ring-2 ${
+                errors.email ? 'focus:ring-red-500' : 'focus:ring-gray-500'
+              }`}
               aria-invalid={!!errors.email}
               aria-describedby="user_name_error"
               placeholder="you@example.com"
@@ -226,8 +242,9 @@ function Signup() {
           <div className="mb-4">
             <label
               htmlFor="country"
-              className={`block text-sm font-medium ${darkMode ? 'text-white' : 'text-black'
-                }`}
+              className={`block text-sm font-medium ${
+                darkMode ? 'text-white' : 'text-black'
+              }`}
             >
               Country
             </label>
@@ -237,16 +254,24 @@ function Signup() {
               options={countryOptions}
               value={selectedCountry}
               onChange={handleCountryChange}
-              className={`mt-1  p-2 block w-full border rounded-md ${darkMode ? 'bg-[#131312] text-black' : 'bg-white text-black'}`}
+              className={`mt-1  p-2 block w-full border rounded-md ${
+                darkMode ? 'bg-[#131312] text-black' : 'bg-white text-black'
+              }`}
               placeholder="Search and Select Country"
             />
+            {errors.countryCode && (
+              <p id="user_name_error" className="text-red-500 text-sm mt-1">
+                {errors.countryCode}
+              </p>
+            )}
           </div>
 
           <div className="mb-4 relative">
             <label
               htmlFor="password"
-              className={`block text-sm font-medium ${darkMode ? 'text-white' : 'text-black'
-                }`}
+              className={`block text-sm font-medium ${
+                darkMode ? 'text-white' : 'text-black'
+              }`}
             >
               Password
             </label>
@@ -258,10 +283,13 @@ function Signup() {
                 placeholder="********"
                 value={formData.password}
                 onChange={handleChange}
-                className={`w-full h-12 px-4 py-2 border border-gray-600 ${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
-                  } ${errors.password ? 'border-red-500' : 'border-gray-300'
-                  } rounded-lg text-sm focus:outline-none focus:ring-2 ${errors.password ? 'focus:ring-red-500' : 'focus:ring-gray-500'
-                  }`}
+                className={`w-full h-12 px-4 py-2 border border-gray-600 ${
+                  darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
+                } ${
+                  errors.password ? 'border-red-500' : 'border-gray-300'
+                } rounded-lg text-sm focus:outline-none focus:ring-2 ${
+                  errors.password ? 'focus:ring-red-500' : 'focus:ring-gray-500'
+                }`}
                 aria-invalid={!!errors.password}
                 aria-describedby="password_error"
               />
@@ -282,8 +310,9 @@ function Signup() {
 
           <button
             type="submit"
-            className={`w-full bg-[#7C25BA] text-white py-2 rounded-lg flex items-center justify-center hover:bg-[#5b21a8] focus:outline-none focus:ring-2 focus:ring-gray-500 ${isLoading && 'opacity-50 cursor-not-allowed'
-              }`}
+            className={`w-full bg-[#7C25BA] text-white py-2 rounded-lg flex items-center justify-center hover:bg-[#5b21a8] focus:outline-none focus:ring-2 focus:ring-gray-500 ${
+              isLoading && 'opacity-50 cursor-not-allowed'
+            }`}
             disabled={isLoading}
             aria-busy={isLoading}
           >
