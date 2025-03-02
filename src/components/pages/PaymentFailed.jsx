@@ -40,7 +40,7 @@ export default function PaymentFailed() {
   };
 
   return (
-    <div className="min-h-screen w-screen h-screen flex items-center justify-center dark:bg-[#010100]">
+    <div className="min-h-screen flex items-center justify-center dark:bg-[#010100]">
       <div className="w-full max-w-md mx-auto p-4">
         {/* Card Container */}
         <div className="border border-red-200 rounded-lg shadow-md bg-white dark:bg-[#010100] dark:border-gray-700">
@@ -67,10 +67,10 @@ export default function PaymentFailed() {
               <AlertTriangle className="h-5 w-5 text-red-500 dark:text-red-400 flex-shrink-0 mt-0.5" />
               <div>
                 <p className="text-sm font-medium text-red-700 dark:text-red-300">
-                  Error: {errors.transactionStatus}
+                  Error: {errors?.transactionStatus}
                 </p>
                 <p className="text-sm text-red-600/80 dark:text-red-400/80 mt-1">
-                  {errors.providerDescription}
+                  {errors?.providerDescription}
                 </p>
               </div>
             </div>
@@ -85,19 +85,19 @@ export default function PaymentFailed() {
                   <span className="text-gray-500 dark:text-gray-400">
                     Amount:
                   </span>
-                  <span className="font-medium">{errors.amount} KES</span>
+                  <span className="font-medium">{errors?.amount} KES</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-500 dark:text-gray-400">
                     Payment Method:
                   </span>
-                  <span className="font-medium">{errors.provider}</span>
+                  <span className="font-medium">{errors?.provider}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-500 dark:text-gray-400">
                     Phone Number:
                   </span>
-                  <span className="font-medium">{errors.accountNumber}</span>
+                  <span className="font-medium">{errors?.accountNumber}</span>
                 </div>
               </div>
             </div>
