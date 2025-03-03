@@ -155,7 +155,7 @@ function Signup() {
   return (
     <div
       className={`min-h-screen flex  items-center justify-center 
-     ${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'}`}
+     ${darkMode ? 'bg-[#0c0b08] text-white' : 'bg-white text-black'}`}
     >
       <div
         className={`${

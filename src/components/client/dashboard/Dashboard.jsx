@@ -101,7 +101,7 @@ const Dashboard = () => {
     } else if (currentHour >= 12 && currentHour < 17) {
       return {
         text: 'Good Afternoon',
-        icon: <FaSun className="inline-block w-8 h-8 text-orange-500" />,
+        icon: <FaSun className="inline-block w-6 h-6 text-orange-500" />,
       };
     } else {
       return {

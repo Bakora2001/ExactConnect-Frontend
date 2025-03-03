@@ -81,7 +81,7 @@ function Login() {
 
   return (
     <div
-      className={`min-h-screen  w-screen h-screen flex items-center justify-center ${darkMode ? "bg-[#1A1A1A] text-white" : "bg-gray-100 text-black"
+      className={`min-h-screen  w-screen h-screen flex items-center justify-center ${darkMode ? "bg-[#0c0b08] text-white" : "bg-gray-100 text-black"
         }`}
     >
       <div

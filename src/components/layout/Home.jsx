@@ -28,7 +28,7 @@ const Home = () => {
         isLoading ? (
           <Loader />
         ) : <div
-          className={`font-sans ${darkMode ? 'bg-[#131312] text-white' : 'bg-[#7C25BA] text-white'
+          className={`font-sans ${darkMode ? 'bg-[#0c0b08] text-white' : 'bg-[#7C25BA] text-white'
             }`}
         >
           {/* Header Section */}
@@ -76,7 +76,7 @@ const Home = () => {
           </div>
 
           {/* Residential Proxies Section */}
-          <section className={`text-center py-6 px-4 sm:px-8 ${darkMode ? 'bg-[#131312] text-white' : 'bg-[#fffe] text-black'}`}>
+          <section className={`text-center py-6 px-4 sm:px-8 ${darkMode ? 'bg-[#010100] text-white' : 'bg-[#fffe] text-black'}`}>
             <div>
               <h3 className="text-lg sm:text-xl font-bold mb-2">Residential Proxies</h3>
               <div className="border-b-4 sm:border-b-8 border-purple-700 w-12 sm:w-16 mx-auto mb-6"></div>
