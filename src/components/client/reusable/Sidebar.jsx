@@ -48,15 +48,15 @@ function Sidebar({ isOpen, onClose }) {
   return (
     <aside
       className={`fixed inset-y-0 left-0 w-64 h-full ${
-        darkMode ? 'bg-[#131312] text-white' : 'text-white bg-[#7C25BA]'
+        darkMode ? 'bg-[#0c0b08] text-white' : 'text-white bg-[#7C25BA]'
       } p-4 md:p-6 z-20 shadow-lg transform ${
         isOpen
           ? 'translate-x-0 border rounded-[16px] border-gray-600'
           : '-translate-x-full '
-      } border border-gray-700 rounded-lg  transition-transform duration-300 ease-in-out md:translate-x-0 py-2 px-4`}
+      } border border-gray-700 rounded-lg  transition-transform duration-300 ease-in-out md:translate-x-0 py-2 px-4 `}
     >
       <button
-        className="md:hidden text-white text-2xl self-end mb-4 flex flex-col space-y-6"
+        className="md:hidden text-white text-2xl self-end mb-4 flex flex-col space-y-6 ml-48"
         onClick={onClose}
       >
         <FaTimes />

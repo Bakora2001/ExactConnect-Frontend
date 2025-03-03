@@ -132,7 +132,7 @@ const Dashboard = () => {
     >
       <div
         className={`min-h-screen flex relative ${
-          darkMode ? 'bg-[#1a1a1a]' : 'bg-gray-100'
+          darkMode ? 'bg-[#0c0b08]' : 'bg-gray-100'
         }`}
       >
         {/* Sidebar */}
@@ -146,7 +146,7 @@ const Dashboard = () => {
         {/* Main Content */}
         <main
           className={`flex-1 ${
-            darkMode ? 'bg-[#1a1a1a]' : 'bg-white'
+            darkMode ? 'bg-[#0c0b08]' : 'bg-white'
           } transition-all duration-300 ease-in-out  ${
             isSidebarOpen
               ? 'blur-sm pointer-events-none md:pointer-events-auto'
@@ -155,9 +155,9 @@ const Dashboard = () => {
         >
           {/* Header Section */}
           <header
-            className={`flex justify-between items-center py-4 px-6  backdrop-blur-xl bg-opacity-90 shadow-sm sticky top-0 z-50 ${
+            className={`flex justify-between items-center py-4 px-6  backdrop-blur-lg bg-opacity-90 shadow-sm border-b sticky top-0 z-50 ${
               darkMode
-                ? 'bg-[#131312]/50 border-gray-700'
+                ? 'bg-[#0c0b08]/50 border-gray-700'
                 : 'bg-[#7C25BA] border-[#7C25BA]'
             }`}
           >
@@ -190,10 +190,10 @@ const Dashboard = () => {
           {/* Dashboard Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4 lg:p-8">
             <div
-              className={`relative  rounded-xl p-6 shadow-xl border overflow-hidden transition-transform transform hover:scale-[1.02]   [background:linear-gradient(45deg,#1a1a1a,theme(colors.black)_50%,#1a1a1a)_padding-box,conic-gradient(from_var(--border-angle),theme(colors.gray.600/.48)_80%,_theme(colors.white)_86%,_theme(colors.white)_90%,_theme(colors.white)_94%,_theme(colors.slate.600/.48))_border-box] border-transparent animate-border ${
+              className={`relative  rounded-xl p-6 shadow-xl border overflow-hidden transition-transform transform hover:scale-[1.02]    border-transparent animate-border ${
                 darkMode
-                  ? 'bg-[#181918] border-gray-700 '
-                  : 'bg-white border-gray-200 shadow-lg'
+                  ? 'bg-[#181918] border-gray-700 [background:linear-gradient(45deg,#1a1a1a,theme(colors.black)_50%,#1a1a1a)_padding-box,conic-gradient(from_var(--border-angle),theme(colors.gray.600/.48)_80%,_theme(colors.white)_86%,_theme(colors.white)_90%,_theme(colors.white)_94%,_theme(colors.slate.600/.48))_border-box] '
+                  : 'bg-white  border-gray-200 shadow-xl rounded-md'
               }`}
             >
               {/* Neon Glow Effect */}
@@ -311,7 +311,7 @@ const Dashboard = () => {
             <div
               className={`rounded-lg p-6 shadow-md flex flex-col items-center border ${
                 darkMode
-                  ? 'bg-[#1a1b1f] border-gray-700'
+                  ? 'bg-[#0c0b08] border-gray-700'
                   : 'bg-gray-100 border-gray-300'
               }`}
             >
@@ -339,7 +339,7 @@ const Dashboard = () => {
             <div
               className={`rounded-lg p-6 shadow-md ${
                 darkMode
-                  ? 'bg-[#1a1b1f] border-gray-700'
+                  ? 'bg-[#0c0b08]  border border-gray-700'
                   : 'bg-white border-gray-200'
               }`}
             >
@@ -373,7 +373,7 @@ const Dashboard = () => {
             <div
               className={`rounded-lg p-6 shadow-md ${
                 darkMode
-                  ? 'bg-[#1a1b1f] border-gray-700'
+                  ? 'bg-[#0c0b08] border border-gray-700'
                   : 'bg-white border-gray-200'
               }`}
             >

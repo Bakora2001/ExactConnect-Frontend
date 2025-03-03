@@ -6,14 +6,14 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        circular: ['"Helvetica Neue"', 'Helvetica', 'Arial', 'sans-serif'],
+        circular: ['"Helvetica Neue"', 'Helvetica', 'Arial', 'sans-serif','mono'],
       },
       backgroundImage: {
         dots: 'radial-gradient(circle, #2c2c2c 1px, transparent 1px)',
       },
       animation: {
         blink: 'blink 1s step-end infinite',
-        border: 'border 4s linear infinite',
+        border: 'border 5s linear infinite',
       },
       keyframes: {
         blink: {
