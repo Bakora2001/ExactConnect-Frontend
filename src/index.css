@@ -4,7 +4,6 @@
 
 body {
   transition: background-color 0.3s, color 0.3s;
-  background-color: #131312;
 }
 
 .dark {
@@ -96,7 +95,6 @@ body {
     display: none;
   }
 }
-
 
 @property --border-angle {
   inherits: false;

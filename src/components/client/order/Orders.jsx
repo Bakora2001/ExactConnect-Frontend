@@ -9,6 +9,7 @@ import {
 import { HiOutlineStatusOnline } from 'react-icons/hi';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { IoIosStarOutline, IoIosCellular } from 'react-icons/io';
+import { userDetails } from '../../../lib/userDetails';
 
 import SideBar from '../reusable/Sidebar';
 import UserMenu from '../reusable/UserMenu';
@@ -19,7 +20,6 @@ import { SERVER_URL } from '../../../services/data';
 const OrdersPage = () => {
   const [orderList, setOrders] = useState([]);
   const navigate = useNavigate();
-  const userDetails = JSON.parse(localStorage.getItem('userDetails'));
 
   // const customerId = userDetails.customerReference;
   const customerId = 'f455b47e-85b2-45db-b8d5-11b6298b4caa';
@@ -202,7 +202,7 @@ const OrdersPage = () => {
               >
                 <div className="flex justify-between items-start mb-4">
                   <span className="font-mono text-sm text-purple-600">
-                    #{order.orderId.slice(0,7)}..
+                    #{order.orderId.slice(0, 7)}..
                   </span>
                   <span
                     className={`px-2.5 py-1 rounded-full text-xs font-medium ${

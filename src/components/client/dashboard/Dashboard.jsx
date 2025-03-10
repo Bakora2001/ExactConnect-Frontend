@@ -3,16 +3,15 @@ import server from '/servertwo.svg';
 import mobile from '/mobiletower.svg';
 import { Link, useNavigate } from 'react-router-dom';
 import React, { useState, useContext, useEffect } from 'react';
-import { Moon, CloudSun, Unplug, PlugZap, Plug } from 'lucide-react';
-import { FaSun, FaMoon } from 'react-icons/fa';
-import { WiSunrise } from 'react-icons/wi';
+import { userDetails } from '../../../lib/userDetails';
+import { Moon, CloudSun, Plug } from 'lucide-react';
+import { FaSun } from 'react-icons/fa';
 import { BsFillLightningChargeFill } from 'react-icons/bs';
-import { FiChevronRight } from 'react-icons/fi';
-
 import { FaBars, FaTimes } from 'react-icons/fa';
 import SideBar from '../reusable/Sidebar';
 import UserMenu from '../reusable/UserMenu';
 import { DarkModeContext } from '../../../context/DarkModeContext';
+import { capitalizedFirstName } from '../../../utils/capitalize';
 
 import { SERVER_URL } from '../../../services/data';
 import { IoIosCellular } from 'react-icons/io';
@@ -21,10 +20,6 @@ import ErrorPage from '../../pages/ErrorPage';
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const capitalizeFirstLetter = (str) => {
-    return str?.charAt(0).toUpperCase() + str?.slice(1);
-  };
-  const userDetails = JSON.parse(localStorage.getItem('userDetails'));
   const [proxies, setProxies] = useState(0);
   const [currentDateTime, setCurrentDateTime] = useState('');
   const [greeting, setGreeting] = useState({ text: '', icon: null });
@@ -172,14 +167,13 @@ const Dashboard = () => {
             </button>
 
             <div className="flex-1 flex justify-end">
-              <UserMenu userDetails={userDetails} />
+              <UserMenu />
             </div>
           </header>
           <div className="p-6">
             <div className="flex flex-col items-start gap-2">
               <h1 className="text-2xl font-bold">
-                {greeting.text}, {capitalizeFirstLetter(userDetails?.firstName)}
-                !
+                {greeting.text}, {capitalizedFirstName}!
               </h1>
             </div>
             <p className="text-lg text-gray-500">

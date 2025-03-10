@@ -1,10 +1,10 @@
 //Component which handles the loading
 import React from 'react';
 
-function Loading({ loading, filteredProxies, error, darkMode }) {
+function Loading({ loadingProxies, filteredProxies, error, darkMode }) {
   return (
     <div>
-      {loading ? (
+      {loadingProxies ? (
         <div className="mt-48 w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 p-6">
           {Array.from({ length: 8 }).map((_, index) => (
             <div

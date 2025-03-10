@@ -12,6 +12,7 @@ const FilterModal = ({
   darkMode,
 }) => {
   //States
+  
   const formatOptions = (items) =>
     items.map((item) => ({ value: item, label: item }));
   const uniqueRegions = formatOptions(
@@ -30,7 +31,7 @@ const FilterModal = ({
     uniqueCities.slice(0, 50)
   );
 
-  const [searchQuery, setSearchQuery] = useState('');
+  const [, setSearchQuery] = useState('');
 
   const [loadingRegions, setLoadingRegions] = useState(false);
   const [loadingCities, setLoadingCities] = useState(false);
@@ -129,7 +130,7 @@ const FilterModal = ({
               name="regionName"
               options={uniqueRegions}
               value={uniqueRegions.find(
-                (option) => option.value === filters.regions
+                (option) => option.value === filters.regionName
               )}
               onChange={(selected) =>
                 handleFilterChange({
@@ -159,7 +160,7 @@ const FilterModal = ({
                 }
               }}
               value={uniqueCities.find(
-                (option) => option.value === filters.cities
+                (option) => option.value === filters.city
               )}
               onChange={(selected) =>
                 handleFilterChange({

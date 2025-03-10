@@ -8,6 +8,10 @@ export default {
       fontFamily: {
         circular: ['"Helvetica Neue"', 'Helvetica', 'Arial', 'sans-serif','mono'],
       },
+      muted: {
+        DEFAULT: "hsl(var(--muted))",
+        foreground: "hsl(var(--muted-foreground))"
+      },
       backgroundImage: {
         dots: 'radial-gradient(circle, #2c2c2c 1px, transparent 1px)',
       },

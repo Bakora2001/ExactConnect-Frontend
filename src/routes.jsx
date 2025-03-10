@@ -50,6 +50,7 @@ import Mpesa from './components/payment/Mpesa';
 import MailConfirmation from './components/pages/Mail';
 import PaymentFailed from './components/pages/PaymentFailed';
 import PaymentSuccessful from './components/pages/PaymentSuccessful';
+import ComingSoon from './components/pages/ComingSoon';
 // const Test = lazy(() => import('./components/payment/Test'))
 const Configure = lazy(() => import('./components/Configure'));
 const Checkout = lazy(() => import('./components/Checkout'));
@@ -235,4 +236,8 @@ export const router = createBrowserRouter([
     path: '/status/success',
     element: <PaymentSuccessful />,
   },
+  {
+    path:'/comming-soon',
+    element:<ComingSoon/>
+  }
 ]);
