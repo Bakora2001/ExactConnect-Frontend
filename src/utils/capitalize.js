@@ -11,4 +11,4 @@ export const capitalizedFirstName = capitalizeFirstLetter(
 );
 
 export const capitalizeFirstLetterAndSecond =
-  `${userDetails.firstName[0]}${userDetails.lastName[0]}`.toUpperCase();
+  `${userDetails?.firstName[0]}${userDetails?.lastName[0]}`.toUpperCase();
