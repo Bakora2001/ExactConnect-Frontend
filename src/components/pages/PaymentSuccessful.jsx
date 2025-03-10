@@ -2,6 +2,7 @@
 import { CheckCircle, ArrowRight, FileText, ShoppingBag } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import ErrorBoundary from './ErrorBoundary';
+import { email } from '../../lib/userDetails';
 // interface PaymentSuccessProps {
 //   transactionId: string;
 //   amount: string;
@@ -23,8 +24,6 @@ import ErrorBoundary from './ErrorBoundary';
 // }
 
 export default function PaymentSuccessful() {
-  const userDetails = JSON.parse(localStorage.getItem('userDetails'));
-  const getEmail = userDetails.email;
   const location = useLocation();
   const transactionData = location.state?.response || {};
   const success = transactionData[0];
@@ -95,7 +94,7 @@ export default function PaymentSuccessful() {
                     className="text-purple-600 hover:text-purple-800 underline"
                     target="_blank"
                   >
-                    {getEmail}
+                    {email}
                   </a>{' '}
                   or continue shopping.
                 </p>
