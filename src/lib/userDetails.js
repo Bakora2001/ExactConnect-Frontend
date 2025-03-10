@@ -5,7 +5,7 @@ export const userDetails = JSON.parse(localStorage.getItem('userDetails'));
 export const firstName = userDetails?.firstName;
 
 //Extracting the last name
-export const lastName = userDetails?.lastNameName;
+export const lastName = userDetails?.lastName;
 
 //Extracting the email
 export const email = userDetails?.email;
