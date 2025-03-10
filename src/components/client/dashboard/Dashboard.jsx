@@ -21,18 +21,19 @@ import ErrorPage from '../../pages/ErrorPage';
 const Dashboard = () => {
   const navigate = useNavigate();
   const [proxies, setProxies] = useState(0);
+  console.log(proxies)
   const [currentDateTime, setCurrentDateTime] = useState('');
   const [greeting, setGreeting] = useState({ text: '', icon: null });
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const { darkMode } = useContext(DarkModeContext);
 
   // Fetch user details and redirect if not logged in
-  useEffect(() => {
-    if (!userDetails) {
-      navigate('/account/login');
-    }
-  }, [navigate, userDetails]);
-
+//   useEffect(() => {
+//     if (!userDetails) {
+//       navigate('/account/login');
+//     }
+//   }, [navigate, userDetails]);
+// console.log(userDetails)
   // Fetch proxies data
   useEffect(() => {
     fetch(`${SERVER_URL}/products/proxies?page=${0}`, {
@@ -78,12 +79,12 @@ const Dashboard = () => {
   };
 
   // Update date and time every second
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentDateTime(formatDateTime());
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setCurrentDateTime(formatDateTime());
+  //   }, 1000);
+  //   return () => clearInterval(interval);
+  // }, []);
 
   // Get greeting based on time of day
   const getGreeting = () => {
@@ -107,13 +108,13 @@ const Dashboard = () => {
   };
 
   // Update greeting every minute
-  useEffect(() => {
-    setGreeting(getGreeting());
-    const interval = setInterval(() => {
-      setGreeting(getGreeting());
-    }, 60000);
-    return () => clearInterval(interval);
-  }, []);
+  // useEffect(() => {
+  //   setGreeting(getGreeting());
+  //   const interval = setInterval(() => {
+  //     setGreeting(getGreeting());
+  //   }, 60000);
+  //   return () => clearInterval(interval);
+  // }, []);
 
   // Toggle sidebar
   const toggleSidebar = () => {

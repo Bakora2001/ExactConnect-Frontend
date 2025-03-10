@@ -10,6 +10,8 @@ import Moon from '../../icons/Moon';
 import Settings from '../../icons/Settings';
 import { DarkModeContext } from '../../../context/DarkModeContext';
 
+console.log(firstName)
+console.log(lastName)
 const UserMenu = () => {
   const { darkMode, toggleDarkMode } = useContext(DarkModeContext);
   const [isOpen, setIsOpen] = useState(false);
