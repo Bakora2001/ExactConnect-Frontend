@@ -4,12 +4,14 @@ import { z } from 'zod';
 import { FcGoogle } from 'react-icons/fc';
 import { toast } from 'react-hot-toast';
 import { MailIcon, LockIcon, EyeIcon, EyeOffIcon } from 'lucide-react';
+import Button from '../reusables/Button';
 
 //Dark mode
 import { DarkModeContext } from '../../context/DarkModeContext';
 
 //Base url
 import { SERVER_URL } from '../../services/data';
+import Loading from '../icons/Loading';
 
 //!Routing issue
 //Zod form validation
@@ -246,31 +248,7 @@ function Login() {
           {/* Forgot Password */}
 
           {/* Login Button */}
-          <button
-            type="submit"
-            className="w-full bg-purple-600 text-white py-3 rounded-lg text-lg font-medium hover:bg-purple-700 transition duration-300 flex items-center justify-center"
-            disabled={isLoading}
-          >
-            {isLoading ? (
-              <svg className="animate-spin h-5 w-5 mr-2" viewBox="0 0 24 24">
-                <circle
-                  className="opacity-25"
-                  cx="12"
-                  cy="12"
-                  r="10"
-                  stroke="currentColor"
-                  strokeWidth="4"
-                />
-                <path
-                  className="opacity-75"
-                  fill="currentColor"
-                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 2.419.876 4.623 2.334 6.291l1.666-1.666z"
-                />
-              </svg>
-            ) : (
-              'Login'
-            )}
-          </button>
+          <Button label="Login" isLoading={isLoading} />
         </form>
 
         {/* Divider */}
