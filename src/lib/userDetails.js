@@ -9,3 +9,6 @@ export const lastName = userDetails?.lastNameName;
 
 //Extracting the email
 export const email = userDetails?.email;
+
+//Extracting the customer reference
+export const customerId = userDetails?.customerReference;
