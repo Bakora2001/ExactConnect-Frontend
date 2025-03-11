@@ -11,9 +11,7 @@ import { DarkModeContext } from '../../context/DarkModeContext';
 
 //Base url
 import { SERVER_URL } from '../../services/data';
-import Loading from '../icons/Loading';
 
-//!Routing issue
 //Zod form validation
 const loginSchema = z.object({
   email: z.string().email({ message: 'Invalid email address' }),
@@ -55,6 +53,7 @@ function Login() {
       });
 
       const result = await response.json();
+
       if (response.ok) {
         localStorage.setItem(
           'userDetails',
@@ -65,10 +64,8 @@ function Login() {
             lastName: result.lastName,
           })
         );
-        setTimeout(() => {
-          toast.success('Login successsful');
-          navigate('/dashboard');
-        }, 1500);
+        toast.success('Login successsful');
+        navigate('/dashboard');
       }
     } catch (err) {
       if (err instanceof z.ZodError) {
@@ -268,16 +265,31 @@ function Login() {
           Sign in with Google
         </button>
 
-        {/* Sign Up Link */}
-        <p className="text-center text-sm mt-4">
+        <div className="text-center text-sm mt-4">
           Don't have an account?{' '}
           <Link
             to="/account/signup"
-            className="text-purple-600 font-semibold hover:underline"
+            className="text-purple-600 font-semibold hover:underline hover:text-purple-700 transition-colors"
           >
             Sign up
           </Link>
-        </p>
+          <p className="mt-2 text-gray-600">
+            By continuing, you agree to our{' '}
+            <Link
+              to="/privacy"
+              className="text-gray-600 underline hover:text-gray-700 transition-colors"
+            >
+              Terms of Service
+            </Link>{' '}
+            and{' '}
+            <Link
+              to="/privacy"
+              className="text-gray-600 underline hover:text-gray-700 transition-colors"
+            >
+              Privacy Policy
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   );

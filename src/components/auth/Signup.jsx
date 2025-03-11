@@ -427,19 +427,31 @@ function Signup() {
           </button>
         </form>
 
-        <p
-          className={`text-center text-sm mt-4 ${
-            darkMode ? 'text-white' : 'text-black'
-          }`}
-        >
+        <div className="text-center text-sm mt-4">
           Already have an account?{' '}
           <Link
             to="/account/login"
-            className="text-[#7C25BA] font-bold hover:underline"
+            className="text-purple-600 font-semibold hover:underline hover:text-purple-700 transition-colors"
           >
             Sign in
           </Link>
-        </p>
+          <p className="mt-2 text-gray-600">
+            By continuing, you agree to our{' '}
+            <Link
+              to="/privacy"
+              className="text-gray-600 underline hover:text-gray-700 transition-colors"
+            >
+              Terms of Service
+            </Link>{' '}
+            and{' '}
+            <Link
+              to="/privacy"
+              className="text-gray-600 underline hover:text-gray-700 transition-colors"
+            >
+              Privacy Policy
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   );
