@@ -90,12 +90,13 @@ export default function PaymentPage() {
     setIsLoading(true);
     setIsConfirming(true);
     setIsProcessing(true);
-    // Validate phone number
+
     const validation = numberSchema.safeParse({ phoneNumber });
     if (!validation.success) {
       setErrors(validation.error.errors[0].message);
       setIsLoading(false);
       setIsConfirming(false);
+      setIsProcessing(false);
       return;
     }
     setErrors('');
@@ -180,6 +181,7 @@ export default function PaymentPage() {
             return;
           case 'DECLINED':
             // console.log('Transaction cancelled by user');
+
             navigate('/status/failed', { state: { response } });
             return;
           case 'PROCESSING':
@@ -192,6 +194,7 @@ export default function PaymentPage() {
         }
       } catch (error) {
         // console.error('Error fetching transaction:', error);
+        setIsProcessing(false);
         MpesaStkPushFailed();
       }
     };
@@ -318,7 +321,7 @@ export default function PaymentPage() {
         <ToastContainer />
         {isLoading && (
           <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center  backdrop-blur-sm z-50">
-            <p className="text-white absolute">Confirming...</p>
+            <p className="dark:text-white absolute ">Confirming...</p>
             <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-purple-500"></div>
           </div>
         )}
