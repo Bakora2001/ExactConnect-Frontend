@@ -40,8 +40,8 @@ const NavBar = () => {
           {[
             { to: '/proxy', label: 'Residential Proxy' },
             { to: '/rdp', label: 'VPS Server' },
-            { to: '/maintainance', label: 'VCC Card' },
-            { to: '/maintainance', label: 'Non-VOIP Numbers' },
+            { to: '/coming-soon', label: 'VCC Card' },
+            { to: '/coming-soon', label: 'Non-VOIP Numbers' },
             { to: '/contact', label: 'Contact Us' },
           ].map(({ to, label }, index) => (
             <span
@@ -92,8 +92,8 @@ const NavBar = () => {
             {[
               { label: 'Residential Proxy', link: '/proxy' },
               { label: 'VPS Server', link: '/rdp' },
-              { label: 'VCC Card', link: '/maintainance' },
-              { label: 'Non-VOIP Numbers', link: '/maintainance' },
+              { label: 'VCC Card', link: '/coming-soon' },
+              { label: 'Non-VOIP Numbers', link: '/coming-soon' },
               { label: 'Contact Us', link: '/contact' },
             ].map((item, index) => (
               <span
