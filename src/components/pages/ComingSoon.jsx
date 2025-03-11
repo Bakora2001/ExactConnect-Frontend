@@ -34,6 +34,7 @@ const ComingSoon = () => {
       const payload = {
         recipients: [
           { name: 'ExactConnect', recipient: 'charleskibet101@gmail.com' },
+          { name: 'ExactConnect', recipient: 'support@exactconnect.online' },
         ],
         subject: 'VIBE',
         body: validatedData.message,
