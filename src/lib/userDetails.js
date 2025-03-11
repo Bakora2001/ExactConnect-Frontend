@@ -1,4 +1,5 @@
-//Section to retreive the user details from the localstorage
+//Section to  add and retreive the user details from the localstorage
+
 export const userDetails = JSON.parse(localStorage.getItem('userDetails'));
 
 //Extracting the first name
