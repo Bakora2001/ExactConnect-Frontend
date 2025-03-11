@@ -1,15 +1,25 @@
-//Section to  add and retreive the user details from the localstorage
+// Utility function to get user details from localStorage
+export const getUserDetails = () => {
+  try {
+    const userDetails = JSON.parse(localStorage.getItem('userDetails'));
+    return userDetails || {};
+  } catch (error) {
+    console.error('Error parsing user details from localStorage:', error);
+    return {}; // Return an empty object in case of error
+  }
+};
 
-export const userDetails = JSON.parse(localStorage.getItem('userDetails'));
+// Extracting user details
+export const userDetails = getUserDetails();
 
-//Extracting the first name
-export const firstName = userDetails?.firstName;
+// Extracting the first name with a default value
+export const firstName = userDetails?.firstName || 'Guest';
 
-//Extracting the last name
-export const lastName = userDetails?.lastName;
+// Extracting the last name with a default value
+export const lastName = userDetails?.lastName || '';
 
-//Extracting the email
-export const email = userDetails?.email;
+// Extracting the email with a default value
+export const email = userDetails?.email || '';
 
-//Extracting the customer reference
-export const customerId = userDetails?.customerReference;
+// Extracting the customer reference with a default value
+export const customerId = userDetails?.customerReference || '';
