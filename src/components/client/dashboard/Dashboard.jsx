@@ -4,10 +4,8 @@ import mobile from '/mobiletower.svg';
 import { Link, useNavigate } from 'react-router-dom';
 import React, { useState, useContext, useEffect } from 'react';
 import { userDetails } from '../../../lib/userDetails';
-import { Moon, CloudSun, Plug } from 'lucide-react';
-import { FaSun } from 'react-icons/fa';
+import { Moon, CloudSun, Plug, Sun, AlignJustify, X } from 'lucide-react';
 import { BsFillLightningChargeFill } from 'react-icons/bs';
-import { FaBars, FaTimes } from 'react-icons/fa';
 import SideBar from '../reusable/Sidebar';
 import UserMenu from '../reusable/UserMenu';
 import { DarkModeContext } from '../../../context/DarkModeContext';
@@ -21,19 +19,19 @@ import ErrorPage from '../../pages/ErrorPage';
 const Dashboard = () => {
   const navigate = useNavigate();
   const [proxies, setProxies] = useState(0);
-  console.log(proxies)
+  console.log(proxies);
   const [currentDateTime, setCurrentDateTime] = useState('');
   const [greeting, setGreeting] = useState({ text: '', icon: null });
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const { darkMode } = useContext(DarkModeContext);
 
   // Fetch user details and redirect if not logged in
-//   useEffect(() => {
-//     if (!userDetails) {
-//       navigate('/account/login');
-//     }
-//   }, [navigate, userDetails]);
-// console.log(userDetails)
+  //   useEffect(() => {
+  //     if (!userDetails) {
+  //       navigate('/account/login');
+  //     }
+  //   }, [navigate, userDetails]);
+  console.log(userDetails);
   // Fetch proxies data
   useEffect(() => {
     fetch(`${SERVER_URL}/products/proxies?page=${0}`, {
@@ -79,12 +77,12 @@ const Dashboard = () => {
   };
 
   // Update date and time every second
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     setCurrentDateTime(formatDateTime());
-  //   }, 1000);
-  //   return () => clearInterval(interval);
-  // }, []);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentDateTime(formatDateTime());
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   // Get greeting based on time of day
   const getGreeting = () => {
@@ -92,29 +90,29 @@ const Dashboard = () => {
     if (currentHour >= 5 && currentHour < 12) {
       return {
         text: 'Good Morning',
-        icon: <CloudSun className="inline-block w-6 h-6 text-yellow-500" />,
+        icon: <CloudSun className="inline-block w-5 h-5 text-yellow-500" />,
       };
     } else if (currentHour >= 12 && currentHour < 17) {
       return {
         text: 'Good Afternoon',
-        icon: <FaSun className="inline-block w-6 h-6 text-orange-500" />,
+        icon: <Sun className="inline-block w-5 h-5 text-orange-500" />,
       };
     } else {
       return {
         text: 'Good Evening',
-        icon: <Moon className="inline-block w-6 h-6 text-yellow-500" />,
+        icon: <Moon className="inline-block w-5 h-5 text-yellow-500" />,
       };
     }
   };
 
   // Update greeting every minute
-  // useEffect(() => {
-  //   setGreeting(getGreeting());
-  //   const interval = setInterval(() => {
-  //     setGreeting(getGreeting());
-  //   }, 60000);
-  //   return () => clearInterval(interval);
-  // }, []);
+  useEffect(() => {
+    setGreeting(getGreeting());
+    const interval = setInterval(() => {
+      setGreeting(getGreeting());
+    }, 60000);
+    return () => clearInterval(interval);
+  }, []);
 
   // Toggle sidebar
   const toggleSidebar = () => {
@@ -151,7 +149,7 @@ const Dashboard = () => {
         >
           {/* Header Section */}
           <header
-            className={`flex justify-between items-center py-4 px-6  backdrop-blur-lg bg-opacity-90 shadow-sm border-b sticky top-0 z-50 ${
+            className={`flex justify-between items-center py-3 px-4  backdrop-blur-lg bg-opacity-90 shadow-sm border-b sticky top-0 z-50 ${
               darkMode
                 ? 'bg-[#0c0b08]/50 border-gray-700'
                 : 'bg-[#7C25BA] border-[#7C25BA]'
@@ -164,7 +162,7 @@ const Dashboard = () => {
               }`}
               onClick={toggleSidebar}
             >
-              {isSidebarOpen ? <FaTimes /> : <FaBars />}
+              {isSidebarOpen ? <X /> : <AlignJustify />}
             </button>
 
             <div className="flex-1 flex justify-end">
@@ -174,7 +172,7 @@ const Dashboard = () => {
           <div className="p-6">
             <div className="flex flex-col items-start gap-2">
               <h1 className="text-2xl font-bold">
-                {greeting.text}, {capitalizedFirstName}!
+                {greeting.text}, {capitalizedFirstName}
               </h1>
             </div>
             <p className="text-lg text-gray-500">
