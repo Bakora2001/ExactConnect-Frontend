@@ -78,6 +78,10 @@ const ContactUs = () => {
             recipient: 'maxwellbakora93@gmail.com',
           },
           {
+            name: 'ExactConnect',
+            recipient: 'support@exactconnect.online',
+          },
+          {
             name: 'Exact Connect',
             recipient: 'charleskibet101@gmail.com',
           },
@@ -157,10 +161,10 @@ const ContactUs = () => {
           </p>
           <div className="mt-6">
             <a
-              href="mailto:charleskibet101@gmail.com"
+              href="mailto:support@exactconnect.online"
               className="text-[#7C25BA] hover:underline text-lg"
             >
-              charleskibet101@gmail.com
+              support@exactconnect.online
             </a>
             <div className="mt-2 flex flex-row">
               <button
