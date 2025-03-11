@@ -6,6 +6,8 @@ import {
   FiDollarSign,
   FiCalendar,
 } from 'react-icons/fi';
+import { DatabaseZap, AlignJustify, X } from 'lucide-react';
+import { customerId } from '../../../lib/userDetails';
 import { HiOutlineStatusOnline } from 'react-icons/hi';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { IoIosStarOutline, IoIosCellular } from 'react-icons/io';
@@ -22,7 +24,7 @@ const OrdersPage = () => {
   const navigate = useNavigate();
 
   // const customerId = userDetails.customerReference;
-  const customerId = 'f455b47e-85b2-45db-b8d5-11b6298b4caa';
+  // const customerId = 'f455b47e-85b2-45db-b8d5-11b6298b4caa';
   //Checking if the user even has the logged in
   useEffect(() => {
     if (!userDetails) {
@@ -103,9 +105,9 @@ const OrdersPage = () => {
   );
 
   const allOrders = orderList.map((orders) => {
-    console.log(orders);
+    // console.log(orders);
   });
-  console.log(allOrders);
+  // console.log(allOrders);
   const statusStyles = {
     COMPLETED: 'bg-green-100 text-green-800',
     DECLINED: 'bg-purple-100 text-purple-800',
@@ -115,7 +117,7 @@ const OrdersPage = () => {
   return (
     <div
       className={`min-h-screen flex flex-col md:flex-row ${
-        darkMode ? 'bg-[#131312] text-white' : 'bg-gray-50'
+        darkMode ? 'bg-[#0c0b08] text-white' : 'bg-gray-50'
       }`}
     >
       {/* Sidebar */}
@@ -128,7 +130,7 @@ const OrdersPage = () => {
 
       <main
         className={`flex-1 ${
-          darkMode ? 'bg-[#030917]' : 'bg-white'
+          darkMode ? 'bg-[#0c0b08]' : 'bg-white'
         } transition-all duration-300 ease-in-out ${
           isSidebarOpen
             ? 'blur-sm pointer-events-none md:pointer-events-auto'
@@ -140,7 +142,7 @@ const OrdersPage = () => {
           className={`flex items-center justify-between px-6 py-4 border-b sticky top-0 z-50 backdrop-blur-xl bg-opacity-90 shadow-sm 
           ${
             darkMode
-              ? 'bg-[#131312] border-gray-700'
+              ? 'bg-[#0c0b08] border-gray-700'
               : 'bg-[#7C25BA] border-[#7C25BA]'
           }`}
         >
@@ -150,7 +152,7 @@ const OrdersPage = () => {
             }`}
             onClick={toggleSidebar}
           >
-            {isSidebarOpen ? <FaTimes /> : <FaBars />}
+            {isSidebarOpen ? <X /> : <AlignJustify />}
           </button>
 
           <div className="flex-1 flex justify-end">
@@ -197,7 +199,7 @@ const OrdersPage = () => {
               <div
                 key={order.id}
                 className={`p-4 rounded-xl shadow-sm transition-all hover:shadow-md  hover:bg-[#1e1e1e]  ${
-                  darkMode ? 'bg-[#131312] border-gray-700' : 'bg-white'
+                  darkMode ? 'bg-[#0c0b08] border-gray-700' : 'bg-white'
                 } border`}
               >
                 <div className="flex justify-between items-start mb-4">
@@ -247,17 +249,17 @@ const OrdersPage = () => {
           </div>
 
           {/* Empty State */}
-          {filteredOrders.length === 0 && (
-            <div className="text-center py-12">
-              <div className="inline-block p-4 bg-purple-100 rounded-full mb-4">
-                <HiOutlineStatusOnline className="w-12 h-12 text-purple-600" />
+          {filteredOrders.length === 0 ||
+            (allOrders.length === 0 && (
+              <div className="text-center py-12">
+                <div className="inline-block p-4   rounded-full mb-4 ">
+                  <DatabaseZap className="w-12 h-12 text-purple-600 dark:text-white" />
+                </div>
+                <h3 className="text-xl font-semibold mb-2 text-gray-800 dark:text-gray-400">
+                  No orders found
+                </h3>
               </div>
-              <h3 className="text-xl font-semibold mb-2 text-gray-800">
-                No orders found
-              </h3>
-              <p className="text-gray-600">Try adjusting your search terms</p>
-            </div>
-          )}
+            ))}
         </main>
       </main>
     </div>
