@@ -17,7 +17,11 @@ const Footer = () => {
   const { darkMode, toggleDarkMode } = useContext(DarkModeContext);
 
   return (
-    <footer className={`py-10 border-t border-gray-700 ${darkMode ? 'bg-[#131312] text-white' : 'bg-gray-900 text-white'} relative`}>
+    <footer
+      className={`py-10 border-t border-gray-700 ${
+        darkMode ? 'bg-[#131312] text-white' : 'bg-gray-900 text-white'
+      } relative`}
+    >
       <div className="container mx-auto px-6 max-w-7xl">
         {/* Footer Grid */}
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
@@ -51,12 +55,12 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a href="/maintainance" className="hover:underline">
+                <a href="/privacy" className="hover:underline">
                   Terms & Conditions
                 </a>
               </li>
               <li>
-                <a href="/maintainance" className="hover:underline">
+                <a href="/privacy" className="hover:underline">
                   Privacy Policy
                 </a>
               </li>
@@ -74,18 +78,19 @@ const Footer = () => {
               Contact Info
             </h4>
             <ul className="space-y-2 text-sm">
-              <li>Phone: +254 728703634</li>
-              <li>Email: exactconnect@gmail.com</li>
+              <li>Email: support@exactconnect.online</li>
               <li>Address: Moi Avenue, 00100, Nairobi, Kenya</li>
             </ul>
           </div>
 
           {/* Social Media Links */}
           <div>
-            <h4 className="text-lg font-semibold text-[#7C25BA] mb-4">Socials</h4>
+            <h4 className="text-lg font-semibold text-[#7C25BA] mb-4">
+              Socials
+            </h4>
             <div className="flex space-x-4">
               <a
-              target='__blank'
+                target="__blank"
                 href="https://www.facebook.com/profile.php?id=61572727113037"
                 className="p-2 rounded-full bg-gray-800 hover:bg-purple-600 transition"
                 aria-label="Facebook"
@@ -93,7 +98,7 @@ const Footer = () => {
                 <FaFacebookF className="text-white" />
               </a>
               <a
-               target='__blank'
+                target="__blank"
                 href="https://www.instagram.com/exact_connect/"
                 className="p-2 rounded-full bg-gray-800 hover:bg-purple-600 transition"
                 aria-label="Instagram"
@@ -101,7 +106,7 @@ const Footer = () => {
                 <FaInstagram className="text-white" />
               </a>
               <a
-               target='__blank'
+                target="__blank"
                 href="https://x.com/exact_connect"
                 className="p-2 rounded-full bg-gray-800 hover:bg-purple-600 transition"
                 aria-label="Twitter"
@@ -109,7 +114,7 @@ const Footer = () => {
                 <FaXTwitter className="text-white" />
               </a>
               <a
-               target='__blank'
+                target="__blank"
                 href="#"
                 className="p-2 rounded-full bg-gray-800 hover:bg-purple-600 transition"
                 aria-label="TikTok"
@@ -118,7 +123,7 @@ const Footer = () => {
               </a>
               <a
                 href="#"
-                 target='__blank'
+                target="__blank"
                 className="p-2 rounded-full bg-gray-800 hover:bg-purple-600 transition"
                 aria-label="Pinterest"
               >
@@ -147,8 +152,6 @@ const Footer = () => {
           </p>
         </div>
       </div>
-
-
     </footer>
   );
 };
