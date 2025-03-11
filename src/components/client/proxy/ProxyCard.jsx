@@ -90,7 +90,7 @@ const ProxyCard = ({
                       Price:
                     </span>
                   </div>
-                  <span className="text-sm font-medium text-purple-600">
+                  <span className=" font-bold  text-purple-600">
                     $
                     {proxy?.priceExcC !== null
                       ? proxy?.priceExcC
