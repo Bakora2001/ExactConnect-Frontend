@@ -86,7 +86,7 @@ const ProxyCard = ({
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <DollarSign size={14} className="text-primary" />
-                    <span className="text-sm text-muted-foreground ">
+                    <span className="text-md font-bold text-muted-foreground ">
                       Price:
                     </span>
                   </div>

@@ -19,7 +19,7 @@ import ErrorPage from '../../pages/ErrorPage';
 const Dashboard = () => {
   const navigate = useNavigate();
   const [proxies, setProxies] = useState(0);
-  console.log(proxies);
+  
   const [currentDateTime, setCurrentDateTime] = useState('');
   const [greeting, setGreeting] = useState({ text: '', icon: null });
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -31,7 +31,7 @@ const Dashboard = () => {
   //       navigate('/account/login');
   //     }
   //   }, [navigate, userDetails]);
-  console.log(userDetails);
+  
   // Fetch proxies data
   useEffect(() => {
     fetch(`${SERVER_URL}/products/proxies?page=${0}`, {
