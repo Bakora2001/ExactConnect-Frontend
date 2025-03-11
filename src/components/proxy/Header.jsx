@@ -1,7 +1,7 @@
 import { useState, useMemo, useCallback, useRef, useEffect } from 'react';
 import { IoChevronDown } from 'react-icons/io5';
 import countryList from 'react-select-country-list';
-import countryFlag from '../../../utils/countryFlag';
+import countryFlag from '../../utils/countryFlag';
 
 //We need to pass in us as default until the user passes in another country
 

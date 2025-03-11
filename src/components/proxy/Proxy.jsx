@@ -16,22 +16,15 @@ import ErrorBoundary from '../pages/ErrorBoundary';
 
 const Proxy = () => {
   //States and contexts
-  const [proxies, setProxies] = useState([]);
-  // console.log(proxies);
   const [countryDetails, setCountryDetails] = useState({});
   const [filteredProxies, setFilteredProxies] = useState([]);
-
   const [selectedCountry, setSelectedCountry] = useState('US');
-
   const [selectedRow, setSelectedRow] = useState(null);
   const [rowData, setRowData] = useState({});
-
-  const [loading, setLoading] = useState(true);
   const [loadingProxies, setLoadingProxies] = useState(true);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
-
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
   const { darkMode } = useContext(DarkModeContext);
   const [filters, setFilters] = useState({
@@ -40,10 +33,13 @@ const Proxy = () => {
     city: '',
   });
 
-  const fetchProxies = async (
-    { countryCode = selectedCountry, regionName, isp, city },
-    signal
-  ) => {
+  const fetchProxies = async ({
+    page = currentPage,
+    countryCode = selectedCountry,
+    regionName,
+    isp,
+    city,
+  }) => {
     try {
       setLoadingProxies(true);
 
@@ -54,63 +50,41 @@ const Proxy = () => {
       if (city) params.append('city', city);
 
       const { data } = await axios.get(
-        `${SERVER_URL}/products/proxy/details/global-config?${params.toString()}`,
-        { signal }
+        `${SERVER_URL}/products/proxy/details/global-config?pageNum=${page}&${params.toString()}`
       );
 
       setFilteredProxies(data.filter((proxy) => proxy.loc.cc === countryCode));
-      setError(null);
     } catch (error) {
-      if (axios.isCancel(error)) {
-        setError();
-      }
       console.log(error);
     } finally {
       setLoadingProxies(false);
     }
   };
+  useEffect(() => {
+    fetchProxies(currentPage, selectedCountry);
+  }, [currentPage, selectedCountry]);
 
-  const fetchProxyTotals = async ({ signal }) => {
+  const fetchProxyTotals = async (page = 0) => {
     try {
       const { data } = await axios.get(
-        `${SERVER_URL}/products/proxies?page=1&countryCode=${selectedCountry}&segments=true`,
-        { signal }
+        `${SERVER_URL}/products/proxies?page=${page}&countryCode=${selectedCountry}&segments=true`
       );
 
       setTotalPages(data.total);
       setCountryDetails(data.segments || {});
     } catch (error) {
-      if (axios.isCancel(error)) {
-      }
+      console.log(error);
     } finally {
     }
   };
 
+  // Fetch proxy totals on country change
   useEffect(() => {
-    const abortController = new AbortController();
-    const { signal } = abortController;
-
-    fetchProxies(signal);
-
-    return () => abortController.abort();
-  }, [selectedCountry]);
-
-  useEffect(() => {
-    const abortController = new AbortController();
-    const { signal } = abortController;
-
-    fetchProxyTotals(signal);
-
-    return () => abortController.abort();
-  }, [selectedCountry]);
+    fetchProxyTotals(currentPage);
+  }, [currentPage, selectedCountry]);
 
   const applyFilters = () => {
-    const abortController = new AbortController();
-    const { signal } = abortController;
-
-    fetchProxies(filters, signal);
-
-    return () => abortController.abort();
+    fetchProxies(filters);
   };
 
   const handleRowClick = useCallback((rowIndex, proxy) => {
