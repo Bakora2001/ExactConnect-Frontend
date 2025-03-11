@@ -5,6 +5,7 @@ import React, {
   useMemo,
   useCallback,
 } from 'react';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import Sidebar from '../reusable/Sidebar';
@@ -30,6 +31,7 @@ const Proxy = () => {
   const [countryDetails, setCountryDetails] = useState({});
   const [selectedRow, setSelectedRow] = useState(null);
   const [rowData, setRowData] = useState({});
+  
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(0);
@@ -56,61 +58,55 @@ const Proxy = () => {
     city: '',
   });
 
-  const fetchProxies = useCallback(
-    async (countryCode = selectedCountry, regionName, isp, city) => {
-      try {
-        setLoading(true);
-        setError(null);
+  const fetchProxies = async ({
+    page = currentPage,
+    countryCode = selectedCountry,
+    regionName,
+    isp,
+    city,
+  }) => {
+    try {
+      setLoading(true);
 
-        //Construct query params dynamically
-        const params = new URLSearchParams();
-        if (countryCode) params.append('countryCode', countryCode);
-        if (isp) params.append('isp', isp);
-        if (regionName) params.append('regionName', regionName);
-        if (city) params.append('city', city);
+      const params = new URLSearchParams();
+      if (countryCode) params.append('countryCode', countryCode);
+      if (isp) params.append('isp', isp);
+      if (regionName) params.append('regionName', regionName);
+      if (city) params.append('city', city);
 
-        //Getting server response
-        const response = await fetch(
-          `${SERVER_URL}/products/proxy/details/global-config?${params.toString()}`
-        );
+      const { data } = await axios.get(
+        `${SERVER_URL}/products/proxy/details/global-config?pageNum=${page}&${params.toString()}`
+      );
 
-        const data = await response.json();
-
-        setProxies(data);
-        setFilteredProxies(
-          data.filter((proxy) => proxy.loc.cc === countryCode)
-        );
-      } catch (error) {
-        console.error('There is an an err', error);
-      } finally {
-        setLoading(false);
-      }
+      setFilteredProxies(data.filter((proxy) => proxy.loc.cc === countryCode));
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
     }
-  );
-
+  };
   useEffect(() => {
-    fetchProxies(selectedCountry);
-  }, [selectedCountry]);
+    fetchProxies(currentPage, selectedCountry);
+  }, [currentPage, selectedCountry]);
 
   //Fetching the total proxies from the server
-  const fetchProxyTotals = async (page = 0, countryCode = selectedCountry) => {
+  const fetchProxyTotals = async (page = 0) => {
     try {
-      const url = `${SERVER_URL}/products/proxies?page=${page}&countryCode=${countryCode}&segments=${true}`;
-
-      const response = await fetch(url);
-
-      const data = await response.json();
+      const { data } = await axios.get(
+        `${SERVER_URL}/products/proxies?page=${page}&countryCode=${selectedCountry}&segments=true`
+      );
 
       setTotalPages(data.total);
-      setAllData(data.cursor);
       setCountryDetails(data.segments || {});
     } catch (error) {
-      console.error(error);
+      console.log(error);
+    } finally {
     }
   };
 
+  // Fetch proxy totals on country change
   useEffect(() => {
-    fetchProxyTotals(currentPage, selectedCountry);
+    fetchProxyTotals(currentPage);
   }, [currentPage, selectedCountry]);
 
   //This is the function to pass in the details of the selected proxy

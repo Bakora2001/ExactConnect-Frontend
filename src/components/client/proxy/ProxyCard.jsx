@@ -1,7 +1,6 @@
 // This component renders the proxies in cards
-// import Wifi from '../../icons/Wifi';
-import Cell from '../../icons/Cell';
-import { MapPin,Wifi, Globe, DollarSign, Signal, Star } from 'lucide-react';
+
+import { MapPin, Wifi, Globe, DollarSign, Signal, Star } from 'lucide-react';
 
 const ProxyCard = ({
   filteredProxies,
@@ -9,8 +8,8 @@ const ProxyCard = ({
   selectedRow,
   handleRowClick,
 }) => (
-  <div className="mt-24 w-full container py-8">
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4 lg:p-8">
+  <div className="mt-28 w-full px-4 sm:px-6 lg:px-8 py-12">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
       {filteredProxies.map((proxy, index) => (
         <div
           key={proxy.id}
