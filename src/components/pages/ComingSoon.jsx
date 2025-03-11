@@ -78,12 +78,19 @@ const ComingSoon = () => {
         <div className="w-full max-w-3xl mx-auto text-center space-y-10 animate-fade-in">
           {/* Logo */}
           <div className="inline-block mb-4 mx-auto">
-            <div className="w-16 h-16 rounded-2xl bg-primary flex items-center justify-center shadow-lg hover:shadow-xl transition-shadow duration-300 dark:bg-primary/90">
-              <div className="text-white text-2xl font-bold">L</div>
+            <div
+              className="w-16 h-16 rounded-2xl  bg-primary flex items-center justify-center 
+      shadow-lg hover:shadow-xl transition-shadow duration-300 
+      dark:bg-primary/90 dark:shadow-[rgba(255,255,255,0.3)]"
+            >
+              <img
+                src="/assets/world_7139124.png"
+                alt="ExactConnect Logo"
+                className="w-12 h-12 object-contain filter invert"
+              />
             </div>
           </div>
 
-          {/* Main content */}
           <div className="space-y-6">
             <h1 className="text-4xl md:text-6xl font-bold text-purple-600 dark:text-purple-400 tracking-tight">
               Coming Soon
@@ -168,7 +175,7 @@ const ComingSoon = () => {
               {/* Submit Button */}
               <button
                 type="submit"
-                className={`w-full px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 transition-colors duration-200 flex items-center justify-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:border dark:border-purple-600 ${
+                className={`w-full px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 transition-colors duration-200 flex items-center justify-center bg-purple-600 dark:hover:bg-purple-700 dark:border dark:border-purple-600 ${
                   isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
                 }`}
                 disabled={isSubmitting}
