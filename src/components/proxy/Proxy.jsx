@@ -1,11 +1,5 @@
-import React, {
-  useEffect,
-  useState,
-  useContext,
-  useMemo,
-  useCallback,
-} from 'react';
-
+import React, { useEffect, useState, useContext, useCallback } from 'react';
+import axios from 'axios';
 import Navbar from '../reusables/Navbar';
 import { SERVER_URL } from '../../services/data';
 
@@ -22,14 +16,12 @@ import ErrorBoundary from '../pages/ErrorBoundary';
 
 const Proxy = () => {
   //States and contexts
-  const [proxies, setProxies] = useState([]);
   const [countryDetails, setCountryDetails] = useState({});
   const [filteredProxies, setFilteredProxies] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState('US');
-  console.log(selectedCountry);
   const [selectedRow, setSelectedRow] = useState(null);
   const [rowData, setRowData] = useState({});
-  const [loading, setLoading] = useState(true);
+  const [loadingProxies, setLoadingProxies] = useState(true);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
@@ -41,55 +33,59 @@ const Proxy = () => {
     city: '',
   });
 
-  const fetchProxies = useCallback(
-    async ({ countryCode = selectedCountry, regionName, isp, city } = {}) => {
-      try {
-        setLoading(true);
-
-        //Construct query params dynamically
-        const params = new URLSearchParams();
-        if (countryCode) params.append('countryCode', countryCode);
-        if (isp) params.append('isp', isp);
-        if (regionName) params.append('regionName', regionName);
-        if (city) params.append('city', city);
-
-        const response = await fetch(
-          `${SERVER_URL}/products/proxy/details/global-config?${params.toString()}`
-        );
-        const data = await response.json();
-        setProxies(data);
-
-        setFilteredProxies(
-          data.filter((proxy) => proxy.loc.cc === countryCode)
-        );
-      } catch (error) {
-        console.error('There is an an err', error);
-      } finally {
-        setLoading(false);
-      }
-    }
-  );
-  useEffect(() => {
-    fetchProxies(selectedCountry);
-  }, [selectedCountry]);
-
-  const fetchProxyTotals = async (page = 0, countryCode = selectedCountry) => {
+  const fetchProxies = async ({
+    page = currentPage,
+    countryCode = selectedCountry,
+    regionName,
+    isp,
+    city,
+  }) => {
     try {
-      const url = `${SERVER_URL}/products/proxies?page=${page}&countryCode=${countryCode}&segments=${true}`;
-      const response = await fetch(url);
-      console.log(response);
-      const data = await response.json();
-      // console.log(data);
+      setLoadingProxies(true);
+
+      const params = new URLSearchParams();
+      if (countryCode) params.append('countryCode', countryCode);
+      if (isp) params.append('isp', isp);
+      if (regionName) params.append('regionName', regionName);
+      if (city) params.append('city', city);
+
+      const { data } = await axios.get(
+        `${SERVER_URL}/products/proxy/details/global-config?pageNum=${page}&${params.toString()}`
+      );
+
+      setFilteredProxies(data.filter((proxy) => proxy.loc.cc === countryCode));
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoadingProxies(false);
+    }
+  };
+  useEffect(() => {
+    fetchProxies(currentPage, selectedCountry);
+  }, [currentPage, selectedCountry]);
+
+  const fetchProxyTotals = async (page = 0) => {
+    try {
+      const { data } = await axios.get(
+        `${SERVER_URL}/products/proxies?page=${page}&countryCode=${selectedCountry}&segments=true`
+      );
+
       setTotalPages(data.total);
       setCountryDetails(data.segments || {});
     } catch (error) {
-      console.error(error);
+      console.log(error);
+    } finally {
     }
   };
 
+  // Fetch proxy totals on country change
   useEffect(() => {
-    fetchProxyTotals(currentPage, selectedCountry);
+    fetchProxyTotals(currentPage);
   }, [currentPage, selectedCountry]);
+
+  const applyFilters = () => {
+    fetchProxies(filters);
+  };
 
   const handleRowClick = useCallback((rowIndex, proxy) => {
     setSelectedRow(rowIndex);
@@ -108,22 +104,6 @@ const Proxy = () => {
     }
   };
 
-  const filteredResults = useMemo(() => {
-    return (proxies || []).filter(
-      (proxy) =>
-        (!filters.regions ||
-          proxy.loc.reg?.includes(filters.regions.toLowerCase())) &&
-        (!filters.cities ||
-          proxy.loc.cc?.includes(filters.cities.toLowerCase())) &&
-        (!filters.isp ||
-          proxy.loc?.isp?.toLowerCase().includes(filters.isp.toLowerCase()))
-    );
-  }, [filters, proxies]);
-
-  useEffect(() => {
-    setFilteredProxies(filteredResults);
-  }, [filteredResults]);
-
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
     setFilters((prevFilters) => ({
@@ -140,9 +120,6 @@ const Proxy = () => {
     });
   };
 
-  const applyFilters = () => {
-    fetchProxies(filters);
-  };
   const toggleFilterModal = () => {
     setIsFilterModalOpen(!isFilterModalOpen);
   };
@@ -162,13 +139,13 @@ const Proxy = () => {
             setSelectedCountry={setSelectedCountry}
             darkMode={darkMode}
             toggleFilterModal={toggleFilterModal}
-            fetchProxies={fetchProxies}
+            // fetchProxies={fetchProxies}
           />
         </div>
 
         <Loading
           darkMode={darkMode}
-          loading={loading}
+          loadingProxies={loadingProxies}
           totalPages={totalPages}
           error={error}
           filteredProxies={filteredProxies}
@@ -196,7 +173,6 @@ const Proxy = () => {
 
         <Pagination
           currentPage={currentPage}
-          loading={loading}
           totalPages={totalPages}
           handlePreviousPage={handlePreviousPage}
           handleNextPage={handleNextPage}

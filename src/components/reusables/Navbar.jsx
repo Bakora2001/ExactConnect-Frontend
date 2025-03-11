@@ -1,7 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaBars, FaTimes } from 'react-icons/fa';
-import LogoIcon from './LogoIcon';
 import { DarkModeContext } from '../../context/DarkModeContext';
 const NavBar = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -41,8 +40,8 @@ const NavBar = () => {
           {[
             { to: '/proxy', label: 'Residential Proxy' },
             { to: '/rdp', label: 'VPS Server' },
-            { to: '/maintainance', label: 'VCC Card' },
-            { to: '/maintainance', label: 'Non-VOIP Numbers' },
+            { to: '/coming-soon', label: 'VCC Card' },
+            { to: '/coming-soon', label: 'Non-VOIP Numbers' },
             { to: '/contact', label: 'Contact Us' },
           ].map(({ to, label }, index) => (
             <span
@@ -77,7 +76,7 @@ const NavBar = () => {
           darkMode ? 'bg-[#131312] text-white' : 'bg-[#7C25BA] text-white  '
         } z-20 transform ${
           isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full '
-        } transition-transform duration-300 shadow-lg border border-gray-600 rounded-[16px] mb-2 mt-2`}
+        } transition-transform duration-300 shadow-lg border border-gray-600 rounded-[16px]  `}
       >
         <div className="p-6 flex flex-col space-y-6">
           {/* Close Button */}
@@ -93,8 +92,8 @@ const NavBar = () => {
             {[
               { label: 'Residential Proxy', link: '/proxy' },
               { label: 'VPS Server', link: '/rdp' },
-              { label: 'VCC Card', link: '/maintainance' },
-              { label: 'Non-VOIP Numbers', link: '/maintainance' },
+              { label: 'VCC Card', link: '/coming-soon' },
+              { label: 'Non-VOIP Numbers', link: '/coming-soon' },
               { label: 'Contact Us', link: '/contact' },
             ].map((item, index) => (
               <span

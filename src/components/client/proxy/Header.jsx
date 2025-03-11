@@ -1,7 +1,7 @@
 import { useState, useMemo, useCallback, useRef, useEffect } from 'react';
 import { IoChevronDown } from 'react-icons/io5';
 import countryList from 'react-select-country-list';
-import countryFlag from '../../../services/countryFlag';
+import countryFlag from '../../../utils/countryFlag';
 
 const Header = ({ darkMode, fetchProxies, setSelectedCountry }) => {
   const [selectedCountry, setSelectedCountryState] = useState('US'); // Keep track of selected country
@@ -88,7 +88,7 @@ const Header = ({ darkMode, fetchProxies, setSelectedCountry }) => {
 
   return (
     <div
-      className={`px-4 py-3 md:px-8 border-gray-700 dark:bg-[#131312] border-b border-transparent`}
+      className={`px-4 py-3 md:px-8 border-gray-700 dark:bg-[#0c0b08] border-b border-transparent`}
     >
       <h1
         className={`text-2xl ${
@@ -99,7 +99,7 @@ const Header = ({ darkMode, fetchProxies, setSelectedCountry }) => {
       </h1>
       <div
         className={`flex flex-wrap items-center gap-3 md:gap-4 lg:gap-6 ${
-          darkMode ? 'bg-[#131312]' : 'bg-white'
+          darkMode ? 'bg-[#0c0b08]' : 'bg-white'
         }`}
       >
         {visibleCountries.map((country) => (
@@ -117,7 +117,7 @@ const Header = ({ darkMode, fetchProxies, setSelectedCountry }) => {
               onClick={() => setShowDropdown((prev) => !prev)}
               className={`flex items-center gap-2 px-3 md:px-4 py-2 text-sm  rounded-full border  ${
                 darkMode
-                  ? 'bg-[#131312] text-white border-gray-700 hover:bg-gray-100 hover:text-black'
+                  ? 'bg-[#0c0b08] text-white border-gray-700 hover:bg-gray-100 hover:text-black'
                   : 'bg-white text-black border-gray-400'
               }   transition-all duration-300`}
               aria-expanded={showDropdown}

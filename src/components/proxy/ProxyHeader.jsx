@@ -4,7 +4,7 @@ import FilterButton from './FilterButton';
 const ProxyHeader = ({
   darkMode,
   toggleFilterModal,
-  fetchProxies,
+
   setSelectedCountry,
 }) => (
   <div
@@ -14,11 +14,7 @@ const ProxyHeader = ({
         : 'bg-white text-gray-800 shadow-lg'
     } `}
   >
-    <Header
-      darkMode={darkMode}
-      fetchProxies={fetchProxies}
-      setSelectedCountry={setSelectedCountry}
-    />
+    <Header darkMode={darkMode} setSelectedCountry={setSelectedCountry} />
 
     <button className={`mt-6 px-4 py-3  gap-3 text-black `}>
       <FilterButton toggleFilterModal={toggleFilterModal} />

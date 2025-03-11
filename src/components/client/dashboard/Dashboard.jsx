@@ -3,16 +3,13 @@ import server from '/servertwo.svg';
 import mobile from '/mobiletower.svg';
 import { Link, useNavigate } from 'react-router-dom';
 import React, { useState, useContext, useEffect } from 'react';
-import { Moon, CloudSun, Unplug, PlugZap, Plug } from 'lucide-react';
-import { FaSun, FaMoon } from 'react-icons/fa';
-import { WiSunrise } from 'react-icons/wi';
+import { userDetails } from '../../../lib/userDetails';
+import { Moon, CloudSun, Plug, Sun, AlignJustify, X } from 'lucide-react';
 import { BsFillLightningChargeFill } from 'react-icons/bs';
-import { FiChevronRight } from 'react-icons/fi';
-
-import { FaBars, FaTimes } from 'react-icons/fa';
 import SideBar from '../reusable/Sidebar';
 import UserMenu from '../reusable/UserMenu';
 import { DarkModeContext } from '../../../context/DarkModeContext';
+import { capitalizedFirstName } from '../../../utils/capitalize';
 
 import { SERVER_URL } from '../../../services/data';
 import { IoIosCellular } from 'react-icons/io';
@@ -21,23 +18,20 @@ import ErrorPage from '../../pages/ErrorPage';
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const capitalizeFirstLetter = (str) => {
-    return str?.charAt(0).toUpperCase() + str?.slice(1);
-  };
-  const userDetails = JSON.parse(localStorage.getItem('userDetails'));
   const [proxies, setProxies] = useState(0);
+  console.log(proxies);
   const [currentDateTime, setCurrentDateTime] = useState('');
   const [greeting, setGreeting] = useState({ text: '', icon: null });
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const { darkMode } = useContext(DarkModeContext);
 
   // Fetch user details and redirect if not logged in
-  useEffect(() => {
-    if (!userDetails) {
-      navigate('/account/login');
-    }
-  }, [navigate, userDetails]);
-
+  //   useEffect(() => {
+  //     if (!userDetails) {
+  //       navigate('/account/login');
+  //     }
+  //   }, [navigate, userDetails]);
+  console.log(userDetails);
   // Fetch proxies data
   useEffect(() => {
     fetch(`${SERVER_URL}/products/proxies?page=${0}`, {
@@ -96,17 +90,17 @@ const Dashboard = () => {
     if (currentHour >= 5 && currentHour < 12) {
       return {
         text: 'Good Morning',
-        icon: <CloudSun className="inline-block w-6 h-6 text-yellow-500" />,
+        icon: <CloudSun className="inline-block w-5 h-5 text-yellow-500" />,
       };
     } else if (currentHour >= 12 && currentHour < 17) {
       return {
         text: 'Good Afternoon',
-        icon: <FaSun className="inline-block w-8 h-8 text-orange-500" />,
+        icon: <Sun className="inline-block w-5 h-5 text-orange-500" />,
       };
     } else {
       return {
         text: 'Good Evening',
-        icon: <Moon className="inline-block w-6 h-6 text-yellow-500" />,
+        icon: <Moon className="inline-block w-5 h-5 text-yellow-500" />,
       };
     }
   };
@@ -132,7 +126,7 @@ const Dashboard = () => {
     >
       <div
         className={`min-h-screen flex relative ${
-          darkMode ? 'bg-[#1a1a1a]' : 'bg-gray-100'
+          darkMode ? 'bg-[#0c0b08]' : 'bg-gray-100'
         }`}
       >
         {/* Sidebar */}
@@ -146,7 +140,7 @@ const Dashboard = () => {
         {/* Main Content */}
         <main
           className={`flex-1 ${
-            darkMode ? 'bg-[#1a1a1a]' : 'bg-white'
+            darkMode ? 'bg-[#0c0b08]' : 'bg-white'
           } transition-all duration-300 ease-in-out  ${
             isSidebarOpen
               ? 'blur-sm pointer-events-none md:pointer-events-auto'
@@ -155,9 +149,9 @@ const Dashboard = () => {
         >
           {/* Header Section */}
           <header
-            className={`flex justify-between items-center py-4 px-6  backdrop-blur-xl bg-opacity-90 shadow-sm sticky top-0 z-50 ${
+            className={`flex justify-between items-center py-3 px-4  backdrop-blur-lg bg-opacity-90 shadow-sm border-b sticky top-0 z-50 ${
               darkMode
-                ? 'bg-[#131312]/50 border-gray-700'
+                ? 'bg-[#0c0b08]/50 border-gray-700'
                 : 'bg-[#7C25BA] border-[#7C25BA]'
             }`}
           >
@@ -168,18 +162,17 @@ const Dashboard = () => {
               }`}
               onClick={toggleSidebar}
             >
-              {isSidebarOpen ? <FaTimes /> : <FaBars />}
+              {isSidebarOpen ? <X /> : <AlignJustify />}
             </button>
 
             <div className="flex-1 flex justify-end">
-              <UserMenu userDetails={userDetails} />
+              <UserMenu />
             </div>
           </header>
           <div className="p-6">
             <div className="flex flex-col items-start gap-2">
               <h1 className="text-2xl font-bold">
-                {greeting.text}, {capitalizeFirstLetter(userDetails?.firstName)}
-                !
+                {greeting.text}, {capitalizedFirstName}
               </h1>
             </div>
             <p className="text-lg text-gray-500">
@@ -190,10 +183,10 @@ const Dashboard = () => {
           {/* Dashboard Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4 lg:p-8">
             <div
-              className={`relative  rounded-xl p-6 shadow-xl border overflow-hidden transition-transform transform hover:scale-[1.02]   [background:linear-gradient(45deg,#1a1a1a,theme(colors.black)_50%,#1a1a1a)_padding-box,conic-gradient(from_var(--border-angle),theme(colors.gray.600/.48)_80%,_theme(colors.white)_86%,_theme(colors.white)_90%,_theme(colors.white)_94%,_theme(colors.slate.600/.48))_border-box] border-transparent animate-border ${
+              className={`relative  rounded-xl p-6 shadow-xl border overflow-hidden transition-transform transform hover:scale-[1.02]    border-transparent animate-border ${
                 darkMode
-                  ? 'bg-[#181918] border-gray-700 '
-                  : 'bg-white border-gray-200 shadow-lg'
+                  ? 'bg-[#181918] border-gray-700 [background:linear-gradient(45deg,#1a1a1a,theme(colors.black)_50%,#1a1a1a)_padding-box,conic-gradient(from_var(--border-angle),theme(colors.gray.600/.48)_80%,_theme(colors.white)_86%,_theme(colors.white)_90%,_theme(colors.white)_94%,_theme(colors.slate.600/.48))_border-box] '
+                  : 'bg-white  border-gray-200 shadow-xl rounded-md'
               }`}
             >
               {/* Neon Glow Effect */}
@@ -311,7 +304,7 @@ const Dashboard = () => {
             <div
               className={`rounded-lg p-6 shadow-md flex flex-col items-center border ${
                 darkMode
-                  ? 'bg-[#1a1b1f] border-gray-700'
+                  ? 'bg-[#0c0b08] border-gray-700'
                   : 'bg-gray-100 border-gray-300'
               }`}
             >
@@ -339,7 +332,7 @@ const Dashboard = () => {
             <div
               className={`rounded-lg p-6 shadow-md ${
                 darkMode
-                  ? 'bg-[#1a1b1f] border-gray-700'
+                  ? 'bg-[#0c0b08]  border border-gray-700'
                   : 'bg-white border-gray-200'
               }`}
             >
@@ -373,7 +366,7 @@ const Dashboard = () => {
             <div
               className={`rounded-lg p-6 shadow-md ${
                 darkMode
-                  ? 'bg-[#1a1b1f] border-gray-700'
+                  ? 'bg-[#0c0b08] border border-gray-700'
                   : 'bg-white border-gray-200'
               }`}
             >

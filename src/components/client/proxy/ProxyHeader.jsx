@@ -8,9 +8,9 @@ const ProxyHeader = ({
   setSelectedCountry,
 }) => (
   <div
-    className={` custom-class fixed z-10  max-w-screen-2xl w-full border-b  flex items-center justify-between ${
+    className={` fixed z-10 w-full max-w-screen-2xl mx-auto  border-b flex items-center justify-between ${
       darkMode
-        ? 'bg-[#131312] text-white border-gray-700'
+        ? 'bg-[#0c0b08] text-white border-gray-700'
         : 'bg-white text-gray-800 shadow-lg'
     } `}
   >
@@ -20,7 +20,7 @@ const ProxyHeader = ({
       setSelectedCountry={setSelectedCountry}
     />
 
-    <button className={` mt-6 px-4 py-3  gap-3 text-black `}>
+    <button className={` mt-6  px-4 py-3  gap-3 text-black `}>
       <FilterButton toggleFilterModal={toggleFilterModal} />
     </button>
   </div>

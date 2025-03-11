@@ -1,16 +1,17 @@
 import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { z } from 'zod';
-import { FcGoogle } from "react-icons/fc";
-import toast from 'react-hot-toast';
-import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
+import { FcGoogle } from 'react-icons/fc';
+import { toast } from 'react-hot-toast';
+import { MailIcon, LockIcon, EyeIcon, EyeOffIcon } from 'lucide-react';
+import Button from '../reusables/Button';
 
 //Dark mode
 import { DarkModeContext } from '../../context/DarkModeContext';
 
 //Base url
 import { SERVER_URL } from '../../services/data';
-//!Routing issue
+
 //Zod form validation
 const loginSchema = z.object({
   email: z.string().email({ message: 'Invalid email address' }),
@@ -52,15 +53,19 @@ function Login() {
       });
 
       const result = await response.json();
+
       if (response.ok) {
-        navigate('/dashboard');
-        localStorage.setItem('userDetails', JSON.stringify({
-          customerReference: result.customerReference,
-          email: result.email,
-          firstName:result.firstName,
-          lastName:result.lastName
-        }));
+        localStorage.setItem(
+          'userDetails',
+          JSON.stringify({
+            customerReference: result.customerReference,
+            email: result.email,
+            firstName: result.firstName,
+            lastName: result.lastName,
+          })
+        );
         toast.success('Login successsful');
+        navigate('/dashboard');
       }
     } catch (err) {
       if (err instanceof z.ZodError) {
@@ -81,45 +86,75 @@ function Login() {
 
   return (
     <div
-      className={`min-h-screen  w-screen h-screen flex items-center justify-center ${darkMode ? "bg-[#1A1A1A] text-white" : "bg-gray-100 text-black"
-        }`}
+      className={`min-h-screen  w-screen h-screen flex items-center justify-center   ${
+        darkMode ? 'bg-[#0c0b08] text-white' : 'bg-gray-100 text-black'
+      }`}
     >
       <div
-        className={`${darkMode
-          ? 'bg-[#131312] text-white border-gray-700'
-          : 'bg-white text-black border-gray-100'
-          } p-6 rounded-lg shadow-lg w-5/6 max-w-sm border `}
+        className={`${
+          darkMode
+            ? 'bg-[#131312] text-white border-gray-700'
+            : 'bg-white text-black border-gray-100'
+        } p-6 rounded-lg shadow-lg w-5/6 max-w-sm border `}
       >
-        <h2 className="text-3xl font-circular text-center hover:text-purple-600 transition duration-300">
+        <h2 className=" font-circular text-3xl font-semibold tracking-tight text-center hover:text-purple-600 transition duration-300">
           Welcome Back
         </h2>
-        <p className="text-white text-sm text-center mt-2 font-semibold">Sign in to your account</p>
+        <p className=" text-sm text-center mt-2  mb-4 text-muted-foreground">
+          Enter your credentials to sign in
+        </p>
 
-        <form onSubmit={handleLoginSubmit} >
+        <form onSubmit={handleLoginSubmit}>
           {/* Email Field */}
-          <div className='mb-4'>
+          <div className="mb-4">
             <label
               htmlFor="email"
-              className={`mb-1 block text-sm font-medium ${darkMode ? 'text-white' : 'text-black'
-                }`}
-            >Email
+              className={`mb-1 block text-sm font-medium ${
+                darkMode ? 'text-white' : 'text-black'
+              }`}
+            >
+              Email
             </label>
-            <input
-              type="email"
-              name="email"
-              id="email"
-              placeholder="you@example.com"
-              value={formData.email}
-              onChange={handleChange}
-              className={`w-full h-12 ${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
-                } px-4 py-2 border border-gray-600  ${errors.email ? 'border-red-500' : 'border-gray-300'
-                } rounded-lg text-sm focus:outline-none focus:ring-2 ${errors.email ? 'focus:ring-red-500' : 'focus:ring-gray-500'
-                }`}
-              aria-invalid={!!errors.email}
-              aria-describedby="email_error"
-            />
+
+            {/* Stable Container */}
+            <div className="relative flex items-center">
+              {/* Email Icon */}
+              <div className="absolute left-3 flex items-center">
+                <MailIcon
+                  className={`h-5 w-5 ${
+                    darkMode ? 'text-gray-400' : 'text-gray-600'
+                  }`}
+                />
+              </div>
+
+              {/* Email Input (Fixed Height) */}
+              <input
+                type="email"
+                name="email"
+                id="email"
+                placeholder="you@example.com"
+                value={formData.email}
+                onChange={handleChange}
+                className={`w-full h-12 pl-10 rounded-lg text-sm border focus:outline-none focus:ring-2  
+        ${
+          darkMode
+            ? 'bg-[#131312] text-white border-gray-600'
+            : 'bg-gray-100 text-black border-gray-300'
+        }
+        ${
+          errors.email
+            ? 'border-red-500 focus:ring-red-500'
+            : 'border-gray-300 focus:ring-gray-500'
+        }
+      `}
+                aria-invalid={!!errors.email}
+                aria-describedby="email_error"
+              />
+            </div>
+
+            {/* Error Message (Doesn't Affect Layout) */}
             {errors.email && (
-              <p id="user_name_error" className="text-red-500 text-sm mt-1">
+              <p id="email_error" className="text-red-500 text-sm mt-1">
                 {errors.email}
               </p>
             )}
@@ -129,12 +164,20 @@ function Login() {
           <div className="mb-4 relative">
             <label
               htmlFor="password"
-              className={`mb-1 block text-sm font-medium ${darkMode ? 'text-white' : 'text-black'
-                }`}
+              className={`mb-1 block text-sm font-medium ${
+                darkMode ? 'text-white' : 'text-black'
+              }`}
             >
               Password
             </label>
+
             <div className="relative">
+              {/* Lock Icon */}
+              <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">
+                <LockIcon className="h-5 w-5" />
+              </div>
+
+              {/* Password Input */}
               <input
                 type={showPassword ? 'text' : 'password'}
                 name="password"
@@ -142,85 +185,111 @@ function Login() {
                 placeholder="********"
                 value={formData.password}
                 onChange={handleChange}
-                className={`w-full h-12 ${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
-                  } px-4 py-2 pr-10 border ${errors.password ? 'border-red-500' : 'border-gray-600'
-                  } rounded-lg text-sm  focus:outline-none focus:ring-2 ${errors.password ? 'focus:ring-red-500' : 'focus:ring-gray-500'
-                  }`}
+                className={`w-full h-12 pl-10 pr-12 rounded-lg text-sm border  focus:outline-none focus:ring-2
+        ${
+          darkMode
+            ? 'bg-[#131312] text-white border-gray-600'
+            : 'bg-gray-100 text-black border-gray-300'
+        }
+        ${
+          errors.password
+            ? 'border-red-500 focus:ring-red-500'
+            : 'border-gray-300 focus:ring-gray-500'
+        }
+      `}
                 aria-invalid={!!errors.password}
                 aria-describedby="password_error"
               />
+
+              {/* Eye Toggle Icon */}
               <span
                 onClick={() => setShowPassword((prev) => !prev)}
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-500 hover:text-gray-300"
+                className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer transition-colors"
               >
                 {showPassword ? (
-                  <AiFillEyeInvisible className="h-5 w-5" />
+                  <EyeOffIcon
+                    className={`h-5 w-5 ${
+                      darkMode ? 'text-gray-500' : 'text-gray-500'
+                    }`}
+                  />
                 ) : (
-                  <AiFillEye className="h-5 w-5" />
+                  <EyeIcon
+                    className={`h-5 w-5 ${
+                      darkMode ? 'text-gray-500' : 'text-gray-500'
+                    }`}
+                  />
                 )}
               </span>
             </div>
+
+            {/* Error Message */}
             {errors.password && (
               <p id="password_error" className="text-red-500 text-sm mt-1">
                 {errors.password}
               </p>
             )}
-            <div className="flex justify-end mt-2 text-gray-600">
+
+            {/* Forgot Password Link */}
+            <div className="flex justify-end mt-2">
               <Link
                 to="/account/forgotpassword"
-                className="text-sm font-medium text-muted-foreground hover:opacity-75"
+                className={`text-sm font-medium transition-opacity hover:opacity-75 ${
+                  darkMode ? 'text-gray-400' : 'text-gray-600'
+                }`}
               >
                 Forgot password?
               </Link>
             </div>
-
           </div>
 
           {/* Forgot Password */}
 
-
-
           {/* Login Button */}
-          <button
-            type="submit"
-            className="w-full bg-purple-600 text-white py-3 rounded-lg text-lg font-medium hover:bg-purple-700 transition duration-300 flex items-center justify-center"
-            disabled={isLoading}
-          >
-            {isLoading ? (
-              <svg className="animate-spin h-5 w-5 mr-2" viewBox="0 0 24 24">
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                <path
-                  className="opacity-75"
-                  fill="currentColor"
-                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 2.419.876 4.623 2.334 6.291l1.666-1.666z"
-                />
-              </svg>
-            ) : (
-              "Login"
-            )}
-          </button>
+          <Button label="Login" isLoading={isLoading} />
         </form>
 
         {/* Divider */}
         <div className="flex items-center my-6">
           <div className="flex-grow border-t border-gray-700"></div>
-          <span className={`mx-3 text-sm ${darkMode?'text-white':'text-black'}`}>Or continue with</span>
+          <span
+            className={`mx-3 text-sm ${darkMode ? 'text-white' : 'text-black'}`}
+          >
+            Or continue with
+          </span>
           <div className="flex-grow border-t border-gray-700"></div>
         </div>
 
         {/* Google Login */}
-        <button className="w-full flex items-center justify-center border border-gray-700 py-3 px-4 rounded-lg hover:bg-gray-100 transition duration-300">
+        <button className="w-full flex items-center justify-center border dark:border-gray-700 py-3 px-4 rounded-lg hover:bg-black/80 transition duration-300 border-gray-300 bg-gray-100 hover:bg-white/80 dark:bg-[#131312] dark:hover:bg-[#131312] dark:hover:bg-opacity-80">
           <FcGoogle className="mr-2 h-5 w-5" />
           Sign in with Google
         </button>
 
-        {/* Sign Up Link */}
-        <p className="text-center text-sm mt-4">
-          Don't have an account?{" "}
-          <Link to="/account/signup" className="text-purple-600 font-semibold hover:underline">
+        <div className="text-center text-sm mt-4">
+          Don't have an account?{' '}
+          <Link
+            to="/account/signup"
+            className="text-purple-600 font-semibold hover:underline hover:text-purple-700 transition-colors"
+          >
             Sign up
           </Link>
-        </p>
+          <p className="mt-2 text-gray-600">
+            By continuing, you agree to our{' '}
+            <Link
+              to="/privacy"
+              className="text-gray-600 underline hover:text-gray-700 transition-colors"
+            >
+              Terms of Service
+            </Link>{' '}
+            and{' '}
+            <Link
+              to="/privacy"
+              className="text-gray-600 underline hover:text-gray-700 transition-colors"
+            >
+              Privacy Policy
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   );

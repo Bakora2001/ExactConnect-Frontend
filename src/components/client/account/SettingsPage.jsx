@@ -27,7 +27,7 @@ function SettingsPage() {
 
   const toggleSidebar = () => {
     setIsSidebarOpen((prev) => !prev);
-    document.body.style.overflow = isSidebarOpen ? 'auto' : 'hidden';
+   
   };
 
   return (

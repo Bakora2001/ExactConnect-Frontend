@@ -38,7 +38,7 @@ const ChangePassword = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const toggleSidebar = () => {
     setIsSidebarOpen((prev) => !prev);
-    document.body.style.overflow = isSidebarOpen ? 'auto' : 'hidden';
+  
   };
 
   //Handling the data passed in using the form
@@ -135,7 +135,7 @@ const ChangePassword = () => {
       <Sidebar isOpen={isSidebarOpen} onClose={toggleSidebar} />
       {/* Overlay for Small Screens */}
       {isSidebarOpen && (
-        <div className="fixed inset-0  z-40" onClick={toggleSidebar}></div>
+        <div className="fixed inset-0  z-10" onClick={toggleSidebar}></div>
       )}
       <main
         className={`flex-1 ${

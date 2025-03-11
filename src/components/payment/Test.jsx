@@ -4,6 +4,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import { Smartphone, Bitcoin } from 'lucide-react';
 import { SERVER_URL } from '../../services/data';
 import { DarkModeContext } from '../../context/DarkModeContext';
+import { formatPhoneNumber } from '../../utils/formatPhoneNumber';
+import { customerId } from '../../lib/userDetails';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Convert from './Convert';
 import { z } from 'zod';
@@ -17,8 +19,6 @@ const numberSchema = z.object({
 });
 
 export default function PaymentPage() {
-  const userDetails = JSON.parse(localStorage.getItem('userDetails'));
-  const customerId = userDetails.customerReference;
   const location = useLocation();
 
   // Accessing state from navigation
@@ -43,14 +43,6 @@ export default function PaymentPage() {
 
   const [phoneNumber, setPhoneNumber] = useState('');
   const navigate = useNavigate();
-
-  // Format phone number to include 254 prefix
-  const formatPhoneNumber = (phoneNumber) => {
-    if (phoneNumber.startsWith('0') && phoneNumber.length === 10) {
-      return `254${phoneNumber.slice(1)}`;
-    }
-    return phoneNumber;
-  };
 
   const formattedNumber = formatPhoneNumber(phoneNumber);
 
@@ -304,7 +296,7 @@ export default function PaymentPage() {
 
         <button
           onClick={handleSubmit}
-          disabled={isConfirming || isProcessing} // Disable if confirming or processing
+          disabled={isConfirming || isProcessing}
           className={`mt-8 w-full py-3 ${
             paymentMethod === 'mpesa' ? 'bg-green-600' : 'bg-yellow-600'
           } text-white font-semibold rounded-lg ${

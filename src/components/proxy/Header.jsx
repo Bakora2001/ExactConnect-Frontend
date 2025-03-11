@@ -1,11 +1,11 @@
 import { useState, useMemo, useCallback, useRef, useEffect } from 'react';
 import { IoChevronDown } from 'react-icons/io5';
 import countryList from 'react-select-country-list';
-import countryFlag from '../../services/countryFlag';
+import countryFlag from '../../utils/countryFlag';
 
 //We need to pass in us as default until the user passes in another country
 
-const Header = ({ darkMode, fetchProxies, setSelectedCountry }) => {
+const Header = ({ darkMode, setSelectedCountry }) => {
   //State and contexts
   const [selectedCountry, setSelectedCountryState] = useState('US');
   const [showDropdown, setShowDropdown] = useState(false);
@@ -60,17 +60,12 @@ const Header = ({ darkMode, fetchProxies, setSelectedCountry }) => {
   }, [countries, selectedCountry]);
 
   const handleCountrySelect = useCallback(
-    async (country) => {
+    (country) => {
       setSelectedCountry(country.code);
       setSelectedCountryState(country.code);
       setShowDropdown(false);
-      try {
-        await fetchProxies(0, country.code);
-      } catch (error) {
-        console.error('Failed to fetch country proxies:', error);
-      }
     },
-    [fetchProxies, setSelectedCountry]
+    [setSelectedCountry]
   );
 
   const handleClickOutside = useCallback((e) => {
