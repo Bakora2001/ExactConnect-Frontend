@@ -118,6 +118,7 @@ export default function PaymentPage() {
           proxyCountryCode: countryCode,
           isp: isp,
           proxyState: proxyState === true ? 'OLD' : 'NEW',
+          amount:amount,
           requestedService: 'PROXIES',
           customerId: customerId,
         },
