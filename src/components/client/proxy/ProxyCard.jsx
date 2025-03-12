@@ -92,9 +92,9 @@ const ProxyCard = ({
                   </div>
                   <span className=" font-bold  text-purple-600">
                     $
-                    {proxy?.priceExcC !== null
-                      ? proxy?.priceExcC
-                      : proxy?.priceShrC}
+                    {proxy?.priceShrC !== null
+                      ? proxy?.priceShrC
+                      : proxy?.priceExcC}
                   </span>
                 </div>
               </div>
@@ -127,3 +127,9 @@ const ProxyCard = ({
 );
 
 export default ProxyCard;
+
+
+
+// proxy?.priceExcC !== null
+//                       ? proxy?.priceExcC
+//                       : proxy?.priceShrC
