@@ -92,9 +92,9 @@ const ProxyCard = ({
                   </div>
                   <span className="text-sm font-medium text-purple-600">
                     $
-                    {proxy?.priceExcC !== null
-                      ? proxy?.priceExcC
-                      : proxy?.priceShrC}
+                    {proxy?.priceShrC !== null
+                      ? proxy?.priceShrC
+                      : proxy?.priceExcC}
                   </span>
                 </div>
               </div>
