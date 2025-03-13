@@ -199,6 +199,7 @@ const Home = () => {
                   <ul className="list-disc space-y-3 pl-6 ">
                     <li>Private and Secure</li>
                     <li>Instant Deployment</li>
+                    <li>Instant Deployment</li>
                     <li>Reliable Hosting</li>
                     <li>24/7 Support System</li>
                   </ul>
