@@ -7,7 +7,7 @@ import Footer from '../reusables/Footer';
 import techImage from '/tech-image.png';
 import server from '/server.png';
 import wallet from '/wallet.png';
-import phone from '/phone.png';
+import phone from '/phone4.png';
 import Loader from '../pages/Loader';
 import { useContext, useState } from 'react';
 
@@ -226,7 +226,7 @@ const Home = () => {
 
           {/* Verification Process Section */}
           {/* bg-[#e2f7f4] */}
-          <section className={`py-6  px-4 sm:px-24 ${darkMode ? 'bg-[#131312] text-white' : 'bg-[#E3F6F4] text-black'}`}>
+          <section className={`py-6  px-4 sm:px-24 ${darkMode ? 'bg-[#e4eefd] text-white' : 'bg-[#e4eefd] text-black'}`}>
             <div className="max-w-7xl mx-auto">
               {/* Heading Section */}
               <div className="grid lg:grid-cols-3 items-start gap-6">
@@ -251,7 +251,6 @@ const Home = () => {
                     ))}
                   </ul>
                 </div>
-
                 {/* Image Section */}
                 <div className="flex justify-center items-start pt-6 lg:pt-8">
                   <img
@@ -260,6 +259,9 @@ const Home = () => {
                     className="img-fluid max-w-xs sm:max-w-md"
                   />
                 </div>
+
+
+
 
                 {/* Right Section */}
                 <div className="text-left">
