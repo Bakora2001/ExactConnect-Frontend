@@ -67,16 +67,18 @@ const Home = () => {
             </div>
           </main>
 
-          {/* Why Choose Our Services Section */}
+          
+
+          {/* Residential Proxies Section */}
+          <section className={`text-center py-6 px-4 sm:px-8 ${darkMode ? 'bg-[#010100] text-white' : 'bg-[#fffe] text-black'}`}>
+            {/* Why Choose Our Services Section */}
           <h2 className="text-2xl sm:text-3xl font-semibold text-center mb-2 font-italic">
             Why Choose Our Services?
           </h2>
           <div className="flex justify-center">
             <div className="border-b-4 sm:border-b-8 border-purple-700 w-16 sm:w-32 rounded-full mb-6 sm:mb-8"></div>
           </div>
-
-          {/* Residential Proxies Section */}
-          <section className={`text-center py-6 px-4 sm:px-8 ${darkMode ? 'bg-[#010100] text-white' : 'bg-[#fffe] text-black'}`}>
+          
             <div>
               <h3 className="text-lg sm:text-xl font-bold mb-2">Residential Proxies</h3>
               <div className="border-b-4 sm:border-b-8 border-purple-700 w-12 sm:w-16 mx-auto mb-6"></div>

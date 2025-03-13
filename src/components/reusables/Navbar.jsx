@@ -40,8 +40,9 @@ const NavBar = () => {
           {[
             { to: '/proxy', label: 'Residential Proxy' },
             { to: '/rdp', label: 'VPS Server' },
-            { to: '/coming-soon', label: 'VCC Card' },
+            { to: '/coming-soon', label: 'PSD Template' },
             { to: '/coming-soon', label: 'Non-VOIP Numbers' },
+            { to: '/coming-soon', label: 'VCC Card' },
             { to: '/contact', label: 'Contact Us' },
           ].map(({ to, label }, index) => (
             <span

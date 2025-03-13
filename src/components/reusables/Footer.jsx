@@ -73,15 +73,18 @@ const Footer = () => {
           </div>
 
           {/* Contact Info */}
-          <div>
-            <h4 className="text-lg font-semibold text-[#7C25BA] mb-4">
-              Contact Info
-            </h4>
-            <ul className="space-y-2 text-sm">
-              <li>Email: support@exactconnect.online</li>
-              <li>Address: Moi Avenue, 00100, Nairobi, Kenya</li>
-            </ul>
-          </div>
+        <div>
+          <h4 className="text-lg font-semibold text-[#7C25BA] mb-4">
+            Contact Info
+          </h4>
+          <ul className="space-y-2 text-sm">
+            <li> <a href="mailto:support@exactconnect.online" className="text-blue-500 hover:underline">support@exactconnect.online</a></li>
+            <li>
+             <a href="https://t.me/exact_connect_official" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Telegram</a>
+            </li>
+          </ul>
+        </div>
+
 
           {/* Social Media Links */}
           <div>
