@@ -7,7 +7,6 @@ import Footer from '../reusables/Footer';
 import techImage from '/tech-image.png';
 import server from '/server.png';
 import wallet from '/wallet.png';
-import phone from '/phone4.png';
 import Loader from '../pages/Loader';
 import { useContext, useState } from 'react';
 
@@ -252,17 +251,6 @@ const Home = () => {
                     ))}
                   </ul>
                 </div>
-                {/* Image Section */}
-                <div className="flex justify-center items-start pt-6 lg:pt-8">
-                  <img
-                    src={phone}
-                    alt="phone-logo"
-                    className="img-fluid max-w-xs sm:max-w-md"
-                  />
-                </div>
-
-
-
 
                 {/* Right Section */}
                 <div className="text-left">
