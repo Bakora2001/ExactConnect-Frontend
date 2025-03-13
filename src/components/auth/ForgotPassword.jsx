@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import  { useState, useContext } from 'react';
 import { SERVER_URL } from '../../services/data';
 import { z } from 'zod';
 import { Link, useNavigate } from 'react-router-dom';
@@ -212,7 +212,7 @@ function ForgotPassword() {
           </button>
         </form>
         <p className="text-sm text-center text-gray-400 mt-6">
-          Don't have an account?{' '}
+        {`Don't have an account?`}{' '}
           <Link to="/account/signup" className="text-blue-500 hover:underline">
             Sign up.
           </Link>

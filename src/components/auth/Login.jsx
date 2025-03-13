@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import  { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 import { FcGoogle } from 'react-icons/fc';
@@ -266,7 +266,7 @@ function Login() {
         </button>
 
         <div className="text-center text-sm mt-4">
-          Don't have an account?{' '}
+         { `Don't have an account?`}{' '}
           <Link
             to="/account/signup"
             className="text-purple-600 font-semibold hover:underline hover:text-purple-700 transition-colors"
