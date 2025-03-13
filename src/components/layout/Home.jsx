@@ -35,7 +35,7 @@ const Home = () => {
           <div className=" mb-12 sm:mb-16 py-10 sm:py-12">
             <NavBar />
           </div>
-          <main className="flex flex-col md:flex-row gap-8 sm:gap-24 text-center md:text-left px-6 sm:px-12">
+          <main className="flex flex-col md:flex-row gap-8 sm:gap-24 text-center md:text-left">
             <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center px-[1rem] md:px-[3rem] sm:px-12 gap-10 md:gap-16 mb-6">
               <div className="md:w-1/2 text-center md:text-left">
                 <h1
@@ -65,23 +65,22 @@ const Home = () => {
                 />
               </div>
             </div>
+            
           </main>
-
-          
-
           {/* Residential Proxies Section */}
-          <section className={`text-center py-6 px-4 sm:px-8 ${darkMode ? 'bg-[#010100] text-white' : 'bg-[#fffe] text-black'}`}>
+          <section className={`text-center py-6 px-4 mt-8 sm:px-8 ${darkMode ? 'bg-[#010100] text-white' : 'bg-[#fffe] text-black'}`}>
+          <section>
             {/* Why Choose Our Services Section */}
-          <h2 className="text-2xl sm:text-3xl font-semibold text-center mb-2 font-italic">
+            <h2 className="text-2xl sm:text-3xl font-semibold text-center mb-2 font-italic">
             Why Choose Our Services?
           </h2>
           <div className="flex justify-center">
             <div className="border-b-4 sm:border-b-8 border-purple-700 w-16 sm:w-32 rounded-full mb-6 sm:mb-8"></div>
           </div>
-          
+          </section>
             <div>
               <h3 className="text-lg sm:text-xl font-bold mb-2">Residential Proxies</h3>
-              <div className="border-b-4 sm:border-b-8 border-purple-700 w-12 sm:w-16 mx-auto mb-6"></div>
+              <div className="border-b-4 sm:border-b-8 border-purple-700 w-12 sm:w-16 mx-auto mb-6 rounded-full"></div>
             </div>
 
             <div className="max-w-6xl mx-auto flex flex-col sm:flex-row gap-6 sm:gap-12">
@@ -213,6 +212,16 @@ const Home = () => {
                 </Link>
               </div>
             </div>
+          </section>
+
+          <section className='bg-white pt-8'>
+            {/* Why Choose Our Services Section */}
+            <h2 className="text-2xl sm:text-3xl text-black font-semibold text-center pb-3 font-italic">
+            Are You In Need of Real Non-VOIP Numbers For Your Account Verification ?
+          </h2>
+          <h4 className="text-2px sm:text-2px text-black pb-4 font-light text-center font-italic">
+          We are here to help you
+          </h4>
           </section>
 
           {/* Verification Process Section */}

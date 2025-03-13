@@ -45,11 +45,6 @@ const Footer = () => {
             </h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <a href="/maintainance" className="hover:underline">
-                  About Us
-                </a>
-              </li>
-              <li>
                 <a href="/contact" className="hover:underline">
                   Contact Us
                 </a>
