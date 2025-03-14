@@ -98,7 +98,7 @@ function Login() {
         } p-6 rounded-lg shadow-lg w-5/6 max-w-sm border `}
       >
         <h2 className=" font-circular text-3xl font-semibold tracking-tight text-center hover:text-purple-600 transition duration-300">
-          Welcome Back
+          Welcome Back!
         </h2>
         <p className=" text-sm text-center mt-2  mb-4 text-muted-foreground">
           Enter your credentials to sign in
