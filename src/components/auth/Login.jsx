@@ -5,6 +5,7 @@ import { FcGoogle } from 'react-icons/fc';
 import { toast } from 'react-hot-toast';
 import { MailIcon, LockIcon, EyeIcon, EyeOffIcon } from 'lucide-react';
 import Button from '../reusables/Button';
+import TestimonialSidebar from '../reusables/TestimonialSidebar';
 
 //Dark mode
 import { DarkModeContext } from '../../context/DarkModeContext';
@@ -86,209 +87,213 @@ function Login() {
 
   return (
     <div
-      className={`min-h-screen  w-screen h-screen flex items-center justify-center   ${
+      className={`min-h-screen w-screen h-screen flex ${
         darkMode ? 'bg-[#0c0b08] text-white' : 'bg-gray-100 text-black'
       }`}
     >
-      <div
-        className={`${
-          darkMode
-            ? 'bg-[#131312] text-white border-gray-700'
-            : 'bg-white text-black border-gray-100'
-        } p-6 rounded-lg shadow-lg w-5/6 max-w-sm border `}
-      >
-        <h2 className=" font-circular text-3xl font-semibold tracking-tight text-center hover:text-purple-600 transition duration-300">
-          Welcome Back!
-        </h2>
-        <p className=" text-sm text-center mt-2  mb-4 text-muted-foreground">
-          Enter your credentials to sign in
-        </p>
+      {/* Testimonial Sidebar */}
+      <TestimonialSidebar darkMode={darkMode} />
+      
+      {/* Login Form Section */}
+      <div className="flex-1 flex items-center justify-center">
+        <div
+          className={`${
+            darkMode
+              ? 'bg-[#131312] text-white border-gray-700'
+              : 'bg-white text-black border-gray-100'
+          } p-6 rounded-lg shadow-lg w-5/6 max-w-sm border `}
+        >
+          <h2 className="font-circular text-3xl font-semibold tracking-tight text-center hover:text-purple-600 transition duration-300">
+            Welcome Back!
+          </h2>
+          <p className="text-sm text-center mt-2 mb-4 text-muted-foreground">
+            Enter your credentials to sign in
+          </p>
 
-        <form onSubmit={handleLoginSubmit}>
-          {/* Email Field */}
-          <div className="mb-4">
-            <label
-              htmlFor="email"
-              className={`mb-1 block text-sm font-medium ${
-                darkMode ? 'text-white' : 'text-black'
-              }`}
-            >
-              Email
-            </label>
+          <form onSubmit={handleLoginSubmit}>
+            {/* Email Field */}
+            <div className="mb-4">
+              <label
+                htmlFor="email"
+                className={`mb-1 block text-sm font-medium ${
+                  darkMode ? 'text-white' : 'text-black'
+                }`}
+              >
+                Email
+              </label>
 
-            {/* Stable Container */}
-            <div className="relative flex items-center">
-              {/* Email Icon */}
-              <div className="absolute left-3 flex items-center">
-                <MailIcon
-                  className={`h-5 w-5 ${
-                    darkMode ? 'text-gray-400' : 'text-gray-600'
-                  }`}
+              {/* Stable Container */}
+              <div className="relative flex items-center">
+                {/* Email Icon */}
+                <div className="absolute left-3 flex items-center">
+                  <MailIcon
+                    className={`h-5 w-5 ${
+                      darkMode ? 'text-gray-400' : 'text-gray-600'
+                    }`}
+                  />
+                </div>
+
+                {/* Email Input (Fixed Height) */}
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  placeholder="you@example.com"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className={`w-full h-12 pl-10 rounded-lg text-sm border focus:outline-none focus:ring-2  
+          ${
+            darkMode
+              ? 'bg-[#131312] text-white border-gray-600'
+              : 'bg-gray-100 text-black border-gray-300'
+          }
+          ${
+            errors.email
+              ? 'border-red-500 focus:ring-red-500'
+              : 'border-gray-300 focus:ring-gray-500'
+          }
+        `}
+                  aria-invalid={!!errors.email}
+                  aria-describedby="email_error"
                 />
               </div>
 
-              {/* Email Input (Fixed Height) */}
-              <input
-                type="email"
-                name="email"
-                id="email"
-                placeholder="you@example.com"
-                value={formData.email}
-                onChange={handleChange}
-                className={`w-full h-12 pl-10 rounded-lg text-sm border focus:outline-none focus:ring-2  
-        ${
-          darkMode
-            ? 'bg-[#131312] text-white border-gray-600'
-            : 'bg-gray-100 text-black border-gray-300'
-        }
-        ${
-          errors.email
-            ? 'border-red-500 focus:ring-red-500'
-            : 'border-gray-300 focus:ring-gray-500'
-        }
-      `}
-                aria-invalid={!!errors.email}
-                aria-describedby="email_error"
-              />
+              {/* Error Message (Doesn't Affect Layout) */}
+              {errors.email && (
+                <p id="email_error" className="text-red-500 text-sm mt-1">
+                  {errors.email}
+                </p>
+              )}
             </div>
 
-            {/* Error Message (Doesn't Affect Layout) */}
-            {errors.email && (
-              <p id="email_error" className="text-red-500 text-sm mt-1">
-                {errors.email}
-              </p>
-            )}
-          </div>
-
-          {/* Password Field */}
-          <div className="mb-4 relative">
-            <label
-              htmlFor="password"
-              className={`mb-1 block text-sm font-medium ${
-                darkMode ? 'text-white' : 'text-black'
-              }`}
-            >
-              Password
-            </label>
-
-            <div className="relative">
-              {/* Lock Icon */}
-              <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">
-                <LockIcon className="h-5 w-5" />
-              </div>
-
-              {/* Password Input */}
-              <input
-                type={showPassword ? 'text' : 'password'}
-                name="password"
-                id="password"
-                placeholder="********"
-                value={formData.password}
-                onChange={handleChange}
-                className={`w-full h-12 pl-10 pr-12 rounded-lg text-sm border  focus:outline-none focus:ring-2
-        ${
-          darkMode
-            ? 'bg-[#131312] text-white border-gray-600'
-            : 'bg-gray-100 text-black border-gray-300'
-        }
-        ${
-          errors.password
-            ? 'border-red-500 focus:ring-red-500'
-            : 'border-gray-300 focus:ring-gray-500'
-        }
-      `}
-                aria-invalid={!!errors.password}
-                aria-describedby="password_error"
-              />
-
-              {/* Eye Toggle Icon */}
-              <span
-                onClick={() => setShowPassword((prev) => !prev)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer transition-colors"
-              >
-                {showPassword ? (
-                  <EyeOffIcon
-                    className={`h-5 w-5 ${
-                      darkMode ? 'text-gray-500' : 'text-gray-500'
-                    }`}
-                  />
-                ) : (
-                  <EyeIcon
-                    className={`h-5 w-5 ${
-                      darkMode ? 'text-gray-500' : 'text-gray-500'
-                    }`}
-                  />
-                )}
-              </span>
-            </div>
-
-            {/* Error Message */}
-            {errors.password && (
-              <p id="password_error" className="text-red-500 text-sm mt-1">
-                {errors.password}
-              </p>
-            )}
-
-            {/* Forgot Password Link */}
-            <div className="flex justify-end mt-2">
-              <Link
-                to="/account/forgotpassword"
-                className={`text-sm font-medium transition-opacity hover:opacity-75 ${
-                  darkMode ? 'text-gray-400' : 'text-gray-600'
+            {/* Password Field */}
+            <div className="mb-4 relative">
+              <label
+                htmlFor="password"
+                className={`mb-1 block text-sm font-medium ${
+                  darkMode ? 'text-white' : 'text-black'
                 }`}
               >
-                Forgot password?
-              </Link>
+                Password
+              </label>
+
+              <div className="relative">
+                {/* Lock Icon */}
+                <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">
+                  <LockIcon className="h-5 w-5" />
+                </div>
+
+                {/* Password Input */}
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  name="password"
+                  id="password"
+                  placeholder="********"
+                  value={formData.password}
+                  onChange={handleChange}
+                  className={`w-full h-12 pl-10 pr-12 rounded-lg text-sm border focus:outline-none focus:ring-2
+          ${
+            darkMode
+              ? 'bg-[#131312] text-white border-gray-600'
+              : 'bg-gray-100 text-black border-gray-300'
+          }
+          ${
+            errors.password
+              ? 'border-red-500 focus:ring-red-500'
+              : 'border-gray-300 focus:ring-gray-500'
+          }
+        `}
+                  aria-invalid={!!errors.password}
+                  aria-describedby="password_error"
+                />
+
+                {/* Eye Toggle Icon */}
+                <span
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer transition-colors"
+                >
+                  {showPassword ? (
+                    <EyeOffIcon
+                      className={`h-5 w-5 ${
+                        darkMode ? 'text-gray-500' : 'text-gray-500'
+                      }`}
+                    />
+                  ) : (
+                    <EyeIcon
+                      className={`h-5 w-5 ${
+                        darkMode ? 'text-gray-500' : 'text-gray-500'
+                      }`}
+                    />
+                  )}
+                </span>
+              </div>
+
+              {/* Error Message */}
+              {errors.password && (
+                <p id="password_error" className="text-red-500 text-sm mt-1">
+                  {errors.password}
+                </p>
+              )}
+
+              {/* Forgot Password Link */}
+              <div className="flex justify-end mt-2">
+                <Link
+                  to="/account/forgotpassword"
+                  className={`text-sm font-medium transition-opacity hover:opacity-75 ${
+                    darkMode ? 'text-gray-400' : 'text-gray-600'
+                  }`}
+                >
+                  Forgot password?
+                </Link>
+              </div>
             </div>
+
+            {/* Login Button */}
+            <Button label="Login" isLoading={isLoading} />
+          </form>
+
+          {/* Divider */}
+          <div className="flex items-center my-6">
+            <div className="flex-grow border-t border-gray-700"></div>
+            <span
+              className={`mx-3 text-sm ${darkMode ? 'text-white' : 'text-black'}`}
+            >
+              Or continue with
+            </span>
+            <div className="flex-grow border-t border-gray-700"></div>
           </div>
 
-          {/* Forgot Password */}
+          {/* Google Login */}
+          <button className="w-full flex items-center justify-center border dark:border-gray-700 py-3 px-4 rounded-lg hover:bg-black/80 transition duration-300 border-gray-300 bg-gray-100 hover:bg-white/80 dark:bg-[#131312] dark:hover:bg-[#131312] dark:hover:bg-opacity-80">
+            <FcGoogle className="mr-2 h-5 w-5" />
+            Sign in with Google
+          </button>
 
-          {/* Login Button */}
-          <Button label="Login" isLoading={isLoading} />
-        </form>
-
-        {/* Divider */}
-        <div className="flex items-center my-6">
-          <div className="flex-grow border-t border-gray-700"></div>
-          <span
-            className={`mx-3 text-sm ${darkMode ? 'text-white' : 'text-black'}`}
-          >
-            Or continue with
-          </span>
-          <div className="flex-grow border-t border-gray-700"></div>
-        </div>
-
-        {/* Google Login */}
-        <button className="w-full flex items-center justify-center border dark:border-gray-700 py-3 px-4 rounded-lg hover:bg-black/80 transition duration-300 border-gray-300 bg-gray-100 hover:bg-white/80 dark:bg-[#131312] dark:hover:bg-[#131312] dark:hover:bg-opacity-80">
-          <FcGoogle className="mr-2 h-5 w-5" />
-          Sign in with Google
-        </button>
-
-        <div className="text-center text-sm mt-4">
-          Don't have an account?{' '}
-          <Link
-            to="/account/signup"
-            className="text-purple-600 font-semibold hover:underline hover:text-purple-700 transition-colors"
-          >
-            Sign up
-          </Link>
-          <p className="mt-2 text-gray-600">
-            By continuing, you agree to our{' '}
+          <div className="text-center text-sm mt-4">
+            Don't have an account?{' '}
             <Link
-              to="/privacy"
-              className="text-gray-600 underline hover:text-gray-700 transition-colors"
+              to="/account/signup"
+              className="text-purple-600 font-semibold hover:underline hover:text-purple-700 transition-colors"
             >
-              Terms of Service
-            </Link>{' '}
-            and{' '}
-            <Link
-              to="/privacy"
-              className="text-gray-600 underline hover:text-gray-700 transition-colors"
-            >
-              Privacy Policy
+              Sign up
             </Link>
-          </p>
+            <p className="mt-2 text-gray-600">
+              By continuing, you agree to our{' '}
+              <Link
+                to="/privacy"
+                className="text-gray-600 underline hover:text-gray-700 transition-colors"
+              >
+                Terms of Service
+              </Link>{' '}
+              and{' '}
+              <Link
+                to="/privacy"
+                className="text-gray-600 underline hover:text-gray-700 transition-colors"
+              >
+                Privacy Policy
+              </Link>
+            </p>
+          </div>
         </div>
       </div>
     </div>
