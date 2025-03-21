@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { DarkModeContext } from '../../context/DarkModeContext';
 
 const testimonials = [
   {
     id: 1,
-    quote: "ExactConnect has transformed how I manage my business relationships. The platform is intuitive and powerful.",
+    quote: "I run multiple accounts online and needed high-quality non-VoIP numbers. Exactconnect provided exactly what I needed, with excellent support every step of the way. Definitely my go-to provider now!",
     author: "Sarah Johnson",
     role: "Marketing Director",
     rating: 5,
@@ -12,7 +13,7 @@ const testimonials = [
   },
   {
     id: 2,
-    quote: "I've tried many platforms, but nothing compares to the efficiency and reliability of ExactConnect.",
+    quote: "The quality of the proxies and RDPs from Exactconnect is exceptional. Fast, secure, and never had any major downtime. Whenever I have a question, the support team is super responsive. A++ service!",
     author: "David Chen",
     role: "Entrepreneur",
     rating: 4,
@@ -20,12 +21,20 @@ const testimonials = [
   },
   {
     id: 3,
-    quote: "The customer support team is exceptional. They helped me set up my account and were always available when I needed assistance.",
+    quote: "What sets Exactconnect apart is their support team. They are available 24/7, super friendly, and always ready to help. Their non-VoIP numbers work flawlessly, and I’ve never had issues with my VPS. Definitely sticking with them!",
     author: "Michael Rodriguez",
     role: "Sales Manager",
     rating: 5,
     image: "https://randomuser.me/api/portraits/men/22.jpg"
-  }
+  },
+  {
+    id: 4,
+    quote: "From ordering to setup, everything was smooth. Their proxies are super fast, and the VPS runs without any hiccups. Plus, their support team is one of the best I’ve interacted with!",
+    author: "David Chen",
+    role: "Entrepreneur",
+    rating: 4,
+    image: "https://randomuser.me/api/portraits/men/46.jpg"
+  },
 ];
 
 const TestimonialSidebar = ({ darkMode }) => {
@@ -76,7 +85,7 @@ const TestimonialSidebar = ({ darkMode }) => {
   };
 
   return (
-    <div className="hidden md:flex w-1/2 h-screen bg-gradient-to-br from-purple-700 to-indigo-800 text-white">
+    <div className={`hidden md:flex w-1/2 h-screen ${darkMode ? 'bg[#131312] text-white' : 'bg-gradient-to-br from-purple-700 to-indigo-800 text-white'}`}>
       <div className="flex flex-col justify-center items-center w-full p-8 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 left-0 w-full h-full bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC40Ij48cGF0aCBkPSJNMzYgMzBoLTZWMGg2djMwem0tNiAwaC02djMwaDZ2LTMweiIvPjxwYXRoIGQ9Ik0zMCAzMGgtNlYwaDZ2MzB6TS0xOCAxMWg2MHY2aC02MHoiLz48L2c+PC9nPjwvc3ZnPg==')]"></div>
