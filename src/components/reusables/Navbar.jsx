@@ -38,7 +38,7 @@ const NavBar = () => {
         {/* Desktop Navigation */}
         <nav className="hidden md:flex space-x-8 text-white text-xs font-medium">
           {[
-            { to: '/proxy', label: 'Residential Proxy' },
+            { to: '/residential', label: 'Residential Proxy' },
             { to: '/rdp', label: 'VPS Server' },
             { to: '/coming-soon', label: 'PSD Template' },
             { to: '/coming-soon', label: 'Non-VOIP Numbers' },
@@ -91,7 +91,7 @@ const NavBar = () => {
           {/* Mobile Navigation */}
           <nav className="flex flex-col space-y-4">
             {[
-              { label: 'Residential Proxy', link: '/proxy' },
+              { label: 'Residential Proxy', link: '/residential' },
               { label: 'VPS Server', link: '/rdp' },
               { label: 'VCC Card', link: '/coming-soon' },
               { label: 'Non-VOIP Numbers', link: '/coming-soon' },

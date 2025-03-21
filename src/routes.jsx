@@ -34,7 +34,7 @@ const SettingsPage = lazy(() =>
 );
 // const Orders = lazy(() => import('./components/client/order/Orders'))
 
-const Proxy = lazy(() => import('./components/proxy/Proxy'));
+const Residential = lazy(() => import('./components/residential/Residential'));
 const AdminHome = lazy(() => import('../src/components/admin/AdminHome'));
 const AddProductForm = lazy(() =>
   import('../src/components/admin/AddProductsForm')
@@ -86,10 +86,10 @@ export const router = createBrowserRouter([
     ),
   },
   {
-    path: '/proxy',
+    path: '/residential',
     element: (
       <Suspense fallback={<Loader />}>
-        <Proxy />
+        <Residential />
       </Suspense>
     ),
   },

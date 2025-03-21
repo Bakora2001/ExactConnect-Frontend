@@ -4,7 +4,7 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { Link, useNavigate } from 'react-router-dom';
 import NavBar from '../reusables/Navbar';
 import Footer from '../reusables/Footer';
-import techImage from '/tech-image.png';
+import techImage from '/hero-img.png';
 import server from '/server.png';
 import wallet from '/wallet.png';
 import Loader from '../pages/Loader';
@@ -58,9 +58,9 @@ const Home = () => {
               <div className="md:w-1/2 flex justify-center">
                 <LazyLoadImage
                   src={techImage}
-                  width={600} height={400}
+                  width={500} height={0}
                   alt="Tech Solutions"
-                  className="max-h-[350px] md:max-h-[400px] mb-5"
+                  // className="max-h-[350px] md:max-h-[400px] mb-5"
                 />
               </div>
             </div>
