@@ -7,6 +7,7 @@ import techImage from '/hero-img.png';
 import heroBg from '/hero-bg.jpg';
 import server from '/server.png';
 import wallet from '/wallet.png';
+import phoneImage from '/phone5.png';
 import Loader from '../pages/Loader';
 import { useContext, useState, useEffect } from 'react';
 
@@ -302,7 +303,7 @@ const Home = () => {
             </div>
           </section>
 
-          <section className="bg-white pt-8 animate-fadeIn">
+          <section className="bg-white pt-8 pb-4 animate-fadeIn">
             {/* Why Choose Our Services Section */}
             <h2 className="text-2xl sm:text-3xl text-black font-semibold text-center pb-3 font-italic animate-slideInUp">
               Are You In Need of Real Non-VOIP Numbers For Your Account Verification?
@@ -312,44 +313,86 @@ const Home = () => {
             </h4>
           </section>
 
-          {/* Verification Process Section */}
-          <section className={`py-6 px-4 sm:px-24 animate-fadeIn ${
-            darkMode ? 'bg-[#e4eefd] text-white' : 'bg-[#e4eefd] text-black'
+          {/* Verification Process Section - Redesigned */}
+          <section className={`py-8 px-4 sm:px-8 md:px-16 lg:px-24 animate-fadeIn ${
+            darkMode ? 'bg-[#0c0b08] text-white' : 'bg-[#e4eefd] text-black'
           }`}>
             <div className="max-w-7xl mx-auto">
-              {/* Heading Section */}
-              <div className="grid lg:grid-cols-3 items-start gap-6">
-                {/* Left Section: Verification Process */}
-                <div>
-                  <h4 className="text-lg font-semibold text-center">Verification Process</h4>
-                  <ul className="space-y-4 pt-6 rounded-lg overflow-hidden">
-                    {[
-                      "Find out if the Account You want to verify is Listed",
-                      "Choose the Account you want to Verify",
-                      "Order the number and get instant message",
-                      "If Service is not listed, consult with our Agent",
-                      "Receive your Number from our Agent and verify",
-                    ].map((item, index) => (
-                      <li
-                        key={index}
-                        className={`rounded-full shadow-md px-4 py-2 flex items-center space-x-2 ${
-                          darkMode ? 'bg-gray-700' : 'bg-white'
-                        } animate-slideInLeft`}
-                        style={{ animationDelay: `${index * 0.2}s` }}
-                      >
-                        <span className="text-black font-bold">&#8226;</span>
-                        <span className="text-sm font-light whitespace-nowrap">{item}</span>
-                      </li>
-                    ))}
-                  </ul>
+              <div className="flex flex-col lg:flex-row items-center gap-8">
+                {/* Left Section: Verification Process - Enhanced */}
+                <div className="w-full lg:w-1/2 animate-slideInLeft">
+                  <div className={`rounded-xl p-6 shadow-lg ${darkMode ? 'bg-[#1a1a1a]' : 'bg-white'}`}>
+                    <h4 className="text-xl font-semibold text-center mb-6">
+                      <span className={`px-6 py-2 rounded-full ${darkMode ? 'bg-purple-900' : 'bg-purple-600'} text-white`}>
+                        Verification Process
+                      </span>
+                    </h4>
+                    
+                    <ul className="space-y-4 pt-4">
+                      {[
+                        "Find out if the Account You want to verify is Listed",
+                        "Choose the Account you want to Verify",
+                        "Order the number and get instant message",
+                        "If Service is not listed, consult with our Agent",
+                        "Receive your Number from our Agent and verify",
+                      ].map((item, index) => (
+                        <li
+                          key={index}
+                          className={`rounded-full shadow-md px-6 py-3 flex items-center gap-4 transition-all duration-300 hover:translate-x-2 ${
+                            darkMode ? 'bg-gray-800 text-white hover:bg-gray-700' : 'bg-blue-50 text-black hover:bg-blue-100'
+                          } animate-slideInLeft`}
+                          style={{ animationDelay: `${index * 0.2}s` }}
+                        >
+                          <span className={`flex items-center justify-center w-8 h-8 rounded-full ${
+                            darkMode ? 'bg-purple-700' : 'bg-purple-600'
+                          } text-white font-bold`}>{index + 1}</span>
+                          <span className="text-sm md:text-base">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    
+                    <div className="mt-8 text-center">
+                      <button className={`px-6 py-2 rounded-lg shadow-md font-medium transition-all duration-300 transform hover:scale-105 ${
+                        darkMode ? 'bg-purple-700 text-white hover:bg-purple-800' : 'bg-purple-600 text-white hover:bg-purple-700'
+                      } animate-pulseButton`}>
+                        Get Started Now
+                      </button>
+                    </div>
+                  </div>
                 </div>
 
-                {/* Right Section */}
-                <div className="text-left animate-slideInRight">
-                  <p>
-                    This is some descriptive text about the virtual number. Add any
-                    information you want to share here.
-                  </p>
+                {/* Right Section: Phone Image and Text */}
+                <div className="w-full lg:w-1/2 flex flex-col items-center justify-center animate-slideInRight">
+                  <div className="relative mb-6">
+                    <div className={`absolute -inset-4 rounded-full blur-md opacity-50 ${
+                      darkMode ? 'bg-purple-600' : 'bg-purple-400'
+                    }`}></div>
+                    <img
+                      src={phoneImage}
+                      alt="Phone Verification"
+                      className="relative z-10 max-h-[350px] object-contain"
+                    />
+                  </div>
+                  
+                  <div className={`rounded-xl p-6 shadow-lg w-full max-w-md ${
+                    darkMode ? 'bg-[#1a1a1a]' : 'bg-white'
+                  }`}>
+                    <h4 className="text-lg font-semibold mb-3 border-l-4 border-purple-600 pl-3">Why Choose Our Non-VOIP Numbers?</h4>
+                    <p className="text-sm md:text-base leading-relaxed">
+                      Our genuine Non-VOIP numbers ensure reliable verification for all major platforms and services. With instant delivery and 24/7 support, we guarantee successful verification every time. Perfect for social media, payment platforms, and messaging apps.
+                    </p>
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      <span className={`text-xs px-3 py-1 rounded-full ${
+                        darkMode ? 'bg-gray-800' : 'bg-blue-50'
+                      }`}>100% Success Rate</span>
+                      <span className={`text-xs px-3 py-1 rounded-full ${
+                        darkMode ? 'bg-gray-800' : 'bg-blue-50'
+                      }`}>Instant Delivery</span>
+                      <span className={`text-xs px-3 py-1 rounded-full ${
+                        darkMode ? 'bg-gray-800' : 'bg-blue-50'
+                      }`}>Major Services Supported</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
