@@ -87,18 +87,17 @@ const Home = () => {
         >
           {/* Hero Section with Background Image */}
           <div 
+            className="relative"
             style={{
               backgroundImage: `url(${heroBg})`,
               backgroundSize: 'cover',
               backgroundPosition: 'center',
-              position: 'relative',
-              zIndex: 0
+              backgroundRepeat: 'no-repeat'
             }}
           >
             {/* Color Overlay */}
             <div 
-              className={`absolute inset-0 ${darkMode ? 'bg-[#0c0b08]' : 'bg-[#7C25BA]'} opacity-80 z-0`}
-              style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
+              className={`absolute inset-0 ${darkMode ? 'bg-[#0c0b08]' : 'bg-[#7C25BA]'} opacity-80`}
             ></div>
             
             {/* Header */}
@@ -108,7 +107,7 @@ const Home = () => {
             
             {/* Main Content */}
             <main className="relative z-10 flex flex-col md:flex-row gap-8 sm:gap-24 text-center md:text-left">
-              <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center px-[1rem] md:px-[3rem] sm:px-12 gap-10 md:gap-16 mb-6">
+              <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center px-[1rem] md:px-[3rem] sm:px-12 gap-10 md:gap-16 pb-16">
                 <div className="md:w-1/2 text-center md:text-left animate-slideInLeft">
                   <p
                     className={`text-4xl sm:text-4xl font-[200px] font-sans font-bold leading-tight mb-6 ${
@@ -153,7 +152,7 @@ const Home = () => {
           </div>
           
           {/* Residential Proxies Section */}
-          <section className={`text-center py-6 px-4 mt-8 sm:px-8 animate-fadeIn ${
+          <section className={`text-center py-6 px-4 sm:px-8 animate-fadeIn ${
             darkMode ? 'bg-[#010100] text-white' : 'bg-[#fffe] text-black'
           }`}>
             <section>
