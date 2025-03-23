@@ -33,8 +33,7 @@ const Footer = () => {
               className="h-12 mb-4"
             />
             <p className="text-sm leading-relaxed">
-              ExactConnect is a Trusted Online Shopping Platform for the exact
-              online services for our clients.
+            ExactConnect is a trusted online shopping platform that provides high-quality digital services tailored to meet your exact needs. 
             </p>
           </div>
 
