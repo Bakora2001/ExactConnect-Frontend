@@ -262,7 +262,7 @@ const Residential = () => {
       {/* Main content area with wider layout */}
       <div className="container mx-auto px-4">
         {/* Features Section */}
-        <section className={`py-16 rounded-lg shadow-md mt-8 animate-on-scroll ${darkMode ? 'bg-gray-800' : 'bg-white'}`}>
+        <section className={`rounded-lg shadow-md animate-on-scroll ${darkMode ? 'bg-gray-800' : 'bg-white'}`}>
           <div className="px-4 md:px-6">
             <div className="text-center mb-16">
               <h2 className={`text-3xl font-bold mb-4 ${darkMode ? 'text-gray-100' : 'text-gray-900'}`}>Why Choose ExactConnect Residential Proxies?</h2>
@@ -541,7 +541,7 @@ const Residential = () => {
           </div>
         </section>
       </div>
-      
+
 {/* CTA Section */}
 <section className="relative">
   <div className="bg-gradient-to-r from-[#8a4fc2] to-[#7040a3] text-white relative">
