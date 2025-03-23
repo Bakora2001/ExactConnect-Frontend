@@ -207,58 +207,146 @@ const Residential = () => {
     <div className={`min-h-screen ${darkMode ? 'bg-gray-900 text-gray-100' : 'bg-gray-50 text-gray-900'} transition-colors duration-300`}>
       <NavBar />
       
-      {/* Hero Section */}
-      <section className={`relative py-24 overflow-hidden ${darkMode ? 'bg-gradient-to-b from-gray-900 to-gray-800' : 'bg-gradient-to-b from-[#f8f5ff] to-gray-100'}`}>
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1614064641938-3bbee52942c7?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')] opacity-5 bg-cover bg-center"></div>
-        {/* Wave moved down */}
-        <div className="absolute bottom-0 left-0 right-0">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 200" className={darkMode ? "text-gray-900" : "text-white"}>
-            <path fill="currentColor" fillOpacity="1" d="M0,160 C200,60, 400,60, 600,120 C800,180, 1000,180, 1200,120 C1400,60, 1600,60, 1800,160 L1800,200 L0,200 Z"></path>
-          </svg>
-        </div>
+   {/* Hero Section */}
+<section className={`relative py-32 overflow-hidden ${darkMode ? 'bg-gradient-to-b from-gray-900 to-gray-800' : 'bg-gradient-to-b from-[#f8f5ff] to-gray-100'}`}>
+  <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1614064641938-3bbee52942c7?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')] opacity-5 bg-cover bg-center"></div>
+  {/* Wave moved down */}
+  <div className="absolute bottom-0 left-0 right-0">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 200" className={darkMode ? "text-gray-900" : "text-white"}>
+      <path fill="currentColor" fillOpacity="1" d="M0,160 C200,60, 400,60, 600,120 C800,180, 1000,180, 1200,120 C1400,60, 1600,60, 1800,160 L1800,200 L0,200 Z"></path>
+    </svg>
+  </div>
 
-        <div className="container mx-auto px-4 relative">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className={`text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight animate-fadeInDown ${darkMode ? 'text-purple-300' : 'text-[#3a2854]'}`}>
-              Premium Residential Proxies for <span className={`${darkMode ? 'text-purple-400' : 'text-[#8a4fc2]'} italic`}>Uncompromised</span> Performance
-            </h1>
-            <p className={`text-lg md:text-xl mb-8 max-w-3xl mx-auto animate-fadeInUp ${darkMode ? 'text-gray-300' : 'text-[#5a4575]'}`}>
-              ExactConnect provides high-quality residential proxies with global coverage, 
-              ensuring reliability, speed, and anonymity for all your business needs.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16 animate-fadeInUp">
-              <button className={`${darkMode ? 'bg-purple-700 hover:bg-purple-800' : 'bg-[#8a4fc2] hover:bg-[#7b3ea4]'} text-white font-medium py-3 px-8 rounded-md shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 hover:scale-105`}>
-                Get Started Now
-              </button>
-              <button className={`${darkMode ? 'border-2 border-purple-700 text-purple-400 hover:bg-gray-800' : 'border-2 border-[#8a4fc2] text-[#8a4fc2] hover:bg-[#f5f0fb]'} font-medium py-3 px-8 rounded-md shadow-md hover:shadow-lg transition-all transform hover:-translate-y-1 hover:scale-105`}>
-                View Documentation
-              </button>
+  <div className="container mx-auto px-4 relative">
+    <div className="max-w-5xl mx-auto">
+      <h1 className={`text-5xl md:text-5xl lg:text-5xl font-bold mb-8 text-center leading-tight animate-fadeInDown ${darkMode ? 'text-purple-300' : 'text-[#3a2854]'}`}>
+      High-Quality Proxies Starting at Just <span className={`${darkMode ? 'text-purple-400' : 'text-[#8a4fc2]'} italic`}>$1/Day!</span>
+      </h1>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-20">
+        {/* Left Column - Main Text - Made larger and positioned more left */}
+        <div className={`${darkMode ? 'text-gray-300' : 'text-[#5a4575]'} text-xl pl-4 md:pl-8 animate-fadeInLeft`}>
+          <p className="leading-relaxed">
+            Get <strong>real residential IPs from real devices</strong> for as low as <strong className={`${darkMode ? 'text-purple-400' : 'text-[#8a4fc2]'}`}>$1 per day</strong>! Whether you need <strong>affordable monthly IPs</strong> or <strong>high-speed mobile proxies</strong>, <strong className={`${darkMode ? 'text-purple-400' : 'text-[#8a4fc2]'}`}>Exactconnect</strong> delivers <strong>fast, secure, and reliable</strong> connections tailored to your needs.
+          </p>
+        </div>
+        
+        {/* Right Column - Feature List with Auto-Scroll */}
+        <div className={`${darkMode ? 'text-gray-300' : 'text-[#5a4575]'} animate-fadeInRight overflow-hidden`}>
+          <div className="relative h-52">
+            {/* First slide of features */}
+            <div className="features-slide absolute w-full transition-transform duration-1000 animate-featureSlide1">
+              <ul className="space-y-2">
+                <li className="flex items-start">
+                  <span className={`mr-2 text-xl ${darkMode ? 'text-green-400' : 'text-green-500'}`}>✅</span>
+                  <span className="text-lg"><strong>Authentic Residential IPs</strong> for seamless browsing</span>
+                </li>
+                <li className="flex items-start">
+                  <span className={`mr-2 text-xl ${darkMode ? 'text-green-400' : 'text-green-500'}`}>✅</span>
+                  <span className="text-lg"><strong>Budget-Friendly Daily & Monthly Plans</strong></span>
+                </li>
+                <li className="flex items-start">
+                  <span className={`mr-2 text-xl ${darkMode ? 'text-green-400' : 'text-green-500'}`}>✅</span>
+                  <span className="text-lg"><strong>Premium Mobile Proxies</strong> with unbeatable performance</span>
+                </li>
+                <li className="flex items-start">
+                  <span className={`mr-2 text-xl ${darkMode ? 'text-green-400' : 'text-green-500'}`}>✅</span>
+                  <span className="text-lg"><strong>Custom Plans</strong> tailored to your needs</span>
+                </li>
+              </ul>
             </div>
             
-            <div className="flex flex-wrap justify-center gap-6 md:gap-12 animate-pulse">
-              <div className="flex items-center">
-                <div className={`w-12 h-12 rounded-full ${darkMode ? 'bg-gray-800' : 'bg-[#f5f0fb]'} flex items-center justify-center`}>
-                  <span className={`${darkMode ? 'text-purple-400' : 'text-[#8a4fc2]'} font-bold text-xl`}>🌎</span>
-                </div>
-                <span className={`ml-2 font-medium ${darkMode ? 'text-gray-200' : 'text-[#3a2854]'}`}>190+ Countries</span>
-              </div>
-              <div className="flex items-center">
-                <div className={`w-12 h-12 rounded-full ${darkMode ? 'bg-gray-800' : 'bg-[#f5f0fb]'} flex items-center justify-center`}>
-                  <span className={`${darkMode ? 'text-purple-400' : 'text-[#8a4fc2]'} font-bold text-xl`}>👥</span>
-                </div>
-                <span className={`ml-2 font-medium ${darkMode ? 'text-gray-200' : 'text-[#3a2854]'}`}>50M+ IPs</span>
-              </div>
-              <div className="flex items-center">
-                <div className={`w-12 h-12 rounded-full ${darkMode ? 'bg-gray-800' : 'bg-[#f5f0fb]'} flex items-center justify-center`}>
-                  <span className={`${darkMode ? 'text-purple-400' : 'text-[#8a4fc2]'} font-bold text-xl`}>⏱️</span>
-                </div>
-                <span className={`ml-2 font-medium ${darkMode ? 'text-gray-200' : 'text-[#3a2854]'}`}>99.9% Uptime</span>
-              </div>
+            {/* Second slide of features */}
+            <div className="features-slide absolute w-full transition-transform duration-1000 translate-x-full animate-featureSlide2">
+              <ul className="space-y-2">
+                <li className="flex items-start">
+                  <span className={`mr-2 text-xl ${darkMode ? 'text-green-400' : 'text-green-500'}`}>✅</span>
+                  <span className="text-lg"><strong>Easy Proxy Setup Guide</strong>—Get started in minutes</span>
+                </li>
+                <li className="flex items-start">
+                  <span className={`mr-2 text-xl ${darkMode ? 'text-green-400' : 'text-green-500'}`}>✅</span>
+                  <span className="text-lg"><strong>24/7 Customer Support</strong> to assist you anytime</span>
+                </li>
+                <li className="flex items-start">
+                  <span className={`mr-2 text-xl ${darkMode ? 'text-green-400' : 'text-green-500'}`}>✅</span>
+                  <span className="text-lg"><strong>High-Speed & Secure Connections</strong> for maximum efficiency</span>
+                </li>
+                <li className="flex items-start">
+                  <span className={`mr-2 text-xl ${darkMode ? 'text-green-400' : 'text-green-500'}`}>✅</span>
+                  <span className="text-lg"><strong>Authentic Residential IPs</strong> for seamless browsing</span>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
-      </section>
-
+      </div>
+      
+      {/* Buttons - Centered at Bottom */}
+      <div className="flex flex-col sm:flex-row gap-4 justify-center mt-10 mb-6 animate-fadeInUp">
+        <button className={`${darkMode ? 'bg-purple-700 hover:bg-purple-800' : 'bg-[#8a4fc2] hover:bg-[#7b3ea4]'} text-white font-medium py-3 px-8 rounded-md shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 hover:scale-105`}>
+          See Prices
+        </button>
+        <button className={`${darkMode ? 'border-2 border-purple-700 text-purple-400 hover:bg-gray-800' : 'border-2 border-[#8a4fc2] text-[#8a4fc2] hover:bg-[#f5f0fb]'} font-medium py-3 px-8 rounded-md shadow-md flex items-center justify-center gap-2 hover:shadow-lg transition-all transform hover:-translate-y-1 hover:scale-105`}>
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
+          </svg>
+          Proxy Set-up
+        </button>
+      </div>
+      
+      {/* Stats at Bottom */}
+      <div className="flex flex-wrap justify-center gap-6 md:gap-12 mt-4 animate-pulse">
+        <div className="flex items-center">
+          <div className={`w-12 h-12 rounded-full ${darkMode ? 'bg-gray-800' : 'bg-[#f5f0fb]'} flex items-center justify-center`}>
+            <span className={`${darkMode ? 'text-purple-400' : 'text-[#8a4fc2]'} font-bold text-xl`}>🌎</span>
+          </div>
+          <span className={`ml-2 font-medium ${darkMode ? 'text-gray-200' : 'text-[#3a2854]'}`}>190+ Countries</span>
+        </div>
+        <div className="flex items-center">
+          <div className={`w-12 h-12 rounded-full ${darkMode ? 'bg-gray-800' : 'bg-[#f5f0fb]'} flex items-center justify-center`}>
+            <span className={`${darkMode ? 'text-purple-400' : 'text-[#8a4fc2]'} font-bold text-xl`}>📱</span>
+          </div>
+          <span className={`ml-2 font-medium ${darkMode ? 'text-gray-200' : 'text-[#3a2854]'}`}>Mobile Proxies</span>
+        </div>
+        <div className="flex items-center">
+          <div className={`w-12 h-12 rounded-full ${darkMode ? 'bg-gray-800' : 'bg-[#f5f0fb]'} flex items-center justify-center`}>
+            <span className={`${darkMode ? 'text-purple-400' : 'text-[#8a4fc2]'} font-bold text-xl`}>💰</span>
+          </div>
+          <span className={`ml-2 font-medium ${darkMode ? 'text-gray-200' : 'text-[#3a2854]'}`}>From $1/Day</span>
+        </div>
+        <div className="flex items-center">
+          <div className={`w-12 h-12 rounded-full ${darkMode ? 'bg-gray-800' : 'bg-[#f5f0fb]'} flex items-center justify-center`}>
+            <span className={`${darkMode ? 'text-purple-400' : 'text-[#8a4fc2]'} font-bold text-xl`}>⏱️</span>
+          </div>
+          <span className={`ml-2 font-medium ${darkMode ? 'text-gray-200' : 'text-[#3a2854]'}`}>99.9% Uptime</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  {/* Add the animation keyframes */}
+  <style jsx>{`
+    @keyframes featureSlide {
+      0%, 45% {
+        transform: translateX(0);
+      }
+      50%, 95% {
+        transform: translateX(-100%);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+    
+    .animate-featureSlide1 {
+      animation: featureSlide 10s infinite;
+    }
+    
+    .animate-featureSlide2 {
+      animation: featureSlide 10s infinite reverse;
+    }
+  `}</style>
+</section>
       {/* Main content area with wider layout */}
       <div className="container mx-auto px-4">
         {/* Features Section */}

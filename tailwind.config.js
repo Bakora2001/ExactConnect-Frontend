@@ -8,6 +8,7 @@ export default {
 		animation: {
 			'pulse-slow': 'pulse-gentle 3s ease-in-out infinite',
 		  },
+		  
 		  keyframes: {
 			'pulse-gentle': {
 			  '0%, 100%': { transform: 'translateY(0)' },
