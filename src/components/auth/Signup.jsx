@@ -194,7 +194,7 @@ function Signup() {
 
   return (
     <div
-      className={`min-h-screen flex ${
+      className={`h-screen flex ${
         darkMode ? 'bg-[#0c0b08] text-white' : 'bg-white text-black'
       }`}
     >
@@ -204,259 +204,262 @@ function Signup() {
       {/* Sign-up Form Section */}
       <div className="w-full md:w-1/2 flex items-center justify-center px-4 py-12">
         <div
-          className={`${
+          className={`h-[90vh] flex flex-col ${
             darkMode
               ? 'bg-[#131312] text-white border-gray-700'
               : 'bg-white text-black border-gray-100'
           } p-8 rounded-xl shadow-lg w-full max-w-md border transition-all duration-300`}
         >
-          <div className="text-center">
+          {/* Static Header - This will stay fixed */}
+          <div className="text-center mb-6">
             <h2 className="text-2xl font-bold mb-1 text-[#7C25BA] hover:text-[#806cff]">
               Exact
               <span className="text-[#7C25BA] hover:text-[#fff]">Connect.</span>
             </h2>
-            <p className="text-lg font-circular font-normal text-gray-600 mb-4">
+            <p className="text-lg font-circular font-normal text-gray-600">
               Enter your information to get started
             </p>
           </div>
-
-          <form onSubmit={onSubmit}>
-            {/* First Name and Last Name side by side */}
-            <div className="flex space-x-4 mb-4">
-              <div className="flex-1">
-                <label
-                  htmlFor="firstName"
-                  className={`block text-sm font-medium ${
-                    darkMode ? 'text-white' : 'text-black'
-                  }`}
-                >
-                  First Name
-                </label>
-                <div className="relative">
-                  <FiUser className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-                  <input
-                    type="text"
-                    name="firstName"
-                    id="firstName"
-                    value={formData.firstName}
-                    onChange={handleChange}
-                    className={`w-full h-12 pl-10 pr-4 py-2 border ${
-                      darkMode
-                        ? 'bg-[#131312] text-white border-gray-600'
-                        : 'bg-gray-100 text-black border-gray-300'
-                    } ${
-                      errors.firstName ? 'border-red-500' : 'border-gray-300'
-                    } rounded-lg text-sm focus:outline-none focus:ring-2 ${
-                      errors.firstName
-                        ? 'focus:ring-red-500'
-                        : 'focus:ring-gray-500'
+          
+          {/* Scrollable Form Container */}
+          <div className="flex-1 overflow-y-auto pr-2">
+            <form onSubmit={onSubmit}>
+              {/* First Name and Last Name side by side */}
+              <div className="flex space-x-4 mb-4">
+                <div className="flex-1">
+                  <label
+                    htmlFor="firstName"
+                    className={`block text-sm font-medium ${
+                      darkMode ? 'text-white' : 'text-black'
                     }`}
-                    placeholder="John"
-                    aria-invalid={!!errors.firstName}
-                    aria-describedby="email_error"
-                  />
+                  >
+                    First Name
+                  </label>
+                  <div className="relative">
+                    <FiUser className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                    <input
+                      type="text"
+                      name="firstName"
+                      id="firstName"
+                      value={formData.firstName}
+                      onChange={handleChange}
+                      className={`w-full h-12 pl-10 pr-4 py-2 border ${
+                        darkMode
+                          ? 'bg-[#131312] text-white border-gray-600'
+                          : 'bg-gray-100 text-black border-gray-300'
+                      } ${
+                        errors.firstName ? 'border-red-500' : 'border-gray-300'
+                      } rounded-lg text-sm focus:outline-none focus:ring-2 ${
+                        errors.firstName
+                          ? 'focus:ring-red-500'
+                          : 'focus:ring-gray-500'
+                      }`}
+                      placeholder="John"
+                      aria-invalid={!!errors.firstName}
+                      aria-describedby="email_error"
+                    />
+                  </div>
+                  {errors.firstName && (
+                    <p id="email_error" className="text-red-500 text-sm mt-1">
+                      {errors.firstName}
+                    </p>
+                  )}
                 </div>
-                {errors.firstName && (
-                  <p id="email_error" className="text-red-500 text-sm mt-1">
-                    {errors.firstName}
-                  </p>
-                )}
+                <div className="flex-1">
+                  <label
+                    htmlFor="lastName"
+                    className={`block text-sm font-medium ${
+                      darkMode ? 'text-white' : 'text-black'
+                    }`}
+                  >
+                    Last Name
+                  </label>
+                  <div className="relative">
+                    <FiUser className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                    <input
+                      type="text"
+                      name="lastName"
+                      id="lastName"
+                      value={formData.lastName}
+                      onChange={handleChange}
+                      className={`w-full h-12 pl-10 pr-4 py-2 border ${
+                        darkMode
+                          ? 'bg-[#131312] text-white border-gray-600'
+                          : 'bg-gray-100 text-black border-gray-300'
+                      } ${
+                        errors.lastName ? 'border-red-500' : 'border-gray-300'
+                      } rounded-lg text-sm focus:outline-none focus:ring-2 ${
+                        errors.lastName
+                          ? 'focus:ring-red-500'
+                          : 'focus:ring-gray-500'
+                      }`}
+                      placeholder="Doe"
+                      aria-invalid={!!errors.lastName}
+                      aria-describedby="user_name_error"
+                    />
+                  </div>
+                  {errors.lastName && (
+                    <p id="user_name_error" className="text-red-500 text-sm mt-1">
+                      {errors.lastName}
+                    </p>
+                  )}
+                </div>
               </div>
-              <div className="flex-1">
+
+              {/* Email Field */}
+              <div className="mb-4">
                 <label
-                  htmlFor="lastName"
+                  htmlFor="email"
                   className={`block text-sm font-medium ${
                     darkMode ? 'text-white' : 'text-black'
                   }`}
                 >
-                  Last Name
+                  Email
                 </label>
                 <div className="relative">
-                  <FiUser className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                  <FiMail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                   <input
                     type="text"
-                    name="lastName"
-                    id="lastName"
-                    value={formData.lastName}
+                    name="email"
+                    id="email"
+                    value={formData.email}
                     onChange={handleChange}
                     className={`w-full h-12 pl-10 pr-4 py-2 border ${
                       darkMode
                         ? 'bg-[#131312] text-white border-gray-600'
                         : 'bg-gray-100 text-black border-gray-300'
                     } ${
-                      errors.lastName ? 'border-red-500' : 'border-gray-300'
+                      errors.email ? 'border-red-500' : 'border-gray-300'
                     } rounded-lg text-sm focus:outline-none focus:ring-2 ${
-                      errors.lastName
-                        ? 'focus:ring-red-500'
-                        : 'focus:ring-gray-500'
+                      errors.email ? 'focus:ring-red-500' : 'focus:ring-gray-500'
                     }`}
-                    placeholder="Doe"
-                    aria-invalid={!!errors.lastName}
+                    placeholder="you@example.com"
+                    aria-invalid={!!errors.email}
                     aria-describedby="user_name_error"
                   />
                 </div>
-                {errors.lastName && (
+                {errors.email && (
                   <p id="user_name_error" className="text-red-500 text-sm mt-1">
-                    {errors.lastName}
+                    {errors.email}
                   </p>
                 )}
               </div>
-            </div>
 
-            {/* Email Field */}
-            <div className="mb-4">
-              <label
-                htmlFor="email"
-                className={`block text-sm font-medium ${
-                  darkMode ? 'text-white' : 'text-black'
-                }`}
-              >
-                Email
-              </label>
-              <div className="relative">
-                <FiMail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-                <input
-                  type="text"
-                  name="email"
-                  id="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className={`w-full h-12 pl-10 pr-4 py-2 border ${
-                    darkMode
-                      ? 'bg-[#131312] text-white border-gray-600'
-                      : 'bg-gray-100 text-black border-gray-300'
-                  } ${
-                    errors.email ? 'border-red-500' : 'border-gray-300'
-                  } rounded-lg text-sm focus:outline-none focus:ring-2 ${
-                    errors.email ? 'focus:ring-red-500' : 'focus:ring-gray-500'
+              {/* Country Field */}
+              <div className="mb-4">
+                <label
+                  htmlFor="country"
+                  className={`block text-sm font-medium ${
+                    darkMode ? 'text-white' : 'text-black'
                   }`}
-                  placeholder="you@example.com"
-                  aria-invalid={!!errors.email}
-                  aria-describedby="user_name_error"
-                />
-              </div>
-              {errors.email && (
-                <p id="user_name_error" className="text-red-500 text-sm mt-1">
-                  {errors.email}
-                </p>
-              )}
-            </div>
-
-            {/* Country Field */}
-            <div className="mb-4">
-              <label
-                htmlFor="country"
-                className={`block text-sm font-medium ${
-                  darkMode ? 'text-white' : 'text-black'
-                }`}
-              >
-                Country
-              </label>
-              <div className="relative">
-               
-                <Select
-                  name="country"
-                  id="country"
-                  styles={selectStyles}
-                  options={countryOptions}
-                  value={selectedCountry}
-                  onChange={handleCountryChange}
-                  className={`mt-1 p-2 block w-full border rounded-md ${
-                    darkMode
-                      ? 'bg-[#131312] text-black border-gray-700'
-                      : 'bg-white text-black'
-                  }`}
-                  placeholder="Select Country"
-                />
-              </div>
-              {errors.countryCode && (
-                <p id="user_name_error" className="text-red-500 text-sm mt-1">
-                  {errors.countryCode}
-                </p>
-              )}
-            </div>
-
-            {/* Password Field */}
-            <div className="mb-4 relative">
-              <label
-                htmlFor="password"
-                className={`block text-sm font-medium ${
-                  darkMode ? 'text-white' : 'text-black'
-                }`}
-              >
-                Password
-              </label>
-              <div className="relative">
-                <FiLock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-                <input
-                  type={showPassword ? 'text' : 'password'}
-                  name="password"
-                  id="password"
-                  placeholder="********"
-                  value={formData.password}
-                  onChange={handleChange}
-                  className={`w-full h-12 pl-10 pr-10 py-2 border ${
-                    darkMode
-                      ? 'bg-[#131312] text-white border-gray-600'
-                      : 'bg-gray-100 text-black border-gray-300'
-                  } ${
-                    errors.password ? 'border-red-500' : 'border-gray-300'
-                  } rounded-lg text-sm focus:outline-none focus:ring-2 ${
-                    errors.password ? 'focus:ring-red-500' : 'focus:ring-gray-500'
-                  }`}
-                  aria-invalid={!!errors.password}
-                  aria-describedby="password_error"
-                />
-                <button
-                  className="absolute inset-y-0 right-3 flex items-center text-gray-500"
-                  type="button"
-                  onClick={togglePasswordVisibility}
                 >
-                  {showPassword ? <FiEyeOff /> : <FiEye />}
-                </button>
+                  Country
+                </label>
+                <div className="relative">
+                  <Select
+                    name="country"
+                    id="country"
+                    styles={selectStyles}
+                    options={countryOptions}
+                    value={selectedCountry}
+                    onChange={handleCountryChange}
+                    className={`mt-1 p-2 block w-full border rounded-md ${
+                      darkMode
+                        ? 'bg-[#131312] text-black border-gray-700'
+                        : 'bg-white text-black'
+                    }`}
+                    placeholder="Select Country"
+                  />
+                </div>
+                {errors.countryCode && (
+                  <p id="user_name_error" className="text-red-500 text-sm mt-1">
+                    {errors.countryCode}
+                  </p>
+                )}
               </div>
-              {errors.password && (
-                <p id="password_error" className="text-red-500 text-sm mt-1">
-                  {errors.password}
+
+              {/* Password Field */}
+              <div className="mb-4 relative">
+                <label
+                  htmlFor="password"
+                  className={`block text-sm font-medium ${
+                    darkMode ? 'text-white' : 'text-black'
+                  }`}
+                >
+                  Password
+                </label>
+                <div className="relative">
+                  <FiLock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                  <input
+                    type={showPassword ? 'text' : 'password'}
+                    name="password"
+                    id="password"
+                    placeholder="********"
+                    value={formData.password}
+                    onChange={handleChange}
+                    className={`w-full h-12 pl-10 pr-10 py-2 border ${
+                      darkMode
+                        ? 'bg-[#131312] text-white border-gray-600'
+                        : 'bg-gray-100 text-black border-gray-300'
+                    } ${
+                      errors.password ? 'border-red-500' : 'border-gray-300'
+                    } rounded-lg text-sm focus:outline-none focus:ring-2 ${
+                      errors.password ? 'focus:ring-red-500' : 'focus:ring-gray-500'
+                    }`}
+                    aria-invalid={!!errors.password}
+                    aria-describedby="password_error"
+                  />
+                  <button
+                    className="absolute inset-y-0 right-3 flex items-center text-gray-500"
+                    type="button"
+                    onClick={togglePasswordVisibility}
+                  >
+                    {showPassword ? <FiEyeOff /> : <FiEye />}
+                  </button>
+                </div>
+                {errors.password && (
+                  <p id="password_error" className="text-red-500 text-sm mt-1">
+                    {errors.password}
+                  </p>
+                )}
+              </div>
+              {/* Create Account Button */}
+              <Button label="Create an account" isLoading={isLoading} />
+
+              <button
+                type="button"
+                className="w-full dark:text-white mt-4 bg-white text-black py-2 rounded-lg flex items-center justify-center border border-gray-300 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 dark:bg-[#131312] dark:hover:bg-[#131312] dark:hover:bg-opacity-80 dark:border-gray-700 transition-colors duration-200"
+              >
+                <FcGoogle className="mr-2 h-5 w-5" />
+                Sign up with Google
+              </button>
+            
+              <div className="text-center text-sm mt-4 mb-4">
+                Already have an account?{' '}
+                <Link
+                  to="/account/login"
+                  className="text-purple-600 font-semibold hover:underline hover:text-purple-700 transition-colors"
+                >
+                  Sign in
+                </Link>
+                <p className="mt-2 text-gray-600">
+                  By continuing, you agree to our{' '}
+                  <Link
+                    to="/privacy"
+                    className="text-gray-600 underline hover:text-gray-700 transition-colors"
+                  >
+                    Terms of Service
+                  </Link>{' '}
+                  and{' '}
+                  <Link
+                    to="/privacy"
+                    className="text-gray-600 underline hover:text-gray-700 transition-colors"
+                  >
+                    Privacy Policy
+                  </Link>
                 </p>
-              )}
-            </div>
-            {/* Create Account Button */}
-            <Button label="Create an account" isLoading={isLoading} />
-
-            <button
-              type="button"
-              className="w-full dark:text-white mt-4 bg-white text-black py-2 rounded-lg flex items-center justify-center border border-gray-300 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 dark:bg-[#131312] dark:hover:bg-[#131312] dark:hover:bg-opacity-80 dark:border-gray-700 transition-colors duration-200"
-            >
-              <FcGoogle className="mr-2 h-5 w-5" />
-              Sign up with Google
-            </button>
-          </form>
-
-          <div className="text-center text-sm mt-4">
-            Already have an account?{' '}
-            <Link
-              to="/account/login"
-              className="text-purple-600 font-semibold hover:underline hover:text-purple-700 transition-colors"
-            >
-              Sign in
-            </Link>
-            <p className="mt-2 text-gray-600">
-              By continuing, you agree to our{' '}
-              <Link
-                to="/privacy"
-                className="text-gray-600 underline hover:text-gray-700 transition-colors"
-              >
-                Terms of Service
-              </Link>{' '}
-              and{' '}
-              <Link
-                to="/privacy"
-                className="text-gray-600 underline hover:text-gray-700 transition-colors"
-              >
-                Privacy Policy
-              </Link>
-            </p>
+              </div>
+            </form>
           </div>
         </div>
       </div>
