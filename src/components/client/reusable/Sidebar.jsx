@@ -66,15 +66,15 @@ function Sidebar({ isOpen, onClose }) {
           {navItems.map(({ to, icon, label }, index) => {
             const isActive = location.pathname === to;
             return (
-              <li
-                key={index}
-                className={`relative flex items-center p-4 rounded-lg transition-colors duration-300 ${
-                  isActive
-                    ? 'bg-neutral-700 dark:bg-gray-700'
-                    : 'hover:bg-neutral-800 dark:hover:bg-gray-800'
-                }`}
-              >
-                <Link to={to}>
+              <li key={index}>
+                <Link 
+                  to={to}
+                  className={`relative flex items-center p-4 rounded-lg transition-colors duration-300 block w-full ${
+                    isActive
+                      ? 'bg-neutral-700 dark:bg-gray-700'
+                      : 'hover:bg-neutral-800 dark:hover:bg-gray-800'
+                  }`}
+                >
                   <span className="flex items-center space-x-4">
                     <span className="text-white">{icon}</span>
                     <span className="text-sm font-medium text-white">
