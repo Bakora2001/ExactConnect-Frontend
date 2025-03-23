@@ -84,7 +84,7 @@ const Home = () => {
         <Loader />
       ) : (
         <div
-          className={`font-sans ${darkMode ? 'bg-[#0c0b08] text-white' : 'bg-[#7C25BA] text-white'}`}
+          className={`font-sans ${darkMode ? 'bg-[#111827] text-white' : 'bg-[#7C25BA] text-white'}`}
         >
           {/* Hero Section with Background Image */}
           <div 
@@ -98,7 +98,7 @@ const Home = () => {
           >
             {/* Color Overlay */}
             <div 
-              className={`absolute inset-0 ${darkMode ? 'bg-[#0c0b08]' : 'bg-[#7C25BA]'} opacity-80`}
+              className={`absolute inset-0 ${darkMode ? 'bg-[#111827]' : 'bg-[#7C25BA]'} opacity-80`}
             ></div>
             
             {/* Header */}
@@ -154,7 +154,7 @@ const Home = () => {
           
           {/* Residential Proxies Section */}
           <section className={`text-center py-6 px-4 sm:px-8 animate-fadeIn ${
-            darkMode ? 'bg-[#010100] text-white' : 'bg-[#fffe] text-black'
+            darkMode ? 'bg-[#111827] text-white' : 'bg-[#fffe] text-black'
           }`}>
             <section>
               {/* Why Choose Our Services Section */}
@@ -217,7 +217,7 @@ const Home = () => {
 
           {/* VPS Server Section */}
           <section className={`text-center py-8 px-4 sm:px-16 lg:px-24 w-full animate-fadeIn ${
-            darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
+            darkMode ? 'bg-[#111827] text-white' : 'bg-white text-black'
           }`}>
             <div>
               <h3 className="text-lg sm:text-xl font-bold mb-2">VPS Server</h3>
@@ -267,7 +267,7 @@ const Home = () => {
           {/* Virtual Credit Card Section */}
           <section
             className={`${
-              darkMode ? 'bg-[#131312] text-white' : 'bg-[#eeeeee] text-black'
+              darkMode ? 'bg-[#111827] text-white' : 'bg-[#eeeeee] text-black'
             } py-12 animate-fadeIn`}
           >
             <div className="max-w-7xl mx-auto px-6">
@@ -315,13 +315,13 @@ const Home = () => {
 
           {/* Verification Process Section - Redesigned */}
           <section className={`py-8 px-4 sm:px-8 md:px-16 lg:px-24 animate-fadeIn ${
-            darkMode ? 'bg-[#0c0b08] text-white' : 'bg-[#e4eefd] text-black'
+            darkMode ? 'bg-[#111827] text-white' : 'bg-[#e4eefd] text-black'
           }`}>
             <div className="max-w-7xl mx-auto">
               <div className="flex flex-col lg:flex-row items-center gap-8">
                 {/* Left Section: Verification Process - Enhanced */}
                 <div className="w-full lg:w-1/2 animate-slideInLeft">
-                  <div className={`rounded-xl p-6 shadow-lg ${darkMode ? 'bg-[#1a1a1a]' : 'bg-white'}`}>
+                  <div className={`rounded-xl p-6 shadow-lg ${darkMode ? 'bg-[#111827]' : 'bg-white'}`}>
                     <h4 className="text-xl font-semibold text-center mb-6">
                       <span className={`px-6 py-2 rounded-full ${darkMode ? 'bg-purple-900' : 'bg-purple-600'} text-white`}>
                         Verification Process
@@ -339,7 +339,7 @@ const Home = () => {
                         <li
                           key={index}
                           className={`rounded-full shadow-md px-6 py-3 flex items-center gap-4 transition-all duration-300 hover:translate-x-2 ${
-                            darkMode ? 'bg-gray-800 text-white hover:bg-gray-700' : 'bg-blue-50 text-black hover:bg-blue-100'
+                            darkMode ? 'bg-[#111827] text-white hover:bg-[#111827]' : 'bg-blue-50 text-black hover:bg-blue-100'
                           } animate-slideInLeft`}
                           style={{ animationDelay: `${index * 0.2}s` }}
                         >
@@ -375,7 +375,7 @@ const Home = () => {
                   </div>
                   
                   <div className={`rounded-xl p-6 shadow-lg w-full max-w-md ${
-                    darkMode ? 'bg-[#1a1a1a]' : 'bg-white'
+                    darkMode ? 'bg-[#111827]' : 'bg-white'
                   }`}>
                     <h4 className="text-lg font-semibold mb-3 border-l-4 border-purple-600 pl-3">Why Choose Our Non-VOIP Numbers?</h4>
                     <p className="text-sm md:text-base leading-relaxed">
@@ -383,13 +383,13 @@ const Home = () => {
                     </p>
                     <div className="mt-4 flex flex-wrap gap-2">
                       <span className={`text-xs px-3 py-1 rounded-full ${
-                        darkMode ? 'bg-gray-800' : 'bg-blue-50'
+                        darkMode ? 'bg-[#111827]' : 'bg-blue-50'
                       }`}>100% Success Rate</span>
                       <span className={`text-xs px-3 py-1 rounded-full ${
-                        darkMode ? 'bg-gray-800' : 'bg-blue-50'
+                        darkMode ? 'bg-[#111827]' : 'bg-blue-50'
                       }`}>Instant Delivery</span>
                       <span className={`text-xs px-3 py-1 rounded-full ${
-                        darkMode ? 'bg-gray-800' : 'bg-blue-50'
+                        darkMode ? 'bg-[#111827]' : 'bg-blue-50'
                       }`}>Major Services Supported</span>
                     </div>
                   </div>
