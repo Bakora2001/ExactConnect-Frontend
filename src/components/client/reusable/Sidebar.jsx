@@ -27,14 +27,14 @@ function Sidebar({ isOpen, onClose }) {
       icon: <RadioTower className="text-2xl" />,
       label: 'Residential Proxy',
     },
-    { to: '/rdp', icon: <Server className="text-2xl" />, label: 'Vps Server' },
+    { to: '/dashboard', icon: <Server className="text-2xl" />, label: 'Vps Server' },
     {
-      to: '/maintainance',
+      to: '/dashboard',
       icon: <Card className="text-2xl" />,
       label: 'VCC Card',
     },
     {
-      to: '/maintainance',
+      to: '/dashboard',
       icon: <PhoneCall className="text-2xl" />,
       label: 'Non Voip Numbers',
     },
