@@ -111,12 +111,9 @@ const Home = () => {
               <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center px-[1rem] md:px-[3rem] sm:px-12 gap-10 md:gap-16 pb-16">
                 <div className="md:w-1/2 text-center md:text-left animate-slideInLeft">
                   <p
-                    className={`text-4xl sm:text-4xl font-[200px] font-sans font-bold leading-tight mb-6 ${
-                      darkMode ? 'text-white' : 'text-white'
-                    } typing-cursor`}
+                    className="text-4xl sm:text-4xl font-[200px] font-sans font-bold leading-tight mb-6 text-white"
                   >
                     {typedText}
-                    <span className="typing-cursor"></span>
                   </p>
                   
                   {showSubtext && (
@@ -128,9 +125,7 @@ const Home = () => {
                   {showButton && (
                     <button
                       onClick={handleGetStartedClick}
-                      className={`${
-                        darkMode ? 'text-white border-gray-700' : 'bg-[#7C25BA]'
-                      } font-medium py-1.5 px-3 rounded-lg shadow-lg hover:opacity-90 transition-all duration-200 border mb-5 animate-pulseButton`}
+                      className="bg-[#7C25BA] font-medium py-1.5 px-3 rounded-lg shadow-lg hover:opacity-90 transition-all duration-200 border mb-5 animate-pulseButton"
                     >
                       Get Started
                     </button>
