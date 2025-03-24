@@ -847,23 +847,37 @@ const Residential = () => {
 
 {/* CTA Section */}
 <section className="relative">
-  <div className="bg-gradient-to-r from-[#8a4fc2] to-[#7040a3] text-white relative">
+  <div className={`${darkMode ? 'bg-[#111827]' : 'bg-gradient-to-r from-[#8a4fc2] to-[#7040a3]'} text-white relative`}>
     <div className="container mx-auto px-6 py-16 text-center">
       <div className="animate-float">
-        <h2 className="text-3xl font-bold mb-4">Ready to Experience Premium Residential Proxies?</h2>
-        <p className="text-xl mb-8 max-w-3xl mx-auto">
+        <h2 className={`text-3xl font-bold mb-4 ${darkMode ? 'text-purple-200' : 'text-white'}`}>
+          Ready to Experience Premium Residential Proxies?
+        </h2>
+        <p className={`text-xl mb-8 max-w-3xl mx-auto ${darkMode ? 'text-purple-100' : 'text-white'}`}>
           Join thousands of satisfied customers who trust ExactConnect for their proxy needs.
         </p>
       </div>
       <div className="flex flex-wrap justify-center gap-4">
         <button 
-          className="bg-white text-[#8a4fc2] hover:bg-purple-100 px-6 py-3 rounded-lg font-semibold transition duration-300 transform hover:scale-105 hover:-translate-y-1"
+          className={`
+            ${darkMode 
+              ? 'bg-purple-200 text-purple-900 hover:bg-purple-300' 
+              : 'bg-white text-[#8a4fc2] hover:bg-purple-100'
+            } 
+            px-6 py-3 rounded-lg font-semibold transition duration-300 transform hover:scale-105 hover:-translate-y-1
+          `}
           onClick={() => window.location.href = '/signup'}
         >
           Start Your Free Trial
         </button>
         <button 
-          className="bg-transparent border-2 border-white hover:bg-white hover:text-[#8a4fc2] px-6 py-3 rounded-lg font-semibold transition duration-300 transform hover:scale-105 hover:-translate-y-1"
+          className={`
+            ${darkMode 
+              ? 'border-2 border-purple-200 text-purple-200 hover:bg-purple-800 hover:text-purple-100' 
+              : 'bg-transparent border-2 border-white hover:bg-white hover:text-[#8a4fc2]'
+            } 
+            px-6 py-3 rounded-lg font-semibold transition duration-300 transform hover:scale-105 hover:-translate-y-1
+          `}
           onClick={() => setShowContactModal(true)}
         >
           Schedule a Demo
@@ -872,9 +886,9 @@ const Residential = () => {
     </div>
 
     {/* Additional animated elements in CTA section */}
-    <div className="absolute top-1/4 left-16 w-8 h-8 rounded-full bg-white opacity-20 animate-pulse"></div>
-    <div className="absolute bottom-1/3 right-20 w-12 h-12 rounded-full bg-white opacity-20 animate-pulse"></div>
-    <div className="absolute top-2/3 left-1/4 w-10 h-10 rounded-full bg-white opacity-20 animate-pulse"></div>
+    <div className={`absolute top-1/4 left-16 w-8 h-8 rounded-full ${darkMode ? 'bg-purple-700' : 'bg-white'} opacity-20 animate-pulse`}></div>
+    <div className={`absolute bottom-1/3 right-20 w-12 h-12 rounded-full ${darkMode ? 'bg-purple-700' : 'bg-white'} opacity-20 animate-pulse`}></div>
+    <div className={`absolute top-2/3 left-1/4 w-10 h-10 rounded-full ${darkMode ? 'bg-purple-700' : 'bg-white'} opacity-20 animate-pulse`}></div>
   </div>
 </section>
 
