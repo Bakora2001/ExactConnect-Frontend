@@ -1,4 +1,6 @@
 //Component which has the pagination logic
+import PropTypes from 'prop-types';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const Pagination = ({
   currentPage,
@@ -7,13 +9,13 @@ const Pagination = ({
   handleNextPage,
   setCurrentPage,
 }) => (
-  <div className="flex flex-wrap items-center justify-center gap-2 mt-8">
+  <div className="flex flex-wrap items-center justify-center gap-2 mb-3">
     <button
-      className="px-4 py-2 bg-gray-700 text-white rounded-lg shadow-md hover:bg-gray-600 transition disabled:opacity-50"
+      className="px-4 py-2 bg-gray-700 text-white rounded-md shadow-md hover:bg-gray-600 transition disabled:opacity-50 hidden"
       onClick={handlePreviousPage}
       disabled={currentPage === 0}
     >
-      Previous
+      <ChevronLeft />
     </button>
 
     {/* Pagination Numbers */}
@@ -26,10 +28,11 @@ const Pagination = ({
         return (
           <button
             key={index}
-            className={`px-4 py-2 ${index === currentPage
+            className={`px-4 py-2 ${
+              index === currentPage
                 ? 'bg-[#7e22ce] text-white'
                 : 'bg-gray-700 text-white'
-              } rounded-md shadow-md hover:bg-gray-600 transition`}
+            } rounded-md shadow-md hover:bg-gray-600 transition`}
             onClick={() => setCurrentPage(index)}
           >
             {index + 1}
@@ -55,13 +58,21 @@ const Pagination = ({
     })}
 
     <button
-      className="px-4 py-2 bg-gray-700 text-white rounded-lg shadow-md hover:bg-gray-600 transition disabled:opacity-50"
+      className="px-4 py-2 bg-gray-700 text-white rounded-lg shadow-md hover:bg-gray-600 transition disabled:opacity-50 hidden"
       onClick={handleNextPage}
       disabled={currentPage === totalPages - 1}
     >
-      Next
+      <ChevronRight />
     </button>
   </div>
 );
+
+Pagination.propTypes = {
+  currentPage: PropTypes.number.isRequired,
+  totalPages: PropTypes.number.isRequired,
+  handlePreviousPage: PropTypes.func.isRequired,
+  handleNextPage: PropTypes.func.isRequired,
+  setCurrentPage: PropTypes.func.isRequired,
+};
 
 export default Pagination;

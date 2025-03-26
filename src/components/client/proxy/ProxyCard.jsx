@@ -1,6 +1,7 @@
 // This component renders the proxies in cards
 
 import { MapPin, Wifi, Globe, DollarSign, Signal, Star } from 'lucide-react';
+import PropTypes from 'prop-types';
 
 const ProxyCard = ({
   filteredProxies,
@@ -125,5 +126,12 @@ const ProxyCard = ({
     </div>
   </div>
 );
+
+ProxyCard.propTypes = {
+  filteredProxies: PropTypes.array.isRequired,
+  darkMode: PropTypes.bool,
+  selectedRow: PropTypes.func,
+  handleRowClick: PropTypes.func,
+};
 
 export default ProxyCard;
