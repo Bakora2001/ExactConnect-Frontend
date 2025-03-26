@@ -1,5 +1,5 @@
-import React from "react";
 import NotFoundImage from "/writer.svg";
+import PropTypes from "prop-types";
 
 const ErrorPage = ({ error, resetErrorBoundary }) => {
   console.log("Error occurred:", error);
@@ -25,6 +25,10 @@ const ErrorPage = ({ error, resetErrorBoundary }) => {
       </button>
     </div>
   );
+};
+ErrorPage.propTypes = {
+  error: PropTypes.object.isRequired,
+  resetErrorBoundary: PropTypes.func.isRequired,
 };
 
 export default ErrorPage;

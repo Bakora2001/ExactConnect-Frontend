@@ -1,21 +1,21 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Loader2, Send, Clock, Mail } from 'lucide-react';
-import { toast } from 'sonner';
-import { z } from 'zod';
-import { SERVER_URL } from '../../services/data';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Loader2, Send, Clock, Mail } from "lucide-react";
+import { toast } from "sonner";
+import { z } from "zod";
+import { SERVER_URL } from "../../services/data";
 
 // Form validation with Zod
 const contactSchema = z.object({
-  email: z.string().email({ message: 'Invalid email address' }),
+  email: z.string().email({ message: "Invalid email address" }),
   message: z
     .string()
-    .min(10, { message: 'Message must be at least 10 characters long' }),
+    .min(10, { message: "Message must be at least 10 characters long" }),
 });
 
 const ComingSoon = () => {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({ email: '', message: '' });
+  const [formData, setFormData] = useState({ email: "", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState({});
 
@@ -33,25 +33,25 @@ const ComingSoon = () => {
 
       const payload = {
         recipients: [
-          { name: 'ExactConnect', recipient: 'charleskibet101@gmail.com' },
+          { name: "ExactConnect", recipient: "charleskibet101@gmail.com" },
         ],
-        subject: 'VIBE',
+        subject: "VIBE",
         body: validatedData.message,
-        deliveryMode: 'EMAIL',
-        countryCode: 'KE',
+        deliveryMode: "EMAIL",
+        countryCode: "KE",
       };
 
       const response = await fetch(`${SERVER_URL}/messages`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
 
-      if (!response.ok) throw new Error('Failed to send message');
+      if (!response.ok) throw new Error("Failed to send message");
 
-      navigate('/delivered');
-      toast.success('Message sent successfully!');
-      setFormData({ email: '', message: '' });
+      navigate("/delivered");
+      toast.success("Message sent successfully!");
+      setFormData({ email: "", message: "" });
       setErrors({});
     } catch (err) {
       if (err instanceof z.ZodError) {
@@ -61,7 +61,7 @@ const ComingSoon = () => {
         }, {});
         setErrors(formattedErrors);
       } else {
-        toast.error('Something went wrong. Please try again.');
+        toast.error("Something went wrong. Please try again.");
       }
     } finally {
       setIsSubmitting(false);
@@ -89,8 +89,8 @@ const ComingSoon = () => {
               Coming Soon
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-              We're working hard to bring you something amazing. Our website is
-              under construction, but we're almost there.
+              {` We're working hard to bring you something amazing. Our website is
+              under construction, but we're almost there.`}
             </p>
 
             <div className="flex items-center justify-center space-x-4 text-primary dark:text-purple-400">
@@ -107,8 +107,8 @@ const ComingSoon = () => {
             </div>
 
             <p className="text-gray-600 dark:text-gray-400 mb-6">
-              Need to get in touch with us? Send us a message and we'll get back
-              to you as soon as possible.
+              {` Need to get in touch with us? Send us a message and we'll get back
+              to you as soon as possible.`}
             </p>
 
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -122,12 +122,12 @@ const ComingSoon = () => {
                   onChange={handleChange}
                   className={`w-full px-4 py-2 rounded-md border ${
                     errors.email
-                      ? 'border-red-500'
-                      : 'border-gray-300 dark:border-gray-600'
+                      ? "border-red-500"
+                      : "border-gray-300 dark:border-gray-600"
                   } focus:outline-none focus:ring-2 ${
                     errors.email
-                      ? 'focus:ring-red-500'
-                      : 'focus:ring-primary dark:focus:ring-purple-400'
+                      ? "focus:ring-red-500"
+                      : "focus:ring-primary dark:focus:ring-purple-400"
                   } transition-all duration-200 dark:bg-[#1a1a1a] dark:text-white`}
                   aria-invalid={!!errors.email}
                   aria-describedby="email_error"
@@ -148,12 +148,12 @@ const ComingSoon = () => {
                   onChange={handleChange}
                   className={`w-full h-32 px-4 py-2 rounded-md border ${
                     errors.message
-                      ? 'border-red-500'
-                      : 'border-gray-300 dark:border-gray-600'
+                      ? "border-red-500"
+                      : "border-gray-300 dark:border-gray-600"
                   } focus:outline-none focus:ring-2 ${
                     errors.message
-                      ? 'focus:ring-red-500'
-                      : 'focus:ring-primary dark:focus:ring-purple-400'
+                      ? "focus:ring-red-500"
+                      : "focus:ring-primary dark:focus:ring-purple-400"
                   } transition-all duration-200 dark:bg-[#1a1a1a] dark:text-white`}
                   aria-invalid={!!errors.message}
                   aria-describedby="message_error"
@@ -169,7 +169,7 @@ const ComingSoon = () => {
               <button
                 type="submit"
                 className={`w-full px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 transition-colors duration-200 flex items-center justify-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:border dark:border-purple-600 ${
-                  isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
+                  isSubmitting ? "opacity-50 cursor-not-allowed" : ""
                 }`}
                 disabled={isSubmitting}
               >

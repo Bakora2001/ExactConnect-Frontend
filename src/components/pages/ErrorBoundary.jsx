@@ -1,4 +1,5 @@
-import React, { Component } from "react";
+import { Component } from "react";
+import PropTypes from "prop-types";
 
 class ErrorBoundary extends Component {
   constructor(props) {
@@ -7,7 +8,7 @@ class ErrorBoundary extends Component {
       hasError: false,
       error: null,
       retryCount: 0,
-      isRetrying: false, // New state to track retry status
+      isRetrying: false,
     };
   }
 
@@ -17,7 +18,6 @@ class ErrorBoundary extends Component {
 
   componentDidCatch(error, errorInfo) {
     console.error("ErrorBoundary caught an error:", error, errorInfo);
-    // Send error logs to an external monitoring service (e.g., Sentry, LogRocket)
   }
 
   handleRetry = () => {
@@ -52,8 +52,10 @@ class ErrorBoundary extends Component {
               Oops! Something went wrong.
             </h1>
             <p className="text-gray-700 dark:text-gray-300 text-sm md:text-base mb-4">
-              An unexpected error occurred. 
-              {this.state.retryCount < 2 ? " Please try again." : " You may need to reload the page."}
+              An unexpected error occurred.
+              {this.state.retryCount < 2
+                ? " Please try again."
+                : " You may need to reload the page."}
             </p>
 
             {/* Show "Try Again" button if retries are available */}
@@ -107,5 +109,8 @@ class ErrorBoundary extends Component {
     return this.props.children;
   }
 }
+ErrorBoundary.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 export default ErrorBoundary;

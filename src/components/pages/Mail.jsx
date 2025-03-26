@@ -1,12 +1,8 @@
-import { Mail } from 'lucide-react';
-import { useContext } from 'react';
-import { DarkModeContext } from '../../context/DarkModeContext';
+import { Mail } from "lucide-react";
 
 export default function MailConfirmation() {
-  const { darkMode } = useContext(DarkModeContext);
-  const userDetails = JSON.parse(localStorage.getItem('userDetails'));
+  const userDetails = JSON.parse(localStorage.getItem("userDetails"));
   const getEmail = userDetails.email;
-  // console.log(getEmail);
 
   return (
     <div
@@ -29,7 +25,7 @@ export default function MailConfirmation() {
         {/* Open Gmail Button */}
         <button
           className="w-full flex items-center justify-center gap-2 h-12 px-4 bg-[#010100] border border-gray-700 rounded-lg shadow-sm hover:bg-[#131312] transition-all focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-          onClick={() => window.open('https://gmail.com', '_blank')}
+          onClick={() => window.open("https://gmail.com", "_blank")}
         >
           <img
             src="https://www.google.com/gmail/about/static/images/logo-gmail.png?cache=1adba63"
