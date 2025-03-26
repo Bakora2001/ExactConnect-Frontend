@@ -1,13 +1,14 @@
-import { Link } from 'react-router-dom';
-import { DarkModeContext } from '../../context/DarkModeContext';
-import { useContext } from 'react';
+import { Link } from "react-router-dom";
+import { DarkModeContext } from "../../context/DarkModeContext";
+import { useContext } from "react";
 
 const MaintenancePage = () => {
   const { darkMode } = useContext(DarkModeContext);
   return (
     <div
-      className={`flex items-center justify-center h-screen ${darkMode ? 'bg-[#131312] text-white' : ' bg-white text-black'
-        }`}
+      className={`flex items-center justify-center h-screen ${
+        darkMode ? "bg-[#131312] text-white" : " bg-white text-black"
+      }`}
     >
       <div className="text-center">
         <h1 className="text-9xl font-bold">503</h1>
@@ -17,7 +18,7 @@ const MaintenancePage = () => {
         <p className="text-lg mt-2">
           The site is not available at the moment.
           <br />
-          We'll be back online shortly.
+          {`We'll be back online shortly.`}
         </p>
         <Link to="/">
           <button className="mt-6 px-6 py-2 bg-[#7C25BA] hover:bg-[#6a1fa0] text-white rounded-lg">

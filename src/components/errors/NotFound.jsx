@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 function NotFound() {
   const navigate = useNavigate();
@@ -13,12 +13,12 @@ function NotFound() {
         Oops! Page not found
       </h2>
       <p className="text-base sm:text-lg text-gray-300 mb-8 text-center max-w-md">
-        Sorry, the page you're looking for doesn't exist. You might have entered
-        an incorrect URL or the page has been removed.
+        {`Sorry, the page you're looking for doesn't exist. You might have entered
+        an incorrect URL or the page has been removed.`}
       </p>
       {/* Back to Home Button */}
       <button
-        onClick={() => navigate('/')}
+        onClick={() => navigate("/")}
         className="bg-purple-600 hover:bg-purple-700 text-white font-semibold px-6 py-3 rounded-lg shadow-md transition duration-200"
       >
         Go Back to Home
