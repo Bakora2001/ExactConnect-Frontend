@@ -1,41 +1,41 @@
 //This is will be the client's dashboard
-import server from '/servertwo.svg';
-import mobile from '/mobiletower.svg';
-import { Link, useNavigate } from 'react-router-dom';
-import React, { useState, useContext, useEffect } from 'react';
-import { userDetails } from '../../../lib/userDetails';
-import { Moon, CloudSun, Plug, Sun, AlignJustify, X } from 'lucide-react';
-import { BsFillLightningChargeFill } from 'react-icons/bs';
-import SideBar from '../reusable/Sidebar';
-import UserMenu from '../reusable/UserMenu';
-import { DarkModeContext } from '../../../context/DarkModeContext';
-import { capitalizedFirstName } from '../../../utils/capitalize';
+import server from "/servertwo.svg";
+import mobile from "/mobiletower.svg";
+import { Link, useNavigate } from "react-router-dom";
+import { useState, useContext, useEffect } from "react";
+import { userDetails } from "../../../lib/userDetails";
+import { Moon, CloudSun, Plug, Sun, AlignJustify, X } from "lucide-react";
+import { BsFillLightningChargeFill } from "react-icons/bs";
+import SideBar from "../reusable/Sidebar";
+import UserMenu from "../reusable/UserMenu";
+import { DarkModeContext } from "../../../context/DarkModeContext";
+import { capitalizedFirstName } from "../../../utils/capitalize";
 
-import { SERVER_URL } from '../../../services/data';
-import { IoIosCellular } from 'react-icons/io';
-import { ErrorBoundary } from 'react-error-boundary';
-import ErrorPage from '../../pages/ErrorPage';
+import { SERVER_URL } from "../../../services/data";
+import { IoIosCellular } from "react-icons/io";
+import { ErrorBoundary } from "react-error-boundary";
+import ErrorPage from "../../pages/ErrorPage";
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const [proxies, setProxies] = useState(0);
-  console.log(proxies);
-  const [currentDateTime, setCurrentDateTime] = useState('');
-  const [greeting, setGreeting] = useState({ text: '', icon: null });
+
+  const [currentDateTime, setCurrentDateTime] = useState("");
+  const [greeting, setGreeting] = useState({ text: "", icon: null });
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const { darkMode } = useContext(DarkModeContext);
 
   // Fetch user details and redirect if not logged in
-  //   useEffect(() => {
-  //     if (!userDetails) {
-  //       navigate('/account/login');
-  //     }
-  //   }, [navigate, userDetails]);
-  console.log(userDetails);
+  useEffect(() => {
+    if (!userDetails) {
+      navigate("/account/login");
+    }
+  }, [navigate]);
+
   // Fetch proxies data
   useEffect(() => {
     fetch(`${SERVER_URL}/products/proxies?page=${0}`, {
-      method: 'GET',
+      method: "GET",
     })
       .then((data) => data.json())
       .then((proxies) => setProxies(proxies.total));
@@ -45,34 +45,34 @@ const Dashboard = () => {
   const formatDateTime = () => {
     const currentDateTime = new Date();
     const days = [
-      'Sunday',
-      'Monday',
-      'Tuesday',
-      'Wednesday',
-      'Thursday',
-      'Friday',
-      'Saturday',
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
     ];
     const months = [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec',
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
     ];
     const day = days[currentDateTime.getDay()];
     const month = months[currentDateTime.getMonth()];
     const date = currentDateTime.getDate();
-    const hours = currentDateTime.getHours().toString().padStart(2, '0');
-    const minutes = currentDateTime.getMinutes().toString().padStart(2, '0');
-    const seconds = currentDateTime.getSeconds().toString().padStart(2, '0');
+    const hours = currentDateTime.getHours().toString().padStart(2, "0");
+    const minutes = currentDateTime.getMinutes().toString().padStart(2, "0");
+    const seconds = currentDateTime.getSeconds().toString().padStart(2, "0");
     return `${day}, ${month} ${date} ${hours}:${minutes}:${seconds}`;
   };
 
@@ -89,17 +89,17 @@ const Dashboard = () => {
     const currentHour = new Date().getHours();
     if (currentHour >= 5 && currentHour < 12) {
       return {
-        text: 'Good Morning',
+        text: "Good Morning",
         icon: <CloudSun className="inline-block w-5 h-5 text-yellow-500" />,
       };
     } else if (currentHour >= 12 && currentHour < 17) {
       return {
-        text: 'Good Afternoon',
+        text: "Good Afternoon",
         icon: <Sun className="inline-block w-5 h-5 text-orange-500" />,
       };
     } else {
       return {
-        text: 'Good Evening',
+        text: "Good Evening",
         icon: <Moon className="inline-block w-5 h-5 text-yellow-500" />,
       };
     }
@@ -122,11 +122,11 @@ const Dashboard = () => {
   return (
     <ErrorBoundary
       FallbackComponent={ErrorPage}
-      onReset={() => (location.href = '/')}
+      onReset={() => (location.href = "/")}
     >
       <div
         className={`min-h-screen flex relative ${
-          darkMode ? 'bg-[#0c0b08]' : 'bg-gray-100'
+          darkMode ? "bg-[#0c0b08]" : "bg-gray-100"
         }`}
       >
         {/* Sidebar */}
@@ -140,25 +140,25 @@ const Dashboard = () => {
         {/* Main Content */}
         <main
           className={`flex-1 ${
-            darkMode ? 'bg-[#0c0b08]' : 'bg-white'
+            darkMode ? "bg-[#0c0b08]" : "bg-white"
           } transition-all duration-300 ease-in-out  ${
             isSidebarOpen
-              ? 'blur-sm pointer-events-none md:pointer-events-auto'
-              : ''
+              ? "blur-sm pointer-events-none md:pointer-events-auto"
+              : ""
           } md:ml-64`}
         >
           {/* Header Section */}
           <header
             className={`flex justify-between items-center py-3 px-4  backdrop-blur-lg bg-opacity-90 shadow-sm border-b sticky top-0 z-50 ${
               darkMode
-                ? 'bg-[#0c0b08]/50 border-gray-700'
-                : 'bg-[#7C25BA] border-[#7C25BA]'
+                ? "bg-[#0c0b08]/50 border-gray-700"
+                : "bg-[#7C25BA] border-[#7C25BA]"
             }`}
           >
             {/* Sidebar Toggle Button */}
             <button
               className={`md:hidden text-3xl z-50 ${
-                darkMode ? 'text-white' : 'text-white'
+                darkMode ? "text-white" : "text-white"
               }`}
               onClick={toggleSidebar}
             >
@@ -185,8 +185,8 @@ const Dashboard = () => {
             <div
               className={`relative  rounded-xl p-6 shadow-xl border overflow-hidden transition-transform transform hover:scale-[1.02]    border-transparent animate-border ${
                 darkMode
-                  ? 'bg-[#181918] border-gray-700 [background:linear-gradient(45deg,#1a1a1a,theme(colors.black)_50%,#1a1a1a)_padding-box,conic-gradient(from_var(--border-angle),theme(colors.gray.600/.48)_80%,_theme(colors.white)_86%,_theme(colors.white)_90%,_theme(colors.white)_94%,_theme(colors.slate.600/.48))_border-box] '
-                  : 'bg-white  border-gray-200 shadow-xl rounded-md'
+                  ? "bg-[#181918] border-gray-700 [background:linear-gradient(45deg,#1a1a1a,theme(colors.black)_50%,#1a1a1a)_padding-box,conic-gradient(from_var(--border-angle),theme(colors.gray.600/.48)_80%,_theme(colors.white)_86%,_theme(colors.white)_90%,_theme(colors.white)_94%,_theme(colors.slate.600/.48))_border-box] "
+                  : "bg-white  border-gray-200 shadow-xl rounded-md"
               }`}
             >
               {/* Neon Glow Effect */}
@@ -196,7 +196,7 @@ const Dashboard = () => {
               <div className="flex justify-between items-center">
                 <span
                   className={`text-sm font-medium flex items-center gap-1 ${
-                    darkMode ? 'text-purple-400' : 'text-purple-600'
+                    darkMode ? "text-purple-400" : "text-purple-600"
                   }`}
                 >
                   <BsFillLightningChargeFill className="animate-pulse h-5" />
@@ -204,8 +204,8 @@ const Dashboard = () => {
                 <span
                   className={`flex items-center gap-1 text-xs font-semibold px-3 py-1 rounded-full shadow-md ${
                     darkMode
-                      ? 'bg-green-900 text-green-300'
-                      : 'bg-green-100 text-green-700'
+                      ? "bg-green-900 text-green-300"
+                      : "bg-green-100 text-green-700"
                   }`}
                 >
                   <IoIosCellular className="w-4 h-4 animate-spin-slow" />
@@ -217,8 +217,8 @@ const Dashboard = () => {
               <hr
                 className={`my-4 transition-all duration-300 ${
                   darkMode
-                    ? 'border-gray-700 hover:border-purple-400'
-                    : 'border-gray-200 hover:border-purple-600'
+                    ? "border-gray-700 hover:border-purple-400"
+                    : "border-gray-200 hover:border-purple-600"
                 }`}
               />
 
@@ -227,7 +227,7 @@ const Dashboard = () => {
                 <div>
                   <p
                     className={`text-sm transition-all duration-300 ${
-                      darkMode ? 'text-gray-400' : 'text-gray-600'
+                      darkMode ? "text-gray-400" : "text-gray-600"
                     }`}
                   >
                     Total Proxies
@@ -235,8 +235,8 @@ const Dashboard = () => {
                   <p
                     className={`text-3xl font-bold transition-all duration-300 ${
                       darkMode
-                        ? 'text-white drop-shadow-[0_0px_10px_rgba(255,255,255,0.5)]'
-                        : 'text-gray-800'
+                        ? "text-white drop-shadow-[0_0px_10px_rgba(255,255,255,0.5)]"
+                        : "text-gray-800"
                     }`}
                   >
                     {proxies}
@@ -246,8 +246,8 @@ const Dashboard = () => {
                   <button
                     className={`p-3 rotate-90 rounded-full flex items-center justify-center transition-all duration-300 ${
                       darkMode
-                        ? 'text-purple-400 bg-purple-900 hover:bg-purple-700 shadow-md shadow-purple-500/40'
-                        : 'text-purple-600 bg-purple-100 hover:bg-purple-200 shadow-lg'
+                        ? "text-purple-400 bg-purple-900 hover:bg-purple-700 shadow-md shadow-purple-500/40"
+                        : "text-purple-600 bg-purple-100 hover:bg-purple-200 shadow-lg"
                     }`}
                   >
                     <Plug className="w-6 h-6  animate-bounce " />
@@ -268,11 +268,11 @@ const Dashboard = () => {
                 <div
                   className="absolute inset-0 bg-purple-500 rounded-full opacity-10 blur-md"
                   style={{
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    width: '110%',
-                    height: '110%',
+                    top: "50%",
+                    left: "50%",
+                    transform: "translate(-50%, -50%)",
+                    width: "110%",
+                    height: "110%",
                   }}
                 ></div>
               </div>
@@ -281,8 +281,8 @@ const Dashboard = () => {
               <p
                 className={`text-4xl font-semibold bg-gradient-to-r ${
                   darkMode
-                    ? 'from-blue-400 to-purple-400'
-                    : 'from-blue-600 to-purple-600'
+                    ? "from-blue-400 to-purple-400"
+                    : "from-blue-600 to-purple-600"
                 } bg-clip-text text-transparent`}
               >
                 0
@@ -291,7 +291,7 @@ const Dashboard = () => {
               {/* Title with a subtle underline animation */}
               <h2
                 className={`text-lg font-medium relative inline-block ${
-                  darkMode ? 'text-gray-400' : 'text-gray-600'
+                  darkMode ? "text-gray-400" : "text-gray-600"
                 }`}
               >
                 Servers
@@ -304,21 +304,21 @@ const Dashboard = () => {
             <div
               className={`rounded-lg p-6 shadow-md flex flex-col items-center border ${
                 darkMode
-                  ? 'bg-[#0c0b08] border-gray-700'
-                  : 'bg-gray-100 border-gray-300'
+                  ? "bg-[#0c0b08] border-gray-700"
+                  : "bg-gray-100 border-gray-300"
               }`}
             >
               <img src={server} alt="Cards" className="w-20 h-20 mb-4" />
               <p
                 className={`text-4xl font-semibold ${
-                  darkMode ? 'text-white' : 'text-black'
+                  darkMode ? "text-white" : "text-black"
                 }`}
               >
                 0
               </p>
               <h2
                 className={`text-lg font-medium ${
-                  darkMode ? 'text-gray-400' : 'text-gray-600'
+                  darkMode ? "text-gray-400" : "text-gray-600"
                 }`}
               >
                 Cards
@@ -332,30 +332,30 @@ const Dashboard = () => {
             <div
               className={`rounded-lg p-6 shadow-md ${
                 darkMode
-                  ? 'bg-[#0c0b08]  border border-gray-700'
-                  : 'bg-white border-gray-200'
+                  ? "bg-[#0c0b08]  border border-gray-700"
+                  : "bg-white border-gray-200"
               }`}
             >
               <h2
                 className={`text-lg font-semibold mb-4 ${
-                  darkMode ? 'text-white' : 'text-gray-800'
+                  darkMode ? "text-white" : "text-gray-800"
                 }`}
               >
                 Recent Activity
               </h2>
               <ul className="space-y-3">
                 <li
-                  className={`${darkMode ? 'text-gray-400' : 'text-gray-600'}`}
+                  className={`${darkMode ? "text-gray-400" : "text-gray-600"}`}
                 >
                   - You bought an RDP.
                 </li>
                 <li
-                  className={`${darkMode ? 'text-gray-400' : 'text-gray-600'}`}
+                  className={`${darkMode ? "text-gray-400" : "text-gray-600"}`}
                 >
                   - Logged into your account.
                 </li>
                 <li
-                  className={`${darkMode ? 'text-gray-400' : 'text-gray-600'}`}
+                  className={`${darkMode ? "text-gray-400" : "text-gray-600"}`}
                 >
                   - Added a VCC card to the cart.
                 </li>
@@ -366,18 +366,18 @@ const Dashboard = () => {
             <div
               className={`rounded-lg p-6 shadow-md ${
                 darkMode
-                  ? 'bg-[#0c0b08] border border-gray-700'
-                  : 'bg-white border-gray-200'
+                  ? "bg-[#0c0b08] border border-gray-700"
+                  : "bg-white border-gray-200"
               }`}
             >
               <h2
                 className={`text-lg font-semibold mb-4 ${
-                  darkMode ? 'text-white' : 'text-gray-800'
+                  darkMode ? "text-white" : "text-gray-800"
                 }`}
               >
                 Announcements
               </h2>
-              <p className={`${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+              <p className={`${darkMode ? "text-gray-400" : "text-gray-600"}`}>
                 VCC cards are now ready to be used.
               </p>
             </div>
