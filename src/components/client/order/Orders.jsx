@@ -1,21 +1,20 @@
-import { useState, useContext, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   FiSearch,
   FiChevronRight,
   FiDollarSign,
   FiCalendar,
-} from "react-icons/fi";
-import { HiOutlineStatusOnline } from "react-icons/hi";
-import { FaBars, FaTimes } from "react-icons/fa";
-import { IoIosStarOutline, IoIosCellular } from "react-icons/io";
-import { userDetails } from "../../../lib/userDetails";
-import { customerId } from "../../../lib/userDetails";
-import SideBar from "../reusable/Sidebar";
-import UserMenu from "../reusable/UserMenu";
-import { DarkModeContext } from "../../../context/DarkModeContext";
+} from 'react-icons/fi';
+import { IoIosStarOutline, IoIosCellular } from 'react-icons/io';
+import { userDetails } from '../../../lib/userDetails';
+import { customerId } from '../../../lib/userDetails';
+import SideBar from '../reusable/Sidebar';
+import UserMenu from '../reusable/UserMenu';
+import { DarkModeContext } from '../../../context/DarkModeContext';
 
-import { SERVER_URL } from "../../../services/data";
+import { SERVER_URL } from '../../../services/data';
+import { AlignJustify, DatabaseZap, X } from 'lucide-react';
 
 const OrdersPage = () => {
   const [orderList, setOrders] = useState([]);
@@ -23,13 +22,13 @@ const OrdersPage = () => {
 
   useEffect(() => {
     if (!userDetails) {
-      navigate("account/login");
+      navigate('account/login');
     }
   }, [navigate]);
 
   const { darkMode } = useContext(DarkModeContext);
 
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   //proxid  rating countrycode
@@ -56,44 +55,44 @@ const OrdersPage = () => {
   // Sample orders data
   const orders = [
     {
-      id: "#1234",
-      customer: "Sarah Johnson",
-      date: "2024-03-15",
+      id: '#1234',
+      customer: 'Sarah Johnson',
+      date: '2024-03-15',
       total: 4.99,
-      status: "Completed",
+      status: 'Completed',
       rating: 3,
-      isp: "Safaricom",
-      countyCode: "KE",
+      isp: 'Safaricom',
+      countyCode: 'KE',
     },
     {
-      id: "#1235",
-      customer: "Mike Chen",
-      date: "2024-03-14",
+      id: '#1235',
+      customer: 'Mike Chen',
+      date: '2024-03-14',
       total: 2.99,
-      status: "Processing",
+      status: 'Processing',
       rating: 2,
-      isp: "Vijiji",
-      countyCode: "KE",
+      isp: 'Vijiji',
+      countyCode: 'KE',
     },
     {
-      id: "#1236",
-      customer: "Emma Wilson",
-      date: "2024-03-13",
+      id: '#1236',
+      customer: 'Emma Wilson',
+      date: '2024-03-13',
       total: 1.99,
-      status: "Shipped",
+      status: 'Shipped',
       rating: 5,
-      isp: "Faiba",
-      countyCode: "KE",
+      isp: 'Faiba',
+      countyCode: 'KE',
     },
     {
-      id: "#1237",
-      customer: "James Brown",
-      date: "2024-03-12",
+      id: '#1237',
+      customer: 'James Brown',
+      date: '2024-03-12',
       total: 1,
-      status: "Pending",
+      status: 'Pending',
       rating: 4,
-      isp: "Wananchi",
-      countyCode: "KE",
+      isp: 'Wananchi',
+      countyCode: 'KE',
     },
   ];
 
@@ -102,19 +101,19 @@ const OrdersPage = () => {
   );
 
   const allOrders = orderList.map((orders) => {
-    // console.log(orders);
+    console.log(orders);
   });
-  // console.log(allOrders);
+  console.log(allOrders);
   const statusStyles = {
-    COMPLETED: "bg-green-100 text-green-800",
-    DECLINED: "bg-purple-100 text-purple-800",
-    FAILED: "bg-yellow-100 text-yellow-800",
+    COMPLETED: 'bg-green-100 text-green-800',
+    DECLINED: 'bg-purple-100 text-purple-800',
+    FAILED: 'bg-yellow-100 text-yellow-800',
   };
 
   return (
     <div
       className={`min-h-screen flex flex-col md:flex-row ${
-        darkMode ? "bg-[#131312] text-white" : "bg-gray-50"
+        darkMode ? 'bg-[#0c0b08] text-white' : 'bg-gray-50'
       }`}
     >
       {/* Sidebar */}
@@ -127,11 +126,11 @@ const OrdersPage = () => {
 
       <main
         className={`flex-1 ${
-          darkMode ? "bg-[#030917]" : "bg-white"
+          darkMode ? 'bg-[#0c0b08]' : 'bg-white'
         } transition-all duration-300 ease-in-out ${
           isSidebarOpen
-            ? "blur-sm pointer-events-none md:pointer-events-auto"
-            : ""
+            ? 'blur-sm pointer-events-none md:pointer-events-auto'
+            : ''
         } md:ml-64`}
       >
         {/* Header */}
@@ -139,13 +138,13 @@ const OrdersPage = () => {
           className={`flex items-center justify-between px-6 py-4 border-b sticky top-0 z-50 backdrop-blur-xl bg-opacity-90 shadow-sm 
           ${
             darkMode
-              ? "bg-[#131312] border-gray-700"
-              : "bg-[#7C25BA] border-[#7C25BA]"
+              ? 'bg-[#131312] border-gray-700'
+              : 'bg-[#7C25BA] border-[#7C25BA]'
           }`}
         >
           <button
             className={`md:hidden text-3xl z-50 ${
-              darkMode ? "text-white" : "text-white"
+              darkMode ? 'text-white' : 'text-white'
             }`}
             onClick={toggleSidebar}
           >
@@ -164,8 +163,8 @@ const OrdersPage = () => {
               placeholder="Search orders..."
               className={`w-full pl-10 px-4 py-2 h-12 rounded-md shadow-md focus:outline-none focus:ring-2  border border-gray-300 focus:ring-purple-500 transition-all ${
                 darkMode
-                  ? "bg-[#131312]  border-gray-600 text-white"
-                  : "bg-white text-black"
+                  ? 'bg-[#131312]  border-gray-600 text-white'
+                  : 'bg-white text-black'
               } border`}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
@@ -177,14 +176,14 @@ const OrdersPage = () => {
         <main className="p-4 md:p-6 flex-1">
           <h1
             className={`text-2xl md:text-3xl font-bold mb-2  ${
-              darkMode ? "text-gray-100" : "text-black"
+              darkMode ? 'text-gray-100' : 'text-black'
             }`}
           >
             Order Management
           </h1>
           <p
             className={`text-sm mb-6  ${
-              darkMode ? "text-gray-600" : "text-white"
+              darkMode ? 'text-gray-600' : 'text-white'
             }`}
           >
             {allOrders.length} orders found
@@ -196,7 +195,7 @@ const OrdersPage = () => {
               <div
                 key={order.id}
                 className={`p-4 rounded-xl shadow-sm transition-all hover:shadow-md  hover:bg-[#1e1e1e]  ${
-                  darkMode ? "bg-[#131312] border-gray-700" : "bg-white"
+                  darkMode ? 'bg-[#131312] border-gray-700' : 'bg-white'
                 } border`}
               >
                 <div className="flex justify-between items-start mb-4">
