@@ -60,9 +60,7 @@ function Sidebar({ isOpen, onClose }) {
         className={`fixed inset-y-0 left-0 w-64 h-full ${
           darkMode ? 'bg-[#0c0b08] text-white' : 'text-white bg-[#7C25BA]'
         } p-4 md:p-6 z-20 shadow-lg transform ${
-          isOpen
-            ? 'translate-x-0 border rounded-[16px] border-gray-600'
-            : '-translate-x-full '
+          isOpen ? 'translate-x-0 border border-gray-600' : '-translate-x-full '
         } border-r dark:border-gray-700   transition-transform duration-300 ease-in-out md:translate-x-0 py-2 px-4 `}
       >
         <button
