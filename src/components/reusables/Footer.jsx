@@ -77,7 +77,7 @@ const Footer = () => {
                 {' '}
                 <a
                   href="mailto:support@exactconnect.online"
-                  className="text-blue-500 hover:underline"
+                  className="hover:underline"
                 >
                   support@exactconnect.online
                 </a>
@@ -87,7 +87,7 @@ const Footer = () => {
                   href="https://t.me/exact_connect_official"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-blue-500 hover:underline"
+                  className=" hover:underline"
                 >
                   Telegram
                 </a>
