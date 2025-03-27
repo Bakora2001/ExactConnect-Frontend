@@ -1,65 +1,64 @@
-import { createBrowserRouter } from "react-router-dom";
-import { lazy, Suspense } from "react";
-import Loader from "./components/pages/Loader";
+import { createBrowserRouter } from 'react-router-dom';
+import { lazy, Suspense } from 'react';
+import Loader from './components/pages/Loader';
 
 //The sites landing page
-import Home from "./components/layout/Home";
+import Home from './components/layout/Home';
 
 //Implementing lazy loading
 
 //Components for handling all authentication processes
-const Signup = lazy(() => import("./components/auth/Signup"));
-const Login = lazy(() => import("./components/auth/Login"));
-const OTPVerification = lazy(() => import("./components/auth/OTPVerification"));
-const ForgotPassword = lazy(() => import("./components/auth/ForgotPassword"));
+const Signup = lazy(() => import('./components/auth/Signup'));
+const Login = lazy(() => import('./components/auth/Login'));
+const OTPVerification = lazy(() => import('./components/auth/OTPVerification'));
+const ForgotPassword = lazy(() => import('./components/auth/ForgotPassword'));
 const ChangePassword = lazy(() =>
-  import("./components/client/account/ChangePassword")
+  import('./components/client/account/ChangePassword')
 );
-const CheckMail = lazy(() => import("./components/auth/CheckMail"));
+const CheckMail = lazy(() => import('./components/auth/CheckMail'));
 
 //Pages for handling page visit errors
-const NotFound = lazy(() => import("../src/components/errors/NotFound"));
+const NotFound = lazy(() => import('../src/components/errors/NotFound'));
 const MaintenancePage = lazy(() =>
-  import("../src/components/errors/MaintainancePage")
+  import('../src/components/errors/MaintainancePage')
 );
 
-//Component pages for the when the user has signed in
-// const Dashboard = lazy(() => import('./components/client/dashboard/Dashboard'))
-import Dashboard from "./components/client/dashboard/Dashboard";
-import ProxyClient from "./components/client/proxy/ProxyClient";
-import Orders from "./components/client/order/Orders";
-// const ProxyClient = lazy(() => import('./components/client/proxy/ProxyClient'))
+import Dashboard from './components/client/dashboard/Dashboard';
+import ProxyClient from './components/client/proxy/ProxyClient';
+import Orders from './components/client/order/Orders';
+
 const SettingsPage = lazy(() =>
-  import("./components/client/account/SettingsPage")
+  import('./components/client/account/SettingsPage')
 );
-// const Orders = lazy(() => import('./components/client/order/Orders'))
 
-const Proxy = lazy(() => import("./components/proxy/Proxy"));
-const AdminHome = lazy(() => import("../src/components/admin/AdminHome"));
+const Proxy = lazy(() => import('./components/proxy/Proxy'));
+const AdminHome = lazy(() => import('../src/components/admin/AdminHome'));
 const AddProductForm = lazy(() =>
-  import("../src/components/admin/AddProductsForm")
+  import('../src/components/admin/AddProductsForm')
 );
-const ContactUs = lazy(() => import("../src/components/contact/ContactUs"));
-const Rdp = lazy(() => import("../src/components/rdp/Rdp"));
+const ContactUs = lazy(() => import('../src/components/contact/ContactUs'));
+const Rdp = lazy(() => import('../src/components/rdp/Rdp'));
 const AdminProducts = lazy(() =>
-  import("../src/components/admin/AdminProducts")
+  import('../src/components/admin/AdminProducts')
 );
-const Delivered = lazy(() => import("./components/pages/Delivered"));
-import Test from "./components/payment/Test";
-import Mpesa from "./components/payment/Mpesa";
-import MailConfirmation from "./components/pages/Mail";
-import PaymentFailed from "./components/pages/PaymentFailed";
-import PaymentSuccessful from "./components/pages/PaymentSuccessful";
-import ComingSoon from "./components/pages/ComingSoon";
-import TermsAndPrivacy from "./components/pages/TermsAndPrivacy";
-// const Test = lazy(() => import('./components/payment/Test'))
-const Configure = lazy(() => import("./components/Configure"));
-const Checkout = lazy(() => import("./components/Checkout"));
+const Delivered = lazy(() => import('./components/pages/Delivered'));
+import Test from './components/payment/Test';
+import Mpesa from './components/payment/Mpesa';
+import MailConfirmation from './components/pages/Mail';
+import PaymentFailed from './components/pages/PaymentFailed';
+import PaymentSuccessful from './components/pages/PaymentSuccessful';
+import ComingSoon from './components/pages/ComingSoon';
+import TermsAndPrivacy from './components/pages/TermsAndPrivacy';
+import Residential from './components/residential/Residential';
+import PaymentStack from './components/payment/PayStack';
+
+const Configure = lazy(() => import('./components/Configure'));
+const Checkout = lazy(() => import('./components/Checkout'));
 
 export const router = createBrowserRouter(
   [
     {
-      path: "/account/signup",
+      path: '/account/signup',
       element: (
         <Suspense fallback={<Loader />}>
           <Signup />
@@ -67,7 +66,7 @@ export const router = createBrowserRouter(
       ),
     },
     {
-      path: "/account/login",
+      path: '/account/login',
       element: (
         <Suspense fallback={<Loader />}>
           <Login />
@@ -75,11 +74,11 @@ export const router = createBrowserRouter(
       ),
     },
     {
-      path: "/",
+      path: '/',
       element: <Home />,
     },
     {
-      path: "*",
+      path: '*',
       element: (
         <Suspense fallback={<Loader />}>
           <NotFound />
@@ -87,7 +86,11 @@ export const router = createBrowserRouter(
       ),
     },
     {
-      path: "/proxy",
+      path: '/residential',
+      element: <Residential />,
+    },
+    {
+      path: '/proxy',
       element: (
         <Suspense fallback={<Loader />}>
           <Proxy />
@@ -95,7 +98,7 @@ export const router = createBrowserRouter(
       ),
     },
     {
-      path: "/admin",
+      path: '/admin',
       element: (
         <Suspense fallback={<Loader />}>
           <AdminHome />
@@ -103,7 +106,7 @@ export const router = createBrowserRouter(
       ),
     },
     {
-      path: "/rdp",
+      path: '/rdp',
       element: (
         <Suspense fallback={<Loader />}>
           <Rdp />
@@ -111,7 +114,7 @@ export const router = createBrowserRouter(
       ),
     },
     {
-      path: "/account/forgotpassword",
+      path: '/account/forgotpassword',
       element: (
         <Suspense fallback={<Loader />}>
           <ForgotPassword />
@@ -119,7 +122,7 @@ export const router = createBrowserRouter(
       ),
     },
     {
-      path: "/account/changepassword",
+      path: '/account/changepassword',
       element: (
         <Suspense fallback={<Loader />}>
           <ChangePassword />
@@ -127,7 +130,7 @@ export const router = createBrowserRouter(
       ),
     },
     {
-      path: "/account/otp",
+      path: '/account/otp',
       element: (
         <Suspense fallback={<Loader />}>
           <OTPVerification />
@@ -135,7 +138,7 @@ export const router = createBrowserRouter(
       ),
     },
     {
-      path: "/account/email",
+      path: '/account/email',
       element: (
         <Suspense fallback={<Loader />}>
           <CheckMail />
@@ -143,7 +146,7 @@ export const router = createBrowserRouter(
       ),
     },
     {
-      path: "/checkout",
+      path: '/checkout',
       element: (
         <Suspense fallback={<Loader />}>
           <Checkout />
@@ -151,7 +154,7 @@ export const router = createBrowserRouter(
       ),
     },
     {
-      path: "/configure",
+      path: '/configure',
       element: (
         <Suspense fallback={<Loader />}>
           <Configure />
@@ -159,7 +162,7 @@ export const router = createBrowserRouter(
       ),
     },
     {
-      path: "/admin/products",
+      path: '/admin/products',
       element: (
         <Suspense fallback={<Loader />}>
           <AdminProducts />
@@ -167,7 +170,7 @@ export const router = createBrowserRouter(
       ),
     },
     {
-      path: "/admin/products/new",
+      path: '/admin/products/new',
       element: (
         <Suspense fallback={<Loader />}>
           <AddProductForm />
@@ -175,7 +178,7 @@ export const router = createBrowserRouter(
       ),
     },
     {
-      path: "/maintainance",
+      path: '/maintainance',
       element: (
         <Suspense fallback={<Loader />}>
           <MaintenancePage />
@@ -183,7 +186,7 @@ export const router = createBrowserRouter(
       ),
     },
     {
-      path: "/contact",
+      path: '/contact',
       element: (
         <Suspense fallback={<Loader />}>
           <ContactUs />
@@ -191,7 +194,7 @@ export const router = createBrowserRouter(
       ),
     },
     {
-      path: "/delivered",
+      path: '/delivered',
       element: (
         <Suspense fallback={<Loader />}>
           <Delivered />
@@ -199,11 +202,11 @@ export const router = createBrowserRouter(
       ),
     },
     {
-      path: "/dashboard",
+      path: '/dashboard',
       element: <Dashboard />,
     },
     {
-      path: "/account/settings",
+      path: '/account/settings',
       element: (
         <Suspense fallback={<Loader />}>
           <SettingsPage />
@@ -211,40 +214,44 @@ export const router = createBrowserRouter(
       ),
     },
     {
-      path: "/client/proxy",
+      path: '/client/proxy',
       element: <ProxyClient />,
     },
     {
-      path: "/checkout/mpesa",
+      path: '/checkout/mpesa',
       element: <Test />,
     },
     {
-      path: "/orders",
+      path: '/orders',
       element: <Orders />,
     },
     {
-      path: "/test",
+      path: '/test',
       element: <Mpesa />,
     },
     {
-      path: "/openmail",
+      path: '/openmail',
       element: <MailConfirmation />,
     },
     {
-      path: "/status/failed",
+      path: '/status/failed',
       element: <PaymentFailed />,
     },
     {
-      path: "/status/success",
+      path: '/status/success',
       element: <PaymentSuccessful />,
     },
     {
-      path: "/coming-soon",
+      path: '/coming-soon',
       element: <ComingSoon />,
     },
     {
-      path: "/privacy",
+      path: '/privacy',
       element: <TermsAndPrivacy />,
+    },
+    {
+      path: '/checkout-paystack',
+      element: <PaymentStack />,
     },
   ],
   {
