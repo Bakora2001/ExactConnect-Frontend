@@ -1,7 +1,7 @@
 import { useState, useContext } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
-import { Smartphone, Bitcoin, Binary } from 'lucide-react';
+import { Smartphone } from 'lucide-react';
 import { SERVER_URL } from '../../services/data';
 import { DarkModeContext } from '../../context/DarkModeContext';
 import { formatPhoneNumber } from '../../utils/formatPhoneNumber';

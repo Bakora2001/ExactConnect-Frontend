@@ -138,6 +138,7 @@ export default function PaymentStack() {
     } catch (error) {
       console.error('STK Push Error:', error);
       setIsLoading(false);
+      setIsProcessing(false);
       setIsConfirming(false);
       MpesaStkPushFailed();
     }

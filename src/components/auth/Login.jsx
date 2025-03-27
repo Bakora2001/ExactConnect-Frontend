@@ -1,4 +1,4 @@
-import  { useState, useContext } from 'react';
+import { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 import { FcGoogle } from 'react-icons/fc';
@@ -93,7 +93,7 @@ function Login() {
     >
       {/* Testimonial Sidebar */}
       <TestimonialSidebar darkMode={darkMode} />
-      
+
       {/* Login Form Section */}
       <div className="flex-1 flex items-center justify-center">
         <div
@@ -256,7 +256,9 @@ function Login() {
           <div className="flex items-center my-6">
             <div className="flex-grow border-t border-gray-700"></div>
             <span
-              className={`mx-3 text-sm ${darkMode ? 'text-white' : 'text-black'}`}
+              className={`mx-3 text-sm ${
+                darkMode ? 'text-white' : 'text-black'
+              }`}
             >
               Or continue with
             </span>
@@ -270,7 +272,7 @@ function Login() {
           </button>
 
           <div className="text-center text-sm mt-4">
-            Don't have an account?{' '}
+            {`Don't have an account?{' '}`}
             <Link
               to="/account/signup"
               className="text-purple-600 font-semibold hover:underline hover:text-purple-700 transition-colors"

@@ -1,12 +1,5 @@
-import  { useState, useContext } from 'react';
-import {
-  FiEye,
-  FiEyeOff,
-  FiUser,
-  FiMail,
-  FiLock,
-  FiGlobe,
-} from 'react-icons/fi';
+import { useState, useContext } from 'react';
+import { FiEye, FiEyeOff, FiUser, FiMail, FiLock } from 'react-icons/fi';
 import { FcGoogle } from 'react-icons/fc';
 import Button from '../reusables/Button';
 import Select from 'react-select';
@@ -200,7 +193,7 @@ function Signup() {
     >
       {/* Enhanced Testimonial Sidebar */}
       <TestimonialSidebar darkMode={darkMode} />
-      
+
       {/* Sign-up Form Section */}
       <div className="w-full md:w-1/2 flex items-center justify-center px-4 py-12">
         <div
@@ -220,7 +213,7 @@ function Signup() {
               Enter your information to get started
             </p>
           </div>
-          
+
           {/* Scrollable Form Container */}
           <div className="flex-1 overflow-y-auto pr-2">
             <form onSubmit={onSubmit}>
@@ -299,7 +292,10 @@ function Signup() {
                     />
                   </div>
                   {errors.lastName && (
-                    <p id="user_name_error" className="text-red-500 text-sm mt-1">
+                    <p
+                      id="user_name_error"
+                      className="text-red-500 text-sm mt-1"
+                    >
                       {errors.lastName}
                     </p>
                   )}
@@ -331,7 +327,9 @@ function Signup() {
                     } ${
                       errors.email ? 'border-red-500' : 'border-gray-300'
                     } rounded-lg text-sm focus:outline-none focus:ring-2 ${
-                      errors.email ? 'focus:ring-red-500' : 'focus:ring-gray-500'
+                      errors.email
+                        ? 'focus:ring-red-500'
+                        : 'focus:ring-gray-500'
                     }`}
                     placeholder="you@example.com"
                     aria-invalid={!!errors.email}
@@ -404,7 +402,9 @@ function Signup() {
                     } ${
                       errors.password ? 'border-red-500' : 'border-gray-300'
                     } rounded-lg text-sm focus:outline-none focus:ring-2 ${
-                      errors.password ? 'focus:ring-red-500' : 'focus:ring-gray-500'
+                      errors.password
+                        ? 'focus:ring-red-500'
+                        : 'focus:ring-gray-500'
                     }`}
                     aria-invalid={!!errors.password}
                     aria-describedby="password_error"
@@ -433,7 +433,7 @@ function Signup() {
                 <FcGoogle className="mr-2 h-5 w-5" />
                 Sign up with Google
               </button>
-            
+
               <div className="text-center text-sm mt-4 mb-4">
                 Already have an account?{' '}
                 <Link
