@@ -2,6 +2,7 @@ import { useState, useMemo, useCallback, useRef, useEffect } from 'react';
 import { IoChevronDown } from 'react-icons/io5';
 import countryList from 'react-select-country-list';
 import countryFlag from '../../../utils/countryFlag';
+import PropTypes from 'prop-types';
 
 const Header = ({ darkMode, fetchProxies, setSelectedCountry }) => {
   const [selectedCountry, setSelectedCountryState] = useState('US'); // Keep track of selected country
@@ -25,7 +26,7 @@ const Header = ({ darkMode, fetchProxies, setSelectedCountry }) => {
 
   useEffect(() => {
     const updateVisibleCountries = () => {
-      const prioritizedCountries = ['US', 'CA', 'GB', 'AE', 'CN']; // US first, then China
+      const prioritizedCountries = ['US', 'CA', 'GB', 'CN', 'AE'];
       const sortedCountries = prioritizedCountries
         .map((code) => countries.find((c) => c.code === code))
         .filter(Boolean) // Remove any undefined values
@@ -87,9 +88,7 @@ const Header = ({ darkMode, fetchProxies, setSelectedCountry }) => {
   }, [showDropdown, handleClickOutside]);
 
   return (
-    <div
-      className={`px-4 py-3 md:px-8 border-gray-700 dark:bg-[#0c0b08] border-b border-transparent`}
-    >
+    <div className={` py-3 md:px-8 px-4 border-gray-700 dark:bg-[#0c0b08] `}>
       <h1
         className={`text-2xl ${
           darkMode ? 'text-white' : 'text-black'
@@ -128,7 +127,7 @@ const Header = ({ darkMode, fetchProxies, setSelectedCountry }) => {
 
             {showDropdown && (
               <div
-                className={`absolute top-full left-0 mt-2 max-w-[250px] bg-white border border-gray-300 rounded-md shadow-md z-40 max-h-[300px] overflow-y-auto`}
+                className={`absolute top-full left-0 mt-2 max-w-[250px] bg-white border border-gray-300 rounded-md shadow-md z-40 max-h-[300px] overflow-y-auto no-scrollbar`}
               >
                 {dropdownCountries.map((country) => (
                   <CountryDropdownItem
@@ -179,5 +178,20 @@ const CountryDropdownItem = ({ country, handleCountrySelect }) => (
     </span>
   </button>
 );
+Header.propTypes = {
+  fetchProxies: PropTypes.func.isRequired,
+  setSelectedCountry: PropTypes.func,
+  darkMode: PropTypes.bool.isRequired,
+};
 
+CountryButton.propTypes = {
+  country: PropTypes.object.isRequired,
+  selectedCountry: PropTypes.string.isRequired,
+  handleCountrySelect: PropTypes.func.isRequired,
+};
+
+CountryDropdownItem.propTypes = {
+  country: PropTypes.object.isRequired,
+  handleCountrySelect: PropTypes.func.isRequired,
+};
 export default Header;

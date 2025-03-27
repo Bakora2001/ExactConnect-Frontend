@@ -1,27 +1,8 @@
 //Payment successful page
-import { CheckCircle, ArrowRight, FileText, ShoppingBag } from 'lucide-react';
-import { Link, useLocation } from 'react-router-dom';
-import ErrorBoundary from './ErrorBoundary';
-import { email } from '../../lib/userDetails';
-// interface PaymentSuccessProps {
-//   transactionId: string;
-//   amount: string;
-//   phoneNumber: string;
-//   paymentMethod: string;
-//   date: string;
-//   onViewOrder?: () => void;
-//   onContinueShopping?: () => void;
-// }
-
-// {
-//   transactionId,
-//   amount = 200,
-//   phoneNumber,
-//   paymentMethod,
-//   date,
-//   onViewOrder,
-//   onContinueShopping,
-// }
+import { CheckCircle, ArrowRight, FileText, ShoppingBag } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
+import ErrorBoundary from "./ErrorBoundary";
+import { email } from "../../lib/userDetails";
 
 export default function PaymentSuccessful() {
   const location = useLocation();
@@ -53,7 +34,7 @@ export default function PaymentSuccessful() {
                   Transaction Complete
                 </p>
                 <p className="text-sm text-green-600">
-                  Your payment of{' '}
+                  Your payment of{" "}
                   <span className="font-semibold">{success?.amount}</span> has
                   been successfully processed.
                 </p>
@@ -64,7 +45,7 @@ export default function PaymentSuccessful() {
                   Transaction Details
                 </h3>
                 <div className="space-y-2 text-sm ">
-                  {['Amount', 'Payment Method', 'Phone Number'].map(
+                  {["Amount", "Payment Method", "Phone Number"].map(
                     (label, index) => (
                       <div key={index} className="flex justify-between">
                         <span className="dark:text-white">{label}:</span>
@@ -75,7 +56,7 @@ export default function PaymentSuccessful() {
                             ? success?.paymentMethod
                             : index === 2
                             ? success?.accountNumber
-                            : date}
+                            : null}
                         </span>
                       </div>
                     )
@@ -85,17 +66,17 @@ export default function PaymentSuccessful() {
 
               <div className="border-t pt-4 text-center">
                 <p className="text-sm font-medium text-gray-400">
-                  What's Next?
+                  {` What's Next?`}
                 </p>
                 <p className="text-sm text-gray-600">
-                  You can view your order details on{' '}
+                  You can view your order details on{" "}
                   <a
-                    href={'https://gmail.com'} // Open email client
+                    href={"https://gmail.com"} // Open email client
                     className="text-purple-600 hover:text-purple-800 underline"
                     target="_blank"
                   >
                     {email}
-                  </a>{' '}
+                  </a>{" "}
                   or continue shopping.
                 </p>
               </div>
@@ -107,16 +88,16 @@ export default function PaymentSuccessful() {
                 {/* View Order Button */}
                 <button
                   className="w-full border border-gray-300 rounded-md py-3 sm:py-2 flex items-center justify-center text-gray-600 hover:bg-gray-100 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 transition-colors"
-                  onClick={() => window.open('https://gmail.com', '_blank')}
+                  onClick={() => window.open("https://gmail.com", "_blank")}
                 >
-                  <FileText className="mr-2 h-5 w-5 sm:h-4 sm:w-4" />{' '}
+                  <FileText className="mr-2 h-5 w-5 sm:h-4 sm:w-4" />{" "}
                   <span className="text-sm sm:text-base">View Order</span>
                 </button>
 
                 {/* Continue Shopping Button */}
                 <Link to="/client/proxy">
                   <button className="w-full bg-green-600 hover:bg-green-700 text-white rounded-md py-3 sm:py-2 flex items-center justify-center transition-colors">
-                    <ShoppingBag className="mr-2 h-5 w-5 sm:h-4 sm:w-4" />{' '}
+                    <ShoppingBag className="mr-2 h-5 w-5 sm:h-4 sm:w-4" />{" "}
                     <span className="text-sm sm:text-base">
                       Continue Shopping
                     </span>
@@ -129,7 +110,7 @@ export default function PaymentSuccessful() {
                 href="/dashboard"
                 className="w-full text-purple-600 text-center py-3 sm:py-2 flex items-center justify-center group hover:text-purple-800 dark:text-purple-400 dark:hover:text-purple-300 transition-colors"
               >
-                <span className="text-sm sm:text-base">Go to Dashboard</span>{' '}
+                <span className="text-sm sm:text-base">Go to Dashboard</span>{" "}
                 <ArrowRight className="ml-2 h-5 w-5 sm:h-4 sm:w-4 transition-transform group-hover:translate-x-1" />
               </a>
             </div>

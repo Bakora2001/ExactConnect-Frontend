@@ -1,6 +1,7 @@
-import { useState } from 'react';
-import Select from 'react-select';
-import { FaSpinner } from 'react-icons/fa';
+import { useState } from "react";
+import Select from "react-select";
+import PropTypes from "prop-types";
+import { FaSpinner } from "react-icons/fa";
 
 const FilterModal = ({
   filters,
@@ -30,7 +31,7 @@ const FilterModal = ({
     uniqueCities.slice(0, 50)
   );
 
-  const [searchQuery, setSearchQuery] = useState('');
+  const [, setSearchQuery] = useState("");
 
   const [loadingRegions, setLoadingRegions] = useState(false);
   const [loadingCities, setLoadingCities] = useState(false);
@@ -39,7 +40,7 @@ const FilterModal = ({
   const handleLoadMore = () => {
     setDisplayedOptions((prev) => {
       const nextItems = uniqueCities.slice(prev.length, prev.length + 50);
-      console.log('Next Items:', nextItems); // Debugging
+      console.log("Next Items:", nextItems); // Debugging
       return [...prev, ...nextItems];
     });
   };
@@ -59,15 +60,15 @@ const FilterModal = ({
     }
   };
   const handleDropdownClick = (filterType) => {
-    if (filterType === 'region') {
+    if (filterType === "region") {
       setLoadingRegions(true);
       setTimeout(() => setLoadingRegions(false), 1000);
     }
-    if (filterType === 'city') {
+    if (filterType === "city") {
       setLoadingCities(true);
       setTimeout(() => setLoadingCities(false), 1000);
     }
-    if (filterType === 'isp') {
+    if (filterType === "isp") {
       setLoadingISPs(true);
       setTimeout(() => setLoadingISPs(false), 1000);
     }
@@ -77,33 +78,42 @@ const FilterModal = ({
   const selectStyles = {
     control: (styles) => ({
       ...styles,
-      backgroundColor: darkMode ? '#1f1f1f' : '#ccc',
-      borderColor: darkMode ? '#131312' : '#ccc',
-      color: darkMode ? '#fff' : '#000',
+      backgroundColor: darkMode ? "#0c0b08" : "#ccc",
+      borderColor: darkMode ? "#1f1f1f" : "#ccc",
+      color: darkMode ? "#fff" : "#000",
     }),
     menu: (styles) => ({
       ...styles,
-      backgroundColor: darkMode ? '#1f1f1f' : '#fff',
-      color: darkMode ? '#fff' : '#000',
+      backgroundColor: darkMode ? "#0c0b08" : "#fff",
+      color: darkMode ? "#fff" : "#000",
+      overflow: "hidden", // Prevents scrollbar from appearing
+    }),
+    menuList: (styles) => ({
+      ...styles,
+      padding: 0,
+      "::-webkit-scrollbar": {
+        display: "none",
+      },
+      scrollbarWidth: "none",
     }),
     singleValue: (styles) => ({
       ...styles,
-      color: darkMode ? '#fff' : '#000',
+      color: darkMode ? "#fff" : "#000",
     }),
-    indicatorSeparator: () => ({ display: 'none' }),
+    indicatorSeparator: () => ({ display: "none" }),
   };
 
   return (
     <div
       className={`fixed inset-0 z-50 flex items-center justify-center p-4 ${
-        darkMode ? ' backdrop-blur-sm' : 'bg-black bg-opacity-50'
+        darkMode ? " backdrop-blur-sm" : "bg-[#0c0b08] bg-opacity-50"
       }`}
     >
       <div
         className={`${
-          darkMode ? 'bg-[#131312] border border-gray-700' : 'bg-white'
+          darkMode ? "bg-[#0c0b08] border border-gray-700" : "bg-white"
         } p-6 rounded-lg w-full max-w-md mx-4 overflow-y-auto hide-scrollbar`}
-        style={{ maxHeight: '90vh' }}
+        style={{ maxHeight: "90vh" }}
       >
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
@@ -112,8 +122,8 @@ const FilterModal = ({
             onClick={toggleFilterModal}
             className={`text-2xl ${
               darkMode
-                ? 'text-gray-700 hover:text-gray-200'
-                : 'text-gray-500 hover:text-gray-700'
+                ? "text-gray-700 hover:text-gray-200"
+                : "text-gray-500 hover:text-gray-700"
             } transition duration-300 `}
           >
             ×
@@ -129,17 +139,17 @@ const FilterModal = ({
               name="regionName"
               options={uniqueRegions}
               value={uniqueRegions.find(
-                (option) => option.value === filters.regions
+                (option) => option.value === filters.regionName
               )}
               onChange={(selected) =>
                 handleFilterChange({
-                  target: { name: 'regionName', value: selected?.value || '' },
+                  target: { name: "regionName", value: selected?.value || "" },
                 })
               }
               styles={selectStyles}
               placeholder="Search and Select Region"
               isClearable
-              onMenuOpen={() => handleDropdownClick('region')}
+              onMenuOpen={() => handleDropdownClick("region")}
               isLoading={
                 loadingRegions && <FaSpinner className="animate-spin" />
               }
@@ -153,30 +163,29 @@ const FilterModal = ({
               name="city"
               options={displayedOptions}
               onMenuScrollToBottom={() => {
-                console.log('Scrolling detected!');
+                console.log("Scrolling detected!");
                 if (uniqueCities.length > displayedOptions.length) {
                   handleLoadMore();
                 }
               }}
               value={uniqueCities.find(
-                (option) => option.value === filters.cities
+                (option) => option.value === filters.city
               )}
               onChange={(selected) =>
                 handleFilterChange({
-                  target: { name: 'city', value: selected?.value || '' },
+                  target: { name: "city", value: selected?.value || "" },
                 })
               }
-              
               styles={selectStyles}
               placeholder="Search and Select City"
               isClearable
-              onMenuOpen={() => handleDropdownClick('city')}
+              onMenuOpen={() => handleDropdownClick("city")}
               onInputChange={handleInputChange}
               noOptionsMessage={() =>
                 displayedOptions.length < uniqueCities.length ? (
                   <FaSpinner className="animate-spin flex  items-center justify-center" />
                 ) : (
-                  'No cities found'
+                  "No cities found"
                 )
               }
               isLoading={
@@ -194,14 +203,14 @@ const FilterModal = ({
               value={uniqueISPs.find((option) => option.value === filters.isp)}
               onChange={(selected) =>
                 handleFilterChange({
-                  target: { name: 'isp', value: selected?.value || '' },
+                  target: { name: "isp", value: selected?.value || "" },
                 })
               }
               styles={selectStyles}
               placeholder="Search and Select ISP"
               isClearable
-              onMenuOpen={() => handleDropdownClick('isp')}
-              noOptionsMessage={() => 'No Isps Found'}
+              onMenuOpen={() => handleDropdownClick("isp")}
+              noOptionsMessage={() => "No Isps Found"}
               isLoading={loadingISPs && <FaSpinner className="animate-spin" />}
             />
           </div>
@@ -216,8 +225,8 @@ const FilterModal = ({
             }}
             className={`px-5 py-2 text-sm font-medium ${
               darkMode
-                ? 'text-gray-300 bg-gray-700 hover:bg-gray-600'
-                : 'text-gray-700 bg-gray-200 hover:bg-gray-300'
+                ? "text-gray-300 bg-gray-700 hover:bg-gray-600"
+                : "text-gray-700 bg-gray-200 hover:bg-gray-300"
             } rounded-md transition duration-300`}
           >
             Reset
@@ -235,6 +244,23 @@ const FilterModal = ({
       </div>
     </div>
   );
+};
+FilterModal.propTypes = {
+  filters: PropTypes.shape({
+    regionName: PropTypes.string,
+    city: PropTypes.string,
+    isp: PropTypes.string,
+  }).isRequired,
+  countryDetails: PropTypes.shape({
+    regions: PropTypes.arrayOf(PropTypes.string),
+    cities: PropTypes.arrayOf(PropTypes.string),
+    isps: PropTypes.arrayOf(PropTypes.string),
+  }).isRequired,
+  handleFilterChange: PropTypes.func.isRequired,
+  toggleFilterModal: PropTypes.func.isRequired,
+  applyFilters: PropTypes.func.isRequired,
+  resetFilters: PropTypes.func.isRequired,
+  darkMode: PropTypes.bool.isRequired,
 };
 
 export default FilterModal;

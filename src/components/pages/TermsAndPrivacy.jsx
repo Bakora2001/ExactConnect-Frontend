@@ -1,7 +1,7 @@
 //Component for displaying the terms and conditions
 
-import Footer from '../reusables/Footer';
-import NavBar from '../reusables/Navbar';
+import Footer from "../reusables/Footer";
+import NavBar from "../reusables/Navbar";
 
 const TermsAndPrivacy = () => {
   return (
@@ -14,9 +14,9 @@ const TermsAndPrivacy = () => {
           Terms of Service
         </h1>
         <p className="mb-4 dark:text-gray-300">
-          Welcome to ExactConnect! These Terms of Service ("Terms") govern your
+          {`Welcome to ExactConnect! These Terms of Service ("Terms") govern your
           use of our website and services. By accessing or using ExactConnect,
-          you agree to comply with these Terms.
+          you agree to comply with these Terms.`}
         </p>
         <h2 className="text-xl font-semibold mt-4 dark:text-white">
           1. Use of Services
@@ -64,7 +64,7 @@ const TermsAndPrivacy = () => {
           5. Contact Information
         </h2>
         <p className="mb-8  dark:text-gray-300">
-          For any concerns regarding these Terms, contact us at{' '}
+          For any concerns regarding these Terms, contact us at{" "}
           <strong>support@exactconnect.online</strong>.
         </p>
 
@@ -117,7 +117,7 @@ const TermsAndPrivacy = () => {
           6. Contact Information
         </h2>
         <p className="mb-4  dark:text-gray-300">
-          If you have questions about this Privacy Policy, reach out to us at{' '}
+          If you have questions about this Privacy Policy, reach out to us at{" "}
           <strong className="text-purple-600">
             support@exactconnect.online
           </strong>

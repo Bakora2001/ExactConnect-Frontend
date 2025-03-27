@@ -1,19 +1,19 @@
 //Component to more details about a proxy
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 function ProxyDetails({ rowData, setSelectedRow }) {
-  // console.log(rowData);
   return (
-    <div className="fixed inset-0 z-50 flex">
-      <div className="w-[350px] p-6 text-white bg-[#1f1f1e] h-full shadow-lg">
+    <div className="fixed inset-0 z-50 flex  backdrop-blur-sm">
+      <div className="w-[350px] p-6 text-white bg-[#0c0b08] border-r dark:border-gray-800 h-full shadow-lg">
         <button
           onClick={() => setSelectedRow(null)}
-          className="absolute text-xl text-gray-400 hover:text-gray-300 top-4 right-4"
+          className="absolute text-xl text-white hover:text-gray-300 top-4 right-4"
         >
           ×
         </button>
         <h2 className="mb-4 text-xl font-bold">Proxy Details</h2>
-        <div className="space-y-2 text-sm text-gray-400">
+        <div className="space-y-2 text-sm text-gray-300">
           <p>
             <strong>IP:</strong> {rowData.ip}
           </p>
@@ -56,7 +56,7 @@ function ProxyDetails({ rowData, setSelectedRow }) {
           state={{
             amount: rowData.priceShrC,
             isp: rowData.loc.isp,
-            
+
             proxyId: rowData.id,
             countryCode: rowData.loc.cc,
             rating: rowData.stars,
@@ -75,5 +75,10 @@ function ProxyDetails({ rowData, setSelectedRow }) {
     </div>
   );
 }
+
+ProxyDetails.propTypes = {
+  rowData: PropTypes.object,
+  setSelectedRow: PropTypes.func,
+};
 
 export default ProxyDetails;

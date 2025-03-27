@@ -3,15 +3,15 @@ import {
   FaInstagram,
   FaTiktok,
   FaPinterest,
-} from 'react-icons/fa';
+} from "react-icons/fa";
 
-import { FaXTwitter } from 'react-icons/fa6';
-import { DarkModeContext } from '../../context/DarkModeContext';
-import { useContext } from 'react';
+import { FaXTwitter } from "react-icons/fa6";
+import { DarkModeContext } from "../../context/DarkModeContext";
+import { useContext } from "react";
 
 //Icons to toggle between dark and light mode
-import Light from '../icons/Light';
-import Moon from '../icons/Moon';
+import Light from "../icons/Light";
+import Moon from "../icons/Moon";
 
 const Footer = () => {
   const { darkMode, toggleDarkMode } = useContext(DarkModeContext);
@@ -85,8 +85,12 @@ const Footer = () => {
             <h4 className="text-lg font-semibold text-[#7C25BA] mb-4">
               Socials
             </h4>
+            <h4 className="text-lg font-semibold text-[#7C25BA] mb-4">
+              Socials
+            </h4>
             <div className="flex space-x-4">
               <a
+                target="__blank"
                 target="__blank"
                 href="https://www.facebook.com/profile.php?id=61572727113037"
                 className="p-2 rounded-full bg-gray-800 hover:bg-purple-600 transition"
@@ -96,6 +100,7 @@ const Footer = () => {
               </a>
               <a
                 target="__blank"
+                target="__blank"
                 href="https://www.instagram.com/exact_connect/"
                 className="p-2 rounded-full bg-gray-800 hover:bg-purple-600 transition"
                 aria-label="Instagram"
@@ -103,6 +108,7 @@ const Footer = () => {
                 <FaInstagram className="text-white" />
               </a>
               <a
+                target="__blank"
                 target="__blank"
                 href="https://x.com/exact_connect"
                 className="p-2 rounded-full bg-gray-800 hover:bg-purple-600 transition"
@@ -112,6 +118,7 @@ const Footer = () => {
               </a>
               <a
                 target="__blank"
+                target="__blank"
                 href="#"
                 className="p-2 rounded-full bg-gray-800 hover:bg-purple-600 transition"
                 aria-label="TikTok"
@@ -120,6 +127,7 @@ const Footer = () => {
               </a>
               <a
                 href="#"
+                target="__blank"
                 target="__blank"
                 className="p-2 rounded-full bg-gray-800 hover:bg-purple-600 transition"
                 aria-label="Pinterest"

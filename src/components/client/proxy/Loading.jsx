@@ -1,5 +1,5 @@
 //Component which handles the loading
-import React from 'react';
+import PropTypes from 'prop-types';
 import { DatabaseZap } from 'lucide-react';
 
 function Loading({ loading, filteredProxies, error, darkMode }) {
@@ -31,5 +31,12 @@ function Loading({ loading, filteredProxies, error, darkMode }) {
     </div>
   );
 }
+
+Loading.propTypes = {
+  loading: PropTypes.bool,
+  filteredProxies: PropTypes.array,
+  error: PropTypes.any,
+  darkMode: PropTypes.bool,
+};
 
 export default Loading;

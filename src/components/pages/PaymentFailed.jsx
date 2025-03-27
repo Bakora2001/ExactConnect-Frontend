@@ -1,24 +1,13 @@
-import { useState } from 'react';
+import { useState } from "react";
 import {
   XCircle,
   AlertTriangle,
   ArrowLeft,
   RefreshCw,
   MessageSquareText,
-} from 'lucide-react';
-import { Link, useLocation } from 'react-router-dom';
+} from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
 
-// {
-//   transactionId = 'MP12345678',
-//   amount = '1,000 KSh',
-//   phoneNumber = '254XXXXXXXXX',
-//   paymentMethod = 'M-Pesa',
-//   errorCode = 'ERR_PAYMENT_DECLINED',
-//   errorMessage = 'The payment request was declined by your mobile money provider.',
-//   onRetry,
-//   onBack,
-//   onContactSupport,
-// }
 export default function PaymentFailed() {
   const location = useLocation();
   const transactionData = location.state?.response || {};
@@ -31,7 +20,7 @@ export default function PaymentFailed() {
     // Simulate API call delay
     setTimeout(() => {
       setIsRetrying(false);
-      onRetry?.();
+      // Add your retry logic here
     }, 1000);
   };
 
@@ -54,8 +43,8 @@ export default function PaymentFailed() {
                 Payment Failed
               </h2>
               <p className="text-sm text-red-600/80 dark:text-red-400/80 max-w-xs">
-                We couldn't process your payment. Please check the details and
-                try again.
+                {`We couldn't process your payment. Please check the details and
+                try again.`}
               </p>
             </div>
           </div>
@@ -114,7 +103,7 @@ export default function PaymentFailed() {
                 Troubleshooting Tips
                 <svg
                   className={`w-5 h-5 transform transition-transform ${
-                    isAccordionOpen ? 'rotate-180' : ''
+                    isAccordionOpen ? "rotate-180" : ""
                   }`}
                   fill="none"
                   stroke="currentColor"
@@ -134,8 +123,8 @@ export default function PaymentFailed() {
                     <li>Check if you have sufficient funds in your account</li>
                     <li>Verify your phone number is correct</li>
                     <li>
-                      Ensure you're responding to the payment prompt on your
-                      phone
+                      {`Ensure you're responding to the payment prompt on your
+                      phone`}
                     </li>
                     <li>Check if you have any daily transaction limits</li>
                     <li>Try again after a few minutes</li>

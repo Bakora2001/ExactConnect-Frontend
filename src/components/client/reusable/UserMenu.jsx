@@ -1,30 +1,28 @@
-import React, { useState, useContext, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import User from '../../icons/User';
-import { LogOut } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { capitalizeFirstLetterAndSecond } from '../../../utils/capitalize';
-import { firstName, lastName, email } from '../../../lib/userDetails';
-import Light from '../../icons/Light';
-import Moon from '../../icons/Moon';
-import Settings from '../../icons/Settings';
-import { DarkModeContext } from '../../../context/DarkModeContext';
+import { useState, useContext, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import User from "../../icons/User";
+import { LogOut } from "lucide-react";
+import { Link } from "react-router-dom";
+import { capitalizeFirstLetterAndSecond } from "../../../utils/capitalize";
+import { firstName, lastName, email } from "../../../lib/userDetails";
+import Light from "../../icons/Light";
+import Moon from "../../icons/Moon";
+import Settings from "../../icons/Settings";
+import { DarkModeContext } from "../../../context/DarkModeContext";
 
-console.log(firstName)
-console.log(lastName)
 const UserMenu = () => {
   const { darkMode, toggleDarkMode } = useContext(DarkModeContext);
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
-  const menuRef = useRef(null); // Reference for detecting outside clicks
+  const menuRef = useRef(null);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('userDetails');
-    navigate('/');
+    localStorage.removeItem("userDetails");
+    navigate("/");
   };
 
   // Close menu when clicking outside
@@ -35,9 +33,9 @@ const UserMenu = () => {
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
@@ -59,13 +57,13 @@ const UserMenu = () => {
       {isOpen && (
         <div
           className={`absolute right-0 mt-2 w-56 ${
-            darkMode ? 'bg-[#131312] border-zinc-800' : 'bg-white'
+            darkMode ? "bg-[#131312] border-zinc-800" : "bg-white"
           } border rounded-lg shadow-lg z-50`}
         >
           <div className="p-4 border-b border-gray-300 dark:border-gray-600">
             <p
               className={`text-sm font-semibold ${
-                darkMode ? 'text-white' : 'text-gray-800'
+                darkMode ? "text-white" : "text-gray-800"
               }`}
             >
               {email}
@@ -79,7 +77,7 @@ const UserMenu = () => {
             >
               <span
                 className={`border rounded-md p-1 ${
-                  darkMode ? 'border-gray-700' : 'border-gray-100'
+                  darkMode ? "border-gray-700" : "border-gray-100"
                 } `}
               >
                 {darkMode ? (
@@ -90,10 +88,10 @@ const UserMenu = () => {
               </span>
               <span
                 className={`text-sm ${
-                  darkMode ? 'text-white' : 'text-gray-800 dark:text-gray-300'
+                  darkMode ? "text-white" : "text-gray-800 dark:text-gray-300"
                 }`}
               >
-                {darkMode ? 'Light Mode' : 'Dark Mode'}
+                {darkMode ? "Light Mode" : "Dark Mode"}
               </span>
             </li>
 

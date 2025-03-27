@@ -1,5 +1,5 @@
 //For allowing the user to check open email
-import React, { useContext } from 'react';
+import  { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
 ///Importing the darkmode context

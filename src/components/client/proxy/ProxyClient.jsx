@@ -1,15 +1,9 @@
-import React, {
-  useEffect,
-  useState,
-  useContext,
-  useMemo,
-  useCallback,
-} from 'react';
+import { useEffect, useState, useContext, useCallback } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { FaBars, FaTimes } from 'react-icons/fa';
+import { AlignJustify, X } from 'lucide-react';
 import Sidebar from '../reusable/Sidebar';
-import { fetchProxyData } from './utils/proxyService';
+
 import { DarkModeContext } from '../../../context/DarkModeContext';
 import { userDetails } from '../../../lib/userDetails';
 
@@ -25,21 +19,18 @@ import { SERVER_URL } from '../../../services/data';
 
 const Proxy = () => {
   //States and contexts
-  const [proxies, setProxies] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState('US');
   const [filteredProxies, setFilteredProxies] = useState([]);
   const [countryDetails, setCountryDetails] = useState({});
   const [selectedRow, setSelectedRow] = useState(null);
   const [rowData, setRowData] = useState({});
-  
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
   const { darkMode } = useContext(DarkModeContext);
-  const [allData, setAllData] = useState(0);
-  console.log(allData);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -58,54 +49,59 @@ const Proxy = () => {
     city: '',
   });
 
-  const fetchProxies = async ({
-    page = currentPage,
-    countryCode = selectedCountry,
-    regionName,
-    isp,
-    city,
-  }) => {
-    try {
-      setLoading(true);
+  const fetchProxies = useCallback(
+    async ({
+      page = currentPage,
+      countryCode = selectedCountry,
+      regionName,
+      isp,
+      city,
+    }) => {
+      try {
+        setLoading(true);
 
-      const params = new URLSearchParams();
-      if (countryCode) params.append('countryCode', countryCode);
-      if (isp) params.append('isp', isp);
-      if (regionName) params.append('regionName', regionName);
-      if (city) params.append('city', city);
+        const params = new URLSearchParams();
+        if (countryCode) params.append('countryCode', countryCode);
+        if (isp) params.append('isp', isp);
+        if (regionName) params.append('regionName', regionName);
+        if (city) params.append('city', city);
 
-      const { data } = await axios.get(
-        `${SERVER_URL}/products/proxy/details/global-config?pageNum=${page}&${params.toString()}`
-      );
+        const { data } = await axios.get(
+          `${SERVER_URL}/products/proxy/details/global-config?pageNum=${page}&${params.toString()}`
+        );
 
-      setFilteredProxies(data.filter((proxy) => proxy.loc.cc === countryCode));
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  };
+        setFilteredProxies(
+          data.filter((proxy) => proxy.loc.cc === countryCode)
+        );
+      } catch (error) {
+        console.log(error);
+        setError('error');
+      } finally {
+        setLoading(false);
+      }
+    },
+    [currentPage, selectedCountry] // Add dependencies here
+  );
+
   useEffect(() => {
-    fetchProxies(currentPage, selectedCountry);
-  }, [currentPage, selectedCountry]);
+    fetchProxies({ page: currentPage, countryCode: selectedCountry });
+  }, [currentPage, selectedCountry, fetchProxies]);
 
   //Fetching the total proxies from the server
-  const fetchProxyTotals = async (page = 0) => {
-    try {
-      const { data } = await axios.get(
-        `${SERVER_URL}/products/proxies?page=${page}&countryCode=${selectedCountry}&segments=true`
-      );
-
-      setTotalPages(data.total);
-      setCountryDetails(data.segments || {});
-    } catch (error) {
-      console.log(error);
-    } finally {
-    }
-  };
-
-  // Fetch proxy totals on country change
   useEffect(() => {
+    const fetchProxyTotals = async (page = 0) => {
+      try {
+        const { data } = await axios.get(
+          `${SERVER_URL}/products/proxies?page=${page}&countryCode=${selectedCountry}&segments=true`
+        );
+
+        setTotalPages(data.total);
+        setCountryDetails(data.segments || {});
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
     fetchProxyTotals(currentPage);
   }, [currentPage, selectedCountry]);
 
@@ -126,24 +122,6 @@ const Proxy = () => {
       setCurrentPage((prevPage) => prevPage - 1);
     }
   };
-
-  // const filteredResults = useMemo(() => {
-  //   return (proxies || []).filter(
-  //     (proxy) =>
-  //       (!filters.conn ||
-  //         proxy.conn?.toLowerCase().includes(filters.conn.toLowerCase())) &&
-  //       (!filters.location ||
-  //         proxy.loc?.city
-  //           ?.toLowerCase()
-  //           .includes(filters.location.toLowerCase())) &&
-  //       (!filters.isp ||
-  //         proxy.loc?.isp?.toLowerCase().includes(filters.isp.toLowerCase()))
-  //   );
-  // }, [filters, proxies]);
-
-  // useEffect(() => {
-  //   setFilteredProxies(filteredResults);
-  // }, [filteredResults]);
 
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
@@ -190,10 +168,10 @@ const Proxy = () => {
         } md:ml-64`}
       >
         <header
-          className={`flex justify-between items-center py-4 px-6 border-b backdrop-blur-xl bg-opacity-90 shadow-sm sticky top-0 z-50 ${
+          className={`flex justify-between items-center py-4 px-6  backdrop-blur-lg bg-opacity-90 shadow-sm sticky top-0 z-50 ${
             darkMode
-              ? 'bg-[#0c0b08]/50 border-gray-700'
-              : 'bg-[#7C25BA] border-[#7C25BA]'
+              ? 'bg-[#0c0b08]/50 border-b border-gray-700'
+              : 'bg-[#7C25BA] '
           }`}
         >
           <button
@@ -202,7 +180,7 @@ const Proxy = () => {
             }`}
             onClick={toggleSidebar}
           >
-            {isSidebarOpen ? <FaTimes /> : <FaBars />}
+            {isSidebarOpen ? <X /> : <AlignJustify />}
           </button>
           <div className="flex-1 flex justify-end">
             <UserMenu userDetails={userDetails} />

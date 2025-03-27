@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import  { useState, useContext } from 'react';
 import {
   FiEye,
   FiEyeOff,
@@ -185,7 +185,7 @@ function Signup() {
         });
         setError(formattedErrors);
       } else {
-        toast.error(errorMessage);
+        toast.error('Error occured');
       }
     } finally {
       setLoading(false);

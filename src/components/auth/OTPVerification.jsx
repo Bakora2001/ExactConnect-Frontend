@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import  { useState, useContext } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 import { SERVER_URL } from '../../services/data';
@@ -178,7 +178,7 @@ const OTPVerification = () => {
           </button>
         </form>
         <p className="text-sm text-center text-gray-400 mt-6">
-          Haven't received it?{' '}
+          {`Haven't received it?`}{' '}
           <Link to="/resend-code" className="text-purple-500 hover:underline">
             Resend a new code.
           </Link>

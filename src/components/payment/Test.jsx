@@ -15,7 +15,7 @@ import { z } from 'zod';
 
 // Define phone number validation schema using Zod
 const numberSchema = z.object({
-  phoneNumber: z.string().min(10, 'Phone number must be at least 10 digits'),
+  phoneNumber: z.string().min(10, "Phone number must be at least 10 digits"),
 });
 
 export default function PaymentPage() {
@@ -38,10 +38,10 @@ export default function PaymentPage() {
   const [paymentMethod, setPaymentMethod] = useState('MPESA');
   const [isLoading, setIsLoading] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
-  const [errors, setErrors] = useState('');
+  const [errors, setErrors] = useState("");
   const [isConfirming, setIsConfirming] = useState(false);
 
-  const [phoneNumber, setPhoneNumber] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState("");
   const navigate = useNavigate();
 
   const formattedNumber = formatPhoneNumber(phoneNumber);
@@ -87,13 +87,13 @@ export default function PaymentPage() {
 
   //Function to handle stk push success
   const MpesaStkPushSuccess = () => {
-    toast.info('Mpesa STK Push Success,transaction completed successfully');
+    toast.info("Mpesa STK Push Success,transaction completed successfully");
   };
 
   //Function to handle mpesa push fail
   const MpesaStkPushFailed = () =>
-    toast.error('Mpesa Stk Push Failed, Please try again', {
-      position: 'top-center',
+    toast.error("Mpesa Stk Push Failed, Please try again", {
+      position: "top-center",
       autoClose: 2000,
       hideProgressBar: true,
       closeOnClick: true,
@@ -101,14 +101,14 @@ export default function PaymentPage() {
     });
 
   //Handling stk push cancellation
-  const StkPushCancelledByUser = () =>
-    toast.error('StkPush was rejected by the user', {
-      position: 'top-center',
-      autoClose: 2000,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: false,
-    });
+  // const StkPushCancelledByUser = () =>
+  //   toast.error('StkPush was rejected by the user', {
+  //     position: 'top-center',
+  //     autoClose: 2000,
+  //     hideProgressBar: true,
+  //     closeOnClick: true,
+  //     pauseOnHover: false,
+  //   });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -167,7 +167,7 @@ export default function PaymentPage() {
       // Validate the transaction
       await validateTransaction(data);
     } catch (error) {
-      // console.error('STK Push Error:', error);
+      console.error("STK Push Error:", error);
       setIsLoading(false);
       setIsConfirming(false);
       MpesaStkPushFailed();
@@ -181,8 +181,8 @@ export default function PaymentPage() {
       try {
         const { data } = await axios.get(`${SERVER_URL}/payments/search`, {
           params: {
-            countryCode: 'KE',
-            currencyCode: 'KES',
+            countryCode: "KE",
+            currencyCode: "KES",
             paymentId: payload.paymentId,
             transactionStatus: payload.transactionStatus,
           },
@@ -207,23 +207,24 @@ export default function PaymentPage() {
         const response = data.content;
         console.log(response);
         switch (status) {
-          case 'ACCEPTED':
+          case "ACCEPTED":
             // console.log('Transaction Successful');
             MpesaStkPushSuccess();
-            navigate('/status/success', { state: { response } });
+            navigate("/status/success", { state: { response } });
             return;
-          case 'FAILED':
+          case "FAILED":
             // console.log('Transaction cancelled by user');
-            navigate('/status/failed', { state: { response } });
+            navigate("/status/failed", { state: { response } });
             return;
-          case 'DECLINED':
+          case "DECLINED":
             // console.log('Transaction cancelled by user');
 
             navigate('/status/failed', { state: { response } });
             return;
-          case 'PROCESSING':
+          case "PROCESSING":
             // console.log('Transaction cancelled by user');
             setIsProcessing(true);
+            break;
           default:
             // console.log('Transaction Pending... Retrying in 10 seconds');
             setTimeout(checkStatus, 10000);
@@ -242,12 +243,12 @@ export default function PaymentPage() {
   return (
     <div
       className={`min-h-screen w-full flex items-center justify-center p-4 ${
-        darkMode ? 'bg-[#131312] text-white' : 'bg-gray-100 text-black'
+        darkMode ? "bg-[#131312] text-white" : "bg-gray-100 text-black"
       }`}
     >
       <div
         className={`w-full max-w-md mx-auto p-6 rounded-2xl shadow-lg ${
-          darkMode ? 'bg-[#1e1e1e] border-gray-700' : 'bg-white border-gray-200'
+          darkMode ? "bg-[#1e1e1e] border-gray-700" : "bg-white border-gray-200"
         } border transition-all ease-in-out duration-300`}
       >
         <div className="text-center mb-8">
@@ -281,9 +282,9 @@ export default function PaymentPage() {
 
           {/* <label
             className={`flex flex-col items-center p-4 cursor-pointer rounded-lg border-2 ${
-              paymentMethod === 'litecoin'
-                ? 'border-yellow-500 scale-105'
-                : 'border-gray-300 hover:scale-105'
+              paymentMethod === "litecoin"
+                ? "border-yellow-500 scale-105"
+                : "border-gray-300 hover:scale-105"
             } transition-all`}
           >
             <input
@@ -291,8 +292,8 @@ export default function PaymentPage() {
               value="litecoin"
               name="paymentMethod"
               className="sr-only"
-              checked={paymentMethod === 'litecoin'}
-              onChange={() => setPaymentMethod('litecoin')}
+              checked={paymentMethod === "litecoin"}
+              onChange={() => setPaymentMethod("litecoin")}
             />
             <Bitcoin className="h-8 w-8 text-yellow-500" />
             <span className="font-medium">Litecoin</span>
@@ -329,14 +330,14 @@ export default function PaymentPage() {
               onChange={(e) => setPhoneNumber(e.target.value)}
               placeholder="e.g 07XXXXXXXX"
               className={`w-full ${
-                darkMode ? 'bg-[#1e1e1e] text-white' : ''
+                darkMode ? "bg-[#1e1e1e] text-white" : ""
               } p-3 border-2 rounded-md border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-700`}
             />
             {errors && <p className="text-red-500 text-sm mt-1">{errors}</p>}
           </div>
         )}
 
-        {paymentMethod === 'litecoin' && (
+        {paymentMethod === "litecoin" && (
           <div className="mt-6">
             <label className="block text-sm font-medium">
               Litecoin Wallet Address
@@ -385,7 +386,7 @@ export default function PaymentPage() {
           } transition-all`}
         >
           {isConfirming
-            ? 'Confirming...'
+            ? "Confirming..."
             : isProcessing
             ? 'Processing...'
             : paymentMethod === 'MPESA'
