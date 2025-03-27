@@ -347,17 +347,7 @@ const Dashboard = () => {
                 <li
                   className={`${darkMode ? 'text-gray-400' : 'text-gray-600'}`}
                 >
-                  - You bought an RDP.
-                </li>
-                <li
-                  className={`${darkMode ? 'text-gray-400' : 'text-gray-600'}`}
-                >
-                  - Logged into your account.
-                </li>
-                <li
-                  className={`${darkMode ? 'text-gray-400' : 'text-gray-600'}`}
-                >
-                  - Added a VCC card to the cart.
+                  No recent activity.
                 </li>
               </ul>
             </div>
@@ -378,7 +368,7 @@ const Dashboard = () => {
                 Announcements
               </h2>
               <p className={`${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-                VCC cards are now ready to be used.
+                No Announcements at the moment
               </p>
             </div>
           </div>
