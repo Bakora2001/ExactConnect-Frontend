@@ -3,15 +3,15 @@ import {
   FaInstagram,
   FaTiktok,
   FaPinterest,
-} from "react-icons/fa";
+} from 'react-icons/fa';
 
-import { FaXTwitter } from "react-icons/fa6";
-import { DarkModeContext } from "../../context/DarkModeContext";
-import { useContext } from "react";
+import { FaXTwitter } from 'react-icons/fa6';
+import { DarkModeContext } from '../../context/DarkModeContext';
+import { useContext } from 'react';
 
 //Icons to toggle between dark and light mode
-import Light from "../icons/Light";
-import Moon from "../icons/Moon";
+import Light from '../icons/Light';
+import Moon from '../icons/Moon';
 
 const Footer = () => {
   const { darkMode, toggleDarkMode } = useContext(DarkModeContext);
@@ -33,7 +33,8 @@ const Footer = () => {
               className="h-12 mb-4"
             />
             <p className="text-sm leading-relaxed">
-            ExactConnect is a trusted online shopping platform that provides high-quality digital services tailored to meet your exact needs. 
+              ExactConnect is a trusted online shopping platform that provides
+              high-quality digital services tailored to meet your exact needs.
             </p>
           </div>
 
@@ -67,18 +68,32 @@ const Footer = () => {
           </div>
 
           {/* Contact Info */}
-        <div>
-          <h4 className="text-lg font-semibold text-[#7C25BA] mb-4">
-            Contact Info
-          </h4>
-          <ul className="space-y-2 text-sm">
-            <li> <a href="mailto:support@exactconnect.online" className="text-blue-500 hover:underline">support@exactconnect.online</a></li>
-            <li>
-             <a href="https://t.me/exact_connect_official" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Telegram</a>
-            </li>
-          </ul>
-        </div>
-
+          <div>
+            <h4 className="text-lg font-semibold text-[#7C25BA] mb-4">
+              Contact Info
+            </h4>
+            <ul className="space-y-2 text-sm">
+              <li>
+                {' '}
+                <a
+                  href="mailto:support@exactconnect.online"
+                  className="text-blue-500 hover:underline"
+                >
+                  support@exactconnect.online
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://t.me/exact_connect_official"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-500 hover:underline"
+                >
+                  Telegram
+                </a>
+              </li>
+            </ul>
+          </div>
 
           {/* Social Media Links */}
           <div>
@@ -91,7 +106,6 @@ const Footer = () => {
             <div className="flex space-x-4">
               <a
                 target="__blank"
-                target="__blank"
                 href="https://www.facebook.com/profile.php?id=61572727113037"
                 className="p-2 rounded-full bg-gray-800 hover:bg-purple-600 transition"
                 aria-label="Facebook"
@@ -99,7 +113,6 @@ const Footer = () => {
                 <FaFacebookF className="text-white" />
               </a>
               <a
-                target="__blank"
                 target="__blank"
                 href="https://www.instagram.com/exact_connect/"
                 className="p-2 rounded-full bg-gray-800 hover:bg-purple-600 transition"
@@ -109,7 +122,6 @@ const Footer = () => {
               </a>
               <a
                 target="__blank"
-                target="__blank"
                 href="https://x.com/exact_connect"
                 className="p-2 rounded-full bg-gray-800 hover:bg-purple-600 transition"
                 aria-label="Twitter"
@@ -117,7 +129,6 @@ const Footer = () => {
                 <FaXTwitter className="text-white" />
               </a>
               <a
-                target="__blank"
                 target="__blank"
                 href="#"
                 className="p-2 rounded-full bg-gray-800 hover:bg-purple-600 transition"
@@ -127,7 +138,6 @@ const Footer = () => {
               </a>
               <a
                 href="#"
-                target="__blank"
                 target="__blank"
                 className="p-2 rounded-full bg-gray-800 hover:bg-purple-600 transition"
                 aria-label="Pinterest"
