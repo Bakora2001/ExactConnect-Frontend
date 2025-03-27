@@ -1,21 +1,22 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Loader2, Send, Clock, Mail } from "lucide-react";
-import { toast } from "sonner";
-import { z } from "zod";
-import { SERVER_URL } from "../../services/data";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Loader2, Send, Clock, Mail } from 'lucide-react';
+import { toast } from 'sonner';
+import { z } from 'zod';
+import { SERVER_URL } from '../../services/data';
+import NavBar from '../reusables/Navbar';
 
 // Form validation with Zod
 const contactSchema = z.object({
-  email: z.string().email({ message: "Invalid email address" }),
+  email: z.string().email({ message: 'Invalid email address' }),
   message: z
     .string()
-    .min(10, { message: "Message must be at least 10 characters long" }),
+    .min(10, { message: 'Message must be at least 10 characters long' }),
 });
 
 const ComingSoon = () => {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({ email: "", message: "" });
+  const [formData, setFormData] = useState({ email: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState({});
 
@@ -36,23 +37,23 @@ const ComingSoon = () => {
           { name: 'ExactConnect', recipient: 'charleskibet101@gmail.com' },
           { name: 'ExactConnect', recipient: 'support@exactconnect.online' },
         ],
-        subject: "VIBE",
+        subject: 'VIBE',
         body: validatedData.message,
-        deliveryMode: "EMAIL",
-        countryCode: "KE",
+        deliveryMode: 'EMAIL',
+        countryCode: 'KE',
       };
 
       const response = await fetch(`${SERVER_URL}/messages`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
 
-      if (!response.ok) throw new Error("Failed to send message");
+      if (!response.ok) throw new Error('Failed to send message');
 
-      navigate("/delivered");
-      toast.success("Message sent successfully!");
-      setFormData({ email: "", message: "" });
+      navigate('/delivered');
+      toast.success('Message sent successfully!');
+      setFormData({ email: '', message: '' });
       setErrors({});
     } catch (err) {
       if (err instanceof z.ZodError) {
@@ -62,38 +63,41 @@ const ComingSoon = () => {
         }, {});
         setErrors(formattedErrors);
       } else {
-        toast.error("Something went wrong. Please try again.");
+        toast.error('Something went wrong. Please try again.');
       }
     } finally {
       setIsSubmitting(false);
     }
   };
   return (
-    <div className="min-h-screen flex flex-col relative overflow-hidden dark:bg-[#0c0b08]">
+    <div className="min-h-screen flex flex-col relative overflow-hidden dark:bg-[#0c0b08] ">
+      <NavBar />
       {/* Background elements */}
-      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-[#0c0b08] dark:to-[#131312] -z-10" />
+      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-[#0c0b08] dark:to-[#131312] -z-10 " />
       <div className="absolute -top-40 -right-40 w-96 h-96 bg-primary/10 rounded-full blur-3xl -z-10 dark:bg-primary/20" />
       <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-primary/10 rounded-full blur-3xl -z-10 dark:bg-primary/20" />
 
-      <div className="flex-1 flex flex-col items-center justify-center p-6">
-        <div className="w-full max-w-3xl mx-auto text-center space-y-10 animate-fade-in">
+      <div className="flex-1 flex flex-col items-center justify-center p-6 mt-12">
+        <div className="w-full max-w-3xl mx-auto  space-y-10 animate-fade-in ">
           {/* Logo */}
-          <div className="inline-block mb-4 mx-auto">
-            <div
-              className="w-16 h-16 rounded-2xl  bg-primary flex items-center justify-center 
+          <div className="flex justify-center items-center h-full">
+            <div className="inline-block mb-4 mx-auto">
+              <div
+                className="w-16 h-16 rounded-2xl bg-primary flex items-center justify-center 
       shadow-lg hover:shadow-xl transition-shadow duration-300 
       dark:bg-primary/90 dark:shadow-[rgba(255,255,255,0.3)]"
-            >
-              <img
-                src="/assets/world_7139124.png"
-                alt="ExactConnect Logo"
-                className="w-12 h-12 object-contain filter invert"
-              />
+              >
+                <img
+                  src="/assets/world_7139124.png"
+                  alt="ExactConnect Logo"
+                  className="w-12 h-12 object-contain invert dark:invert-0"
+                />
+              </div>
             </div>
           </div>
 
           <div className="space-y-6">
-            <h1 className="text-4xl md:text-6xl font-bold text-purple-600 dark:text-purple-400 tracking-tight">
+            <h1 className="text-4xl md:text-6xl font-bold text-purple-600 dark:text-purple-400 tracking-tight text-center">
               Coming Soon
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
@@ -119,7 +123,7 @@ const ComingSoon = () => {
               to you as soon as possible.`}
             </p>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4 ">
               {/* Email Input */}
               <div>
                 <input
@@ -130,12 +134,12 @@ const ComingSoon = () => {
                   onChange={handleChange}
                   className={`w-full px-4 py-2 rounded-md border ${
                     errors.email
-                      ? "border-red-500"
-                      : "border-gray-300 dark:border-gray-600"
+                      ? 'border-red-500'
+                      : 'border-gray-300 dark:border-gray-600'
                   } focus:outline-none focus:ring-2 ${
                     errors.email
-                      ? "focus:ring-red-500"
-                      : "focus:ring-primary dark:focus:ring-purple-400"
+                      ? 'focus:ring-red-500'
+                      : 'focus:ring-primary dark:focus:ring-purple-400'
                   } transition-all duration-200 dark:bg-[#1a1a1a] dark:text-white`}
                   aria-invalid={!!errors.email}
                   aria-describedby="email_error"
@@ -156,12 +160,12 @@ const ComingSoon = () => {
                   onChange={handleChange}
                   className={`w-full h-32 px-4 py-2 rounded-md border ${
                     errors.message
-                      ? "border-red-500"
-                      : "border-gray-300 dark:border-gray-600"
+                      ? 'border-red-500'
+                      : 'border-gray-300 dark:border-gray-600'
                   } focus:outline-none focus:ring-2 ${
                     errors.message
-                      ? "focus:ring-red-500"
-                      : "focus:ring-primary dark:focus:ring-purple-400"
+                      ? 'focus:ring-red-500'
+                      : 'focus:ring-primary dark:focus:ring-purple-400'
                   } transition-all duration-200 dark:bg-[#1a1a1a] dark:text-white`}
                   aria-invalid={!!errors.message}
                   aria-describedby="message_error"
