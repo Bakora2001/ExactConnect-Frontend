@@ -1,11 +1,36 @@
-import React, { useState, useContext } from 'react';
+import { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { DarkModeContext } from '../../context/DarkModeContext';
+
 const NavBar = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
 
+  //Navbar items
+  const navItems = [
+    {
+      to: '/residential',
+
+      label: 'Residential Proxy',
+    },
+    {
+      to: '/rdp',
+
+      label: 'VPS Server',
+    },
+    { to: '/coming-soon', label: 'PSD Template' },
+    {
+      to: '/coming-soon',
+
+      label: 'Non-VOIP Numbers',
+    },
+    {
+      to: '/contact',
+
+      label: 'Contact Us',
+    },
+  ];
   // Navigation handler
   const handleNavigation = (path) => {
     navigate(path);
@@ -20,8 +45,10 @@ const NavBar = () => {
 
   return (
     <header
-      className={`w-full fixed top-0 left-0 right-0 z-50 bg-opacity-90 backdrop-blur-md border-b border-gray-500  ${
-        darkMode ? 'bg-[#131312]/50 text-white' : 'bg-[#7C25BA] text-white'
+      className={`w-full fixed top-0 left-0 right-0 z-50  backdrop-blur-sm  border-b border-gray-500  ${
+        darkMode
+          ? 'bg-[#131312] text-white'
+          : 'bg-[#7C25BA] text-white bg-opacity-90'
       } mx-auto items-center ipad-header`}
     >
       <div className=" w-full mx-auto flex items-center justify-between px-3 py-2 md:px-8 lg:px-20 xl:px-32 2xl:px-72 max-w-screen ">
@@ -37,14 +64,7 @@ const NavBar = () => {
         </Link>
         {/* Desktop Navigation */}
         <nav className="hidden md:flex space-x-8 text-white text-xs font-medium">
-          {[
-            { to: '/residential', label: 'Residential Proxy' },
-            { to: '/rdp', label: 'VPS Server' },
-            { to: '/coming-soon', label: 'PSD Template' },
-            { to: '/coming-soon', label: 'Non-VOIP Numbers' },
-            { to: '/coming-soon', label: 'VCC Card' },
-            { to: '/contact', label: 'Contact Us' },
-          ].map(({ to, label }, index) => (
+          {navItems.map(({ to, label }, index) => (
             <span
               key={index}
               className="cursor-pointer hover:text-gray-300 transition"
@@ -73,11 +93,11 @@ const NavBar = () => {
 
       {/* Mobile Menu */}
       <div
-        className={`fixed bottom-0 left-0 top-0 h-screen w-2/3  ${
+        className={`fixed bottom-0 left-0 top-0 h-screen w-2/3   ${
           darkMode ? 'bg-[#131312] text-white' : 'bg-[#7C25BA] text-white  '
         } z-20 transform ${
-          isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full '
-        } transition-transform duration-300 shadow-lg border border-gray-600 rounded-[16px]  `}
+          isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full   '
+        } transition-transform duration-300 shadow-lg border border-gray-600 rounded-[16px]   `}
       >
         <div className="p-6 flex flex-col space-y-6">
           {/* Close Button */}
@@ -90,13 +110,7 @@ const NavBar = () => {
 
           {/* Mobile Navigation */}
           <nav className="flex flex-col space-y-4">
-            {[
-              { label: 'Residential Proxy', link: '/residential' },
-              { label: 'VPS Server', link: '/rdp' },
-              { label: 'VCC Card', link: '/coming-soon' },
-              { label: 'Non-VOIP Numbers', link: '/coming-soon' },
-              { label: 'Contact Us', link: '/contact' },
-            ].map((item, index) => (
+            {navItems.map((item, index) => (
               <span
                 key={index}
                 className="text-lg cursor-pointer hover:text-[#6a1fa0] transition"
