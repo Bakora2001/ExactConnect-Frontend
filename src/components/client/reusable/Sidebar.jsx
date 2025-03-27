@@ -1,9 +1,8 @@
-import { useContext } from "react";
-import Server from "../../icons/Server";
-import Card from "../../icons/Card";
-
-import { Link, useLocation } from "react-router-dom";
-import { FaTimes } from "react-icons/fa";
+import { useContext } from 'react';
+import Server from '../../icons/Server';
+import Card from '../../icons/Card';
+import { Link, useLocation } from 'react-router-dom';
+import { FaTimes } from 'react-icons/fa';
 import {
   RadioTower,
   LayoutDashboard,
@@ -11,9 +10,10 @@ import {
   PhoneCall,
   SunMedium,
   MonitorSmartphone,
-} from "lucide-react";
-import { DarkModeContext } from "../../../context/DarkModeContext";
-import PropTypes from "prop-types";
+  MessageSquareText,
+} from 'lucide-react';
+import { DarkModeContext } from '../../../context/DarkModeContext';
+import PropTypes from 'prop-types';
 
 function Sidebar({ isOpen, onClose }) {
   const location = useLocation();
@@ -22,30 +22,35 @@ function Sidebar({ isOpen, onClose }) {
 
   const navItems = [
     {
-      to: "/dashboard",
+      to: '/dashboard',
       icon: <LayoutDashboard className="text-2xl" />,
-      label: "Dashboard",
+      label: 'Dashboard',
     },
     {
-      to: "/client/proxy",
+      to: '/client/proxy',
       icon: <RadioTower className="text-2xl" />,
-      label: "Residential Proxy",
+      label: 'Residential Proxy',
     },
-    { to: "/rdp", icon: <Server className="text-2xl" />, label: "Vps Server" },
+    { to: '/rdp', icon: <Server className="text-2xl" />, label: 'Vps Server' },
     {
-      to: "/maintainance",
+      to: '/maintainance',
       icon: <Card className="text-2xl" />,
-      label: "VCC Card",
+      label: 'VCC Card',
     },
     {
-      to: "/maintainance",
+      to: '/maintainance',
       icon: <PhoneCall className="text-2xl" />,
-      label: "Non Voip Numbers",
+      label: 'Non Voip Numbers',
     },
     {
-      to: "/orders",
+      to: '/orders',
       icon: <ShoppingBasket className="text-2xl" />,
-      label: "Orders",
+      label: 'Orders',
+    },
+    {
+      to: '/support',
+      icon: <MessageSquareText className="text-2xl" />,
+      label: 'Contact Support',
     },
   ];
 
@@ -53,11 +58,11 @@ function Sidebar({ isOpen, onClose }) {
     <>
       <aside
         className={`fixed inset-y-0 left-0 w-64 h-full ${
-          darkMode ? "bg-[#0c0b08] text-white" : "text-white bg-[#7C25BA]"
+          darkMode ? 'bg-[#0c0b08] text-white' : 'text-white bg-[#7C25BA]'
         } p-4 md:p-6 z-20 shadow-lg transform ${
           isOpen
-            ? "translate-x-0 border rounded-[16px] border-gray-600"
-            : "-translate-x-full "
+            ? 'translate-x-0 border rounded-[16px] border-gray-600'
+            : '-translate-x-full '
         } border-r dark:border-gray-700   transition-transform duration-300 ease-in-out md:translate-x-0 py-2 px-4 `}
       >
         <button
@@ -75,8 +80,8 @@ function Sidebar({ isOpen, onClose }) {
                   key={index}
                   className={`relative flex items-center p-4 rounded-lg transition-colors duration-300 ${
                     isActive
-                      ? " bg-neutral-700 dark:bg-[#292524]"
-                      : "hover:text-gray-700 dark:text-white"
+                      ? ' bg-neutral-700 dark:bg-[#292524]'
+                      : 'hover:text-gray-700 dark:text-white'
                   }`}
                 >
                   <Link to={to}>
