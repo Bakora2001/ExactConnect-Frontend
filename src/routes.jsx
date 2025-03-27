@@ -51,6 +51,7 @@ import ComingSoon from './components/pages/ComingSoon';
 import TermsAndPrivacy from './components/pages/TermsAndPrivacy';
 import Residential from './components/residential/Residential';
 import PaymentStack from './components/payment/PayStack';
+import Contact from './components/client/contact/Contact';
 
 const Configure = lazy(() => import('./components/Configure'));
 const Checkout = lazy(() => import('./components/Checkout'));
@@ -253,6 +254,10 @@ export const router = createBrowserRouter(
       path: '/checkout-paystack',
       element: <PaymentStack />,
     },
+    {
+      path: '/support',
+      element: <Contact />,
+    },
   ],
   {
     future: {
@@ -260,6 +265,7 @@ export const router = createBrowserRouter(
       v7_fetcherPersist: true,
       v7_normalizeFormMethod: true,
       v7_partialHydration: true,
+      v7_startTransition: true,
       v7_skipActionErrorRevalidation: true,
     },
   }
