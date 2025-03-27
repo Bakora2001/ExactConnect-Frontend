@@ -219,6 +219,7 @@ const Proxy = () => {
         )}
 
         <Pagination
+          loading={loading}
           currentPage={currentPage}
           totalPages={totalPages}
           handlePreviousPage={handlePreviousPage}
