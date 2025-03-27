@@ -1,9 +1,5 @@
-import {
-  FaFacebookF,
-  FaInstagram,
-  FaTiktok,
-  FaPinterest,
-} from 'react-icons/fa';
+import { FaFacebookF, FaInstagram } from 'react-icons/fa';
+import { BsTelegram } from 'react-icons/bs';
 
 import { FaXTwitter } from 'react-icons/fa6';
 import { DarkModeContext } from '../../context/DarkModeContext';
@@ -59,11 +55,6 @@ const Footer = () => {
                   Privacy Policy
                 </a>
               </li>
-              <li>
-                <a href="/maintainance" className="hover:underline">
-                  FAQ
-                </a>
-              </li>
             </ul>
           </div>
 
@@ -80,16 +71,6 @@ const Footer = () => {
                   className="hover:underline"
                 >
                   support@exactconnect.online
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://t.me/exact_connect_official"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className=" hover:underline"
-                >
-                  Telegram
                 </a>
               </li>
             </ul>
@@ -128,21 +109,14 @@ const Footer = () => {
               >
                 <FaXTwitter className="text-white" />
               </a>
+
               <a
-                target="__blank"
-                href="#"
-                className="p-2 rounded-full bg-gray-800 hover:bg-purple-600 transition"
-                aria-label="TikTok"
-              >
-                <FaTiktok className="text-white" />
-              </a>
-              <a
-                href="#"
+                href="https://t.me/exact_connect_official"
                 target="__blank"
                 className="p-2 rounded-full bg-gray-800 hover:bg-purple-600 transition"
                 aria-label="Pinterest"
               >
-                <FaPinterest className="text-white" />
+                <BsTelegram className="text-white" />
               </a>
             </div>
             <div className="mt-8 flex justify-center items-center border border-gray-700 w-fit rounded-md p-1">
