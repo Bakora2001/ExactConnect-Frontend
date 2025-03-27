@@ -1,11 +1,11 @@
 import { useState, useContext } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
-import { Smartphone, SmilePlus } from 'lucide-react';
+import { Smartphone, Bitcoin, Binary } from 'lucide-react';
 import { SERVER_URL } from '../../services/data';
 import { DarkModeContext } from '../../context/DarkModeContext';
 import { formatPhoneNumber } from '../../utils/formatPhoneNumber';
-import { customerId } from '../../lib/userDetails';
+import { customerId, email } from '../../lib/userDetails';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Convert from './Convert';
 import { z } from 'zod';
@@ -36,7 +36,7 @@ export default function PaymentPage() {
 
   //Context and state
   const { darkMode } = useContext(DarkModeContext);
-  const [paymentMethod, setPaymentMethod] = useState('mpesa');
+  const [paymentMethod, setPaymentMethod] = useState('MPESA');
   const [isLoading, setIsLoading] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const [errors, setErrors] = useState('');
@@ -47,10 +47,35 @@ export default function PaymentPage() {
 
   const formattedNumber = formatPhoneNumber(phoneNumber);
 
+  const RedirectExternal = ({ to }) => {
+  
+    useEffect(() => {
+      // window.location.href = "https://wwww.google.com?q=ABC";
+
+      window.open(to, "_blank", "noreferrer");
+      // use timeout to move back navigation to end of event queue
+    }, [ to]);
+  
+    return null;
+  };
+
   //Function to handle mpesa push submittion
   const MpesaStkPushSubmitted = () => {
     toast(
       'Mpesa STK submitted Successfully, Enter your pin to complete the transaction',
+      {
+        position: 'top-center',
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+      }
+    );
+  };
+
+  const PaystackPaymentSubmitted = () => {
+    toast(
+      'Paystack Payment submitted Successfully, Enter your pin to complete the transaction',
       {
         position: 'top-center',
         autoClose: 2000,
@@ -93,22 +118,22 @@ export default function PaymentPage() {
     setIsProcessing(true);
 
     const validation = numberSchema.safeParse({ phoneNumber });
-    if (!validation.success) {
-      setErrors(validation.error.errors[0].message);
-      setIsLoading(false);
-      setIsConfirming(false);
-      setIsProcessing(false);
-      return;
-    }
+    // if (!validation.success) {
+    //   setErrors(validation.error.errors[0].message);
+    //   setIsLoading(false);
+    //   setIsConfirming(false);
+    //   setIsProcessing(false);
+    //   return;
+    // }
     setErrors('');
 
     try {
       const { data } = await axios.post(`${SERVER_URL}/payments`, {
-        accountNumber: formattedNumber,
-        amount: convertedAmount,
+        accountNumber: paymentMethod === 'MPESA'? formattedNumber: email,
+        amount: roundedAmount,
         description: 'test',
-        mode: 'STK',
-        provider: 'MPESA',
+        mode:  paymentMethod==='MPESA'? 'STK': 'LINK',
+        provider: paymentMethod,
         category: 'COLLECTIONS',
         countryCode: 'KE',
         currencyCode: 'KES',
@@ -125,7 +150,18 @@ export default function PaymentPage() {
         },
       });
       // console.log('STK Push Response:', data);
-      MpesaStkPushSubmitted();
+      if(paymentMethod === 'MPESA') {
+        MpesaStkPushSubmitted();
+      }
+      else {
+        PaystackPaymentSubmitted();
+
+        const checkoutUrl = data.metaData.checkout
+
+        window.location.href = checkoutUrl
+
+        console.log('Paystack Response:', data.metaData.checkout);
+      }
       setIsConfirming(false);
       setIsLoading(false);
 
@@ -227,24 +263,24 @@ export default function PaymentPage() {
         <div className="grid grid-cols-2 gap-4">
           <label
             className={`flex flex-col items-center p-4 cursor-pointer rounded-lg border-2 ${
-              paymentMethod === 'mpesa'
+              paymentMethod === 'MPESA'
                 ? 'border-green-500 scale-105'
                 : 'border-gray-300 hover:scale-105'
             } transition-all`}
           >
             <input
               type="radio"
-              value="mpesa"
+              value="MPESA"
               name="paymentMethod"
               className="sr-only"
-              checked={paymentMethod === 'mpesa'}
-              onChange={() => setPaymentMethod('mpesa')}
+              checked={paymentMethod === 'MPESA'}
+              onChange={() => setPaymentMethod('MPESA')}
             />
             <Smartphone className="h-8 w-8 text-green-500" />
             <span className="font-medium">M-Pesa</span>
           </label>
 
-          <label
+          {/* <label
             className={`flex flex-col items-center p-4 cursor-pointer rounded-lg border-2 ${
               paymentMethod === 'Paystack'
                 ? 'border-blue-500 scale-105'
@@ -259,12 +295,31 @@ export default function PaymentPage() {
               checked={paymentMethod === 'Paystack'}
               onChange={() => setPaymentMethod('Paystack')}
             />
-            <SmilePlus className="h-8 w-8 text-blue-500" />
-            <span className="font-medium text-blue-500">Paystack</span>
+            <Bitcoin className="h-8 w-8 text-yellow-500" />
+            <span className="font-medium">Litecoin</span>
+          </label> */}
+
+          <label
+            className={`flex flex-col items-center p-4 cursor-pointer rounded-lg border-2 ${
+              paymentMethod === 'PAYSTACK'
+                ? 'border-blue-500 scale-105'
+                : 'border-gray-300 hover:scale-105'
+            } transition-all`}
+          >
+            <input
+              type="radio"
+              value="PAYSTACK"
+              name="paymentMethod"
+              className="sr-only"
+              checked={paymentMethod === 'PAYSTACK'}
+              onChange={() => setPaymentMethod('PAYSTACK')}
+            />
+            <Binary className="h-8 w-8 text-blue-500" />
+            <span className="font-medium">Paystack</span>
           </label>
         </div>
 
-        {paymentMethod === 'mpesa' && (
+        {paymentMethod === 'MPESA' && (
           <div className="mt-6">
             <label className="block text-sm font-medium">
               M-Pesa Phone Number
@@ -299,26 +354,44 @@ export default function PaymentPage() {
           </div>
         )}
 
+        {paymentMethod === 'PAYSTACK' && (
+          <div className="mt-6">
+          <label className="block text-sm font-medium">
+            Recipient Email Address
+          </label>
+          <input
+            type="text"
+            value={email}
+            readOnly
+            className="w-full p-3 border-2 rounded-md border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-[#2b2b2b] dark:text-gray-300"
+          />
+          <p className="text-sm text-gray-500 dark:text-gray-400">
+            We'll send payment receipt details to the address above.
+          </p>
+        </div>
+        )
+        }
+
         <button
           onClick={handleSubmit}
           disabled={isConfirming || isProcessing}
           className={`mt-8 w-full py-3 ${
-            paymentMethod === 'mpesa' ? 'bg-green-600' : 'bg-blue-500'
+            paymentMethod === 'MPESA' ? 'bg-green-600' : 'bg-blue-600'
           } text-white font-semibold rounded-lg ${
             isConfirming || isProcessing
               ? 'opacity-50 cursor-not-allowed' // Dim and disable cursor when processing
-              : paymentMethod === 'mpesa'
+              : paymentMethod === 'MPESA'
               ? 'hover:bg-green-700'
-              : 'hover:bg-blue-500'
+              : 'hover:bg-blue-700'
           } transition-all`}
         >
           {isConfirming
             ? 'Confirming...'
             : isProcessing
             ? 'Processing...'
-            : paymentMethod === 'mpesa'
+            : paymentMethod === 'MPESA'
             ? `Pay ${roundedAmount} with M-Pesa`
-            : 'Confirm Litecoin Payment'}
+            : `Pay ${roundedAmount} with Paystack`}
         </button>
         <ToastContainer />
         {isLoading && (
