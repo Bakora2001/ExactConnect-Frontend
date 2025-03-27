@@ -73,7 +73,7 @@ export default function PaymentStack() {
 
   //Function to handle mpesa push fail
   const MpesaStkPushFailed = () =>
-    toast.error('Mpesa Stk Push Failed, Please try again', {
+    toast.error(' Please try again', {
       position: 'top-center',
       autoClose: 2000,
       hideProgressBar: true,
@@ -132,7 +132,7 @@ export default function PaymentStack() {
 
       setIsConfirming(false);
       setIsLoading(false);
-
+      setIsProcessing(false);
       // Validate the transaction
       await validateTransaction(data);
     } catch (error) {
@@ -227,7 +227,7 @@ export default function PaymentStack() {
               type="text"
               value={email}
               readOnly
-              className="w-full p-3 border-2 rounded-md border border-gray-600  bg-[#131312]"
+              className="w-full p-3 border-2 rounded-md border border-gray-600  dark:bg-[#131312]"
             />
             <p className="text-sm text-gray-500 dark:text-gray-400">
               {
