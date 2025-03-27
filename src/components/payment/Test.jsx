@@ -1,7 +1,7 @@
 import { useState, useContext } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
-import { Smartphone, Bitcoin } from 'lucide-react';
+import { Smartphone, SmilePlus } from 'lucide-react';
 import { SERVER_URL } from '../../services/data';
 import { DarkModeContext } from '../../context/DarkModeContext';
 import { formatPhoneNumber } from '../../utils/formatPhoneNumber';
@@ -9,6 +9,7 @@ import { customerId } from '../../lib/userDetails';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Convert from './Convert';
 import { z } from 'zod';
+
 
 //TODO --> Check when the payment status is in processing
 //Research on how we can prevent the user from reloading the page when the payment is still being confirmed
@@ -245,21 +246,21 @@ export default function PaymentPage() {
 
           <label
             className={`flex flex-col items-center p-4 cursor-pointer rounded-lg border-2 ${
-              paymentMethod === 'litecoin'
-                ? 'border-yellow-500 scale-105'
+              paymentMethod === 'Paystack'
+                ? 'border-blue-500 scale-105'
                 : 'border-gray-300 hover:scale-105'
             } transition-all`}
           >
             <input
               type="radio"
-              value="litecoin"
+              value="Paystack"
               name="paymentMethod"
               className="sr-only"
-              checked={paymentMethod === 'litecoin'}
-              onChange={() => setPaymentMethod('litecoin')}
+              checked={paymentMethod === 'Paystack'}
+              onChange={() => setPaymentMethod('Paystack')}
             />
-            <Bitcoin className="h-8 w-8 text-yellow-500" />
-            <span className="font-medium">Litecoin</span>
+            <SmilePlus className="h-8 w-8 text-blue-500" />
+            <span className="font-medium text-blue-500">Paystack</span>
           </label>
         </div>
 
@@ -281,14 +282,14 @@ export default function PaymentPage() {
           </div>
         )}
 
-        {paymentMethod === 'litecoin' && (
+        {paymentMethod === 'Paystack' && (
           <div className="mt-6">
             <label className="block text-sm font-medium">
-              Litecoin Wallet Address
+              Email Address
             </label>
             <input
               type="text"
-              value="LTC1EXAMPLE123456789ABCDEFG"
+              value="info@exactconnect.com"
               readOnly
               className="w-full p-3 border-2 rounded-md border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-[#2b2b2b] dark:text-gray-300"
             />
@@ -302,13 +303,13 @@ export default function PaymentPage() {
           onClick={handleSubmit}
           disabled={isConfirming || isProcessing}
           className={`mt-8 w-full py-3 ${
-            paymentMethod === 'mpesa' ? 'bg-green-600' : 'bg-yellow-600'
+            paymentMethod === 'mpesa' ? 'bg-green-600' : 'bg-blue-500'
           } text-white font-semibold rounded-lg ${
             isConfirming || isProcessing
               ? 'opacity-50 cursor-not-allowed' // Dim and disable cursor when processing
               : paymentMethod === 'mpesa'
               ? 'hover:bg-green-700'
-              : 'hover:bg-yellow-700'
+              : 'hover:bg-blue-500'
           } transition-all`}
         >
           {isConfirming

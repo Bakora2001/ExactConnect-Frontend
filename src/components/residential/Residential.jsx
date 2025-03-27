@@ -99,6 +99,16 @@ const Residential = () => {
     setShowContactModal(true);
   };
 
+  const handleGetStarted = (planIndex) => {
+    // For the middle card (index 1), redirect to signup page
+    if (planIndex === 1) {
+      window.location.href = '/account/signup';
+    } else {
+      // For first and third cards, show the contact modal
+      openModal('contact');
+    }
+  };
+
   const features = [
     {
       icon: <Globe size={24} />,
@@ -151,7 +161,7 @@ const Residential = () => {
     },
     {
       title: "Mobile Proxies",
-      price: "$250",
+      price: "$150",
       period: "per month",
       subtitle: "Premium mobile proxy access",
       features: [
@@ -698,10 +708,10 @@ const Residential = () => {
         </section>
 
         {/* Pricing Section - Redesigned with 3 larger cards and better animations */}
-        <section id="pricing" className={`py-16 rounded-lg shadow-md mt-8 animate-on-scroll ${darkMode ? 'bg-gray-900' : 'bg-gray-50'}`}>
+        <section id="pricing" ref={pricingRef} className={`py-16 rounded-lg shadow-md mt-8 animate-on-scroll ${darkMode ? 'bg-gray-900' : 'bg-gray-50'}`}>
           <div className="px-4 md:px-6">
             <div className="text-center mb-12">
-              <h2 className={`text-3xl font-bold mb-4 ${darkMode ? 'text-gray-100' : 'text-gray-900'}`}>Transparent Pricing Plans</h2>
+              <h2 className={`text-5xl font-bold mb-4 ${darkMode ? 'text-gray-100' : 'text-gray-900'}`}>Pricing Plans</h2>
               <p className={`text-lg max-w-2xl mx-auto ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
                 Choose the plan that fits your needs, with flexible options for businesses of all sizes.
               </p>
@@ -753,7 +763,7 @@ const Residential = () => {
                             ? `${darkMode ? 'bg-purple-600 hover:bg-purple-700' : 'bg-[#8a4fc2] hover:bg-[#7040a3]'} text-white shadow-lg hover:shadow-xl group-hover:translate-y-1` 
                             : `${darkMode ? 'bg-gray-700 hover:bg-gray-600 border border-purple-700' : 'bg-gray-50 hover:bg-gray-100 border border-[#8a4fc2]'} ${darkMode ? 'text-purple-400' : 'text-[#8a4fc2]'} group-hover:translate-y-1`
                         }`}
-                        onClick={() => window.location.href = '/account/signup'}
+                        onClick={() => handleGetStarted(index)}
                       >
                         Get Started
                       </button>
@@ -893,108 +903,7 @@ const Residential = () => {
 </section>
 
       {/* Contact Modal */}
-      {showContactModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-xl max-w-md w-full max-h-[90vh] overflow-y-auto animate-fadeIn">
-            <div className="p-6">
-              <div className="flex justify-between items-center mb-4">
-                <h3 className="text-xl font-bold text-gray-900">Custom Proxy Solution</h3>
-                <button 
-                  onClick={() => setShowContactModal(false)}
-                  className="text-gray-400 hover:text-gray-500"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
-              <p className="text-gray-600 mb-6">
-                Tell us about your specific requirements and our team will create a custom solution tailored to your needs.
-              </p>
-              <form onSubmit={handleSubmit}>
-                <div className="space-y-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
-                    <input
-                      type="text"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleInputChange}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#8a4fc2]"
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#8a4fc2]"
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Phone</label>
-                    <input
-                      type="tel"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleInputChange}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#8a4fc2]"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Company</label>
-                    <input
-                      type="text"
-                      name="company"
-                      value={formData.company}
-                      onChange={handleInputChange}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#8a4fc2]"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Estimated Budget</label>
-                    <select
-                      name="budget"
-                      value={formData.budget}
-                      onChange={handleInputChange}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#8a4fc2]"
-                    >
-                      <option value="">Select budget range</option>
-                      <option value="$50 - $100">$50 - $100 (10% discount)</option>
-                      <option value="$150 - $500">$150 - $500 (15% discount)</option>
-                      <option value="$500+">$500+ (20% discount)</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Requirements</label>
-                    <textarea
-                      name="requirements"
-                      value={formData.requirements}
-                      onChange={handleInputChange}
-                      rows="4"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#8a4fc2]"
-                      placeholder="Please describe your proxy requirements, including target locations, traffic volume, and specific use cases."
-                      required
-                    ></textarea>
-                  </div>
-                </div>
-                <div className="mt-6">
-                  <button
-                    type="submit"
-                    className="w-full bg-[#8a4fc2] hover:bg-[#7040a3] text-white px-4 py-3 rounded-lg font-semibold transition duration-300"
-                  >
-                    Submit Request
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      )}
+      {showContactModal && renderContactForm()}
 
       {/* Footer */}
       <Footer />
