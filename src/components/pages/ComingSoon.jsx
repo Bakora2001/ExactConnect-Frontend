@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Loader2, Send, Clock, Mail } from 'lucide-react';
 import { toast } from 'sonner';
 import { z } from 'zod';
 import { SERVER_URL } from '../../services/data';
+import { DarkModeContext } from '../../context/DarkModeContext';
 
 // Form validation with Zod
 const contactSchema = z.object({
@@ -18,6 +19,7 @@ const ComingSoon = () => {
   const [formData, setFormData] = useState({ email: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState({});
+  const { darkMode } = useContext(DarkModeContext);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -31,13 +33,16 @@ const ComingSoon = () => {
     try {
       const validatedData = contactSchema.parse(formData);
 
+      // Format message to include the sender's email
+      const formattedMessage = `Message from: ${validatedData.email}\n\n${validatedData.message}`;
+
       const payload = {
         recipients: [
           { name: 'ExactConnect', recipient: 'charleskibet101@gmail.com' },
           { name: 'ExactConnect', recipient: 'support@exactconnect.online' },
         ],
         subject: 'VIBE',
-        body: validatedData.message,
+        body: formattedMessage, // Include formatted message with email
         deliveryMode: 'EMAIL',
         countryCode: 'KE',
       };
@@ -68,58 +73,82 @@ const ComingSoon = () => {
       setIsSubmitting(false);
     }
   };
+  
   return (
-    <div className="min-h-screen flex flex-col relative overflow-hidden dark:bg-[#0c0b08]">
+    <div className={`h-screen flex flex-col relative overflow-hidden ${
+      darkMode ? 'bg-[#0c0b08] text-gray-200' : 'bg-white text-gray-800'
+    }`}>
       {/* Background elements */}
-      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-[#0c0b08] dark:to-[#131312] -z-10" />
-      <div className="absolute -top-40 -right-40 w-96 h-96 bg-primary/10 rounded-full blur-3xl -z-10 dark:bg-primary/20" />
-      <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-primary/10 rounded-full blur-3xl -z-10 dark:bg-primary/20" />
+      <div className={`absolute top-0 left-0 w-full h-full ${
+        darkMode 
+          ? 'bg-gradient-to-br from-[#0c0b08] to-[#131312]' 
+          : 'bg-gradient-to-br from-blue-50 to-indigo-50'
+      } -z-10`} />
+      <div className={`absolute -top-40 -right-40 w-96 h-96 ${
+        darkMode ? 'bg-primary/20' : 'bg-primary/10'
+      } rounded-full blur-3xl -z-10`} />
+      <div className={`absolute -bottom-40 -left-40 w-96 h-96 ${
+        darkMode ? 'bg-primary/20' : 'bg-primary/10'
+      } rounded-full blur-3xl -z-10`} />
 
-      <div className="flex-1 flex flex-col items-center justify-center p-6">
-        <div className="w-full max-w-3xl mx-auto text-center space-y-10 animate-fade-in">
+      <div className="flex-1 flex flex-col items-center justify-center p-4">
+        <div className="w-full max-w-3xl mx-auto text-center space-y-4 animate-fade-in">
           {/* Logo */}
-          <div className="inline-block mb-4 mx-auto">
+          <div className="inline-block mb-2 mx-auto">
             <div
-              className="w-16 h-16 rounded-2xl  bg-primary flex items-center justify-center 
-      shadow-lg hover:shadow-xl transition-shadow duration-300 
-      dark:bg-primary/90 dark:shadow-[rgba(255,255,255,0.3)]"
+              className={`w-14 h-14 rounded-2xl ${
+                darkMode ? 'bg-purple-700 shadow-purple-900/30' : 'bg-purple-600'
+              } flex items-center justify-center 
+              shadow-lg hover:shadow-xl transition-shadow duration-300`}
             >
               <img
                 src="/assets/world_7139124.png"
                 alt="ExactConnect Logo"
-                className="w-12 h-12 object-contain filter invert"
+                className={`w-10 h-10 object-contain filter ${darkMode ? 'invert' : ''}`}
               />
             </div>
           </div>
 
-          <div className="space-y-6">
-            <h1 className="text-4xl md:text-6xl font-bold text-purple-600 dark:text-purple-400 tracking-tight">
-              Coming Soon
+          <div className="space-y-3">
+            <h1 className={`text-3xl md:text-4xl font-bold ${
+              darkMode ? 'text-purple-400' : 'text-purple-600'
+            } tracking-tight`}>
+              Request Our Services Today!
             </h1>
-            <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-              We're working hard to bring you something amazing. Our website is
-              under construction, but we're almost there.
+            <p className={`text-base ${
+              darkMode ? 'text-gray-300' : 'text-gray-600'
+            } max-w-2xl mx-auto`}>
+              We're actively setting up our automated system, but you don't have to wait! 
+              Reach out to us now to request our services while we finalize the platform.
             </p>
 
-            <div className="flex items-center justify-center space-x-4 text-primary dark:text-purple-400">
-              <Clock className="h-6 w-6" />
-              <span className="text-lg font-medium">Launching Soon</span>
+            <div className={`flex items-center justify-center space-x-4 ${
+              darkMode ? 'text-purple-400' : 'text-purple-600'
+            }`}>
+              <Clock className="h-5 w-5" />
+              <span className="text-base font-medium">Available on Request</span>
             </div>
           </div>
 
           {/* Contact section */}
-          <div className="bg-white dark:bg-[#131312] border dark:border-gray-700 p-8 rounded-2xl shadow-md mt-10 max-w-xl mx-auto hover:shadow-lg transition-shadow duration-300">
-            <div className="flex items-center justify-center mb-6 text-primary dark:text-purple-400">
-              <Mail className="h-6 w-6 mr-2" />
-              <h2 className="text-2xl font-bold">Contact Us</h2>
+          <div className={`${
+            darkMode ? 'bg-[#131312] border-gray-700' : 'bg-white border-gray-200'
+          } border p-6 rounded-2xl shadow-md mt-4 max-w-xl mx-auto hover:shadow-lg transition-shadow duration-300`}>
+            <div className={`flex items-center justify-center mb-4 ${
+              darkMode ? 'text-purple-400' : 'text-purple-600'
+            }`}>
+              <Mail className="h-5 w-5 mr-2" />
+              <h2 className="text-xl font-bold">Contact Us</h2>
             </div>
 
-            <p className="text-gray-600 dark:text-gray-400 mb-6">
+            <p className={`text-sm ${
+              darkMode ? 'text-gray-300' : 'text-gray-600'
+            } mb-4`}>
               Need to get in touch with us? Send us a message and we'll get back
               to you as soon as possible.
             </p>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-3">
               {/* Email Input */}
               <div>
                 <input
@@ -128,20 +157,22 @@ const ComingSoon = () => {
                   placeholder="Your email address"
                   value={formData.email}
                   onChange={handleChange}
-                  className={`w-full px-4 py-2 rounded-md border ${
+                  className={`w-full px-3 py-2 rounded-md border ${
                     errors.email
                       ? 'border-red-500'
-                      : 'border-gray-300 dark:border-gray-600'
+                      : darkMode ? 'border-gray-600' : 'border-gray-300'
                   } focus:outline-none focus:ring-2 ${
                     errors.email
                       ? 'focus:ring-red-500'
-                      : 'focus:ring-primary dark:focus:ring-purple-400'
-                  } transition-all duration-200 dark:bg-[#1a1a1a] dark:text-white`}
+                      : darkMode ? 'focus:ring-purple-400' : 'focus:ring-purple-500'
+                  } transition-all duration-200 ${
+                    darkMode ? 'bg-[#1a1a1a] text-white placeholder-gray-500' : 'bg-white text-gray-800 placeholder-gray-400'
+                  }`}
                   aria-invalid={!!errors.email}
                   aria-describedby="email_error"
                 />
                 {errors.email && (
-                  <p id="email_error" className="text-red-500  text-sm mt-1">
+                  <p id="email_error" className="text-red-500 text-xs mt-1">
                     {errors.email}
                   </p>
                 )}
@@ -151,23 +182,25 @@ const ComingSoon = () => {
               <div>
                 <textarea
                   name="message"
-                  placeholder="Your message"
+                  placeholder="What service do you need?"
                   value={formData.message}
                   onChange={handleChange}
-                  className={`w-full h-32 px-4 py-2 rounded-md border ${
+                  className={`w-full h-24 px-3 py-2 rounded-md border ${
                     errors.message
                       ? 'border-red-500'
-                      : 'border-gray-300 dark:border-gray-600'
+                      : darkMode ? 'border-gray-600' : 'border-gray-300'
                   } focus:outline-none focus:ring-2 ${
                     errors.message
                       ? 'focus:ring-red-500'
-                      : 'focus:ring-primary dark:focus:ring-purple-400'
-                  } transition-all duration-200 dark:bg-[#1a1a1a] dark:text-white`}
+                      : darkMode ? 'focus:ring-purple-400' : 'focus:ring-purple-500'
+                  } transition-all duration-200 ${
+                    darkMode ? 'bg-[#1a1a1a] text-white placeholder-gray-500' : 'bg-white text-gray-800 placeholder-gray-400'
+                  }`}
                   aria-invalid={!!errors.message}
                   aria-describedby="message_error"
                 />
                 {errors.message && (
-                  <p id="message_error" className="text-red-500 text-sm mt-1">
+                  <p id="message_error" className="text-red-500 text-xs mt-1">
                     {errors.message}
                   </p>
                 )}
@@ -176,7 +209,11 @@ const ComingSoon = () => {
               {/* Submit Button */}
               <button
                 type="submit"
-                className={`w-full px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 transition-colors duration-200 flex items-center justify-center bg-purple-600 dark:hover:bg-purple-700 dark:border dark:border-purple-600 ${
+                className={`w-full px-3 py-2 ${
+                  darkMode 
+                    ? 'bg-purple-600 hover:bg-purple-700 border border-purple-500' 
+                    : 'bg-purple-600 hover:bg-purple-700'
+                } text-white rounded-md transition-colors duration-200 flex items-center justify-center ${
                   isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
                 }`}
                 disabled={isSubmitting}
@@ -199,7 +236,9 @@ const ComingSoon = () => {
       </div>
 
       {/* Footer */}
-      <footer className="py-6 text-center text-gray-500 dark:text-gray-400">
+      <footer className={`py-3 text-center ${
+        darkMode ? 'text-gray-400' : 'text-gray-500'
+      } text-sm`}>
         <p>© {new Date().getFullYear()} ExactConnect. All rights reserved.</p>
       </footer>
     </div>

@@ -203,11 +203,14 @@ const Home = () => {
             </div>
 
             {/* Buy Now Button */}
-            <div className="mt-6 sm:mt-10 flex justify-center">
-              <button className="bg-purple-700 text-white px-6 sm:px-8 py-2 rounded-lg text-sm sm:text-base font-medium hover:bg-purple-800 transition duration-300 animate-pulseButton">
-                Buy Now
-              </button>
-            </div>
+              <div className="mt-6 sm:mt-10 flex justify-center">
+                <button 
+                  className="bg-purple-700 text-white px-6 sm:px-8 py-2 rounded-lg text-sm sm:text-base font-medium hover:bg-purple-800 transition duration-300 animate-pulseButton"
+                  onClick={() => window.location.href = '/residential'}
+                >
+                  Buy Now
+                </button>
+</div>
           </section>
 
           {/* VPS Server Section */}
@@ -289,7 +292,7 @@ const Home = () => {
                 </div>
               </div>
               <div className="text-center mt-8">
-                <Link to="/maintainance">
+                <Link to="/coming-soon">
                   <button className="bg-[#7C25BA] hover:bg-[#6a1fa0] text-white font-medium py-3 px-8 rounded-lg shadow-md animate-pulseButton">
                     Buy Now
                   </button>
@@ -347,12 +350,14 @@ const Home = () => {
                     </ul>
                     
                     <div className="mt-8 text-center">
-                      <button className={`px-6 py-2 rounded-lg shadow-md font-medium transition-all duration-300 transform hover:scale-105 ${
-                        darkMode ? 'bg-purple-700 text-white hover:bg-purple-800' : 'bg-purple-600 text-white hover:bg-purple-700'
-                      } animate-pulseButton`}>
-                        Get Started Now
-                      </button>
-                    </div>
+                        <a href="/coming-soon">
+                          <button className={`px-6 py-2 rounded-lg shadow-md font-medium transition-all duration-300 transform hover:scale-105 ${
+                            darkMode ? 'bg-purple-700 text-white hover:bg-purple-800' : 'bg-purple-600 text-white hover:bg-purple-700'
+                          } animate-pulseButton`}>
+                            Get Started Now
+                          </button>
+                        </a>
+                      </div>
                   </div>
                 </div>
 

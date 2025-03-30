@@ -3,6 +3,9 @@ import NavBar from '../../components/reusables/Navbar';
 import { ArrowRight, CheckCircle, Globe, Shield, Zap, Phone, Mail, Smartphone } from 'lucide-react';
 import Footer from '../reusables/Footer';
 import { DarkModeContext } from '../../context/DarkModeContext';
+import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
+import { SERVER_URL } from '../../services/data'
 
 const Residential = () => {
   const { darkMode } = useContext(DarkModeContext);
@@ -10,15 +13,17 @@ const Residential = () => {
   const [showCustomPlanModal, setShowCustomPlanModal] = useState(false);
   const [showUseCaseModal, setShowUseCaseModal] = useState(false);
   const pricingRef = useRef(null);
+  const [isLoading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  
   const [formData, setFormData] = useState({
-    name: '',
+    fullName: '',
     email: '',
-    company: '',
-    requirements: '',
-    budget: '',
-    phone: '',
+    phone_number: '',
+    proxyCountry: '',
+    city: '',
+    message: '',
     duration: '1 month',
-    useCase: ''
   });
   const [animatedElements, setAnimatedElements] = useState([]);
   const [modalType, setModalType] = useState('contact'); // 'contact', 'customPlan', 'useCase'
@@ -55,39 +60,82 @@ const Residential = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log('Form submitted:', formData);
-    
-    // You would typically send a POST request here
-    // Example:
-    // fetch('/api/contact', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify(formData),
-    // })
+    setLoading(true);
 
-    alert('Thank you for your inquiry! Our team will contact you shortly.');
-    
-    // Close all modals
-    setShowContactModal(false);
-    setShowCustomPlanModal(false);
-    setShowUseCaseModal(false);
-    
-    // Reset form data
-    setFormData({
-      name: '',
-      email: '',
-      company: '',
-      requirements: '',
-      budget: '',
-      phone: '',
-      duration: '1 month',
-      useCase: ''
-    });
+    try {
+      // Basic form validation
+      if (!formData.fullName || !formData.email || !formData.proxyCountry || !formData.message) {
+        toast.error('Please fill in all required fields');
+        setLoading(false);
+        return;
+      }
+
+      // Construct the payload exactly as in the reference implementation
+      const payload = {
+        recipients: [
+          { name: 'ExactConnect', recipient: 'maxwellbakora93@gmail.com' },
+          { name: 'ExactConnect', recipient: 'support@exactconnect.online' },
+          { name: 'Exact Connect', recipient: 'charleskibet101@gmail.com' }
+        ],
+        subject: 'Proxy Request',
+        body: `
+          Name: ${formData.fullName}
+          Email: ${formData.email}
+          ${formData.phone_number ? `Phone Number: ${formData.phone_number}` : ''}
+          Proxy Country: ${formData.proxyCountry}
+          City: ${formData.city}
+          Duration: ${formData.duration}
+          Description: ${formData.message}
+        `,
+        deliveryMode: 'EMAIL',
+        countryCode: 'KE',
+      };
+
+      // Send the data to the server
+      const response = await fetch(`${SERVER_URL}/messages`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      // Handle response
+      if (response.status === 200) {
+        // Success handling - simple toast, no alerts
+        toast.success('Successfully sent');
+        
+        // Reset the form
+        setFormData({
+          email: '',
+          fullName: '',
+          phone_number: '',
+          proxyCountry: '',
+          city: '',
+          message: '',
+          duration: '1 month'
+        });
+        
+        // Close all modals
+        setShowContactModal(false);
+        setShowCustomPlanModal(false);
+        setShowUseCaseModal(false);
+        
+        // Navigate to delivery confirmation
+        navigate('/delivered');
+      } else {
+        // Simple error toast, no alerts
+        toast.error('Not delivered');
+      }
+    } catch (err) {
+      // Simple error toast for any exceptions
+      toast.error('Not delivered');
+      console.error('Error submitting form:', err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const scrollToPricing = () => {
@@ -239,6 +287,7 @@ const Residential = () => {
   const renderContactForm = () => {
     let formTitle, formDescription, formFields;
     
+    //pop-up form field
     switch(modalType) {
       case 'customPlan':
         formTitle = "Request Custom Monthly Plan";
@@ -249,8 +298,8 @@ const Residential = () => {
               <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
               <input
                 type="text"
-                name="name"
-                value={formData.name}
+                name="fullName"
+                value={formData.fullName}
                 onChange={handleInputChange}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#8a4fc2]"
                 required
@@ -262,6 +311,28 @@ const Residential = () => {
                 type="email"
                 name="email"
                 value={formData.email}
+                onChange={handleInputChange}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#8a4fc2]"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Proxy Country</label>
+              <input
+                type="text"
+                name="proxyCountry"
+                value={formData.proxyCountry}
+                onChange={handleInputChange}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#8a4fc2]"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">City</label>
+              <input
+                type="text"
+                name="city"
+                value={formData.city}
                 onChange={handleInputChange}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#8a4fc2]"
                 required
@@ -277,20 +348,19 @@ const Residential = () => {
                 required
               >
                 <option value="1 month">1 Month</option>
-                <option value="2 months">2 Months</option>
                 <option value="3 months">3 Months</option>
-                <option value="custom">Custom Duration</option>
+                <option value="6 months">6 Months</option>
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Requirements</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Proxy Description</label>
               <textarea
-                name="requirements"
-                value={formData.requirements}
+                name="message"
+                value={formData.message}
                 onChange={handleInputChange}
                 rows="4"
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#8a4fc2]"
-                placeholder="Please describe your custom proxy requirements in detail."
+                placeholder="Please describe your proxy requirements in detail."
                 required
               ></textarea>
             </div>
@@ -306,8 +376,8 @@ const Residential = () => {
               <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
               <input
                 type="text"
-                name="name"
-                value={formData.name}
+                name="fullName"
+                value={formData.fullName}
                 onChange={handleInputChange}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#8a4fc2]"
                 required
@@ -325,31 +395,50 @@ const Residential = () => {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Use Case</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Proxy Country</label>
+              <input
+                type="text"
+                name="proxyCountry"
+                value={formData.proxyCountry}
+                onChange={handleInputChange}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#8a4fc2]"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">City</label>
+              <input
+                type="text"
+                name="city"
+                value={formData.city}
+                onChange={handleInputChange}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#8a4fc2]"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Duration</label>
               <select
-                name="useCase"
-                value={formData.useCase}
+                name="duration"
+                value={formData.duration}
                 onChange={handleInputChange}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#8a4fc2]"
                 required
               >
-                <option value="">Select your use case</option>
-                <option value="E-commerce">E-commerce & Retail</option>
-                <option value="Digital Marketing">Digital Marketing</option>
-                <option value="Travel">Travel & Hospitality</option>
-                <option value="Finance">Finance & Investment</option>
-                <option value="Other">Other</option>
+                <option value="1 month">1 Month</option>
+                <option value="3 months">3 Months</option>
+                <option value="6 months">6 Months</option>
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Proxy Description</label>
               <textarea
-                name="requirements"
-                value={formData.requirements}
+                name="message"
+                value={formData.message}
                 onChange={handleInputChange}
                 rows="4"
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#8a4fc2]"
-                placeholder="Please describe your use case in detail and how our proxies can help."
+                placeholder="Please describe your proxy requirements and use case in detail."
                 required
               ></textarea>
             </div>
@@ -365,8 +454,8 @@ const Residential = () => {
               <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
               <input
                 type="text"
-                name="name"
-                value={formData.name}
+                name="fullName"
+                value={formData.fullName}
                 onChange={handleInputChange}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#8a4fc2]"
                 required
@@ -384,87 +473,106 @@ const Residential = () => {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
               <input
                 type="tel"
-                name="phone"
-                value={formData.phone}
+                name="phone_number"
+                value={formData.phone_number}
                 onChange={handleInputChange}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#8a4fc2]"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Company</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Proxy Country</label>
               <input
                 type="text"
-                name="company"
-                value={formData.company}
+                name="proxyCountry"
+                value={formData.proxyCountry}
                 onChange={handleInputChange}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#8a4fc2]"
+                required
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Estimated Budget</label>
-              <select
-                name="budget"
-                value={formData.budget}
+              <label className="block text-sm font-medium text-gray-700 mb-1">City</label>
+              <input
+                type="text"
+                name="city"
+                value={formData.city}
                 onChange={handleInputChange}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#8a4fc2]"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Duration</label>
+              <select
+                name="duration"
+                value={formData.duration}
+                onChange={handleInputChange}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#8a4fc2]"
+                required
               >
-                <option value="">Select budget range</option>
-                <option value="$50 - $100">$50 - $100 (10% discount)</option>
-                <option value="$150 - $500">$150 - $500 (15% discount)</option>
-                <option value="$500+">$500+ (20% discount)</option>
+                <option value="1 month">1 Month</option>
+                <option value="3 months">3 Months</option>
+                <option value="6 months">6 Months</option>
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Requirements</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Proxy Description</label>
               <textarea
-                name="requirements"
-                value={formData.requirements}
+                name="message"
+                value={formData.message}
                 onChange={handleInputChange}
                 rows="4"
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#8a4fc2]"
-                placeholder="Please describe your proxy requirements, including target locations, traffic volume, and specific use cases."
+                placeholder="Please describe your proxy requirements, including specific use cases."
                 required
               ></textarea>
             </div>
           </>
         );
     }
-    
+
     return (
-      <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-        <div className="bg-white rounded-xl max-w-md w-full max-h-[90vh] overflow-y-auto animate-fadeIn">
-          <div className="p-6">
-            <div className="flex justify-between items-center mb-4">
-              <h3 className="text-xl font-bold text-gray-900">{formTitle}</h3>
-              <button 
-                onClick={() => setShowContactModal(false)}
-                className="text-gray-400 hover:text-gray-500"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-            <p className="text-gray-600 mb-6">
-              {formDescription}
-            </p>
-            <form onSubmit={handleSubmit}>
-              <div className="space-y-4">
-                {formFields}
-              </div>
-              <div className="mt-6">
-                <button
-                  type="submit"
-                  className="w-full bg-[#8a4fc2] hover:bg-[#7040a3] text-white px-4 py-3 rounded-lg font-semibold transition duration-300"
-                >
-                  Submit Request
-                </button>
-              </div>
-            </form>
+      <div className={`fixed inset-0 z-50 flex items-center justify-center p-4 ${darkMode ? 'bg-black bg-opacity-80' : 'bg-gray-800 bg-opacity-75'}`}>
+        <div className={`relative w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-xl p-6 shadow-xl ${darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'}`}>
+          <button
+            onClick={() => setShowContactModal(false)}
+            className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+            aria-label="Close modal"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+          
+          <div className="mb-6">
+            <h3 className="text-2xl font-bold">{formTitle}</h3>
+            <p className="text-gray-500 mt-1">{formDescription}</p>
           </div>
+          
+          <form onSubmit={handleSubmit} className="space-y-4">
+            {formFields}
+            
+            <button
+              type="submit"
+              disabled={isLoading}
+              className={`w-full py-3 px-4 bg-[#8a4fc2] hover:bg-[#7C25BA] text-white font-medium rounded-md shadow transition-colors ${isLoading ? 'opacity-70 cursor-not-allowed' : ''}`}
+            >
+              {isLoading ? (
+                <span className="flex items-center justify-center">
+                  <svg className="animate-spin -ml-1 mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 2.419.876 4.623 2.334 6.291l1.666-1.666z"></path>
+                  </svg>
+                  Processing...
+                </span>
+              ) : (
+                'Submit Request'
+              )}
+            </button>
+          </form>
         </div>
       </div>
     );
@@ -846,11 +954,11 @@ const Residential = () => {
               <p className={darkMode ? 'text-gray-300' : 'text-gray-700'}>Still have questions?</p>
               <button 
                 className={`${darkMode ? 'bg-purple-700 hover:bg-purple-800' : 'bg-[#8a4fc2] hover:bg-[#7040a3]'} text-white px-6 py-3 rounded-lg font-semibold transition duration-300 transform hover:scale-105`}
-                onClick={() => setShowContactModal(true)}
+                onClick={() => window.location.href = '/contact'}
               >
                 Contact Our Support Team
-              </button>
-            </div>
+            </button>
+</div>
           </div>
         </section>
       </div>
@@ -876,9 +984,9 @@ const Residential = () => {
             } 
             px-6 py-3 rounded-lg font-semibold transition duration-300 transform hover:scale-105 hover:-translate-y-1
           `}
-          onClick={() => window.location.href = '/signup'}
+          onClick={() => window.location.href = '/account/signup'}
         >
-          Start Your Free Trial
+          Begin Today
         </button>
         <button 
           className={`
