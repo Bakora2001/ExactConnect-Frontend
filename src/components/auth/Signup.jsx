@@ -156,15 +156,27 @@ function Signup() {
       }
 
       if (response.ok) {
-        localStorage.setItem(
-          'userDetails',
-          JSON.stringify({
-            customerReference: result.customerReference,
-            email: result.email,
-            firstName: result.firstName,
-            lastName: result.lastName,
-          })
-        );
+        //Doing some checks first before storing new user information
+        const existingUser = localStorage.getItem('userDetails');
+
+        //Check if there is an existing user and it's a different account
+        if (
+          existingUser &&
+          existingUser.customerReference !== result.customerReference
+        ) {
+          localStorage.clear();
+        } else {
+          localStorage.setItem(
+            'userDetails',
+            JSON.stringify({
+              customerReference: result.customerReference,
+              email: result.email,
+              firstName: result.firstName,
+              lastName: result.lastName,
+            })
+          );
+        }
+
         toast.success('Registation successful');
         navigate('/dashboard');
       } else {

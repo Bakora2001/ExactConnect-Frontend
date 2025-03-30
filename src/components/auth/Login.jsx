@@ -56,6 +56,15 @@ function Login() {
       const result = await response.json();
 
       if (response.ok) {
+        const existingUser = localStorage.getItem('userDetails');
+
+        //Check if there is an existing user and it's a different account
+        if (
+          existingUser &&
+          existingUser.customerReference !== result.customerReference
+        ) {
+          localStorage.clear();
+        }
         localStorage.setItem(
           'userDetails',
           JSON.stringify({
@@ -272,7 +281,7 @@ function Login() {
           </button>
 
           <div className="text-center text-sm mt-4">
-            {`Don't have an account?{' '}`}
+            {`Don't have an account? `}
             <Link
               to="/account/signup"
               className="text-purple-600 font-semibold hover:underline hover:text-purple-700 transition-colors"
