@@ -101,12 +101,12 @@ const Home = () => {
               className={`absolute inset-0 ${darkMode ? 'bg-[#111827]' : 'bg-[#7C25BA]'} opacity-80`}
             ></div>
             
-            {/* Header */}
-            <div className="relative z-10 mb-12 sm:mb-16 py-10 sm:py-12 animate-fadeIn">
+            {/* Header - Fixed z-index to ensure NavBar is always on top */}
+            <div className="relative z-30 mb-12 sm:mb-16 py-10 sm:py-12 animate-fadeIn">
               <NavBar />
             </div>
             
-            {/* Main Content */}
+            {/* Main Content - Lower z-index to ensure it stays below the NavBar */}
             <main className="relative z-10 flex flex-col md:flex-row gap-8 sm:gap-24 text-center md:text-left">
               <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center px-[1rem] md:px-[3rem] sm:px-12 gap-10 md:gap-16 pb-16">
                 <div className="md:w-1/2 text-center md:text-left animate-slideInLeft">
