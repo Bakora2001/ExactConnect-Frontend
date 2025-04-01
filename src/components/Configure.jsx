@@ -4,6 +4,8 @@ import { ArrowLeft, Check, Server, Shield, Cpu, HardDrive, Wifi, Globe, Clock, C
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
+import NavBar from './reusables/Navbar';
+
 
 // Import icons for OS
 const ubuntu = '/ubuntu.svg';
@@ -397,8 +399,8 @@ const Configure = () => {
             <ToastContainer />
             
             {/* Navigation */}
-            <div className="bg-[#7C25BA] text-white py-8">
-                {/* NavBar component would be here */}
+            <div className="relative z-30 mb-12 sm:mb-16 py-10 sm:py-12 animate-fadeIn">
+              <NavBar />
             </div>
 
             {/* Back Button & Page Title */}
