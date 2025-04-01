@@ -1,5 +1,6 @@
 import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import NavBar from '../../components/reusables/Navbar';
 import { Loader2, Send, Clock, Mail } from 'lucide-react';
 import { toast } from 'sonner';
 import { z } from 'zod';
@@ -78,6 +79,11 @@ const ComingSoon = () => {
     <div className={`h-screen flex flex-col relative overflow-hidden ${
       darkMode ? 'bg-[#0c0b08] text-gray-200' : 'bg-white text-gray-800'
     }`}>
+      {/* Added margin-bottom to the NavBar container */}
+      <div className="mb-8">
+        <NavBar />
+      </div>
+      
       {/* Background elements */}
       <div className={`absolute top-0 left-0 w-full h-full ${
         darkMode 

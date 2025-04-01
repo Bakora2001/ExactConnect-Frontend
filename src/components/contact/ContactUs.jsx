@@ -45,7 +45,7 @@ const ContactUs = () => {
   //Handling the state of the user copying the email
   const handleCopyEmail = () => {
     navigator.clipboard
-      .writeText('charleskibet101@gmail.com')
+      .writeText('support@exactconnect.online')
       .then(() => {
         setIsCopied(true);
         setTimeout(() => setIsCopied(false), 2000);
