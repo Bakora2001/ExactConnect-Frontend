@@ -95,6 +95,11 @@ const Rdp = () => {
         }
     };
 
+    // Configure VPS handler - navigates to configure page with the selected plan
+    const handleConfigureClick = (plan) => {
+        navigate('/configure', { state: { selectedPlan: plan } });
+    };
+
     // Get country flag
     const getCountryFlag = (country) => {
         switch(country) {
@@ -230,7 +235,7 @@ const Rdp = () => {
                                     
                                     <button 
                                         className="w-full py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-lg font-medium hover:opacity-90 transition-all duration-300 shadow-md hover:shadow-lg text-sm flex items-center justify-center gap-1"
-                                        onClick={() => navigate('/configure')}
+                                        onClick={() => handleConfigureClick(plan)}
                                     >
                                         Configure Now
                                         <ArrowRight size={14} />
