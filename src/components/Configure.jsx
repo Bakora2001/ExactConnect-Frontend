@@ -52,6 +52,8 @@ const Configure = () => {
         cvv: '',
     });
 
+
+
     // Operating systems options
     const osOptions = {
         linux: [
@@ -153,7 +155,7 @@ const Configure = () => {
             setStep(step - 1);
             window.scrollTo(0, 0);
         } else {
-            navigate('/');
+            navigate('/rdp');
         }
     };
 
