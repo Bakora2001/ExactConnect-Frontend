@@ -193,7 +193,7 @@ const Home = () => {
                   </h4>
                   <div className="border-b border-gray-500 w-24 sm:w-32 ml-6 sm:ml-12 mb-4"></div>
                   <ul className="list-disc list-inside font-light text-[14px] sm:text-[16px] space-y-4">
-                    <li className="animate-fadeIn" style={{animationDelay: "0.1s"}}>Oneforma Account Creation (Any Locale)</li>
+                    <li className="animate-fadeIn" style={{animationDelay: "0.1s"}}>Crowdsourcingplatforms</li>
                     <li className="animate-fadeIn" style={{animationDelay: "0.2s"}}>Data Scraping</li>
                     <li className="animate-fadeIn" style={{animationDelay: "0.3s"}}>Crowdsourcing Platforms (Outlier, Appen, Clickworker, Oneforma, Echolabs, Telus AI)</li>
                     <li className="animate-fadeIn" style={{animationDelay: "0.4s"}}>Market Research</li>

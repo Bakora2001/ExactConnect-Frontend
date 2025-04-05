@@ -40,7 +40,7 @@ const NavBar = () => {
           {[
             { to: '/residential', label: 'Residential Proxy' },
             { to: '/rdp', label: 'VPS Server' },
-            { to: '/coming-soon', label: 'PSD Template' },
+            { to: '/psd-template', label: 'PSD Template' },
             { to: '/coming-soon', label: 'Non-VOIP Numbers' },
             { to: '/coming-soon', label: 'VCC Card' },
             { to: '/contact', label: 'Contact Us' },

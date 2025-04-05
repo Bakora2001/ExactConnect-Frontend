@@ -36,11 +36,13 @@ const SettingsPage = lazy(() =>
 
 const Residential = lazy(() => import('./components/residential/Residential'));
 const AdminHome = lazy(() => import('../src/components/admin/AdminHome'));
+const Psd = lazy(() => import('./components/psd-template/Psd'));
 const AddProductForm = lazy(() =>
   import('../src/components/admin/AddProductsForm')
 );
 const ContactUs = lazy(() => import('../src/components/contact/ContactUs'));
 const Rdp = lazy(() => import('../src/components/rdp/Rdp'));
+
 const AdminProducts = lazy(() =>
   import('../src/components/admin/AdminProducts')
 );
@@ -106,6 +108,14 @@ export const router = createBrowserRouter([
     element: (
       <Suspense fallback={<Loader />}>
         <Rdp />
+      </Suspense>
+    ),
+  },
+  {
+    path: '/psd-template',
+    element: (
+      <Suspense fallback={<Loader />}>
+        <Psd />
       </Suspense>
     ),
   },
