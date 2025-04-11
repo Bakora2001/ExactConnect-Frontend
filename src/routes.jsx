@@ -1,6 +1,8 @@
+// src/routes.jsx
 import { createBrowserRouter } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 import Loader from './components/pages/Loader';
+import ProtectedRoute from './components/auth/ProtectedRoute';
 
 //The sites landing page
 import Home from './components/layout/Home';
@@ -23,17 +25,19 @@ const MaintenancePage = lazy(() =>
   import('../src/components/errors/MaintainancePage')
 );
 
-//Component pages for the when the user has signed in
-// const Dashboard = lazy(() => import('./components/client/dashboard/Dashboard'))
-import Dashboard from './components/client/dashboard/Dashboard';
-import ProxyClient from './components/client/proxy/ProxyClient';
+//Dashboard and related components
+import Dashboard from './components/dashboard/Dashboard';
+import DashboardOverview from './components/dashboard/DashboardOverview';
+import ProxiesPage from './components/client/proxy/ProxyClient';
+import VpsPage from './components/dashboard/VpsPage';
+import TemplatesPage from './components/dashboard/TemplatesPage';
+import NonVoipPage from './components/dashboard/NonVoipPage';
+import VccPage from './components/dashboard/VccPage';
+import OrdersPage from './components/dashboard/OrdersPage';
+import ProfilePage from './components/dashboard/ProfilePage';
 import Orders from './components/client/order/Orders';
-// const ProxyClient = lazy(() => import('./components/client/proxy/ProxyClient'))
-const SettingsPage = lazy(() =>
-  import('./components/client/account/SettingsPage')
-);
-// const Orders = lazy(() => import('./components/client/order/Orders'))
 
+// Other components
 const Residential = lazy(() => import('./components/residential/Residential'));
 const AdminHome = lazy(() => import('../src/components/admin/AdminHome'));
 const Psd = lazy(() => import('./components/psd-template/Psd'));
@@ -54,11 +58,18 @@ import PaymentFailed from './components/pages/PaymentFailed';
 import PaymentSuccessful from './components/pages/PaymentSuccessful';
 import ComingSoon from './components/pages/ComingSoon';
 import TermsAndPrivacy from './components/pages/TermsAndPrivacy';
-// const Test = lazy(() => import('./components/payment/Test'))
+
+const SettingsPage = lazy(() =>
+  import('./components/client/account/SettingsPage')
+);
 const Configure = lazy(() => import('./components/Configure'));
 const Checkout = lazy(() => import('./components/Checkout'));
 
 export const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Home />,
+  },
   {
     path: '/account/signup',
     element: (
@@ -75,9 +86,24 @@ export const router = createBrowserRouter([
       </Suspense>
     ),
   },
+  // Dashboard with nested routes - Protected
   {
-    path: '/',
-    element: <Home />,
+    path: '/dashboard',
+    element: (
+      <ProtectedRoute>
+        <Dashboard />
+      </ProtectedRoute>
+    ),
+    children: [
+      { path: '', element: <DashboardOverview /> },
+      { path: 'proxies', element: <ProxiesPage /> },
+      { path: 'vps', element: <VpsPage /> },
+      { path: 'templates', element: <TemplatesPage /> },
+      { path: 'nonvoip', element: <NonVoipPage /> },
+      { path: 'vcc', element: <VccPage /> },
+      { path: 'orders', element: <OrdersPage /> },
+      { path: 'profile', element: <ProfilePage /> },
+    ]
   },
   {
     path: '*',
@@ -98,9 +124,11 @@ export const router = createBrowserRouter([
   {
     path: '/admin',
     element: (
-      <Suspense fallback={<Loader />}>
-        <AdminHome />
-      </Suspense>
+      <ProtectedRoute>
+        <Suspense fallback={<Loader />}>
+          <AdminHome />
+        </Suspense>
+      </ProtectedRoute>
     ),
   },
   {
@@ -130,9 +158,11 @@ export const router = createBrowserRouter([
   {
     path: '/account/changepassword',
     element: (
-      <Suspense fallback={<Loader />}>
-        <ChangePassword />
-      </Suspense>
+      <ProtectedRoute>
+        <Suspense fallback={<Loader />}>
+          <ChangePassword />
+        </Suspense>
+      </ProtectedRoute>
     ),
   },
   {
@@ -154,33 +184,41 @@ export const router = createBrowserRouter([
   {
     path: '/checkout',
     element: (
-      <Suspense fallback={<Loader />}>
-        <Checkout />
-      </Suspense>
+      <ProtectedRoute>
+        <Suspense fallback={<Loader />}>
+          <Checkout />
+        </Suspense>
+      </ProtectedRoute>
     ),
   },
   {
     path: '/configure',
     element: (
-      <Suspense fallback={<Loader />}>
-        <Configure />
-      </Suspense>
+      <ProtectedRoute>
+        <Suspense fallback={<Loader />}>
+          <Configure />
+        </Suspense>
+      </ProtectedRoute>
     ),
   },
   {
     path: '/admin/products',
     element: (
-      <Suspense fallback={<Loader />}>
-        <AdminProducts />
-      </Suspense>
+      <ProtectedRoute>
+        <Suspense fallback={<Loader />}>
+          <AdminProducts />
+        </Suspense>
+      </ProtectedRoute>
     ),
   },
   {
     path: '/admin/products/new',
     element: (
-      <Suspense fallback={<Loader />}>
-        <AddProductForm />
-      </Suspense>
+      <ProtectedRoute>
+        <Suspense fallback={<Loader />}>
+          <AddProductForm />
+        </Suspense>
+      </ProtectedRoute>
     ),
   },
   {
@@ -202,34 +240,38 @@ export const router = createBrowserRouter([
   {
     path: '/delivered',
     element: (
-      <Suspense fallback={<Loader />}>
-        <Delivered />
-      </Suspense>
+      <ProtectedRoute>
+        <Suspense fallback={<Loader />}>
+          <Delivered />
+        </Suspense>
+      </ProtectedRoute>
     ),
-  },
-  {
-    path: '/dashboard',
-    element: <Dashboard />,
   },
   {
     path: '/account/settings',
     element: (
-      <Suspense fallback={<Loader />}>
-        <SettingsPage />
-      </Suspense>
+      <ProtectedRoute>
+        <Suspense fallback={<Loader />}>
+          <SettingsPage />
+        </Suspense>
+      </ProtectedRoute>
     ),
   },
   {
-    path: '/client/proxy',
-    element: <ProxyClient />,
-  },
-  {
-    path: '/checkout/mpesa',
-    element: <Test />,
+    path: 'checkout/mpesa',
+    element: (
+      <ProtectedRoute>
+        <Test />
+      </ProtectedRoute>
+    ),
   },
   {
     path: '/orders',
-    element: <Orders />,
+    element: (
+      <ProtectedRoute>
+        <Orders />
+      </ProtectedRoute>
+    ),
   },
   {
     path: '/test',
@@ -256,3 +298,152 @@ export const router = createBrowserRouter([
     element: <TermsAndPrivacy />,
   },
 ]);
+
+
+// import { createBrowserRouter } from 'react-router-dom';
+
+// // Import Components
+// import App from './App';
+// import Home from './components/Home';
+// import Rdp from './components/Rdp';
+// import Configure from './components/Configure'; 
+// import Checkout from './components/Checkout'; 
+// import Proxy from './components/Proxy';
+
+// // Admin components
+// import AdminHome from './admin/AdminHome'; 
+// import AdminProducts from './admin/AdminProducts';
+// import AddProductForm from './admin/AddProductsForm';
+
+// // Authentication components
+// import ChangePassword from './components/auth/ChangePassword';
+// import OTPVerification from './components/auth/OTPVerification';
+// import Signup from './components/auth/Signup';
+// import Login from './components/auth/Login';
+
+// // Dashboard components
+// import Dashboard from './components/dashboard/Dashboard';
+// import DashboardOverview from './components/dashboard/DashboardOverview';
+// import ProxiesPage from './components/dashboard/ProxiesPage';
+// import VpsPage from './components/dashboard/VpsPage';
+// import TemplatesPage from './components/dashboard/TemplatesPage';
+// import NonVoipPage from './components/dashboard/NonVoipPage';
+// import VccPage from './components/dashboard/VccPage';
+// import OrdersPage from './components/dashboard/OrdersPage';
+// import ProfilePage from './components/dashboard/ProfilePage';
+
+// // Create router
+// const router = createBrowserRouter([
+//   {
+//     path: '/',
+//     element: <App />,
+//     children: [
+//       {
+//         path: '/',
+//         element: <Home />
+//       },
+//       {
+//         path: '/rdp',
+//         element: <Rdp />
+//       },
+//       {
+//         path: '/configure',
+//         element: <Configure />
+//       },
+//       {
+//         path: '/checkout',
+//         element: <Checkout />
+//       },
+//       {
+//         path: '/proxy',
+//         element: <Proxy />
+//       },
+      
+//       // Authentication Routes
+//       {
+//         path: '/signup',
+//         element: <Signup />
+//       },
+//       {
+//         path: '/login',
+//         element: <Login />
+//       },
+//       {
+//         path: '/change-password',
+//         element: <ChangePassword />
+//       },
+//       {
+//         path: '/verify-otp',
+//         element: <OTPVerification />
+//       },
+      
+//       // Admin Routes
+//       {
+//         path: '/admin/home',
+//         element: <AdminHome />
+//       },
+//       {
+//         path: '/admin/products',
+//         element: <AdminProducts />
+//       },
+//       {
+//         path: '/admin/products/new',
+//         element: <AddProductForm />
+//       },
+//       {
+//         path: '/admin/users',
+//         element: <div>Manage Users</div>
+//       },
+//       {
+//         path: '/admin/analytics',
+//         element: <div>Admin Analytics</div>
+//       },
+//       {
+//         path: '/admin/settings',
+//         element: <div>Admin Settings</div>
+//       },
+      
+//       // Dashboard Routes
+//       {
+//         path: '/dashboard',
+//         element: <Dashboard />,
+//         children: [
+//           {
+//             path: '',
+//             element: <DashboardOverview />
+//           },
+//           {
+//             path: 'proxies',
+//             element: <ProxiesPage />
+//           },
+//           {
+//             path: 'vps',
+//             element: <VpsPage />
+//           },
+//           {
+//             path: 'templates',
+//             element: <TemplatesPage />
+//           },
+//           {
+//             path: 'nonvoip',
+//             element: <NonVoipPage />
+//           },
+//           {
+//             path: 'vcc',
+//             element: <VccPage />
+//           },
+//           {
+//             path: 'orders',
+//             element: <OrdersPage />
+//           },
+//           {
+//             path: 'profile',
+//             element: <ProfilePage />
+//           }
+//         ]
+//       }
+//     ]
+//   }
+// ]);
+
+// export default router;

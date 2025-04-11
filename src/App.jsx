@@ -1,6 +1,7 @@
 import './App.css';
-import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import { useState } from 'react';
+import { RouterProvider } from 'react-router-dom';
+import { router } from './routes.jsx';
+import { AuthProvider } from './context/AuthContext';
 
 // Import Components
 import Home from './components/Home'; // Import Home component
@@ -8,6 +9,8 @@ import Rdp from './components/Rdp';   // Import Rdp component
 import Configure from './components/Configure'; 
 import Checkout from './components/Checkout'; 
 import Proxy from './components/Proxy'; // Import Proxy component
+import Dashboard from './components/dashboard//Dashboard'
+import MPesaPaymentForm from './components/payments/MPesaPaymentForm';
 
 // Admin components
 import AdminSidebar from './admin/AdminSidebar'; 
@@ -61,6 +64,8 @@ const Layout = () => {
             <Route path="/configure" element={<Configure />} /> {/* Route for Configure component */}
             <Route path="/checkout" element={<Checkout />} /> {/* Route for Checkout component */}
             <Route path="/proxy" element={<Proxy />} /> {/* Route for Proxy */}
+            <Route path="/dashboard" element={<Dashboard />} /> 
+            <Route path="/payment" element={<MPesaPaymentForm />} />
 
             {/* Authentication Routes - Handle both Signup and Login */}
             <Route path="/signup" element={<Signup />} /> 
@@ -127,10 +132,68 @@ const Layout = () => {
 
 function App() {
   return (
-    <Router>
-      <Layout /> {/* Wrap the routes with the layout containing the sidebar */}
-    </Router>
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   );
 }
 
 export default App;
+
+
+// import './App.css';
+// import { Outlet, useLocation } from 'react-router-dom';
+// import { useState, useEffect } from 'react';
+
+// // Import Components
+// import AdminSidebar from './admin/AdminSidebar'; 
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faBars } from '@fortawesome/free-solid-svg-icons';
+
+// const App = () => {
+//   const [sidebarOpen, setSidebarOpen] = useState(false);
+//   const location = useLocation();
+
+//   // Check if the current route starts with "/admin"
+//   const isAdminRoute = location.pathname.startsWith('/admin');
+//   // Check if the current route starts with "/dashboard"
+//   const isDashboardRoute = location.pathname.startsWith('/dashboard');
+  
+//   // Close sidebar when navigating away from admin routes
+//   useEffect(() => {
+//     if (!isAdminRoute && sidebarOpen) {
+//       setSidebarOpen(false);
+//     }
+//   }, [location.pathname, isAdminRoute, sidebarOpen]);
+
+//   // If we're on a dashboard route, render the dashboard outlet directly
+//   if (isDashboardRoute) {
+//     return <Outlet />;
+//   }
+
+//   return (
+//     <div className="flex">
+//       {/* Conditionally render the Admin Sidebar based on the route */}
+//       {isAdminRoute && <AdminSidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />}
+
+//       {/* Main content */}
+//       <div className={`flex-1 ${isAdminRoute ? (sidebarOpen ? 'ml-64' : 'ml-0') : 'ml-0'} ${isAdminRoute ? 'md:ml-64' : ''} transition-all duration-300`}>
+//         {/* Hamburger Icon (only visible on admin routes and mobile) */}
+//         {isAdminRoute && (
+//           <div className="md:hidden p-4 fixed top-0 right-0 z-50">
+//             <button onClick={() => setSidebarOpen(!sidebarOpen)} className="text-white">
+//               <FontAwesomeIcon icon={faBars} className="text-2xl" />
+//             </button>
+//           </div>
+//         )}
+
+//         {/* Page content via Outlet */}
+//         <div className="p-4">
+//           <Outlet />
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default App;
