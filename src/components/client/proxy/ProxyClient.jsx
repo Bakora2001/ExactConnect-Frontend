@@ -150,11 +150,22 @@ const Proxy = () => {
   // Directly check for selectedRow to show ProxyDetails
   const showProxyDetails = selectedRow !== null && rowData;
 
+  // Card animation style
+  const cardAnimationStyle = "transition-all duration-1000 hover:scale-[1.02] animate-[breathing_4s_ease-in-out_infinite]";
+
   return (
     <div
       className={`${
         darkMode ? 'bg-[#0c0b08] text-white' : 'bg-white text-black'
       } min-h-screen flex flex-col relative`}
+      style={{
+        /* Add breathing animation keyframes */
+        ["@keyframes breathing"]: {
+          "0%": { transform: "scale(1)" },
+          "50%": { transform: "scale(1.02)" },
+          "100%": { transform: "scale(1)" }
+        }
+      }}
     >
       <main
         className={`flex-1 ${
@@ -164,7 +175,7 @@ const Proxy = () => {
         {/* Dashboard Stats Section */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
           {/* Total Proxies Card */}
-          <div className={`${darkMode ? 'bg-gray-900' : 'bg-white'} rounded-xl shadow-md p-4 border ${darkMode ? 'border-gray-800' : 'border-purple-100'}`}>
+          <div className={`${darkMode ? 'bg-gray-900' : 'bg-gradient-to-r from-purple-100 to-amber-50'} rounded-xl shadow-md p-4 border ${darkMode ? 'border-gray-800' : 'border-purple-100'} ${cardAnimationStyle}`}>
             <div className="flex items-center justify-between mb-4">
               <h3 className={`text-lg font-bold ${darkMode ? 'text-white' : 'text-purple-800'}`}>Total Proxies Per Page</h3>
               <div className="w-10 h-10 rounded-xl bg-purple-400 hover:bg-purple-500 flex items-center justify-center text-white shadow-md">
@@ -182,7 +193,7 @@ const Proxy = () => {
           </div>
 
           {/* Total Spent Card */}
-          <div className={`${darkMode ? 'bg-gray-900' : 'bg-white'} rounded-xl shadow-md p-4 border ${darkMode ? 'border-gray-800' : 'border-purple-100'}`}>
+          <div className={`${darkMode ? 'bg-gray-900' : 'bg-gradient-to-r from-purple-100 to-amber-50'} rounded-xl shadow-md p-4 border ${darkMode ? 'border-gray-800' : 'border-purple-100'} ${cardAnimationStyle}`}>
             <div className="flex items-center justify-between mb-4">
               <h3 className={`text-lg font-bold ${darkMode ? 'text-white' : 'text-purple-800'}`}>Total Spent</h3>
               <div className="w-10 h-10 rounded-xl bg-amber-400 hover:bg-amber-500 flex items-center justify-center text-white shadow-md">
@@ -199,7 +210,7 @@ const Proxy = () => {
           </div>
 
           {/* Request Services Card */}
-          <div className={`${darkMode ? 'bg-gray-900' : 'bg-gradient-to-r from-purple-100 to-amber-50'} rounded-xl shadow-md p-4 border ${darkMode ? 'border-gray-800' : 'border-purple-100'}`}>
+          <div className={`${darkMode ? 'bg-gray-900' : 'bg-gradient-to-r from-purple-100 to-amber-50'} rounded-xl shadow-md p-4 border ${darkMode ? 'border-gray-800' : 'border-purple-100'} ${cardAnimationStyle}`}>
             <div className="flex flex-col h-full justify-between">
               <h3 className={`text-lg font-bold ${darkMode ? 'text-white' : 'text-purple-800'} mb-2`}>Request Our Services Today!</h3>
               <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-purple-600'} mb-4`}>Need custom proxies or special configurations?</p>

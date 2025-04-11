@@ -779,6 +779,8 @@
 
 // export default DashboardOverview;
 
+
+
 import { 
   Laptop, 
   Server, 
@@ -796,20 +798,17 @@ import {
   TrendingDown,
   CheckCircle2,
   HelpCircle,
-  Facebook,
-  Twitter,
-  Instagram,
-  Linkedin,
-  Mail,
-  ExternalLink,
   Clock,
-  Gift
+  Gift,
+  Zap
 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
+// import { Button } from 'components/ui/button';
+// import { Progress } from 'components/ui/progress';
 import { useToast } from '@/hooks/use-toast';
 
 const DashboardOverview = () => {
@@ -823,21 +822,23 @@ const DashboardOverview = () => {
   const [serviceStats, setServiceStats] = useState({
     proxies: 0,
     vps: 0,
-    templates: 0,
+    templates: 5,
     nonVoip: 0,
-    vcc: 0,
-    orders: 0
+    vcc: 2,
+    orders: 1
   });
   const [trendingProducts, setTrendingProducts] = useState([]);
   const [userInsights, setUserInsights] = useState([]);
+  const [animationComplete, setAnimationComplete] = useState(false);
 
-  // Updated color theme with #7d29bb as the main purple
+  // Updated color theme with #9544c7 as the main purple
   const theme = {
-    electricPurple: '#7d29bb', // Main purple (updated)
-    deepPurple: '#5d1b8f', // Darker purple (adjusted to match)
-    lightPurple: '#f1e8fa', // Light purple background (adjusted to be lighter)
-    gold: 'rgba(245, 158, 11, 0.7)', // Gold accent color with transparency
-    lightGold: 'rgba(254, 243, 199, 0.5)', // Light gold for backgrounds with more transparency
+    primary: '#9544c7', // Main purple
+    primaryDark: '#7d35ab', // Darker purple
+    primaryLight: '#f2e8fa', // Light purple background
+    gold: '#f0b429', // Gold accent color
+    goldLight: 'rgba(240, 180, 41, 0.2)', // Light gold for backgrounds
+    goldMedium: 'rgba(240, 180, 41, 0.5)', // Medium gold
     glassBg: 'rgba(255, 255, 255, 0.1)', // Glass effect background
     glassBorder: 'rgba(255, 255, 255, 0.2)', // Glass effect border
     textPrimary: '#1F2937', // Dark text
@@ -852,15 +853,9 @@ const DashboardOverview = () => {
         // Simulate API latency
         await new Promise(resolve => setTimeout(resolve, 1000));
         
-        // User info
-        setUserInfo({
-          name: 'John Doe',
-          email: 'john@example.com'
-        });
-        
         // Service stats
         setServiceStats({
-          proxies: 0,
+          proxies: 1,
           vps: 0,
           templates: 5,
           nonVoip: 0,
@@ -924,6 +919,8 @@ const DashboardOverview = () => {
         });
       } finally {
         setIsLoading(false);
+        // Trigger animations after data is loaded
+        setTimeout(() => setAnimationComplete(true), 300);
       }
     };
     
@@ -938,50 +935,56 @@ const DashboardOverview = () => {
     {
       title: 'Proxies',
       icon: Laptop,
-      color: theme.electricPurple,
+      color: theme.primary,
       count: serviceStats.proxies,
       path: '/dashboard/proxies',
-      description: 'Secure, high-speed connections'
+      description: 'Secure, high-speed connections',
+      isActive: serviceStats.proxies > 0
     },
     {
       title: 'VPS Servers',
       icon: Server,
-      color: theme.deepPurple,
+      color: theme.primaryDark,
       count: serviceStats.vps,
       path: '/dashboard/vps',
-      description: 'Powerful virtual private servers'
+      description: 'Powerful virtual private servers',
+      isActive: serviceStats.vps > 0
     },
     {
       title: 'PSD Templates',
       icon: FileImage,
-      color: 'rgba(245, 158, 11, 0.5)',
+      color: theme.gold,
       count: serviceStats.templates,
       path: '/dashboard/templates',
-      description: 'Professional design templates'
+      description: 'Professional design templates',
+      isActive: serviceStats.templates > 0
     },
     {
       title: 'Non-VOIP Numbers',
       icon: Phone,
-      color: theme.electricPurple,
+      color: theme.primary,
       count: serviceStats.nonVoip,
       path: '/dashboard/nonvoip',
-      description: 'Verified phone numbers'
+      description: 'Verified phone numbers',
+      isActive: serviceStats.nonVoip > 0
     },
     {
       title: 'VCC Cards',
       icon: CreditCard,
-      color: 'rgba(245, 158, 11, 0.5)',
+      color: theme.gold,
       count: serviceStats.vcc,
       path: '/dashboard/vcc',
-      description: 'Virtual credit cards'
+      description: 'Virtual credit cards',
+      isActive: serviceStats.vcc > 0
     },
     {
       title: 'Orders',
       icon: ShoppingCart,
-      color: theme.deepPurple,
+      color: theme.primaryDark,
       count: serviceStats.orders,
       path: '/dashboard/orders',
-      description: 'Your purchase history'
+      description: 'Your purchase history',
+      isActive: serviceStats.orders > 0
     }
   ];
 
@@ -991,22 +994,22 @@ const DashboardOverview = () => {
       title: 'Getting Started',
       icon: LightbulbIcon,
       content: 'New to our services? Check out our beginner guides and tutorials.',
-      link: '/guides/beginner',
-      color: 'rgba(245, 158, 11, 0.7)'
+      link: '/dashboard/guides/beginner',
+      color: theme.gold
     },
     {
       title: 'Proxy Best Practices',
       icon: CheckCircle2,
       content: 'Learn how to maximize proxy performance and avoid common issues.',
-      link: '/guides/proxies',
-      color: theme.electricPurple
+      link: '/dashboard/guides/proxies',
+      color: theme.primary
     },
     {
       title: 'VCC Usage Tips',
       icon: CreditCard,
       content: 'Get the most out of your virtual credit cards with these strategies.',
-      link: '/guides/vcc',
-      color: theme.deepPurple
+      link: '/dashboard/guides/vcc',
+      color: theme.primaryDark
     }
   ];
 
@@ -1042,51 +1045,8 @@ const DashboardOverview = () => {
     },
   ];
 
-  // Social media data
-  const socialLinks = [
-    { name: 'Facebook', icon: Facebook, url: 'https://facebook.com/exactconnect' },
-    { name: 'Twitter', icon: Twitter, url: 'https://twitter.com/exactconnect' },
-    { name: 'Instagram', icon: Instagram, url: 'https://instagram.com/exactconnect' },
-    { name: 'LinkedIn', icon: Linkedin, url: 'https://linkedin.com/company/exactconnect' },
-  ];
-
   return (
     <div className="space-y-8 p-4 md:p-6 bg-gradient-to-br from-purple-50 to-violet-50">
-      {/* Welcome Banner with Animation - Updated with new color scheme */}
-      <div className="relative overflow-hidden rounded-xl bg-gradient-to-r from-[#7d29bb] to-[#9d4cce] p-6 md:p-8 shadow-lg animate-fade-in">
-        <div className="absolute top-0 left-0 w-full h-full opacity-10">
-          <div className="absolute top-10 left-10 w-40 h-40 rounded-full bg-white blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-10 right-10 w-40 h-40 rounded-full bg-amber-300/30 blur-3xl animate-pulse"></div>
-        </div>
-        <div className="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-          <div>
-            <h1 className="text-2xl md:text-3xl font-bold text-white mb-2">
-              Welcome back, {isLoading ? '...' : userInfo.name}!
-            </h1>
-            <p className="text-purple-100 text-sm md:text-base opacity-90">
-              Here's an overview of your services and insights
-            </p>
-          </div>
-          <div className="flex items-center space-x-4">
-            <div className="hidden md:flex items-center space-x-2 bg-white/10 backdrop-blur-md p-3 rounded-lg border border-white/20 animate-fade-in">
-              <Clock className="h-5 w-5 text-amber-300/70" />
-              <span className="text-white text-sm">Last login: Today, 10:45 AM</span>
-            </div>
-            <div className="relative animate-fade-in">
-              <Bell className="h-6 w-6 text-purple-100 cursor-pointer hover:text-white transition-colors duration-300" />
-              <span className="absolute -top-1 -right-1 bg-amber-400/70 text-xs text-white font-medium rounded-full h-4 w-4 flex items-center justify-center">
-                2
-              </span>
-            </div>
-          </div>
-        </div>
-        
-        {/* Floating animated elements */}
-        <div className="absolute -bottom-6 -left-6 w-16 h-16 rounded-full bg-purple-400/20 animate-bounce [animation-duration:6s]"></div>
-        <div className="absolute top-10 right-10 w-4 h-4 rounded-full bg-amber-300/30 animate-ping [animation-duration:3s]"></div>
-        <div className="absolute bottom-10 left-1/3 w-3 h-3 rounded-full bg-white/30 animate-ping [animation-duration:4s]"></div>
-      </div>
-
       {/* Main Dashboard Content */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left Column - Stats and Main Services */}
@@ -1094,123 +1054,168 @@ const DashboardOverview = () => {
           {/* Stats Cards Row */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {/* Total Spent */}
-            <div 
-              className="rounded-xl p-5 border border-purple-100 bg-white/30 backdrop-blur-md shadow-sm hover:shadow-md transition-all duration-300 transform hover:scale-[1.02]"
+            <Card 
+              className={`rounded-xl overflow-hidden border-0 shadow-md hover:shadow-lg transition-all duration-300 transform ${animationComplete ? 'animate-fade-in' : 'opacity-0'}`} 
               style={{ 
-                background: `linear-gradient(135deg, ${theme.lightPurple}80, rgba(255,255,255,0.8))`,
-                borderColor: theme.glassBorder
+                background: `linear-gradient(135deg, ${theme.primary}15, ${theme.goldLight})`,
+                animationDelay: '0.1s',
+                animationFillMode: 'forwards'
               }}
             >
-              <div className="flex justify-between items-start">
-                <div>
-                  <p className="text-xs font-medium uppercase tracking-wider text-purple-700 opacity-80">Total Spent</p>
-                  {isLoading ? (
-                    <Skeleton className="h-8 w-20 mt-2" />
-                  ) : (
-                    <p className="text-2xl font-bold text-purple-900">$0.00</p>
-                  )}
+              <CardContent className="p-5">
+                <div className="flex justify-between items-start">
+                  <div>
+                    <p className="text-xs font-medium uppercase tracking-wider" style={{ color: theme.primary }}>
+                      Total Spent
+                    </p>
+                    {isLoading ? (
+                      <Skeleton className="h-8 w-20 mt-2" />
+                    ) : (
+                      <p className="text-2xl font-bold" style={{ color: theme.primary }}>$0.00</p>
+                    )}
+                  </div>
+                  <div className="flex items-center justify-center w-10 h-10 rounded-full shadow-md"
+                    style={{ 
+                      background: `linear-gradient(135deg, ${theme.primary}, ${theme.primaryDark})`
+                    }}
+                  >
+                    <TrendingUp className="h-5 w-5 text-white" />
+                  </div>
                 </div>
-                <div className="flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-br from-[#7d29bb] to-[#9d4cce] shadow-md">
-                  <TrendingUp className="h-5 w-5 text-white" />
-                </div>
-              </div>
-              <p className="text-xs mt-3 text-purple-700">Track your spending history</p>
-            </div>
+                <p className="text-xs mt-3" style={{ color: theme.primary }}>
+                  Track your spending history
+                </p>
+              </CardContent>
+            </Card>
 
             {/* Active Services */}
-            <div 
-              className="rounded-xl p-5 border border-purple-100 bg-white/30 backdrop-blur-md shadow-sm hover:shadow-md transition-all duration-300 transform hover:scale-[1.02]"
+            <Card 
+              className={`rounded-xl overflow-hidden border-0 shadow-md hover:shadow-lg transition-all duration-300 transform ${animationComplete ? 'animate-fade-in' : 'opacity-0'}`} 
               style={{ 
-                background: `linear-gradient(135deg, ${theme.lightPurple}80, rgba(255,255,255,0.8))`,
-                borderColor: theme.glassBorder
+                background: `linear-gradient(135deg, ${theme.goldLight}, ${theme.primary}15)`,
+                animationDelay: '0.2s',
+                animationFillMode: 'forwards'
               }}
             >
-              <div className="flex justify-between items-start">
-                <div>
-                  <p className="text-xs font-medium uppercase tracking-wider text-purple-700 opacity-80">Active Services</p>
-                  {isLoading ? (
-                    <Skeleton className="h-8 w-20 mt-2" />
-                  ) : (
-                    <p className="text-2xl font-bold text-purple-900">{activeServicesCount} / 6</p>
-                  )}
+              <CardContent className="p-5">
+                <div className="flex justify-between items-start">
+                  <div>
+                    <p className="text-xs font-medium uppercase tracking-wider" style={{ color: theme.primary }}>
+                      Active Services
+                    </p>
+                    {isLoading ? (
+                      <Skeleton className="h-8 w-20 mt-2" />
+                    ) : (
+                      <p className="text-2xl font-bold" style={{ color: theme.primary }}>
+                        {activeServicesCount} / 6
+                      </p>
+                    )}
+                  </div>
+                  <div 
+                    className="flex items-center justify-center w-10 h-10 rounded-full shadow-md"
+                    style={{ 
+                      background: `linear-gradient(135deg, ${theme.gold}, ${theme.gold}DD)`
+                    }}
+                  >
+                    <ActivitySquare className="h-5 w-5 text-white" />
+                  </div>
                 </div>
-                <div className="flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-br from-[#7d29bb] to-[#9d4cce] shadow-md">
-                  <ActivitySquare className="h-5 w-5 text-white" />
-                </div>
-              </div>
-              <p className="text-xs mt-3 text-purple-700">Services you're currently using</p>
-            </div>
+                <p className="text-xs mt-3" style={{ color: theme.primary }}>
+                  Services you're currently using
+                </p>
+              </CardContent>
+            </Card>
 
             {/* Last Activity */}
-            <div 
-              className="rounded-xl p-5 border border-purple-100 bg-white/30 backdrop-blur-md shadow-sm hover:shadow-md transition-all duration-300 transform hover:scale-[1.02]"
+            <Card 
+              className={`rounded-xl overflow-hidden border-0 shadow-md hover:shadow-lg transition-all duration-300 transform ${animationComplete ? 'animate-fade-in' : 'opacity-0'}`} 
               style={{ 
-                background: `linear-gradient(135deg, ${theme.lightPurple}80, rgba(255,255,255,0.8))`,
-                borderColor: theme.glassBorder
+                background: `linear-gradient(135deg, ${theme.primary}15, ${theme.goldLight})`,
+                animationDelay: '0.3s',
+                animationFillMode: 'forwards'
               }}
             >
-              <div className="flex justify-between items-start">
-                <div>
-                  <p className="text-xs font-medium uppercase tracking-wider text-purple-700 opacity-80">Last Activity</p>
-                  {isLoading ? (
-                    <Skeleton className="h-8 w-20 mt-2" />
-                  ) : (
-                    <p className="text-2xl font-bold text-purple-900">N/A</p>
-                  )}
+              <CardContent className="p-5">
+                <div className="flex justify-between items-start">
+                  <div>
+                    <p className="text-xs font-medium uppercase tracking-wider" style={{ color: theme.primary }}>
+                      Last Activity
+                    </p>
+                    {isLoading ? (
+                      <Skeleton className="h-8 w-20 mt-2" />
+                    ) : (
+                      <p className="text-2xl font-bold" style={{ color: theme.primary }}>Just Now</p>
+                    )}
+                  </div>
+                  <div 
+                    className="flex items-center justify-center w-10 h-10 rounded-full shadow-md"
+                    style={{ 
+                      background: `linear-gradient(135deg, ${theme.primary}, ${theme.primaryDark})`
+                    }}
+                  >
+                    <Clock className="h-5 w-5 text-white" />
+                  </div>
                 </div>
-                <div className="flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-br from-[#7d29bb] to-[#9d4cce] shadow-md">
-                  <Clock className="h-5 w-5 text-white" />
-                </div>
-              </div>
-              <p className="text-xs mt-3 text-purple-700">Your recent platform activity</p>
-            </div>
+                <p className="text-xs mt-3" style={{ color: theme.primary }}>
+                  Your recent platform activity
+                </p>
+              </CardContent>
+            </Card>
           </div>
 
           {/* Getting Started Guide */}
           <Card 
-            className="overflow-hidden border-0 shadow-md animate-fade-in" 
+            className={`overflow-hidden border-0 shadow-md ${animationComplete ? 'animate-fade-in' : 'opacity-0'}`} 
             style={{ 
               background: `linear-gradient(135deg, rgba(255,255,255,0.6), rgba(255,255,255,0.9))`,
-              backdropFilter: 'blur(10px)'
+              backdropFilter: 'blur(10px)',
+              animationDelay: '0.4s',
+              animationFillMode: 'forwards'
             }}
           >
             <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-purple-50/30 to-transparent pointer-events-none"></div>
             <CardHeader className="pb-2 relative">
-              <CardTitle className="flex items-center text-lg font-bold text-purple-900">
-                <Sparkles className="mr-2 h-5 w-5 text-amber-400/70" />
+              <CardTitle className="flex items-center text-lg font-bold" style={{ color: theme.primary }}>
+                <Sparkles className="mr-2 h-5 w-5" style={{ color: theme.gold }} />
                 Getting Started with ExactConnect
               </CardTitle>
-              <CardDescription className="text-purple-700">
+              <CardDescription style={{ color: theme.primaryDark }}>
                 Quick steps to maximize your experience
               </CardDescription>
             </CardHeader>
             <CardContent className="relative">
               <div className="space-y-4">
                 <div className="flex items-center gap-4 p-3 rounded-lg hover:bg-white/50 transition-colors duration-300 group cursor-pointer">
-                  <div className="w-10 h-10 rounded-full bg-amber-100/70 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                    <span className="text-amber-600/90 font-medium">1</span>
+                  <div className="w-10 h-10 rounded-full bg-amber-100/70 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform"
+                    style={{ background: theme.goldLight }}
+                  >
+                    <span style={{ color: theme.gold }} className="font-medium">1</span>
                   </div>
                   <div>
-                    <h4 className="font-medium text-purple-900">Explore Our Services</h4>
-                    <p className="text-sm text-purple-700 mt-1">Browse through our proxies, VPSs, and other digital tools</p>
+                    <h4 className="font-medium" style={{ color: theme.primary }}>Explore Our Services</h4>
+                    <p className="text-sm mt-1" style={{ color: theme.primaryDark }}>Browse through our proxies, VPSs, and other digital tools</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4 p-3 rounded-lg hover:bg-white/50 transition-colors duration-300 group cursor-pointer">
-                  <div className="w-10 h-10 rounded-full bg-[#f1e8fa] flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                    <span className="text-[#7d29bb] font-medium">2</span>
+                  <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform"
+                    style={{ background: theme.primaryLight }}
+                  >
+                    <span style={{ color: theme.primary }} className="font-medium">2</span>
                   </div>
                   <div>
-                    <h4 className="font-medium text-purple-900">Complete Your Profile</h4>
-                    <p className="text-sm text-purple-700 mt-1">Add payment methods and verify your contact details</p>
+                    <h4 className="font-medium" style={{ color: theme.primary }}>Complete Your Profile</h4>
+                    <p className="text-sm mt-1" style={{ color: theme.primaryDark }}>Add payment methods and verify your contact details</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4 p-3 rounded-lg hover:bg-white/50 transition-colors duration-300 group cursor-pointer">
-                  <div className="w-10 h-10 rounded-full bg-amber-100/50 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                    <span className="text-amber-600/80 font-medium">3</span>
+                  <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform"
+                    style={{ background: theme.goldLight }}
+                  >
+                    <span style={{ color: theme.gold }} className="font-medium">3</span>
                   </div>
                   <div>
-                    <h4 className="font-medium text-purple-900">Make Your First Purchase</h4>
-                    <p className="text-sm text-purple-700 mt-1">Try our proxies or VCC services to get started</p>
+                    <h4 className="font-medium" style={{ color: theme.primary }}>Make Your First Purchase</h4>
+                    <p className="text-sm mt-1" style={{ color: theme.primaryDark }}>Try our proxies or VCC services to get started</p>
                   </div>
                 </div>
               </div>
@@ -1218,53 +1223,66 @@ const DashboardOverview = () => {
           </Card>
 
           {/* Services Grid */}
-          <div>
-            <h2 className="text-lg font-bold text-purple-900 mb-4 flex items-center">
+          <div className={`${animationComplete ? 'animate-fade-in' : 'opacity-0'}`} style={{ animationDelay: '0.5s', animationFillMode: 'forwards' }}>
+            <h2 className="text-lg font-bold mb-4 flex items-center" style={{ color: theme.primary }}>
               <span className="mr-2">Your Services</span>
-              <div className="h-0.5 flex-grow bg-gradient-to-r from-[#9d4cce] to-transparent rounded ml-2"></div>
+              <div className="h-0.5 flex-grow rounded ml-2" style={{ background: `linear-gradient(to right, ${theme.primary}, transparent)` }}></div>
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-              {serviceCards.map((card) => (
+              {serviceCards.map((card, index) => (
                 <Link
                   key={card.title}
                   to={card.path}
                   className="group"
+                  style={{ 
+                    animationDelay: `${0.6 + index * 0.1}s`,
+                    animationFillMode: 'forwards'
+                  }}
                 >
-                  <div 
-                    className="h-full rounded-xl p-5 shadow-sm bg-white/40 backdrop-blur-md border border-white/20 hover:shadow-md transition-all duration-500 hover:bg-white/60"
+                  <Card 
+                    className="h-full rounded-xl overflow-hidden border-0 hover:shadow-md transition-all duration-500"
                     style={{ 
                       background: 'linear-gradient(135deg, rgba(255,255,255,0.5), rgba(255,255,255,0.8))'
                     }}
                   >
-                    <div className="flex items-center justify-between mb-4">
-                      <div 
-                        className="w-12 h-12 rounded-lg flex items-center justify-center transition-all duration-300 group-hover:scale-110 shadow-sm"
-                        style={{ 
-                          background: `linear-gradient(135deg, ${card.color}, ${card.color}DD)`
-                        }}
-                      >
-                        <card.icon className="h-6 w-6 text-white" />
-                      </div>
-                      {card.count > 0 ? (
+                    <CardContent className="p-5">
+                      <div className="flex items-center justify-between mb-4">
                         <div 
-                          className="rounded-full px-2.5 py-0.5 text-xs font-medium"
+                          className="w-12 h-12 rounded-lg flex items-center justify-center transition-all duration-300 group-hover:scale-110 shadow-sm"
                           style={{ 
-                            background: theme.lightPurple,
-                            color: theme.electricPurple
+                            background: `linear-gradient(135deg, ${card.color}, ${card.color}DD)`
                           }}
                         >
-                          {card.count} Active
+                          <card.icon className="h-6 w-6 text-white" />
                         </div>
-                      ) : null}
-                    </div>
-                    <h3 className="font-semibold text-purple-900">{card.title}</h3>
-                    <p className="text-sm text-purple-700 mt-1">{card.description}</p>
-                    <div className="flex items-center justify-end mt-4">
-                      <div className="text-amber-500/80 text-sm font-medium flex items-center group-hover:translate-x-1 transition-transform">
-                        Explore <ArrowRightCircle className="ml-1 h-4 w-4" />
+                        {card.isActive && (
+                          <div className="relative">
+                            <div className="rounded-full px-2.5 py-0.5 text-xs font-medium flex items-center"
+                              style={{ 
+                                background: theme.primaryLight,
+                                color: theme.primary
+                              }}
+                            >
+                              <div className="w-2 h-2 rounded-full mr-1.5 animate-pulse" 
+                                style={{ background: theme.gold }}></div>
+                              {card.count} Active
+                            </div>
+                          </div>
+                        )}
                       </div>
-                    </div>
-                  </div>
+                      <h3 className="font-semibold" style={{ color: theme.primary }}>{card.title}</h3>
+                      <p className="text-sm mt-1" style={{ color: theme.primaryDark }}>
+                        {card.description}
+                      </p>
+                      <div className="flex items-center justify-end mt-4">
+                        <div className="text-sm font-medium flex items-center group-hover:translate-x-1 transition-transform"
+                          style={{ color: theme.gold }}
+                        >
+                          Explore <ArrowRightCircle className="ml-1 h-4 w-4" />
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
                 </Link>
               ))}
             </div>
@@ -1272,41 +1290,60 @@ const DashboardOverview = () => {
 
           {/* Templates Showcase */}
           <Card 
-            className="overflow-hidden border-0 shadow-md animate-fade-in" 
+            className={`overflow-hidden border-0 shadow-md ${animationComplete ? 'animate-fade-in' : 'opacity-0'}`} 
             style={{ 
               background: `linear-gradient(135deg, rgba(255,255,255,0.6), rgba(255,255,255,0.9))`,
-              backdropFilter: 'blur(10px)'
+              backdropFilter: 'blur(10px)',
+              animationDelay: '0.7s',
+              animationFillMode: 'forwards'
             }}
           >
             <CardHeader className="pb-2">
-              <CardTitle className="text-lg font-bold text-purple-900 flex items-center">
-                <FileImage className="mr-2 h-5 w-5 text-amber-400/70" />
+              <CardTitle className="text-lg font-bold flex items-center" style={{ color: theme.primary }}>
+                <FileImage className="mr-2 h-5 w-5" style={{ color: theme.gold }} />
                 Popular PSD Templates
               </CardTitle>
-              <CardDescription className="text-purple-700">
+              <CardDescription style={{ color: theme.primaryDark }}>
                 Professional design templates for your projects
               </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                {templateItems.map((template) => (
+                {templateItems.map((template, index) => (
                   <div 
                     key={template.id}
                     className="rounded-lg overflow-hidden bg-white shadow-sm hover:shadow-md transition-all duration-300 group"
+                    style={{ 
+                      animationDelay: `${0.8 + index * 0.1}s`,
+                      animationFillMode: 'forwards'
+                    }}
                   >
                     <AspectRatio ratio={4/3} className="bg-purple-100">
-                      <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#f1e8fa] to-[#f5edfb]">
-                        <FileImage className="h-10 w-10 text-[#9d4cce]" />
+                      <div className="w-full h-full flex items-center justify-center"
+                        style={{ background: `linear-gradient(135deg, ${theme.primaryLight}, ${theme.goldLight})` }}
+                      >
+                        <FileImage className="h-10 w-10" style={{ color: theme.primary }} />
                       </div>
                     </AspectRatio>
                     <div className="p-3">
-                      <h4 className="font-medium text-purple-900 truncate">{template.title}</h4>
-                      <p className="text-xs text-purple-600 mt-1">{template.category}</p>
+                      <h4 className="font-medium truncate" style={{ color: theme.primary }}>
+                        {template.title}
+                      </h4>
+                      <p className="text-xs mt-1" style={{ color: theme.primaryDark }}>
+                        {template.category}
+                      </p>
                       <div className="flex justify-between items-center mt-2">
-                        <span className="font-bold text-sm text-purple-900">{template.price}</span>
-                        <button className="text-xs bg-amber-100/50 text-amber-800 px-2 py-1 rounded-full hover:bg-amber-200/50 transition-colors">
+                        <span className="font-bold text-sm" style={{ color: theme.primary }}>
+                          {template.price}
+                        </span>
+                        <Link to="/dashboard/templates" className="text-xs px-2 py-1 rounded-full transition-colors"
+                          style={{ 
+                            background: theme.goldLight,
+                            color: theme.gold
+                          }}
+                        >
                           Preview
-                        </button>
+                        </Link>
                       </div>
                     </div>
                   </div>
@@ -1315,10 +1352,11 @@ const DashboardOverview = () => {
               <div className="mt-4 flex justify-center">
                 <Link 
                   to="/dashboard/templates"
-                  className="inline-flex items-center text-sm font-medium text-[#7d29bb] hover:text-[#9d4cce] transition-colors"
+                  className="inline-flex items-center text-sm font-medium hover:underline transition-colors"
+                  style={{ color: theme.primary }}
                 >
                   View All Templates
-                  <ExternalLink className="ml-1 h-3 w-3" />
+                  <ArrowRightCircle className="ml-1 h-3 w-3" />
                 </Link>
               </div>
             </CardContent>
@@ -1329,24 +1367,28 @@ const DashboardOverview = () => {
         <div className="space-y-6">
           {/* Welcome Card for New Users */}
           <Card 
-            className="overflow-hidden border-0 shadow-md" 
+            className={`overflow-hidden border-0 shadow-md relative ${animationComplete ? 'animate-fade-in' : 'opacity-0'}`} 
             style={{ 
-              background: `linear-gradient(135deg, #7d29bb, #9d4cce)`,
+              background: `linear-gradient(135deg, ${theme.primary}, ${theme.primaryDark})`,
+              animationDelay: '0.2s',
+              animationFillMode: 'forwards'
             }}
           >
             <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-full blur-xl transform translate-x-6 -translate-y-6"></div>
-            <div className="absolute bottom-0 left-0 w-16 h-16 bg-amber-300/20 rounded-full blur-lg transform -translate-x-4 translate-y-4"></div>
+            <div className="absolute bottom-0 left-0 w-16 h-16 rounded-full blur-lg transform -translate-x-4 translate-y-4"
+              style={{ background: `${theme.goldLight}` }}></div>
             
             <CardContent className="relative p-5">
               <div className="mb-4 flex justify-center">
-                <Gift className="h-12 w-12 text-amber-300/70" />
+                <Gift className="h-12 w-12" style={{ color: theme.gold }} />
               </div>
               <h3 className="text-center text-xl font-bold text-white mb-2">Welcome to ExactConnect</h3>
-              <p className="text-center text-purple-100 text-sm mb-4">Your digital toolkit for online success</p>
+              <p className="text-center text-sm mb-4 text-white/80">Your digital toolkit for online success</p>
               <div className="flex justify-center">
                 <Link
                   to="/dashboard/welcome-tour"
-                  className="px-4 py-2 bg-amber-500/70 text-white rounded-lg text-sm font-medium hover:bg-amber-600/70 transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all flex items-center"
+                  className="px-4 py-2 text-white rounded-lg text-sm font-medium shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all flex items-center"
+                  style={{ background: `${theme.gold}CC` }}
                 >
                   Start Tour <ArrowRightCircle className="ml-1.5 h-4 w-4" />
                 </Link>
@@ -1356,18 +1398,20 @@ const DashboardOverview = () => {
 
           {/* Trending Products */}
           <Card 
-            className="overflow-hidden border-0 shadow-md animate-fade-in" 
+            className={`overflow-hidden border-0 shadow-md ${animationComplete ? 'animate-fade-in' : 'opacity-0'}`} 
             style={{ 
               background: `linear-gradient(135deg, rgba(255,255,255,0.6), rgba(255,255,255,0.9))`,
-              backdropFilter: 'blur(10px)'
+              backdropFilter: 'blur(10px)',
+              animationDelay: '0.3s',
+              animationFillMode: 'forwards'
             }}
           >
             <CardHeader className="pb-2">
-              <CardTitle className="text-lg font-bold text-purple-900 flex items-center">
-                <TrendingUp className="mr-2 h-5 w-5 text-amber-400/70" />
+              <CardTitle className="text-lg font-bold flex items-center" style={{ color: theme.primary }}>
+                <TrendingUp className="mr-2 h-5 w-5" style={{ color: theme.gold }} />
                 Trending Services
               </CardTitle>
-              <CardDescription className="text-purple-700">
+              <CardDescription style={{ color: theme.primaryDark }}>
                 Most popular services this week
               </CardDescription>
             </CardHeader>
@@ -1378,22 +1422,23 @@ const DashboardOverview = () => {
                     <Skeleton key={i} className="h-14 w-full rounded-lg" />
                   ))
                 ) : (
-                  trendingProducts.map((product) => (
+                  trendingProducts.map((product, index) => (
                     <div 
                       key={product.id} 
                       className="flex items-center justify-between p-3 rounded-lg hover:bg-white/70 transition-all"
+                      style={{ 
+                        animationDelay: `${0.4 + index * 0.1}s`,
+                        animationFillMode: 'forwards'
+                      }}
                     >
                       <div className="flex items-center">
-                        {product.trend === 'up' ? 
-                          <TrendingUp className="h-4 w-4 text-green-500 mr-2" /> : 
-                          <TrendingDown className="h-4 w-4 text-red-500 mr-2" />
-                        }
-                        <span className="text-purple-900 font-medium">{product.name}</span>
+                        <TrendingUp className="h-4 w-4 mr-2 text-green-500" />
+                        <span style={{ color: theme.primary }} className="font-medium">
+                          {product.name}
+                        </span>
                       </div>
-                      <span className={`text-xs font-medium px-2 py-1 rounded-full ${
-                        product.trend === 'up' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
-                      }`}>
-                        {product.trend === 'up' ? '+' : '-'}{product.percent}%
+                      <span className="text-xs font-medium px-2 py-1 rounded-full bg-green-100 text-green-700">
+                        +{product.percent}%
                       </span>
                     </div>
                   ))
@@ -1404,18 +1449,20 @@ const DashboardOverview = () => {
 
           {/* Tips & Guides */}
           <Card 
-            className="overflow-hidden border-0 shadow-md animate-fade-in" 
+            className={`overflow-hidden border-0 shadow-md ${animationComplete ? 'animate-fade-in' : 'opacity-0'}`} 
             style={{ 
               background: `linear-gradient(135deg, rgba(255,255,255,0.6), rgba(255,255,255,0.9))`,
-              backdropFilter: 'blur(10px)'
+              backdropFilter: 'blur(10px)',
+              animationDelay: '0.4s',
+              animationFillMode: 'forwards'
             }}
           >
             <CardHeader className="pb-2">
-              <CardTitle className="text-lg font-bold text-purple-900 flex items-center">
-                <LightbulbIcon className="mr-2 h-5 w-5 text-amber-400/70" />
+              <CardTitle className="text-lg font-bold flex items-center" style={{ color: theme.primary }}>
+                <LightbulbIcon className="mr-2 h-5 w-5" style={{ color: theme.gold }} />
                 Tips & Guides
               </CardTitle>
-              <CardDescription className="text-purple-700">
+              <CardDescription style={{ color: theme.primaryDark }}>
                 Learn how to use our services effectively
               </CardDescription>
             </CardHeader>
@@ -1425,17 +1472,28 @@ const DashboardOverview = () => {
                   <div 
                     key={index}
                     className="p-4 rounded-lg hover:bg-white/70 transition-all border border-white/30 group"
+                    style={{ 
+                      animationDelay: `${0.5 + index * 0.1}s`,
+                      animationFillMode: 'forwards'
+                    }}
                   >
                     <div className="flex items-start gap-3">
                       <div 
                         className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform"
-                        style={{ backgroundColor: tip.color + '20', color: tip.color }}
+                        style={{ 
+                          background: `${tip.color}20`, 
+                          color: tip.color 
+                        }}
                       >
                         <tip.icon className="h-4 w-4" />
                       </div>
                       <div>
-                        <h4 className="font-medium text-purple-900">{tip.title}</h4>
-                        <p className="text-sm text-purple-700 mt-1">{tip.content}</p>
+                        <h4 className="font-medium" style={{ color: theme.primary }}>
+                          {tip.title}
+                        </h4>
+                        <p className="text-sm mt-1" style={{ color: theme.primaryDark }}>
+                          {tip.content}
+                        </p>
                         <Link 
                           to={tip.link}
                           className="text-xs font-medium mt-2 inline-flex items-center"
@@ -1453,18 +1511,20 @@ const DashboardOverview = () => {
 
           {/* User Insights */}
           <Card 
-            className="overflow-hidden border-0 shadow-md animate-fade-in" 
+            className={`overflow-hidden border-0 shadow-md ${animationComplete ? 'animate-fade-in' : 'opacity-0'}`} 
             style={{ 
               background: `linear-gradient(135deg, rgba(255,255,255,0.6), rgba(255,255,255,0.9))`,
-              backdropFilter: 'blur(10px)'
+              backdropFilter: 'blur(10px)',
+              animationDelay: '0.5s',
+              animationFillMode: 'forwards'
             }}
           >
             <CardHeader className="pb-2">
-              <CardTitle className="text-lg font-bold text-purple-900 flex items-center">
-                <HelpCircle className="mr-2 h-5 w-5 text-amber-400/70" />
+              <CardTitle className="text-lg font-bold flex items-center" style={{ color: theme.primary }}>
+                <HelpCircle className="mr-2 h-5 w-5" style={{ color: theme.gold }} />
                 User Insights
               </CardTitle>
-              <CardDescription className="text-purple-700">
+              <CardDescription style={{ color: theme.primaryDark }}>
                 How others are using our services
               </CardDescription>
             </CardHeader>
@@ -1475,15 +1535,23 @@ const DashboardOverview = () => {
                     <Skeleton key={i} className="h-20 w-full rounded-lg" />
                   ))
                 ) : (
-                  userInsights.map((insight) => (
+                  userInsights.map((insight, index) => (
                     <div 
                       key={insight.id}
                       className="p-4 rounded-lg hover:bg-white/70 transition-all border border-white/30"
+                      style={{ 
+                        animationDelay: `${0.6 + index * 0.1}s`,
+                        animationFillMode: 'forwards'
+                      }}
                     >
-                      <p className="text-sm text-purple-900">{insight.message}</p>
+                      <p className="text-sm" style={{ color: theme.primary }}>
+                        {insight.message}
+                      </p>
                       <div className="flex justify-between items-center mt-2">
-                        <span className="text-xs text-purple-600 font-medium">{insight.username}</span>
-                        <div className="text-xs text-amber-600/80 flex items-center">
+                        <span className="text-xs font-medium" style={{ color: theme.primaryDark }}>
+                          {insight.username}
+                        </span>
+                        <div className="text-xs flex items-center" style={{ color: theme.gold }}>
                           <Sparkles className="h-3 w-3 mr-1" />
                           {insight.likes} likes
                         </div>
@@ -1497,30 +1565,39 @@ const DashboardOverview = () => {
 
           {/* Need Help Card */}
           <div 
-            className="rounded-xl p-5 border shadow-md animate-fade-in overflow-hidden relative"
+            className={`rounded-xl p-5 border shadow-md overflow-hidden relative ${animationComplete ? 'animate-fade-in' : 'opacity-0'}`}
             style={{ 
-              background: `linear-gradient(135deg, ${theme.lightGold}, rgba(255, 253, 240, 0.8))`,
-              borderColor: theme.glassBorder
+              background: `linear-gradient(135deg, ${theme.goldLight}, rgba(255, 253, 240, 0.8))`,
+              borderColor: theme.glassBorder,
+              animationDelay: '0.6s',
+              animationFillMode: 'forwards'
             }}
           >
-            <div className="absolute -top-6 -right-6 w-16 h-16 rounded-full bg-amber-300/20 blur-xl"></div>
-            <h3 className="font-bold text-amber-900 flex items-center">
-              <HelpCircle className="h-4 w-4 mr-1.5 text-amber-500/70" />
+            <div className="absolute -top-6 -right-6 w-16 h-16 rounded-full blur-xl" 
+              style={{ background: `${theme.goldLight}` }}></div>
+            <h3 className="font-bold flex items-center" style={{ color: theme.primary }}>
+              <HelpCircle className="h-4 w-4 mr-1.5" style={{ color: theme.gold }} />
               Need Help?
             </h3>
-            <p className="text-sm text-amber-800 mt-2">
+            <p className="text-sm mt-2" style={{ color: theme.primaryDark }}>
               Our support team is available 24/7 to assist you with any questions or issues.
             </p>
             <div className="flex space-x-2 mt-4">
               <Link
-                to="/support/chat"
-                className="px-3 py-1.5 bg-amber-500/70 text-white rounded-lg text-sm hover:bg-amber-600/70 transition-colors shadow-sm flex items-center justify-center flex-1"
+                to="/dashboard/support/chat"
+                className="px-3 py-1.5 text-white rounded-lg text-sm transition-colors shadow-sm flex items-center justify-center flex-1"
+                style={{ background: theme.primary }}
               >
                 Live Chat
               </Link>
               <Link
-                to="/support/tickets"
-                className="px-3 py-1.5 bg-white text-amber-700 border border-amber-200/70 rounded-lg text-sm hover:bg-amber-50 transition-colors shadow-sm flex items-center justify-center flex-1"
+                to="/dashboard/support/tickets"
+                className="px-3 py-1.5 border rounded-lg text-sm transition-colors shadow-sm flex items-center justify-center flex-1"
+                style={{ 
+                  background: 'white',
+                  color: theme.primary,
+                  borderColor: `${theme.primary}30`
+                }}
               >
                 Open Ticket
               </Link>
@@ -1529,44 +1606,66 @@ const DashboardOverview = () => {
         </div>
       </div>
 
-      {/* Social Media Footer */}
+      {/* Footer */}
       <div 
-        className="mt-10 pt-8 border-t border-purple-200/70 animate-fade-in"
-        style={{ animationDelay: '0.5s' }}
+        className={`mt-10 pt-8 ${animationComplete ? 'animate-fade-in' : 'opacity-0'}`}
+        style={{ 
+          borderTopWidth: '1px',
+          borderColor: `${theme.primary}20`,
+          animationDelay: '0.7s',
+          animationFillMode: 'forwards'
+        }}
       >
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <div>
-            <h3 className="text-lg font-bold text-purple-900">Connect with ExactConnect</h3>
-            <p className="text-sm text-purple-700">Follow us for news, tips, and special offers</p>
+            <h3 className="text-lg font-bold" style={{ color: theme.primary }}>
+              ExactConnect Dashboard
+            </h3>
+            <p className="text-sm" style={{ color: theme.primaryDark }}>
+              All your digital services in one place
+            </p>
           </div>
-          <div className="flex items-center space-x-4">
-            {socialLinks.map((social) => (
-              <a 
-                key={social.name} 
-                href={social.url} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full flex items-center justify-center transition-transform hover:scale-110"
-                style={{ 
-                  background: social.name === 'Facebook' || social.name === 'LinkedIn' ? 
-                    `linear-gradient(135deg, #7d29bb, #5d1b8f)` : 
-                    social.name === 'Twitter' ? 
-                      `linear-gradient(135deg, #7d29bb, #9d4cce)` : 
-                      `linear-gradient(135deg, rgba(245, 158, 11, 0.5), #7d29bb)`
-                }}
-              >
-                <social.icon className="h-5 w-5 text-white" />
-              </a>
-            ))}
-            <a 
-              href="mailto:support@exactconnect.com" 
-              className="w-10 h-10 rounded-full flex items-center justify-center bg-gradient-to-br from-amber-500/70 to-amber-600/70 transition-transform hover:scale-110"
+          <div className="flex items-center space-x-2">
+            <Link 
+              to="/dashboard"
+              className="px-3 py-1 rounded text-white text-sm hover:shadow-md transition-all"
+              style={{ background: theme.primary }}
             >
-              <Mail className="h-5 w-5 text-white" />
-            </a>
+              Home
+            </Link>
+            <Link 
+              to="/dashboard/proxies"
+              className="px-3 py-1 rounded text-sm transition-all"
+              style={{ 
+                background: 'transparent',
+                color: theme.primary
+              }}
+            >
+              Proxies
+            </Link>
+            <Link 
+              to="/dashboard/vcc"
+              className="px-3 py-1 rounded text-sm transition-all"
+              style={{ 
+                background: 'transparent',
+                color: theme.primary
+              }}
+            >
+              VCC
+            </Link>
+            <Link 
+              to="/dashboard/support"
+              className="px-3 py-1 rounded text-sm transition-all"
+              style={{ 
+                background: 'transparent',
+                color: theme.primary
+              }}
+            >
+              Support
+            </Link>
           </div>
         </div>
-        <div className="mt-6 text-center text-sm text-purple-600">
+        <div className="mt-6 text-center text-sm" style={{ color: theme.primaryDark }}>
           &copy; 2025 ExactConnect. All rights reserved.
         </div>
       </div>
