@@ -1,940 +1,15 @@
-// import { useState, useRef, useEffect } from 'react';
-// import { ShoppingCart, Calendar, Download, Filter, Printer, Search } from 'lucide-react';
-// import { userDetails, customerId, getReliableCustomerId } from "@/lib/userDetails";
-// import { SERVER_URL } from "@/services/data";
-// import axios from 'axios';
-// import { useDashboard } from './DashboardContext';
-// // import { toast } from "@/components/ui/toast";
-
-// const OrdersPage = () => {
-//   const [orders, setOrders] = useState([]);
-//   const [filteredOrders, setFilteredOrders] = useState([]);
-//   const [searchTerm, setSearchTerm] = useState('');
-//   const [loading, setLoading] = useState(true);
-//   const [error, setError] = useState(null);
-//   const [showFilters, setShowFilters] = useState(false);
-//   const [activeCustomerId, setActiveCustomerId] = useState('');
-//   const startDateRef = useRef(null);
-//   const endDateRef = useRef(null);
-//   const { user } = useDashboard();
-  
-//   const themeColor = "#804fc2";
-//   const themeColorLight = "#804fc220"; // 20% opacity for lighter background
-
-//   useEffect(() => {
-//     const customerIdFromContext = user?.customerId || user?.customerReference;
-//     const customerIdFromImport = customerId;
-//     const reliableCustomerId = getReliableCustomerId();
-    
-//     const actualCustomerId = customerIdFromContext || reliableCustomerId || customerIdFromImport || '';
-    
-//     console.log("Active Customer ID sources:", {
-//       fromContext: customerIdFromContext,
-//       fromImport: customerIdFromImport,
-//       reliable: reliableCustomerId,
-//       actual: actualCustomerId
-//     });
-    
-//     setActiveCustomerId(actualCustomerId);
-//   }, [user]);
-
-//   useEffect(() => {
-//     if (activeCustomerId) {
-//       fetchOrders(activeCustomerId);
-//     } else {
-//       console.log("No customer ID available, cannot fetch orders");
-//       setError("No customer ID found. Please log in.");
-//       setLoading(false);
-//     }
-//   }, [activeCustomerId]);
-
-//   const fetchOrders = async (customerIdentifier) => {
-//     if (!customerIdentifier) {
-//       console.log("No customer ID provided to fetchOrders");
-//       setError("No customer ID found. Please log in.");
-//       setLoading(false);
-//       return;
-//     }
-
-//     try {
-//       setLoading(true);
-//       console.log(`Fetching orders for customer: ${customerIdentifier}`);
-      
-//       const response = await axios.get(`${SERVER_URL}/orders/search?customerId=${customerIdentifier}`)
-//         .catch(err => {
-//           console.warn("API call failed, using fallback data", err);
-//           const mockOrders = generateMockOrders(customerIdentifier);
-//           return { data: mockOrders };
-//         });
-      
-//       console.log("Orders API response:", response.data);
-      
-//       if (response.data && Array.isArray(response.data) && response.data.length > 0) {
-//         setOrders(response.data);
-//         setFilteredOrders(response.data);
-//         toast({
-//           title: "Orders loaded",
-//           description: `Loaded ${response.data.length} orders for your account.`,
-//           duration: 3000,
-//         });
-//       } else if (response.data && !Array.isArray(response.data)) {
-//         console.error("Invalid orders data format, expected array:", response.data);
-//         setError("Invalid data format received from server");
-//         setOrders([]);
-//         setFilteredOrders([]);
-//       } else {
-//         setOrders([]);
-//         setFilteredOrders([]);
-//         toast({
-//           title: "No orders found",
-//           description: "You have not made any purchases yet.",
-//           duration: 3000,
-//         });
-//       }
-//       setLoading(false);
-//     } catch (err) {
-//       console.error('Error fetching orders:', err);
-//       setError(err.response?.data?.message || err.message || "Failed to fetch orders");
-//       setLoading(false);
-//     }
-//   };
-
-//   const generateMockOrders = (customerIdentifier) => {
-//     let seed = customerIdentifier.toString().split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
-//     const rng = (max, min = 0) => {
-//       const x = Math.sin(seed++) * 10000;
-//       return Math.floor((x - Math.floor(x)) * (max - min + 1)) + min;
-//     };
-  
-
-//     const categories = ['Proxies', 'VPS', 'Templates', 'Non-VOIP', 'VCC'];
-//     const statuses = ['completed', 'processing', 'pending', 'cancelled'];
-//     const products = [
-//       'Elite Proxies',
-//       'Residential Proxies',
-//       'Datacenter Proxies',
-//       'VPS Basic',
-//       'VPS Premium',
-//       'Template Pack Pro',
-//       'Non-VOIP Numbers',
-//       'Virtual Credit Cards'
-//     ];
-
-//     const numOrders = rng(8, 3);
-//     const orders = [];
-
-//     for (let i = 0; i < numOrders; i++) {
-//       const productIndex = rng(products.length - 1);
-//       const product = products[productIndex];
-//       const category = categories[rng(categories.length - 1)];
-//       const quantity = rng(10, 1);
-//       const price = (rng(100, 10) + rng(99) / 100);
-//       const date = new Date();
-//       date.setDate(date.getDate() - rng(60));
-
-//       orders.push({
-//         id: `ORDER-${customerIdentifier.substring(0, 4)}-${rng(9999, 1000)}`,
-//         product: `${product} (x${quantity})`,
-//         category: category,
-//         quantity: quantity,
-//         status: statuses[rng(statuses.length - 1)],
-//         amount: price.toFixed(2),
-//         date: date.toISOString().split('T')[0],
-//         customerId: customerIdentifier
-//       });
-//     }
-
-//     return orders.sort((a, b) => new Date(b.date) - new Date(a.date));
-//   };
-
-//   useEffect(() => {
-//     if (!orders || orders.length === 0) {
-//       setFilteredOrders([]);
-//       return;
-//     }
-    
-//     if (searchTerm.trim() === '') {
-//       setFilteredOrders(orders);
-//     } else {
-//       const filtered = orders.filter(order => 
-//         (order.id?.toString().toLowerCase().includes(searchTerm.toLowerCase())) ||
-//         (order.product?.toString().toLowerCase().includes(searchTerm.toLowerCase())) ||
-//         (order.category?.toString().toLowerCase().includes(searchTerm.toLowerCase())) ||
-//         (order.status?.toString().toLowerCase().includes(searchTerm.toLowerCase()))
-//       );
-//       setFilteredOrders(filtered);
-//     }
-//   }, [searchTerm, orders]);
-
-//   const formatDate = (dateString) => {
-//     if (!dateString) return '';
-//     try {
-//       const date = new Date(dateString);
-//       return date.toLocaleDateString();
-//     } catch (e) {
-//       return dateString;
-//     }
-//   };
-
-//   const applyDateFilters = () => {
-//     const startDate = startDateRef.current?.value;
-//     const endDate = endDateRef.current?.value;
-    
-//     if (!startDate && !endDate) {
-//       setFilteredOrders(orders);
-//       return;
-//     }
-    
-//     const filtered = orders.filter(order => {
-//       if (!order.date) return false;
-      
-//       const orderDate = new Date(order.date);
-//       const start = startDate ? new Date(startDate) : null;
-//       const end = endDate ? new Date(endDate) : null;
-      
-//       return (!start || orderDate >= start) && (!end || orderDate <= end);
-//     });
-    
-//     setFilteredOrders(filtered);
-//     setShowFilters(false);
-//   };
-  
-//   const resetFilters = () => {
-//     if (startDateRef.current) startDateRef.current.value = '';
-//     if (endDateRef.current) endDateRef.current.value = '';
-//     setFilteredOrders(orders);
-//     setSearchTerm('');
-//   };
-  
-//   const generatePdfReport = () => {
-//     import('jspdf').then(({ default: jsPDF }) => {
-//       import('jspdf-autotable').then(({ default: autoTable }) => {
-//         const doc = new jsPDF();
-        
-//         const startDate = startDateRef.current?.value || '';
-//         const endDate = endDateRef.current?.value || '';
-        
-//         const r = parseInt(themeColor.slice(1, 3), 16);
-//         const g = parseInt(themeColor.slice(3, 5), 16);
-//         const b = parseInt(themeColor.slice(5, 7), 16);
-        
-//         doc.setFillColor(r, g, b);
-//         doc.rect(0, 0, doc.internal.pageSize.width, 40, 'F');
-        
-//         doc.setTextColor(255, 255, 255);
-//         doc.setFont('helvetica', 'bold');
-//         doc.setFontSize(22);
-//         doc.text('EXACTCONNECT', 15, 20);
-        
-//         doc.setFontSize(14);
-//         doc.setFont('helvetica', 'normal');
-//         doc.text('Orders Report', 15, 30);
-        
-//         doc.setTextColor(0, 0, 0);
-//         doc.setFontSize(12);
-//         doc.text(`Customer: ${userDetails.firstName || ''} ${userDetails.lastName || ''} (${activeCustomerId})`, 15, 50);
-        
-//         if (startDate && endDate) {
-//           doc.text(`Date Range: ${startDate} to ${endDate}`, 15, 58);
-//         } else {
-//           doc.text('All Orders', 15, 58);
-//         }
-        
-//         const reportDate = new Date().toLocaleDateString();
-//         doc.setFontSize(10);
-//         doc.text(`Report Generated: ${reportDate}`, 15, 66);
-        
-//         autoTable(doc, {
-//           startY: 75,
-//           head: [['Order ID', 'Date', 'Product', 'Category', 'Quantity', 'Amount', 'Status']],
-//           body: filteredOrders.map(order => [
-//             order.id || '',
-//             formatDate(order.date) || '',
-//             order.product || '',
-//             order.category || '',
-//             order.quantity || '',
-//             `$${parseFloat(order.amount || 0).toFixed(2)}`,
-//             order.status ? (order.status.charAt(0).toUpperCase() + order.status.slice(1)) : ''
-//           ]),
-//           styles: {
-//             cellPadding: 3,
-//             fontSize: 10,
-//             valign: 'middle',
-//             overflow: 'linebreak',
-//             lineWidth: 0.1,
-//             lineColor: [0, 0, 0]
-//           },
-//           headStyles: {
-//             fillColor: [r, g, b],
-//             textColor: [255, 255, 255],
-//             fontStyle: 'bold',
-//             halign: 'left'
-//           },
-//           alternateRowStyles: {
-//             fillColor: [240, 240, 250]
-//           },
-//           margin: { top: 75 }
-//         });
-        
-//         const totalAmount = filteredOrders.reduce((sum, order) => sum + parseFloat(order.amount || 0), 0);
-        
-//         const finalY = doc.lastAutoTable.finalY || 75;
-//         doc.setFontSize(12);
-//         doc.setFont('helvetica', 'bold');
-//         doc.text(`Total Amount: $${totalAmount.toFixed(2)}`, 150, finalY + 15, { align: 'right' });
-        
-//         const pageCount = doc.internal.getNumberOfPages();
-//         for (let i = 1; i <= pageCount; i++) {
-//           doc.setPage(i);
-//           doc.setFontSize(10);
-//           doc.setTextColor(100, 100, 100);
-//           doc.text('ExactConnect - Your Trusted Service Provider', doc.internal.pageSize.width / 2, doc.internal.pageSize.height - 10, { align: 'center' });
-//           doc.text(`Page ${i} of ${pageCount}`, doc.internal.pageSize.width - 15, doc.internal.pageSize.height - 10, { align: 'right' });
-//         }
-        
-//         doc.save(`exactconnect_orders_${activeCustomerId}.pdf`);
-//       });
-//     });
-//   };
-
-//   const calculateTotal = () => {
-//     return filteredOrders.reduce((sum, order) => sum + parseFloat(order.amount || 0), 0).toFixed(2);
-//   };
-
-//   const getStatusClass = (status) => {
-//     if (!status) return 'bg-gray-100 text-gray-800';
-    
-//     status = status.toLowerCase();
-//     if (status === 'completed') return 'bg-green-100 text-green-800';
-//     if (status === 'processing') return 'bg-blue-100 text-blue-800';
-//     if (status === 'pending') return 'bg-yellow-100 text-yellow-800';
-//     if (status === 'cancelled') return 'bg-red-100 text-red-800';
-//     return 'bg-gray-100 text-gray-800';
-//   };
-
-//   const getCategoryClass = (category) => {
-//     if (!category) return 'bg-gray-100 text-gray-800';
-    
-//     category = category.toLowerCase();
-//     if (category.includes('proxies')) return 'bg-blue-100 text-blue-800';
-//     if (category.includes('vps')) return 'bg-green-100 text-green-800';
-//     if (category.includes('template')) return 'bg-yellow-100 text-yellow-800';
-//     if (category.includes('non-voip') || category.includes('voip')) return 'bg-red-100 text-red-800';
-//     if (category.includes('vcc')) return 'bg-purple-100 text-purple-800';
-//     return 'bg-indigo-100 text-indigo-800';
-//   };
-
-//   return (
-//     <div className="animate-fade-in">
-//       <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
-//         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
-//           <h1 className="text-2xl font-bold" style={{ color: themeColor }}>Your Orders</h1>
-          
-//           <div className="flex flex-wrap gap-3 items-center">
-//             <button 
-//               onClick={() => setShowFilters(!showFilters)}
-//               className="px-4 py-2 rounded-md bg-gray-100 text-gray-700 hover:bg-gray-200 flex items-center gap-2"
-//             >
-//               <Filter className="h-4 w-4" />
-//               Filter Dates
-//             </button>
-            
-//             <button 
-//               onClick={generatePdfReport}
-//               className="px-4 py-2 rounded-md text-white hover:opacity-90 flex items-center gap-2"
-//               style={{ backgroundColor: themeColor }}
-//               disabled={loading || filteredOrders.length === 0}
-//             >
-//               <Download className="h-4 w-4" />
-//               Download Report
-//             </button>
-            
-//             <button 
-//               onClick={() => window.print()}
-//               className="px-4 py-2 rounded-md bg-gray-700 text-white hover:bg-gray-800 flex items-center gap-2"
-//               disabled={loading || filteredOrders.length === 0}
-//             >
-//               <Printer className="h-4 w-4" />
-//               Print
-//             </button>
-//           </div>
-//         </div>
-        
-//         {showFilters && (
-//           <div className="border border-gray-200 rounded-lg p-4 mb-6">
-//             <h3 className="text-lg font-medium text-gray-800 mb-4">Filter Orders by Date</h3>
-//             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-//               <div className="space-y-2">
-//                 <label className="text-sm font-medium text-gray-700 flex items-center">
-//                   <Calendar className="h-4 w-4 mr-2" />
-//                   Start Date
-//                 </label>
-//                 <input
-//                   type="date"
-//                   ref={startDateRef}
-//                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:border-transparent"
-//                   style={{ outlineColor: themeColor }}
-//                 />
-//               </div>
-              
-//               <div className="space-y-2">
-//                 <label className="text-sm font-medium text-gray-700 flex items-center">
-//                   <Calendar className="h-4 w-4 mr-2" />
-//                   End Date
-//                 </label>
-//                 <input
-//                   type="date"
-//                   ref={endDateRef}
-//                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:border-transparent"
-//                   style={{ outlineColor: themeColor }}
-//                 />
-//               </div>
-//             </div>
-            
-//             <div className="flex justify-end gap-3">
-//               <button 
-//                 onClick={resetFilters}
-//                 className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-900"
-//               >
-//                 Reset
-//               </button>
-//               <button 
-//                 onClick={applyDateFilters}
-//                 className="px-4 py-2 text-sm font-medium text-white rounded-md hover:opacity-90"
-//                 style={{ backgroundColor: themeColor }}
-//               >
-//                 Apply Filters
-//               </button>
-//             </div>
-//           </div>
-//         )}
-        
-//         <div className="relative mb-6">
-//           <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-//             <Search className="w-5 h-5 text-gray-400" />
-//           </div>
-//           <input 
-//             type="text" 
-//             className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:border-transparent" 
-//             placeholder="Search orders..."
-//             value={searchTerm}
-//             onChange={(e) => setSearchTerm(e.target.value)}
-//             style={{ outlineColor: themeColor }}
-//           />
-//         </div>
-        
-//         <div className="bg-gray-50 p-4 rounded-md mb-6 border border-gray-200">
-//           <h3 className="text-lg font-medium text-gray-800 mb-2">Customer Information</h3>
-//           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-//             <div>
-//               <p className="text-sm text-gray-600">Customer ID:</p>
-//               <p className="text-md font-medium">
-//                 {activeCustomerId || 'Not available'}
-//               </p>
-//             </div>
-//             <div>
-//               <p className="text-sm text-gray-600">Name:</p>
-//               <p className="text-md font-medium">
-//                 {userDetails.firstName || ''} {userDetails.lastName || ''}
-//               </p>
-//             </div>
-//             <div>
-//               <p className="text-sm text-gray-600">Email:</p>
-//               <p className="text-md font-medium">{userDetails.email || 'Not available'}</p>
-//             </div>
-//             <div>
-//               <p className="text-sm text-gray-600">Total Orders:</p>
-//               <p className="text-md font-medium">{filteredOrders.length}</p>
-//             </div>
-//           </div>
-//         </div>
-        
-//         <div className="overflow-x-auto">
-//           <table className="min-w-full bg-white border border-gray-200">
-//             <thead className="text-white" style={{ backgroundColor: themeColor }}>
-//               <tr>
-//                 <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Order ID</th>
-//                 <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Date</th>
-//                 <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Product</th>
-//                 <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Category</th>
-//                 <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Quantity</th>
-//                 <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Amount</th>
-//                 <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Status</th>
-//               </tr>
-//             </thead>
-//             <tbody className="divide-y divide-gray-200">
-//               {loading ? (
-//                 [...Array(5)].map((_, index) => (
-//                   <tr key={index}>
-//                     {[...Array(7)].map((_, colIndex) => (
-//                       <td key={colIndex} className="px-6 py-4 whitespace-nowrap">
-//                         <div className="h-5 bg-gray-200 rounded animate-pulse"></div>
-//                       </td>
-//                     ))}
-//                   </tr>
-//                 ))
-//               ) : error ? (
-//                 <tr>
-//                   <td colSpan={7} className="px-6 py-4 text-center text-red-500">
-//                     Error loading orders: {error}
-//                   </td>
-//                 </tr>
-//               ) : filteredOrders.length === 0 ? (
-//                 <tr>
-//                   <td colSpan={7} className="px-6 py-4 text-center text-gray-500">
-//                     No orders found. {searchTerm ? 'Try adjusting your search.' : 'You have not made any purchases yet.'}
-//                   </td>
-//                 </tr>
-//               ) : (
-//                 filteredOrders.map((order, index) => (
-//                   <tr key={index} className="hover:bg-gray-50">
-//                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{order.id || 'N/A'}</td>
-//                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{formatDate(order.date)}</td>
-//                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{order.product || 'N/A'}</td>
-//                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-//                       <span className={`px-2 py-1 text-xs rounded-full ${getCategoryClass(order.category)}`}>
-//                         {order.category || 'N/A'}
-//                       </span>
-//                     </td>
-//                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{order.quantity || '0'}</td>
-//                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-//                       ${parseFloat(order.amount || 0).toFixed(2)}
-//                     </td>
-//                     <td className="px-6 py-4 whitespace-nowrap text-sm">
-//                       <span className={`px-2 py-1 text-xs rounded-full ${getStatusClass(order.status)}`}>
-//                         {order.status ? (order.status.charAt(0).toUpperCase() + order.status.slice(1)) : 'N/A'}
-//                       </span>
-//                     </td>
-//                   </tr>
-//                 ))
-//               )}
-//             </tbody>
-//           </table>
-//         </div>
-        
-//         {filteredOrders.length > 0 && (
-//           <div className="mt-6 text-right">
-//             <p className="text-lg font-bold" style={{ color: themeColor }}>
-//               Total Amount: ${calculateTotal()}
-//             </p>
-//           </div>
-//         )}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default OrdersPage;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import { useState, useRef } from 'react';
-// import { useDashboard } from './DashboardContext';
-// import { ShoppingCart, Calendar, Download, Filter, Printer, Search } from 'lucide-react';
-
-// // Add jspdf and jspdf-autotable as dependencies
-// {/* <lov-add-dependency>jspdf@latest</lov-add-dependency>
-// <lov-add-dependency>jspdf-autotable@latest</lov-add-dependency> */}
-
-// const OrdersPage = () => {
-//   const { orders, ordersLoading, ordersError } = useDashboard();
-//   const [showFilters, setShowFilters] = useState(false);
-//   const startDateRef = useRef(null);
-//   const endDateRef = useRef(null);
-  
-//   // Theme color
-//   const themeColor = "#804fc2";
-//   const themeColorLight = "#804fc220"; // 20% opacity for lighter background
-  
-//   // Mock orders data for demo purposes
-//   const mockOrders = [
-//     {
-//       id: 'ORD-12345',
-//       date: '2023-04-01',
-//       product: 'Premium Proxy Package',
-//       category: 'Proxies',
-//       quantity: 10,
-//       amount: 99.99,
-//       status: 'completed'
-//     },
-//     {
-//       id: 'ORD-12346',
-//       date: '2023-04-02',
-//       product: 'VPS Server - Basic',
-//       category: 'VPS Server',
-//       quantity: 1,
-//       amount: 29.99,
-//       status: 'completed'
-//     },
-//     {
-//       id: 'ORD-12347',
-//       date: '2023-04-03',
-//       product: 'US Non-VOIP Number',
-//       category: 'Non-VOIP NUMBERS',
-//       quantity: 5,
-//       amount: 24.95,
-//       status: 'processing'
-//     },
-//     {
-//       id: 'ORD-12348',
-//       date: '2023-04-04',
-//       product: 'VCC Card - Gold',
-//       category: 'VCC Card',
-//       quantity: 2,
-//       amount: 19.98,
-//       status: 'completed'
-//     },
-//     {
-//       id: 'ORD-12349',
-//       date: '2023-04-05',
-//       product: 'ID Card Template Premium',
-//       category: 'PSD Templates',
-//       quantity: 1,
-//       amount: 14.99,
-//       status: 'completed'
-//     }
-//   ];
-  
-//   // Generate PDF report
-//   const generatePdfReport = () => {
-//     // Dynamic import of jsPDF and jspdf-autotable
-//     import('jspdf').then(({ default: jsPDF }) => {
-//       import('jspdf-autotable').then(({ default: autoTable }) => {
-//         const doc = new jsPDF();
-        
-//         // Get filter dates
-//         const startDate = startDateRef.current?.value || '';
-//         const endDate = endDateRef.current?.value || '';
-        
-//         // Convert theme color from hex to RGB
-//         const r = parseInt(themeColor.slice(1, 3), 16);
-//         const g = parseInt(themeColor.slice(3, 5), 16);
-//         const b = parseInt(themeColor.slice(5, 7), 16);
-        
-//         // Add Report Header with theme branding
-//         doc.setFillColor(r, g, b); // Theme color
-//         doc.rect(0, 0, doc.internal.pageSize.width, 40, 'F');
-        
-//         doc.setTextColor(255, 255, 255);
-//         doc.setFont('helvetica', 'bold');
-//         doc.setFontSize(22);
-//         doc.text('EXACTCONNECT', 15, 20);
-        
-//         doc.setFontSize(14);
-//         doc.setFont('helvetica', 'normal');
-//         doc.text('Orders Report', 15, 30);
-        
-//         // Add filter date range if specified
-//         if (startDate && endDate) {
-//           doc.setTextColor(0, 0, 0);
-//           doc.setFontSize(12);
-//           doc.text(`Date Range: ${startDate} to ${endDate}`, 15, 50);
-//         } else {
-//           doc.setTextColor(0, 0, 0);
-//           doc.setFontSize(12);
-//           doc.text('All Orders', 15, 50);
-//         }
-        
-//         // Generate current date for the report
-//         const reportDate = new Date().toLocaleDateString();
-//         doc.setFontSize(10);
-//         doc.text(`Report Generated: ${reportDate}`, 15, 58);
-        
-//         // Filter orders based on date range if specified
-//         let filteredOrders = [...mockOrders];
-//         if (startDate && endDate) {
-//           filteredOrders = mockOrders.filter(order => {
-//             return order.date >= startDate && order.date <= endDate;
-//           });
-//         }
-        
-//         // Add orders table
-//         autoTable(doc, {
-//           startY: 65,
-//           head: [['Order ID', 'Date', 'Product', 'Category', 'Quantity', 'Amount', 'Status']],
-//           body: filteredOrders.map(order => [
-//             order.id,
-//             order.date,
-//             order.product,
-//             order.category,
-//             order.quantity,
-//             `$${order.amount.toFixed(2)}`,
-//             order.status.charAt(0).toUpperCase() + order.status.slice(1)
-//           ]),
-//           styles: {
-//             cellPadding: 3,
-//             fontSize: 10,
-//             valign: 'middle',
-//             overflow: 'linebreak',
-//             lineWidth: 0.1,
-//             lineColor: [0, 0, 0]
-//           },
-//           headStyles: {
-//             fillColor: [r, g, b], // Theme color
-//             textColor: [255, 255, 255],
-//             fontStyle: 'bold',
-//             halign: 'left'
-//           },
-//           alternateRowStyles: {
-//             fillColor: [240, 240, 250]
-//           },
-//           margin: { top: 65 }
-//         });
-        
-//         // Calculate total
-//         const totalAmount = filteredOrders.reduce((sum, order) => sum + order.amount, 0);
-        
-//         // Add total
-//         const finalY = doc.lastAutoTable.finalY || 65;
-//         doc.setFontSize(12);
-//         doc.setFont('helvetica', 'bold');
-//         doc.text(`Total Amount: $${totalAmount.toFixed(2)}`, 150, finalY + 15, { align: 'right' });
-        
-//         // Add footer with ExactConnect branding
-//         const pageCount = doc.internal.getNumberOfPages();
-//         for (let i = 1; i <= pageCount; i++) {
-//           doc.setPage(i);
-//           doc.setFontSize(10);
-//           doc.setTextColor(100, 100, 100);
-//           doc.text('ExactConnect - Your Trusted Service Provider', doc.internal.pageSize.width / 2, doc.internal.pageSize.height - 10, { align: 'center' });
-//           doc.text(`Page ${i} of ${pageCount}`, doc.internal.pageSize.width - 15, doc.internal.pageSize.height - 10, { align: 'right' });
-//         }
-        
-//         // Save the PDF
-//         doc.save('exactconnect_orders_report.pdf');
-//       });
-//     });
-//   };
-
-//   return (
-//     <div className="animate-fade-in">
-//       <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
-//         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
-//           <h1 className="text-2xl font-bold" style={{ color: themeColor }}>Orders</h1>
-          
-//           <div className="flex flex-wrap gap-3 items-center">
-//             <button 
-//               onClick={() => setShowFilters(!showFilters)}
-//               className="px-4 py-2 rounded-md bg-gray-100 text-gray-700 hover:bg-gray-200 flex items-center gap-2"
-//             >
-//               <Filter className="h-4 w-4" />
-//               Filter Dates
-//             </button>
-            
-//             <button 
-//               onClick={generatePdfReport}
-//               className="px-4 py-2 rounded-md text-white hover:opacity-90 flex items-center gap-2"
-//               style={{ backgroundColor: themeColor }}
-//             >
-//               <Download className="h-4 w-4" />
-//               Download Report
-//             </button>
-            
-//             <button 
-//               onClick={() => window.print()}
-//               className="px-4 py-2 rounded-md bg-gray-700 text-white hover:bg-gray-800 flex items-center gap-2"
-//             >
-//               <Printer className="h-4 w-4" />
-//               Print
-//             </button>
-//           </div>
-//         </div>
-        
-//         {/* Filter panel */}
-//         {showFilters && (
-//           <div className="border border-gray-200 rounded-lg p-4 mb-6">
-//             <h3 className="text-lg font-medium text-gray-800 mb-4">Filter Orders by Date</h3>
-//             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-//               <div className="space-y-2">
-//                 <label className="text-sm font-medium text-gray-700 flex items-center">
-//                   <Calendar className="h-4 w-4 mr-2" />
-//                   Start Date
-//                 </label>
-//                 <input
-//                   type="date"
-//                   ref={startDateRef}
-//                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:border-transparent"
-//                   style={{ outlineColor: themeColor }}
-//                 />
-//               </div>
-              
-//               <div className="space-y-2">
-//                 <label className="text-sm font-medium text-gray-700 flex items-center">
-//                   <Calendar className="h-4 w-4 mr-2" />
-//                   End Date
-//                 </label>
-//                 <input
-//                   type="date"
-//                   ref={endDateRef}
-//                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:border-transparent"
-//                   style={{ outlineColor: themeColor }}
-//                 />
-//               </div>
-//             </div>
-            
-//             <div className="flex justify-end gap-3">
-//               <button 
-//                 onClick={() => {
-//                   if (startDateRef.current) startDateRef.current.value = '';
-//                   if (endDateRef.current) endDateRef.current.value = '';
-//                 }}
-//                 className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-900"
-//               >
-//                 Reset
-//               </button>
-//               <button 
-//                 onClick={() => setShowFilters(false)}
-//                 className="px-4 py-2 text-sm font-medium text-white rounded-md hover:opacity-90"
-//                 style={{ backgroundColor: themeColor }}
-//               >
-//                 Apply Filters
-//               </button>
-//             </div>
-//           </div>
-//         )}
-        
-//         {/* Search bar */}
-//         <div className="relative mb-6">
-//           <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-//             <Search className="w-5 h-5 text-gray-400" />
-//           </div>
-//           <input 
-//             type="text" 
-//             className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:border-transparent" 
-//             placeholder="Search orders..."
-//             style={{ outlineColor: themeColor }}
-//           />
-//         </div>
-        
-//         {/* Orders Table */}
-//         <div className="overflow-x-auto">
-//           <table className="min-w-full bg-white border border-gray-200">
-//             <thead className="text-white" style={{ backgroundColor: themeColor }}>
-//               <tr>
-//                 <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Order ID</th>
-//                 <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Date</th>
-//                 <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Product</th>
-//                 <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Category</th>
-//                 <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Quantity</th>
-//                 <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Amount</th>
-//                 <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Status</th>
-//               </tr>
-//             </thead>
-//             <tbody className="divide-y divide-gray-200">
-//               {ordersLoading ? (
-//                 // Loading state
-//                 [...Array(5)].map((_, index) => (
-//                   <tr key={index}>
-//                     {[...Array(7)].map((_, colIndex) => (
-//                       <td key={colIndex} className="px-6 py-4 whitespace-nowrap">
-//                         <div className="h-5 bg-gray-200 rounded animate-pulse"></div>
-//                       </td>
-//                     ))}
-//                   </tr>
-//                 ))
-//               ) : ordersError ? (
-//                 // Error state
-//                 <tr>
-//                   <td colSpan={7} className="px-6 py-4 text-center text-red-500">
-//                     Error loading orders: {ordersError}
-//                   </td>
-//                 </tr>
-//               ) : mockOrders.length === 0 ? (
-//                 // Empty state
-//                 <tr>
-//                   <td colSpan={7} className="px-6 py-4 text-center text-gray-500">
-//                     No orders found. Try adjusting your filters.
-//                   </td>
-//                 </tr>
-//               ) : (
-//                 // Data state (using mock data)
-//                 mockOrders.map((order, index) => (
-//                   <tr key={index} className="hover:bg-gray-50">
-//                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{order.id}</td>
-//                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{order.date}</td>
-//                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{order.product}</td>
-//                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-//                       <span className={`px-2 py-1 text-xs rounded-full ${
-//                         order.category === 'Proxies' 
-//                           ? 'bg-blue-100 text-blue-800' 
-//                           : order.category === 'VPS Server'
-//                             ? 'bg-green-100 text-green-800'
-//                             : order.category === 'PSD Templates'
-//                               ? 'bg-yellow-100 text-yellow-800'
-//                               : order.category === 'Non-VOIP NUMBERS'
-//                                 ? 'bg-red-100 text-red-800'
-//                                 : 'bg-purple-100 text-purple-800'
-//                       }`}>
-//                         {order.category}
-//                       </span>
-//                     </td>
-//                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{order.quantity}</td>
-//                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${order.amount.toFixed(2)}</td>
-//                     <td className="px-6 py-4 whitespace-nowrap text-sm">
-//                       <span className={`px-2 py-1 text-xs rounded-full ${
-//                         order.status === 'completed' 
-//                           ? 'bg-green-100 text-green-800' 
-//                           : order.status === 'processing'
-//                             ? 'bg-blue-100 text-blue-800'
-//                             : 'bg-gray-100 text-gray-800'
-//                       }`}>
-//                         {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
-//                       </span>
-//                     </td>
-//                   </tr>
-//                 ))
-//               )}
-//             </tbody>
-//           </table>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default OrdersPage;
-
-
-
-
-
-
-
-
-
-
 import { useState, useRef, useEffect } from 'react';
-import { Calendar, Download, Filter, Printer, Search } from 'lucide-react';
-import { SERVER_URL, mockOrders } from "@/services/data";
+import { Calendar, Download, Filter, Printer, Search, Info, Wifi, Globe, Clock, Check, AlertCircle, ArrowDownUp, History } from 'lucide-react';
 import { useDashboard } from "./DashboardContext";
+import { toast } from 'sonner';
+import { getReliableCustomerId } from '@/lib/userDetails';
+import { SERVER_URL } from '@/services/data';
 
-// jspdf and jspdf-autotable are imported dynamically within the component
+// Theme color
+const themeColor = "#804fc2";
 
 const OrdersPage = () => {
-  const { user, stats } = useDashboard();
+  const { user, stats, setStats } = useDashboard();
   const [orders, setOrders] = useState([]);
   const [filteredOrders, setFilteredOrders] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -943,12 +18,19 @@ const OrdersPage = () => {
   const [showFilters, setShowFilters] = useState(false);
   const startDateRef = useRef(null);
   const endDateRef = useRef(null);
-  
-  // Theme color
-  const themeColor = "#804fc2";
-  const themeColorLight = "#804fc220"; // 20% opacity for lighter background
+  const [activeView, setActiveView] = useState("active");
+  const [noOrdersFound, setNoOrdersFound] = useState(false);
 
-  // Fetch orders from API
+  // Calculate days remaining in lease
+  const calculateDaysRemaining = (endTimestamp) => {
+    if (!endTimestamp) return 0;
+    const now = new Date().getTime();
+    const end = new Date(parseInt(endTimestamp)).getTime();
+    const daysRemaining = Math.max(0, Math.ceil((end - now) / (1000 * 60 * 60 * 24)));
+    return daysRemaining;
+  };
+
+  // Fetch orders directly in OrdersPage
   useEffect(() => {
     const fetchOrders = async () => {
       if (!user || !user.customerId) {
@@ -959,56 +41,132 @@ const OrdersPage = () => {
 
       try {
         setLoading(true);
-        // For development, use mock data instead of actual API call
-        // In production, uncomment the fetch code below
-        /*
-        const response = await fetch(`${SERVER_URL}/orders/search?customerId=${user.customerId}`);
+        const customerId = user.customerId || getReliableCustomerId();
         
-        if (!response.ok) {
-          throw new Error(`Error ${response.status}: ${response.statusText}`);
+        if (!customerId) {
+          setError("Customer ID not available. Please log in again.");
+          setLoading(false);
+          return;
+        }
+
+        console.log(`Fetching orders for customer: ${customerId}`);
+        
+        // Fetch orders directly
+        const ordersResponse = await fetch(`${SERVER_URL}/orders/search?customerId=${customerId}`);
+        
+        if (!ordersResponse.ok) {
+          throw new Error(`Could not fetch your orders. Server returned: ${ordersResponse.status} ${ordersResponse.statusText}`);
         }
         
-        const data = await response.json();
-        */
+        const ordersData = await ordersResponse.json();
         
-        // Using mock orders from data.js or stats.orders if available
-        const data = stats.orders && stats.orders.length > 0 ? stats.orders : mockOrders;
+        console.log("Orders data received:", ordersData);
         
-        // Simulate network delay
-        setTimeout(() => {
-          setOrders(data);
-          setFilteredOrders(data);
-          setLoading(false);
-        }, 800);
+        if (!ordersData || !ordersData.content || ordersData.content.length === 0) {
+          // API successfully returned but no data found
+          setOrders([]);
+          setFilteredOrders([]);
+          setNoOrdersFound(true);
+          toast.info("No active proxies found for your account.");
+        } else {
+          // Ensure ordersData.content is an array before using it
+          const ordersArray = Array.isArray(ordersData.content) ? ordersData.content : [];
+          
+          console.log("Processed orders array:", ordersArray);
+          
+          // Update local state
+          setOrders(ordersArray);
+          setFilteredOrders(ordersArray);
+          setNoOrdersFound(false);
+          
+          // Only update stats if ordersArray has items
+          if (ordersArray.length > 0) {
+            // Update stats in context with order information
+            const ordersByCategory = ordersArray.reduce((acc, order) => {
+              const category = (order.product?.category || '').toLowerCase();
+              acc[category] = (acc[category] || 0) + 1;
+              return acc;
+            }, {});
+            
+            const totalSpent = ordersArray.reduce((sum, order) => sum + parseFloat(order.totalAmount || 0), 0).toFixed(2);
+            
+            setStats(prev => ({
+              ...prev,
+              productsByCategory: {
+                proxies: ordersByCategory.proxies || ordersArray.length, // Default all to proxies if no category
+                vps: ordersByCategory['vps server'] || 0,
+                templates: ordersByCategory['psd templates'] || 0,
+                nonVoip: ordersByCategory['non-voip numbers'] || 0,
+                vcc: ordersByCategory.vcc || 0
+              },
+              totalSpent,
+              totalProducts: ordersArray.length
+            }));
+          } else {
+            setNoOrdersFound(true);
+            toast.info("No active proxies found for your account.");
+          }
+        }
       } catch (err) {
         console.error('Error fetching orders:', err);
-        setError(err.message);
+        setError(err.message || "Could not fetch your orders. Please try again later.");
+        toast.error("Failed to load orders");
+        setOrders([]);
+        setFilteredOrders([]);
+        setNoOrdersFound(true);
+      } finally {
         setLoading(false);
       }
     };
 
     fetchOrders();
-  }, [user, stats.orders]); // Add user and stats.orders as dependency to refetch if it changes
+  }, [user, setStats]);
 
   // Handle search
   useEffect(() => {
+    // Ensure orders is an array before filtering
+    if (!Array.isArray(orders)) {
+      setFilteredOrders([]);
+      return;
+    }
+    
     if (searchTerm.trim() === '') {
       setFilteredOrders(orders);
     } else {
-      const filtered = orders.filter(order => 
-        order.id?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        order.product?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        order.category?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        order.status?.toLowerCase().includes(searchTerm.toLowerCase())
-      );
+      const filtered = orders.filter(order => {
+        const orderData = order.orderData || {};
+        return (
+          orderData.PROXY_ID?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          orderData.ISP?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          orderData.LOCATION_CITY?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          orderData.LOCATION_REGION?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          orderData.IP?.includes(searchTerm) ||
+          order.externalOrderId?.includes(searchTerm)
+        );
+      });
       setFilteredOrders(filtered);
     }
   }, [searchTerm, orders]);
 
+  // Format date from timestamp
+  const formatDate = (timestamp) => {
+    if (!timestamp) return 'N/A';
+    return new Date(parseInt(timestamp)).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric'
+    });
+  };
+
   // Apply date filters
   const applyDateFilters = () => {
-    const startDate = startDateRef.current?.value;
-    const endDate = endDateRef.current?.value;
+    // Ensure orders is an array before filtering
+    if (!Array.isArray(orders)) {
+      return;
+    }
+    
+    const startDate = startDateRef.current?.value ? new Date(startDateRef.current.value).getTime() : null;
+    const endDate = endDateRef.current?.value ? new Date(endDateRef.current.value).getTime() : null;
     
     if (!startDate && !endDate) {
       setFilteredOrders(orders);
@@ -1016,8 +174,12 @@ const OrdersPage = () => {
     }
     
     const filtered = orders.filter(order => {
-      const orderDate = order.date;
-      return (!startDate || orderDate >= startDate) && (!endDate || orderDate <= endDate);
+      const orderData = order.orderData || {};
+      const leaseStartDate = orderData.LEASE_START_DATE ? parseInt(orderData.LEASE_START_DATE) : null;
+      const leaseEndDate = orderData.LEASE_VALID_UNTIL ? parseInt(orderData.LEASE_VALID_UNTIL) : null;
+      
+      return (!startDate || (leaseStartDate && leaseStartDate >= startDate)) && 
+             (!endDate || (leaseEndDate && leaseEndDate <= endDate));
     });
     
     setFilteredOrders(filtered);
@@ -1028,12 +190,15 @@ const OrdersPage = () => {
   const resetFilters = () => {
     if (startDateRef.current) startDateRef.current.value = '';
     if (endDateRef.current) endDateRef.current.value = '';
-    setFilteredOrders(orders);
+    setFilteredOrders(Array.isArray(orders) ? orders : []);
     setSearchTerm('');
   };
   
   // Generate PDF report
-  const generatePdfReport = () => {
+  const generatePdfReport = (ordersList = filteredOrders) => {
+    // Ensure ordersList is an array
+    const safeOrdersList = Array.isArray(ordersList) ? ordersList : [];
+    
     // Dynamic import of jsPDF and jspdf-autotable
     import('jspdf').then(({ default: jsPDF }) => {
       import('jspdf-autotable').then(({ default: autoTable }) => {
@@ -1059,7 +224,7 @@ const OrdersPage = () => {
         
         doc.setFontSize(14);
         doc.setFont('helvetica', 'normal');
-        doc.text('Orders Report', 15, 30);
+        doc.text('Proxies Report', 15, 30);
         
         // Add customer details
         doc.setTextColor(0, 0, 0);
@@ -1068,9 +233,9 @@ const OrdersPage = () => {
         
         // Add filter date range if specified
         if (startDate && endDate) {
-          doc.text(`Date Range: ${startDate} to ${endDate}`, 15, 58);
+          doc.text(`Lease Period: ${startDate} to ${endDate}`, 15, 58);
         } else {
-          doc.text('All Orders', 15, 58);
+          doc.text(`${activeView === 'active' ? 'Active Proxies' : activeView === 'expired' ? 'Expired Proxies' : 'All Proxies'}`, 15, 58);
         }
         
         // Generate current date for the report
@@ -1081,16 +246,24 @@ const OrdersPage = () => {
         // Add orders table
         autoTable(doc, {
           startY: 75,
-          head: [['Order ID', 'Date', 'Product', 'Category', 'Quantity', 'Amount', 'Status']],
-          body: filteredOrders.map(order => [
-            order.id,
-            order.date,
-            order.product,
-            order.category || 'General',
-            order.quantity || 1,
-            `$${parseFloat(order.amount).toFixed(2)}`,
-            order.status ? order.status.charAt(0).toUpperCase() + order.status.slice(1) : 'Completed'
-          ]),
+          head: [['Proxy ID', 'IP Address', 'Location', 'ISP', 'Connection', 'Start Date', 'End Date', 'Status']],
+          body: safeOrdersList.map(order => {
+            const orderData = order.orderData || {};
+            const daysRemaining = calculateDaysRemaining(orderData.LEASE_VALID_UNTIL);
+            const isExpired = daysRemaining === 0;
+            const status = isExpired ? 'Expired' : `${daysRemaining} days remaining`;
+            
+            return [
+              orderData.PROXY_ID || order.externalOrderId || 'N/A',
+              orderData.IP || 'N/A',
+              `${orderData.LOCATION_CITY || ''}, ${orderData.LOCATION_REGION || ''} (${orderData.LOCATION_COUNTRY_CODE || 'N/A'})`,
+              orderData.ISP || 'N/A',
+              orderData.CONNECTIVITY || 'N/A',
+              formatDate(orderData.LEASE_START_DATE),
+              formatDate(orderData.LEASE_VALID_UNTIL),
+              status
+            ];
+          }),
           styles: {
             cellPadding: 3,
             fontSize: 10,
@@ -1111,36 +284,209 @@ const OrdersPage = () => {
           margin: { top: 75 }
         });
         
-        // Calculate total
-        const totalAmount = filteredOrders.reduce((sum, order) => sum + parseFloat(order.amount), 0);
-        
-        // Add total
-        const finalY = doc.lastAutoTable.finalY || 75;
-        doc.setFontSize(12);
-        doc.setFont('helvetica', 'bold');
-        doc.text(`Total Amount: $${totalAmount.toFixed(2)}`, 150, finalY + 15, { align: 'right' });
-        
         // Add footer with ExactConnect branding
         const pageCount = doc.internal.getNumberOfPages();
         for (let i = 1; i <= pageCount; i++) {
           doc.setPage(i);
           doc.setFontSize(10);
           doc.setTextColor(100, 100, 100);
-          doc.text('ExactConnect - Your Trusted Service Provider', doc.internal.pageSize.width / 2, doc.internal.pageSize.height - 10, { align: 'center' });
+          doc.text('ExactConnect - Your Trusted Proxy Provider', doc.internal.pageSize.width / 2, doc.internal.pageSize.height - 10, { align: 'center' });
           doc.text(`Page ${i} of ${pageCount}`, doc.internal.pageSize.width - 15, doc.internal.pageSize.height - 10, { align: 'right' });
         }
         
         // Save the PDF
-        doc.save(`exactconnect_orders_${user?.customerId || 'unknown'}.pdf`);
+        doc.save(`exactconnect_proxies_${user?.customerId || 'unknown'}_${activeView}.pdf`);
       });
     });
   };
+  
+  // Helper function to render proxy content based on status
+  const renderProxiesContent = (proxies, title, isLoading, errorMessage) => {
+    // Ensure proxies is an array
+    const safeProxies = Array.isArray(proxies) ? proxies : [];
+    
+    if (isLoading) {
+      return (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {[...Array(6)].map((_, index) => (
+            <div key={index} className="border border-gray-200 rounded-lg p-4 bg-white">
+              <div className="h-6 bg-gray-200 rounded animate-pulse mb-3 w-1/3"></div>
+              <div className="h-4 bg-gray-200 rounded animate-pulse mb-2"></div>
+              <div className="h-4 bg-gray-200 rounded animate-pulse mb-2 w-3/4"></div>
+              <div className="h-4 bg-gray-200 rounded animate-pulse mb-2 w-2/3"></div>
+              <div className="h-4 bg-gray-200 rounded animate-pulse w-1/2"></div>
+            </div>
+          ))}
+        </div>
+      );
+    }
+    
+    if (errorMessage) {
+      return (
+        <div className="relative w-full rounded-lg border p-4 border-destructive/50 text-destructive">
+          <AlertCircle className="h-4 w-4 absolute left-4 top-4 text-destructive" />
+          <h5 className="mb-1 font-medium leading-none tracking-tight pl-7">Error</h5>
+          <div className="text-sm pl-7">{errorMessage}</div>
+        </div>
+      );
+    }
+    
+    if (noOrdersFound || safeProxies.length === 0) {
+      return (
+        <div className="bg-gray-50 border border-gray-200 text-gray-700 rounded-lg p-6 text-center">
+          <Info className="h-12 w-12 mx-auto mb-3 text-gray-400" />
+          <p className="text-lg font-medium">No active proxies found</p>
+          <p className="text-sm mt-2">
+            Please check your email (including your spam folder) for your proxy details.
+          </p>
+          <p className="text-sm mt-3">
+            If you still can't find your order information, please contact our support team.
+          </p>
+        </div>
+      );
+    }
+    
+    return (
+      <div className="space-y-6">
+        <h3 className="text-lg font-medium text-gray-800">{title} ({safeProxies.length})</h3>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {safeProxies.map((proxy, index) => {
+            const orderData = proxy.orderData || {};
+            const daysRemaining = calculateDaysRemaining(orderData.LEASE_VALID_UNTIL);
+            const isExpired = daysRemaining === 0;
+            const isExpiringSoon = daysRemaining <= 3 && !isExpired;
+            
+            return (
+              <div 
+                key={index} 
+                className={`border rounded-lg p-4 transition-shadow hover:shadow-md ${
+                  isExpired ? 'bg-red-50 border-red-200' : 
+                  isExpiringSoon ? 'bg-yellow-50 border-yellow-200' : 
+                  'bg-white border-gray-200'
+                }`}
+              >
+                <div className="flex justify-between items-start mb-3">
+                  <h4 className="text-lg font-bold" style={{ color: themeColor }}>
+                    {orderData.PROXY_ID || proxy.externalOrderId || 'Unknown Proxy'}
+                  </h4>
+                  <span className={`px-2 py-1 text-xs rounded-full ${
+                    orderData.CONNECTIVITY?.toLowerCase() === 'cell' 
+                      ? 'bg-green-100 text-green-800' 
+                      : 'bg-blue-100 text-blue-800'
+                  }`}>
+                    {orderData.CONNECTIVITY || 'Unknown'} Connection
+                  </span>
+                </div>
+                
+                <div className="space-y-2 mb-4">
+                  <div className="flex items-center text-sm">
+                    <Globe className="h-4 w-4 mr-2 text-gray-500" />
+                    <span className="font-medium">IP:</span>
+                    <span className="ml-2 font-mono">{orderData.IP || 'N/A'}</span>
+                  </div>
+                  
+                  <div className="flex items-center text-sm">
+                    <Wifi className="h-4 w-4 mr-2 text-gray-500" />
+                    <span className="font-medium">ISP:</span>
+                    <span className="ml-2">{orderData.ISP || 'N/A'}</span>
+                  </div>
+                  
+                  <div className="flex items-center text-sm">
+                    <Info className="h-4 w-4 mr-2 text-gray-500" />
+                    <span className="font-medium">Location:</span>
+                    <span className="ml-2">
+                      {orderData.LOCATION_CITY ? 
+                        `${orderData.LOCATION_CITY}, ${orderData.LOCATION_REGION} (${orderData.LOCATION_COUNTRY_CODE})` 
+                        : 'Unknown'}
+                    </span>
+                  </div>
+                  
+                  <div className="flex items-center text-sm">
+                    <Clock className="h-4 w-4 mr-2 text-gray-500" />
+                    <span className="font-medium">Lease Period:</span>
+                    <span className="ml-2">
+                      {formatDate(orderData.LEASE_START_DATE)} - {formatDate(orderData.LEASE_VALID_UNTIL)}
+                    </span>
+                  </div>
+                </div>
+                
+                <div className="mt-3 pt-3 border-t border-gray-200 flex justify-between items-center">
+                  <div>
+                    {isExpired ? (
+                      <span className="text-red-600 text-sm font-medium flex items-center">
+                        <AlertCircle className="h-4 w-4 mr-1" />
+                        Expired
+                      </span>
+                    ) : isExpiringSoon ? (
+                      <span className="text-yellow-600 text-sm font-medium flex items-center">
+                        <AlertCircle className="h-4 w-4 mr-1" />
+                        {daysRemaining} day{daysRemaining !== 1 ? 's' : ''} remaining
+                      </span>
+                    ) : (
+                      <span className="text-green-600 text-sm font-medium flex items-center">
+                        <Check className="h-4 w-4 mr-1" />
+                        {daysRemaining} day{daysRemaining !== 1 ? 's' : ''} remaining
+                      </span>
+                    )}
+                  </div>
+                  
+                  <div className="space-x-1">
+                    {orderData.RENEWABLE === "true" && (
+                      <span className="px-2 py-1 text-xs bg-purple-100 text-purple-800 rounded-full">
+                        Renewable
+                      </span>
+                    )}
+                    {orderData.AUTO_RENEWABLE === "true" && (
+                      <span className="px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded-full">
+                        Auto-Renew
+                      </span>
+                    )}
+                    {orderData.REFUNDABLE === "true" && (
+                      <span className="px-2 py-1 text-xs bg-green-100 text-green-800 rounded-full">
+                        Refundable
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  };
+
+  // Filter orders based on active tab
+  const getFilteredOrdersByStatus = () => {
+    // Ensure filteredOrders is an array before filtering
+    if (!Array.isArray(filteredOrders)) {
+      console.warn("filteredOrders is not an array:", filteredOrders);
+      return [];
+    }
+    
+    if (activeView === 'active') {
+      return filteredOrders.filter(order => {
+        const orderData = order.orderData || {};
+        return calculateDaysRemaining(orderData.LEASE_VALID_UNTIL) > 0;
+      });
+    } else if (activeView === 'expired') {
+      return filteredOrders.filter(order => {
+        const orderData = order.orderData || {};
+        return calculateDaysRemaining(orderData.LEASE_VALID_UNTIL) === 0;
+      });
+    }
+    return filteredOrders;
+  };
+
+  // Safely get display orders
+  const displayOrders = getFilteredOrdersByStatus();
 
   return (
     <div className="animate-fade-in">
       <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
-          <h1 className="text-2xl font-bold" style={{ color: themeColor }}>Your Orders</h1>
+          <h1 className="text-2xl font-bold" style={{ color: themeColor }}>Your Proxies</h1>
           
           <div className="flex flex-wrap gap-3 items-center">
             <button 
@@ -1148,14 +494,14 @@ const OrdersPage = () => {
               className="px-4 py-2 rounded-md bg-gray-100 text-gray-700 hover:bg-gray-200 flex items-center gap-2"
             >
               <Filter className="h-4 w-4" />
-              Filter Dates
+              Filter by Date
             </button>
             
             <button 
-              onClick={generatePdfReport}
+              onClick={() => generatePdfReport(displayOrders)}
               className="px-4 py-2 rounded-md text-white hover:opacity-90 flex items-center gap-2"
               style={{ backgroundColor: themeColor }}
-              disabled={loading || filteredOrders.length === 0}
+              disabled={loading || displayOrders.length === 0}
             >
               <Download className="h-4 w-4" />
               Download Report
@@ -1164,7 +510,7 @@ const OrdersPage = () => {
             <button 
               onClick={() => window.print()}
               className="px-4 py-2 rounded-md bg-gray-700 text-white hover:bg-gray-800 flex items-center gap-2"
-              disabled={loading || filteredOrders.length === 0}
+              disabled={loading || displayOrders.length === 0}
             >
               <Printer className="h-4 w-4" />
               Print
@@ -1172,15 +518,24 @@ const OrdersPage = () => {
           </div>
         </div>
         
+        {/* Email notification alert */}
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6 text-blue-800">
+          <h3 className="text-md font-medium mb-2 flex items-center">
+            <Info className="h-5 w-5 mr-2" />
+            Important Information
+          </h3>
+          <p>If you cannot see your proxy details below, please check your email for detailed information about your purchase. Remember to also check your spam or junk folder, as proxy details emails might be filtered there.</p>
+        </div>
+        
         {/* Filter panel */}
         {showFilters && (
           <div className="border border-gray-200 rounded-lg p-4 mb-6">
-            <h3 className="text-lg font-medium text-gray-800 mb-4">Filter Orders by Date</h3>
+            <h3 className="text-lg font-medium text-gray-800 mb-4">Filter Proxies by Lease Date</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
               <div className="space-y-2">
                 <label className="text-sm font-medium text-gray-700 flex items-center">
                   <Calendar className="h-4 w-4 mr-2" />
-                  Start Date
+                  Lease Start Date
                 </label>
                 <input
                   type="date"
@@ -1193,7 +548,7 @@ const OrdersPage = () => {
               <div className="space-y-2">
                 <label className="text-sm font-medium text-gray-700 flex items-center">
                   <Calendar className="h-4 w-4 mr-2" />
-                  End Date
+                  Lease End Date
                 </label>
                 <input
                   type="date"
@@ -1230,7 +585,7 @@ const OrdersPage = () => {
           <input 
             type="text" 
             className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:border-transparent" 
-            placeholder="Search orders..."
+            placeholder="Search proxies by ID, IP, location or ISP..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             style={{ outlineColor: themeColor }}
@@ -1239,119 +594,143 @@ const OrdersPage = () => {
         
         {/* Customer info box */}
         <div className="bg-gray-50 p-4 rounded-md mb-6 border border-gray-200">
-          <h3 className="text-lg font-medium text-gray-800 mb-2">Customer Information</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <h3 className="text-lg font-medium text-gray-800 mb-2">Account Information</h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
               <p className="text-sm text-gray-600">Customer ID:</p>
               <p className="text-md font-medium">{user?.customerId || 'Not available'}</p>
             </div>
             <div>
               <p className="text-sm text-gray-600">Name:</p>
-              <p className="text-md font-medium">
-                {user?.name || 'Not available'}
-              </p>
+              <p className="text-md font-medium">{user?.name || 'Not available'}</p>
             </div>
             <div>
               <p className="text-sm text-gray-600">Email:</p>
               <p className="text-md font-medium">{user?.email || 'Not available'}</p>
             </div>
             <div>
-              <p className="text-sm text-gray-600">Total Orders:</p>
-              <p className="text-md font-medium">{filteredOrders.length}</p>
+              <p className="text-sm text-gray-600">Active Proxies:</p>
+              <p className="text-md font-medium">
+                {Array.isArray(orders) ? orders.filter(order => calculateDaysRemaining(order.orderData?.LEASE_VALID_UNTIL) > 0).length : 0}
+              </p>
+            </div>
+            <div>
+              <p className="text-sm text-gray-600">Expired Proxies:</p>
+              <p className="text-md font-medium">
+                {Array.isArray(orders) ? orders.filter(order => calculateDaysRemaining(order.orderData?.LEASE_VALID_UNTIL) === 0).length : 0}
+              </p>
+            </div>
+            <div>
+              <p className="text-sm text-gray-600">Total Proxies:</p>
+              <p className="text-md font-medium">{Array.isArray(orders) ? orders.length : 0}</p>
             </div>
           </div>
         </div>
         
-        {/* Orders Table */}
-        <div className="overflow-x-auto">
-          <table className="min-w-full bg-white border border-gray-200">
-            <thead className="text-white" style={{ backgroundColor: themeColor }}>
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Order ID</th>
-                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Date</th>
-                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Product</th>
-                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Category</th>
-                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Quantity</th>
-                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Amount</th>
-                <th className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Status</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-200">
-              {loading ? (
-                // Loading state
-                [...Array(5)].map((_, index) => (
-                  <tr key={index}>
-                    {[...Array(7)].map((_, colIndex) => (
-                      <td key={colIndex} className="px-6 py-4 whitespace-nowrap">
-                        <div className="h-5 bg-gray-200 rounded animate-pulse"></div>
-                      </td>
-                    ))}
-                  </tr>
-                ))
-              ) : error ? (
-                // Error state
-                <tr>
-                  <td colSpan={7} className="px-6 py-4 text-center text-red-500">
-                    Error loading orders: {error}
-                  </td>
-                </tr>
-              ) : filteredOrders.length === 0 ? (
-                // Empty state
-                <tr>
-                  <td colSpan={7} className="px-6 py-4 text-center text-gray-500">
-                    No orders found. {searchTerm ? 'Try adjusting your search.' : 'You have not made any purchases yet.'}
-                  </td>
-                </tr>
-              ) : (
-                // Data state
-                filteredOrders.map((order, index) => (
-                  <tr key={index} className="hover:bg-gray-50">
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{order.id}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{order.date}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{order.product}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      <span className={`px-2 py-1 text-xs rounded-full ${
-                        (order.category || '').toLowerCase() === 'proxies' 
-                          ? 'bg-blue-100 text-blue-800' 
-                          : (order.category || '').toLowerCase() === 'vps server'
-                            ? 'bg-green-100 text-green-800'
-                            : (order.category || '').toLowerCase() === 'psd templates'
-                              ? 'bg-yellow-100 text-yellow-800'
-                              : (order.category || '').toLowerCase() === 'non-voip numbers'
-                                ? 'bg-red-100 text-red-800'
-                                : 'bg-purple-100 text-purple-800'
-                      }`}>
-                        {order.category || 'General'}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{order.quantity || 1}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      ${parseFloat(order.amount).toFixed(2)}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm">
-                      <span className={`px-2 py-1 text-xs rounded-full ${
-                        (order.status || '').toLowerCase() === 'completed' 
-                          ? 'bg-green-100 text-green-800' 
-                          : (order.status || '').toLowerCase() === 'processing'
-                            ? 'bg-blue-100 text-blue-800'
-                            : 'bg-gray-100 text-gray-800'
-                      }`}>
-                        {order.status ? order.status.charAt(0).toUpperCase() + order.status.slice(1) : 'Completed'}
-                      </span>
-                    </td>
-                  </tr>
-                ))
-              )}
-            </tbody>
-          </table>
+        {/* Tabs for Active and Expired Proxies */}
+        <div className="mb-6">
+          <div className="grid grid-cols-3 w-full max-w-md mb-4 inline-flex h-10 items-center justify-center rounded-md bg-muted p-1 text-muted-foreground">
+            <button 
+              onClick={() => setActiveView("active")}
+              className={`inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 ${activeView === "active" ? "bg-background text-foreground shadow-sm" : ""}`}
+            >
+              <Check className="h-4 w-4 mr-1" />
+              Active Proxies
+            </button>
+            <button 
+              onClick={() => setActiveView("expired")}
+              className={`inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 ${activeView === "expired" ? "bg-background text-foreground shadow-sm" : ""}`}
+            >
+              <History className="h-4 w-4 mr-1" />
+              Expired Proxies
+            </button>
+            <button 
+              onClick={() => setActiveView("all")}
+              className={`inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 ${activeView === "all" ? "bg-background text-foreground shadow-sm" : ""}`}
+            >
+              <ArrowDownUp className="h-4 w-4 mr-1" />
+              All Proxies
+            </button>
+          </div>
+          
+          {/* Content based on active tab */}
+          <div className="mt-0">
+            {renderProxiesContent(
+              activeView === "active" 
+                ? (Array.isArray(orders) ? orders.filter(order => calculateDaysRemaining(order.orderData?.LEASE_VALID_UNTIL) > 0) : [])
+                : activeView === "expired"
+                ? (Array.isArray(orders) ? orders.filter(order => calculateDaysRemaining(order.orderData?.LEASE_VALID_UNTIL) === 0) : [])
+                : orders,
+              activeView === "active" ? "Active Proxies" : activeView === "expired" ? "Expired Proxies" : "All Proxies",
+              loading,
+              error
+            )}
+          </div>
         </div>
         
-        {/* Total amount display */}
-        {filteredOrders.length > 0 && (
-          <div className="mt-6 text-right">
-            <p className="text-lg font-bold" style={{ color: themeColor }}>
-              Total Amount: ${filteredOrders.reduce((sum, order) => sum + parseFloat(order.amount), 0).toFixed(2)}
-            </p>
+        {/* Proxy Connection Details */}
+        {displayOrders.length > 0 && (
+          <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-6">
+            <h3 className="text-lg font-medium text-gray-800 mb-3">Connection Information</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="border border-gray-200 rounded-md bg-white p-4">
+                <h4 className="text-md font-medium mb-2" style={{ color: themeColor }}>SOCKS5 Connection</h4>
+                <div className="space-y-2">
+                  <div className="flex flex-wrap items-center text-sm">
+                    <span className="font-medium w-20">SOCK IP:</span>
+                    <code className="px-2 py-1 bg-gray-100 rounded font-mono">
+                      {displayOrders[0]?.orderData?.SOCK_IP || 'N/A'}
+                    </code>
+                  </div>
+                  <div className="flex flex-wrap items-center text-sm">
+                    <span className="font-medium w-20">SOCK PORT:</span>
+                    <code className="px-2 py-1 bg-gray-100 rounded font-mono">
+                      {displayOrders[0]?.orderData?.SOCK_PORT || 'N/A'}
+                    </code>
+                  </div>
+                  <div className="flex flex-wrap items-center text-sm">
+                    <span className="font-medium w-20">SOCK USER:</span>
+                    <code className="px-2 py-1 bg-gray-100 rounded font-mono">
+                      {displayOrders[0]?.orderData?.PROXY_ID || displayOrders[0]?.externalOrderId || 'N/A'}
+                    </code>
+                  </div>
+                  <div className="flex flex-wrap items-center text-sm">
+                    <span className="font-medium w-20">SOCK PASS:</span>
+                    <code className="px-2 py-1 bg-gray-100 rounded font-mono">
+                      {displayOrders[0]?.orderData?.PROXY_PASSWORD || 'proxy-password'}
+                    </code>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="border border-gray-200 rounded-md bg-white p-4">
+                <h4 className="text-md font-medium mb-2" style={{ color: themeColor }}>HTTP Connection</h4>
+                <div className="space-y-2">
+                  <div className="flex flex-wrap items-center text-sm">
+                    <span className="font-medium w-20">Host:</span>
+                    <code className="px-2 py-1 bg-gray-100 rounded font-mono">
+                      {displayOrders[0]?.orderData?.HOST || displayOrders[0]?.orderData?.IP || 'N/A'}
+                    </code>
+                  </div>
+                  <div className="flex flex-wrap items-center text-sm">
+                    <span className="font-medium w-20">Port:</span>
+                    <code className="px-2 py-1 bg-gray-100 rounded font-mono">8080</code>
+                  </div>
+                  <div className="flex flex-wrap items-center text-sm">
+                    <span className="font-medium w-20">Username:</span>
+                    <code className="px-2 py-1 bg-gray-100 rounded font-mono">
+                      {displayOrders[0]?.orderData?.PROXY_ID || displayOrders[0]?.externalOrderId || 'N/A'}
+                    </code>
+                  </div>
+                  <div className="flex flex-wrap items-center text-sm">
+                    <span className="font-medium w-20">Password:</span>
+                    <code className="px-2 py-1 bg-gray-100 rounded font-mono">
+                      {displayOrders[0]?.orderData?.PROXY_PASSWORD || 'proxy-password'}
+                    </code>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         )}
       </div>

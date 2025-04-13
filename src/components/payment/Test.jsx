@@ -388,6 +388,10 @@
 //   );
 // }
 
+
+
+
+
 import { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
@@ -404,8 +408,8 @@ const numberSchema = z.object({
   phoneNumber: z.string().min(10, 'Phone number must be at least 10 digits'),
 });
 
-// API key for currency conversion - directly set API key here or import from a config file
-const API_KEY = "YOUR_API_KEY_HERE"; // Replace with your actual API key
+// Fixed conversion rate - 1 USD = 130 KES
+const FIXED_CONVERSION_RATE = 130;
 
 export default function Test({ amount = 0, isp, proxyId, countryCode, rating, proxyState, onClose }) {
   // Ensure amount is a proper number
@@ -427,40 +431,21 @@ export default function Test({ amount = 0, isp, proxyId, countryCode, rating, pr
 
   const formattedNumber = formatPhoneNumber(phoneNumber);
 
-  // Currency conversion using the API
+  // Currency conversion using fixed rate instead of API
   useEffect(() => {
-    const convertCurrency = async () => {
-      if (numAmount > 0) {
-        try {
-          setConversionLoading(true);
-          const api = API_KEY;
-          const numericAmount = numAmount;
-          const response = await axios.get(
-            `https://api.currencybeacon.com/v1/convert?from=USD&to=KES&api_key=${api}&amount=${numericAmount}`
-          );
-          
-          const converted = response.data.value;
-          setConvertedAmount(converted);
-          setRoundedAmount(Math.ceil(converted));
-          console.log("API conversion response:", response.data);
-        } catch (error) {
-          console.error("Currency conversion failed:", error);
-          // Fallback conversion in case API fails (approx 130 KES per USD)
-          const fallbackRate = 130;
-          const fallbackConverted = numAmount * fallbackRate;
-          setConvertedAmount(fallbackConverted);
-          setRoundedAmount(Math.ceil(fallbackConverted));
-        } finally {
-          setConversionLoading(false);
-        }
-      } else {
-        setConvertedAmount(0);
-        setRoundedAmount(0);
+    if (numAmount > 0) {
+      // Simulate a brief loading state for UX consistency
+      setTimeout(() => {
+        const converted = numAmount * FIXED_CONVERSION_RATE;
+        setConvertedAmount(converted);
+        setRoundedAmount(Math.ceil(converted));
         setConversionLoading(false);
-      }
-    };
-
-    convertCurrency();
+      }, 300);
+    } else {
+      setConvertedAmount(0);
+      setRoundedAmount(0);
+      setConversionLoading(false);
+    }
   }, [numAmount]);
 
   // Log for debugging

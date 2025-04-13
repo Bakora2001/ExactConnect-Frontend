@@ -1,4 +1,39 @@
-// Utility function to get user details from localStorage
+export const getReliableCustomerId = () => {
+  // Try to get from localStorage first
+  let userData = null;
+  
+  try {
+    const userDetailsStr = localStorage.getItem('userDetails');
+    if (userDetailsStr) {
+      userData = JSON.parse(userDetailsStr);
+    }
+  } catch (e) {
+    console.error("Error parsing userDetails:", e);
+  }
+  
+  // If we have a customer ID in userData, return it
+  if (userData && (userData.customerId || userData.customerReference)) {
+    return userData.customerId || userData.customerReference;
+  }
+  
+  // If we have user_data, try that too
+  try {
+    const userDataStr = localStorage.getItem('user_data');
+    if (userDataStr) {
+      const parsedUserData = JSON.parse(userDataStr);
+      if (parsedUserData && (parsedUserData.customerId || parsedUserData.customerReference)) {
+        return parsedUserData.customerId || parsedUserData.customerReference;
+      }
+    }
+  } catch (e) {
+    console.error("Error parsing user_data:", e);
+  }
+  
+  // No customer ID found
+  return null;
+};
+
+// Helper function to get user details from localStorage
 export const getUserDetails = () => {
   try {
     const userDetails = JSON.parse(localStorage.getItem('userDetails'));
@@ -6,31 +41,6 @@ export const getUserDetails = () => {
   } catch (error) {
     console.error('Error parsing user details from localStorage:', error);
     return {}; // Return an empty object in case of error
-  }
-};
-
-// Another utility function to get the most reliable customer ID from all sources
-export const getReliableCustomerId = () => {
-  try {
-    // Try multiple sources in order of reliability
-    let customerId = null;
-    
-    // First try userDetails
-    const userDetails = JSON.parse(localStorage.getItem('userDetails') || '{}');
-    if (userDetails.customerId) customerId = userDetails.customerId;
-    else if (userDetails.customerReference) customerId = userDetails.customerReference;
-    
-    // Next try user_data
-    if (!customerId) {
-      const userData = JSON.parse(localStorage.getItem('user_data') || '{}');
-      if (userData.customerId) customerId = userData.customerId;
-      else if (userData.customerReference) customerId = userData.customerReference;
-    }
-    
-    return customerId || '';
-  } catch (error) {
-    console.error('Error finding reliable customer ID:', error);
-    return '';
   }
 };
 

@@ -9,7 +9,8 @@ const DashboardContent = () => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const { user, loading } = useDashboard();
   const [welcomeMessage, setWelcomeMessage] = useState('');
-  
+  const [customerReference, setcustomerReference] = useState('');
+
   useEffect(() => {
     // Check if user is authenticated
     const token = localStorage.getItem('auth_token');
@@ -25,8 +26,11 @@ const DashboardContent = () => {
     if (user) {
       if (user.name) {
         setWelcomeMessage(`Welcome back, ${user.name}!`);
-      } else if (user.email) {
+        setcustomerReference(`${user.customerReference}`)
+      }
+       else if (user.email) {
         setWelcomeMessage(`Welcome back, ${user.email.split('@')[0]}!`);
+        setcustomerReference(`${user.customerReference}`)
       } else {
         setWelcomeMessage('Welcome to your dashboard!');
       }
@@ -88,7 +92,7 @@ const DashboardContent = () => {
               </h1>
               {user && user.customerId && (
                 <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                  Customer ID: {user.customerId}
+                  Customer ID: {customerReference}
                 </p>
               )}
             </div>
