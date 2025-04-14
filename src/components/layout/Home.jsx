@@ -64,7 +64,7 @@ const Home = () => {
   }, [isLoading]);
 
   const handleGetStartedClick = () => {
-    navigate('/account/signup');
+    navigate('/account/login');
   };
 
   // CSS for the animations

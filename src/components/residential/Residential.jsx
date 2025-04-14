@@ -150,7 +150,7 @@ const Residential = () => {
   const handleGetStarted = (planIndex) => {
     // For the middle card (index 1), redirect to signup page
     if (planIndex === 1) {
-      window.location.href = '/account/signup';
+      window.location.href = '/account/login';
     } else {
       // For first and third cards, show the contact modal
       openModal('contact');
@@ -984,7 +984,7 @@ const Residential = () => {
             } 
             px-6 py-3 rounded-lg font-semibold transition duration-300 transform hover:scale-105 hover:-translate-y-1
           `}
-          onClick={() => window.location.href = '/account/signup'}
+          onClick={() => window.location.href = '/account/login'}
         >
           Begin Today
         </button>

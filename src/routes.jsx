@@ -18,6 +18,7 @@ const ChangePassword = lazy(() =>
   import('./components/client/account/ChangePassword')
 );
 const CheckMail = lazy(() => import('./components/auth/CheckMail'));
+const AccountActivation = lazy(() => import('./components/auth/AccountActivation'));
 
 //Pages for handling page visit errors
 const NotFound = lazy(() => import('../src/components/errors/NotFound'));
@@ -45,7 +46,7 @@ const AddProductForm = lazy(() =>
   import('../src/components/admin/AddProductsForm')
 );
 const ContactUs = lazy(() => import('../src/components/contact/ContactUs'));
-const Rdp = lazy(() => import('../src/components/rdp/Rdp'));
+const Rdp = lazy(() => import('./components/rdp/Rdp'));
 
 const AdminProducts = lazy(() =>
   import('../src/components/admin/AdminProducts')
@@ -83,6 +84,14 @@ export const router = createBrowserRouter([
     element: (
       <Suspense fallback={<Loader />}>
         <Login />
+      </Suspense>
+    ),
+  },
+  {
+    path: '/account/activate/:token',
+    element: (
+      <Suspense fallback={<Loader />}>
+        <AccountActivation />
       </Suspense>
     ),
   },
@@ -298,7 +307,6 @@ export const router = createBrowserRouter([
     element: <TermsAndPrivacy />,
   },
 ]);
-
 
 // import { createBrowserRouter } from 'react-router-dom';
 

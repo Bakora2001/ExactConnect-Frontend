@@ -5,15 +5,13 @@ import {
   FiUser,
   FiMail,
   FiLock,
-  FiGlobe,
 } from 'react-icons/fi';
-import { FcGoogle } from 'react-icons/fc';
 import Button from '../reusables/Button';
 import Select from 'react-select';
 import { Link, useNavigate } from 'react-router-dom';
 import countryList from 'react-select-country-list';
 import { z } from 'zod';
-import toast from 'react-hot-toast';
+import { toast } from 'react-hot-toast';
 import TestimonialSidebar from '../reusables/TestimonialSidebar';
 
 //Dark mode
@@ -130,7 +128,7 @@ function Signup() {
     setShowPassword((prev) => !prev);
   };
 
-  //Form submittion part
+  //Form submission part
   const onSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -150,8 +148,10 @@ function Signup() {
           lastName: formData.lastName,
           countryCode: formData.countryCode,
           password: formData.password,
+          sendActivationEmail: false, // Set to false to skip activation email
         }),
       });
+      
       //Check the content-type header
       const contentType = response.headers.get('Content-Type');
       let result;
@@ -163,19 +163,13 @@ function Signup() {
       }
 
       if (response.ok) {
-        localStorage.setItem(
-          'userDetails',
-          JSON.stringify({
-            customerReference: result.customerReference,
-            email: result.email,
-            firstName: result.firstName,
-            lastName: result.lastName,
-          })
-        );
-        toast.success('Registation successful');
-        navigate('/dashboard');
+        toast.success('Registration successful! Redirecting to login...');
+        // Short delay before redirecting to login
+        setTimeout(() => {
+          navigate('/account/login');  // Redirecting to the correct login path
+        }, 1500);
       } else {
-        toast.error(errorMessage);
+        toast.error(errorMessage || 'Registration failed. Please try again.');
       }
     } catch (err) {
       if (err instanceof z.ZodError) {
@@ -185,7 +179,7 @@ function Signup() {
         });
         setError(formattedErrors);
       } else {
-        toast.error(errorMessage);
+        toast.error(err.message || 'An error occurred during registration.');
       }
     } finally {
       setLoading(false);
@@ -425,14 +419,6 @@ function Signup() {
               </div>
               {/* Create Account Button */}
               <Button label="Create an account" isLoading={isLoading} />
-
-              <button
-                type="button"
-                className="w-full dark:text-white mt-4 bg-white text-black py-2 rounded-lg flex items-center justify-center border border-gray-300 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500 dark:bg-[#131312] dark:hover:bg-[#131312] dark:hover:bg-opacity-80 dark:border-gray-700 transition-colors duration-200"
-              >
-                <FcGoogle className="mr-2 h-5 w-5" />
-                Sign up with Google
-              </button>
             
               <div className="text-center text-sm mt-4 mb-4">
                 Already have an account?{' '}

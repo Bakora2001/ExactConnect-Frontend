@@ -1,6 +1,8 @@
+
 import React, { useState, useEffect } from 'react';
 import { X, Clock, MapPin, Wifi, Server, Shield, CreditCard, RefreshCw } from 'lucide-react';
 import Test from '../../../components/payment/Test';
+import { getUserDetails } from '../../../lib/userDetails';
 
 const ProxyDetails = ({ rowData, setSelectedRow, darkMode = false }) => {
   // Safe display of values - convert objects to strings if needed
@@ -19,6 +21,7 @@ const ProxyDetails = ({ rowData, setSelectedRow, darkMode = false }) => {
 
   const [isOpen, setIsOpen] = useState(true);
   const [paymentOpen, setPaymentOpen] = useState(false);
+  const [userEmail, setUserEmail] = useState('');
 
   // Add animation effect when opening
   useEffect(() => {
@@ -27,12 +30,24 @@ const ProxyDetails = ({ rowData, setSelectedRow, darkMode = false }) => {
     }
   }, [rowData]);
 
+  // Get fresh user details when payment modal opens
+  useEffect(() => {
+    if (paymentOpen) {
+      const details = getUserDetails();
+      setUserEmail(details.email || '');
+      console.log("User email loaded for payment:", details.email);
+    }
+  }, [paymentOpen]);
+
   const handleClose = () => {
     setIsOpen(false);
     setTimeout(() => setSelectedRow(null), 200); // Wait for animation to complete
   };
 
   const handlePaymentOpen = () => {
+    // Get fresh user details right before opening payment modal
+    const details = getUserDetails();
+    setUserEmail(details.email || '');
     setPaymentOpen(true);
   };
 
@@ -231,6 +246,7 @@ const ProxyDetails = ({ rowData, setSelectedRow, darkMode = false }) => {
               rating={rowData.rating || rowData.stars}
               proxyState={rowData.leases?.worn}
               onClose={() => setPaymentOpen(false)}
+              userEmail={userEmail} // Pass the email directly
             />
           </div>
         </div>
@@ -240,7 +256,6 @@ const ProxyDetails = ({ rowData, setSelectedRow, darkMode = false }) => {
 };
 
 export default ProxyDetails;
-
 
 
 

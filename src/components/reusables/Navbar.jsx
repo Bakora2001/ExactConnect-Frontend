@@ -15,7 +15,7 @@ const NavBar = () => {
 
   // Get Started button handler
   const handleGetStartedClick = () => {
-    navigate('/account/signup');
+    navigate('/account/login');
   };
 
   return (
@@ -59,7 +59,7 @@ const NavBar = () => {
           className="hidden md:block bg-[#6a1fa0] text-white px-6 py-2 rounded-lg shadow-lg hover:bg-[#7C25BA] transition duration-200  "
           onClick={handleGetStartedClick}
         >
-          Get Started
+          Sign in
         </button>
 
         {/* Mobile Menu Button */}
