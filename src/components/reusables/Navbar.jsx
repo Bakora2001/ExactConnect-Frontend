@@ -39,7 +39,7 @@ const NavBar = () => {
         <nav className="hidden md:flex space-x-8 text-white text-xs font-medium">
           {[
             { to: '/residential', label: 'Residential Proxy' },
-            { to: '/rdp', label: 'VPS Server' },
+            { to: '/rdp', label: 'RDP Server' },
             { to: '/psd-template', label: 'PSD Template' },
             { to: '/coming-soon', label: 'Non-VOIP Numbers' },
             { to: '/coming-soon', label: 'VCC Card' },
@@ -92,7 +92,7 @@ const NavBar = () => {
           <nav className="flex flex-col space-y-4">
             {[
               { label: 'Residential Proxy', link: '/residential' },
-              { label: 'VPS Server', link: '/rdp' },
+              { label: 'RDP Server', link: '/rdp' },
               { label: 'VCC Card', link: '/coming-soon' },
               { label: 'Non-VOIP Numbers', link: '/coming-soon' },
               { label: 'Contact Us', link: '/contact' },
