@@ -881,7 +881,7 @@ export default function Test({ amount = 0, isp, proxyId, countryCode, rating, pr
         if (checkoutUrl) {
           console.log('Redirecting to Paystack checkout:', checkoutUrl);
           // Brief delay to ensure toast is visible before redirect
-          setTimeout(() => handlePaystackRedirect(checkoutUrl), 500);  
+          setTimeout(() => handlePaystackRedirect(checkouz<tUrl), 500);  
         } else {
           console.error('No checkout URL in response:', data);
           showToast('Payment processing failed - No checkout link received', 'error');

@@ -59,6 +59,7 @@
 // export default CheckMail;
 
 
+//For allowing the user to check open email
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 

@@ -1,6 +1,7 @@
 import { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { z } from 'zod';
+import { FcGoogle } from 'react-icons/fc';
 import { toast } from 'react-hot-toast';
 import { MailIcon, LockIcon, EyeIcon, EyeOffIcon } from 'lucide-react';
 import Button from '../reusables/Button';
@@ -274,6 +275,25 @@ function Login() {
             {/* Login Button */}
             <Button label="Login" isLoading={isLoading} />
           </form>
+
+          {/* Divider */}
+          <div className="flex items-center my-6">
+            <div className="flex-grow border-t border-gray-700"></div>
+            <span
+              className={`mx-3 text-sm ${
+                darkMode ? 'text-white' : 'text-black'
+              }`}
+            >
+              Or continue with
+            </span>
+            <div className="flex-grow border-t border-gray-700"></div>
+          </div>
+
+          {/* Google Login */}
+          <button className="w-full flex items-center justify-center border dark:border-gray-700 py-3 px-4 rounded-lg hover:bg-black/80 transition duration-300 border-gray-300 bg-gray-100 hover:bg-white/80 dark:bg-[#131312] dark:hover:bg-[#131312] dark:hover:bg-opacity-80">
+            <FcGoogle className="mr-2 h-5 w-5" />
+            Sign in with Google
+          </button>
 
           <div className="text-center text-sm mt-4">
             {`Don't have an account? `}
