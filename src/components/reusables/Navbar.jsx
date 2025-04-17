@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { DarkModeContext } from '../../context/DarkModeContext';
+
 const NavBar = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
@@ -93,6 +94,7 @@ const NavBar = () => {
             {[
               { label: 'Residential Proxy', link: '/residential' },
               { label: 'RDP Server', link: '/rdp' },
+              { label: 'PSD Template', link: '/psd-template' },
               { label: 'VCC Card', link: '/coming-soon' },
               { label: 'Non-VOIP Numbers', link: '/coming-soon' },
               { label: 'Contact Us', link: '/contact' },
