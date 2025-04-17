@@ -232,7 +232,7 @@ const ComingSoon = () => {
                 ) : (
                   <>
                     <Send className="mr-2 h-4 w-4" />
-                    Send Message
+                    Request
                   </>
                 )}
               </button>

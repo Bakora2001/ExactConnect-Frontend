@@ -45,7 +45,7 @@ const DashboardSidebar = () => {
   const menuItems = [
     { name: 'Dashboard', path: '/dashboard', icon: Home },
     { name: 'Proxies', path: '/dashboard/proxies', icon: Laptop },
-    { name: 'VPS Server', path: '/dashboard/vps', icon: Server },
+    { name: 'RDP Server', path: '/dashboard/vps', icon: Server },
     { name: 'PSD Templates', path: '/dashboard/templates', icon: FileImage },
     { name: 'Non-VOIP Numbers', path: '/dashboard/nonvoip', icon: Phone },
     { name: 'VCC Card', path: '/dashboard/vcc', icon: CreditCard },

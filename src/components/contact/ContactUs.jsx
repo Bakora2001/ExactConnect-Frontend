@@ -263,7 +263,7 @@ const ContactUs = () => {
                 name="phone_number"
                 value={formData.phone_number}
                 onChange={handleChange}
-                placeholder="0712345678"
+                placeholder="Start with country code"
                 className={`mt-2 w-full  px-4 py-3 border border-gray-600 ${
                   darkMode ? 'bg-[#131312] text-white' : 'bg-white text-black'
                 } ${
