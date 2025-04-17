@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Globe, Server, Check, MessageSquare, Smartphone } from 'lucide-react';
 import { Button } from "@/components/ui/button";
@@ -585,51 +584,41 @@ const VpsPage = () => {
               <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Select Server Location</h2>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {Object.keys(allServerLocations).map((country) => (
-                <Card 
-                  key={country} 
-                  className="border border-purple-200 hover:border-purple-400 hover:shadow-lg hover:shadow-purple-200/50 transition-all duration-300 overflow-hidden group cursor-pointer"
-                  onClick={() => handleCountrySelect(country)}
-                >
-                  <CardHeader className="bg-gradient-to-br from-purple-600 to-amber-400 text-white">
-                    <div className="flex items-center">
-                      <span className="text-3xl mr-2">{allServerLocations[country][0].flag}</span>
-                      <CardTitle>{country}</CardTitle>
+            {/* Horizontal Country Selection */}
+            <div className="mb-8 overflow-x-auto pb-4">
+              <div className="flex space-x-4 min-w-max">
+                {Object.keys(allServerLocations).map((country) => (
+                  <div
+                    key={country}
+                    onClick={() => handleCountrySelect(country)}
+                    className="flex-shrink-0 cursor-pointer transition-all duration-300"
+                  >
+                    <div className="w-56 border border-purple-200 hover:border-purple-400 rounded-lg overflow-hidden shadow-sm hover:shadow-md">
+                      <div className="bg-gradient-to-r from-purple-600 to-purple-400 p-4 text-white">
+                        <div className="flex items-center">
+                          <span className="text-3xl mr-2">{allServerLocations[country][0].flag}</span>
+                          <h3 className="font-semibold text-lg">{country}</h3>
+                        </div>
+                      </div>
+                      
+                      <div className="p-4 bg-white dark:bg-gray-800">
+                        <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
+                          {allServerLocations[country].length} servers available
+                        </p>
+                        <p className="text-sm font-medium">
+                          From ${Math.min(...allServerLocations[country].map(s => s.price))}/month
+                        </p>
+                        <Button 
+                          className="w-full mt-3 bg-purple-600 hover:bg-purple-700 text-white"
+                          size="sm"
+                        >
+                          View Servers
+                        </Button>
+                      </div>
                     </div>
-                  </CardHeader>
-                  
-                  <CardContent className="pt-6">
-                    <p className="text-gray-600 dark:text-gray-400 mb-4">
-                      {allServerLocations[country].length} high-performance servers available
-                    </p>
-                    
-                    <div className="space-y-2">
-                      <div className="flex items-start">
-                        <Check className="h-5 w-5 text-purple-500 mr-2 flex-shrink-0" />
-                        <span>Starting at ${Math.min(...allServerLocations[country].map(s => s.price))}/month</span>
-                      </div>
-                      <div className="flex items-start">
-                        <Check className="h-5 w-5 text-purple-500 mr-2 flex-shrink-0" />
-                        <span>2 vCPUs, 4GB RAM</span>
-                      </div>
-                      <div className="flex items-start">
-                        <Smartphone className="h-5 w-5 text-purple-500 mr-2 flex-shrink-0" />
-                        <span className="font-semibold">Android Emulator Included</span>
-                      </div>
-                    </div>
-                  </CardContent>
-                  
-                  <CardFooter>
-                    <Button 
-                      className="w-full bg-gradient-to-r from-purple-600 to-amber-500 hover:from-purple-700 hover:to-amber-600 group-hover:translate-y-0 translate-y-1 transition-transform"
-                    >
-                      <Server className="h-5 w-5 mr-2" />
-                      View Servers
-                    </Button>
-                  </CardFooter>
-                </Card>
-              ))}
+                  </div>
+                ))}
+              </div>
             </div>
           </>
         ) : (
@@ -650,13 +639,13 @@ const VpsPage = () => {
               </Button>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {allServerLocations[selectedCountry].map((server) => (
                 <Card 
                   key={server.id} 
-                  className="border border-purple-200 hover:border-purple-400 hover:shadow-lg hover:shadow-purple-200/50 transition-all duration-300 overflow-hidden group"
+                  className="border border-purple-200 hover:border-purple-400 hover:shadow-lg transition-all duration-300 overflow-hidden group"
                 >
-                  <CardHeader className="bg-gradient-to-br from-purple-600 to-amber-400 text-white">
+                  <CardHeader className="bg-gradient-to-r from-purple-600 to-purple-500 text-white">
                     <div className="flex items-center">
                       <span className="text-3xl mr-2">{server.flag}</span>
                       <div>
@@ -708,7 +697,7 @@ const VpsPage = () => {
                   
                   <CardFooter>
                     <Button 
-                      className="w-full bg-gradient-to-r from-purple-600 to-amber-500 hover:from-purple-700 hover:to-amber-600 group-hover:translate-y-0 translate-y-1 transition-transform"
+                      className="w-full bg-purple-600 hover:bg-purple-700 text-white"
                       onClick={() => handleSelectServer(server)}
                     >
                       <Server className="h-5 w-5 mr-2" />
@@ -878,7 +867,7 @@ const VpsPage = () => {
               </div>
               
               <Button 
-                className="w-full bg-gradient-to-r from-purple-600 to-amber-500 hover:from-purple-700 hover:to-amber-600"
+                className="w-full bg-purple-600 hover:bg-purple-700 text-white"
                 onClick={handleProceedToPayment}
               >
                 Proceed to Payment
