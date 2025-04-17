@@ -802,14 +802,13 @@ import {
   Gift,
   Zap
 } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
-// import { Button } from 'components/ui/button';
-// import { Progress } from 'components/ui/progress';
 import { useToast } from '@/hooks/use-toast';
+import { DarkModeContext } from '@/context/DarkModeContext';
 
 const DashboardOverview = () => {
   const { toast } = useToast();
@@ -830,6 +829,7 @@ const DashboardOverview = () => {
   const [trendingProducts, setTrendingProducts] = useState([]);
   const [userInsights, setUserInsights] = useState([]);
   const [animationComplete, setAnimationComplete] = useState(false);
+  const { darkMode } = useContext(DarkModeContext);
 
   // Updated color theme with #9544c7 as the main purple
   const theme = {
@@ -1017,36 +1017,36 @@ const DashboardOverview = () => {
   const templateItems = [
     {
       id: 'template-1',
-      title: 'Professional Profile',
+      title: 'Driving licence',
       category: 'Social Media',
-      price: '$19.99',
+      price: '$4.00',
       image: '/placeholder.svg'
     },
     {
       id: 'template-2',
-      title: 'E-Commerce Store',
+      title: 'Utility Bill',
       category: 'Business',
-      price: '$24.99',
+      price: '$4.00',
       image: '/placeholder.svg'
     },
     {
       id: 'template-3',
-      title: 'Creative Portfolio',
+      title: 'Residency ID Card',
       category: 'Design',
-      price: '$17.99',
+      price: '$4.00',
       image: '/placeholder.svg'
     },
     {
       id: 'template-4',
-      title: 'Dashboard UI',
+      title: 'Invoice card',
       category: 'Web App',
-      price: '$29.99',
+      price: '$4.00',
       image: '/placeholder.svg'
     },
   ];
 
   return (
-    <div className="space-y-8 p-4 md:p-6 bg-gradient-to-br from-purple-50 to-violet-50">
+    <div className={`space-y-8 p-4 md:p-6 bg-gradient-to-br from-purple-50 to-violet-50 dark:from-gray-900 dark:to-gray-800`}>
       {/* Main Dashboard Content */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left Column - Stats and Main Services */}
@@ -1055,9 +1055,9 @@ const DashboardOverview = () => {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {/* Total Spent */}
             <Card 
-              className={`rounded-xl overflow-hidden border-0 shadow-md hover:shadow-lg transition-all duration-300 transform ${animationComplete ? 'animate-fade-in' : 'opacity-0'}`} 
+              className={`rounded-xl overflow-hidden border-0 shadow-md hover:shadow-lg transition-all duration-300 transform ${animationComplete ? 'animate-fade-in' : 'opacity-0'} dark:bg-gray-800 dark:text-white`} 
               style={{ 
-                background: `linear-gradient(135deg, ${theme.primary}15, ${theme.goldLight})`,
+                background: darkMode ? 'transparent' : `linear-gradient(135deg, ${theme.primary}15, ${theme.goldLight})`,
                 animationDelay: '0.1s',
                 animationFillMode: 'forwards'
               }}
@@ -1065,13 +1065,13 @@ const DashboardOverview = () => {
               <CardContent className="p-5">
                 <div className="flex justify-between items-start">
                   <div>
-                    <p className="text-xs font-medium uppercase tracking-wider" style={{ color: theme.primary }}>
+                    <p className="text-xs font-medium uppercase tracking-wider dark:text-gray-300" style={{ color: darkMode ? undefined : theme.primary }}>
                       Total Spent
                     </p>
                     {isLoading ? (
                       <Skeleton className="h-8 w-20 mt-2" />
                     ) : (
-                      <p className="text-2xl font-bold" style={{ color: theme.primary }}>$0.00</p>
+                      <p className="text-2xl font-bold dark:text-purple-300" style={{ color: darkMode ? undefined : theme.primary }}>$0.00</p>
                     )}
                   </div>
                   <div className="flex items-center justify-center w-10 h-10 rounded-full shadow-md"
@@ -1082,7 +1082,7 @@ const DashboardOverview = () => {
                     <TrendingUp className="h-5 w-5 text-white" />
                   </div>
                 </div>
-                <p className="text-xs mt-3" style={{ color: theme.primary }}>
+                <p className="text-xs mt-3 dark:text-gray-400" style={{ color: darkMode ? undefined : theme.primary }}>
                   Track your spending history
                 </p>
               </CardContent>
@@ -1090,9 +1090,9 @@ const DashboardOverview = () => {
 
             {/* Active Services */}
             <Card 
-              className={`rounded-xl overflow-hidden border-0 shadow-md hover:shadow-lg transition-all duration-300 transform ${animationComplete ? 'animate-fade-in' : 'opacity-0'}`} 
+              className={`rounded-xl overflow-hidden border-0 shadow-md hover:shadow-lg transition-all duration-300 transform ${animationComplete ? 'animate-fade-in' : 'opacity-0'} dark:bg-gray-800 dark:text-white`} 
               style={{ 
-                background: `linear-gradient(135deg, ${theme.goldLight}, ${theme.primary}15)`,
+                background: darkMode ? 'transparent' : `linear-gradient(135deg, ${theme.goldLight}, ${theme.primary}15)`,
                 animationDelay: '0.2s',
                 animationFillMode: 'forwards'
               }}
@@ -1100,13 +1100,13 @@ const DashboardOverview = () => {
               <CardContent className="p-5">
                 <div className="flex justify-between items-start">
                   <div>
-                    <p className="text-xs font-medium uppercase tracking-wider" style={{ color: theme.primary }}>
+                    <p className="text-xs font-medium uppercase tracking-wider dark:text-gray-300" style={{ color: darkMode ? undefined : theme.primary }}>
                       Active Services
                     </p>
                     {isLoading ? (
                       <Skeleton className="h-8 w-20 mt-2" />
                     ) : (
-                      <p className="text-2xl font-bold" style={{ color: theme.primary }}>
+                      <p className="text-2xl font-bold dark:text-purple-300" style={{ color: darkMode ? undefined : theme.primary }}>
                         {activeServicesCount} / 6
                       </p>
                     )}
@@ -1120,7 +1120,7 @@ const DashboardOverview = () => {
                     <ActivitySquare className="h-5 w-5 text-white" />
                   </div>
                 </div>
-                <p className="text-xs mt-3" style={{ color: theme.primary }}>
+                <p className="text-xs mt-3 dark:text-gray-400" style={{ color: darkMode ? undefined : theme.primary }}>
                   Services you're currently using
                 </p>
               </CardContent>
@@ -1128,9 +1128,9 @@ const DashboardOverview = () => {
 
             {/* Last Activity */}
             <Card 
-              className={`rounded-xl overflow-hidden border-0 shadow-md hover:shadow-lg transition-all duration-300 transform ${animationComplete ? 'animate-fade-in' : 'opacity-0'}`} 
+              className={`rounded-xl overflow-hidden border-0 shadow-md hover:shadow-lg transition-all duration-300 transform ${animationComplete ? 'animate-fade-in' : 'opacity-0'} dark:bg-gray-800 dark:text-white`} 
               style={{ 
-                background: `linear-gradient(135deg, ${theme.primary}15, ${theme.goldLight})`,
+                background: darkMode ? 'transparent' : `linear-gradient(135deg, ${theme.primary}15, ${theme.goldLight})`,
                 animationDelay: '0.3s',
                 animationFillMode: 'forwards'
               }}
@@ -1138,13 +1138,13 @@ const DashboardOverview = () => {
               <CardContent className="p-5">
                 <div className="flex justify-between items-start">
                   <div>
-                    <p className="text-xs font-medium uppercase tracking-wider" style={{ color: theme.primary }}>
+                    <p className="text-xs font-medium uppercase tracking-wider dark:text-gray-300" style={{ color: darkMode ? undefined : theme.primary }}>
                       Last Activity
                     </p>
                     {isLoading ? (
                       <Skeleton className="h-8 w-20 mt-2" />
                     ) : (
-                      <p className="text-2xl font-bold" style={{ color: theme.primary }}>Just Now</p>
+                      <p className="text-2xl font-bold dark:text-purple-300" style={{ color: darkMode ? undefined : theme.primary }}>Just Now</p>
                     )}
                   </div>
                   <div 
@@ -1156,7 +1156,7 @@ const DashboardOverview = () => {
                     <Clock className="h-5 w-5 text-white" />
                   </div>
                 </div>
-                <p className="text-xs mt-3" style={{ color: theme.primary }}>
+                <p className="text-xs mt-3 dark:text-gray-400" style={{ color: darkMode ? undefined : theme.primary }}>
                   Your recent platform activity
                 </p>
               </CardContent>
@@ -1165,57 +1165,60 @@ const DashboardOverview = () => {
 
           {/* Getting Started Guide */}
           <Card 
-            className={`overflow-hidden border-0 shadow-md ${animationComplete ? 'animate-fade-in' : 'opacity-0'}`} 
+            className={`overflow-hidden border-0 shadow-md ${animationComplete ? 'animate-fade-in' : 'opacity-0'} dark:bg-gray-800 dark:text-white`} 
             style={{ 
-              background: `linear-gradient(135deg, rgba(255,255,255,0.6), rgba(255,255,255,0.9))`,
+              background: darkMode ? 'transparent' : `linear-gradient(135deg, rgba(255,255,255,0.6), rgba(255,255,255,0.9))`,
               backdropFilter: 'blur(10px)',
               animationDelay: '0.4s',
               animationFillMode: 'forwards'
             }}
           >
-            <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-purple-50/30 to-transparent pointer-events-none"></div>
+            <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-purple-50/30 to-transparent pointer-events-none dark:from-gray-700/30"></div>
             <CardHeader className="pb-2 relative">
-              <CardTitle className="flex items-center text-lg font-bold" style={{ color: theme.primary }}>
-                <Sparkles className="mr-2 h-5 w-5" style={{ color: theme.gold }} />
+              <CardTitle className="flex items-center text-lg font-bold dark:text-purple-300" style={{ color: darkMode ? undefined : theme.primary }}>
+                <Sparkles className="mr-2 h-5 w-5 dark:text-yellow-400" style={{ color: darkMode ? undefined : theme.gold }} />
                 Getting Started with ExactConnect
               </CardTitle>
-              <CardDescription style={{ color: theme.primaryDark }}>
+              <CardDescription className="dark:text-gray-400" style={{ color: darkMode ? undefined : theme.primaryDark }}>
                 Quick steps to maximize your experience
               </CardDescription>
             </CardHeader>
             <CardContent className="relative">
               <div className="space-y-4">
-                <div className="flex items-center gap-4 p-3 rounded-lg hover:bg-white/50 transition-colors duration-300 group cursor-pointer">
-                  <div className="w-10 h-10 rounded-full bg-amber-100/70 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform"
-                    style={{ background: theme.goldLight }}
+                <div className="flex items-center gap-4 p-3 rounded-lg hover:bg-white/50 dark:hover:bg-gray-700/50 transition-colors duration-300 group cursor-pointer">
+                  <div className="w-10 h-10 rounded-full bg-amber-100/70 dark:bg-amber-900/30 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform"
+                    style={{ background: darkMode ? undefined : theme.goldLight }}
                   >
-                    <span style={{ color: theme.gold }} className="font-medium">1</span>
+                    <span className="font-medium dark:text-yellow-400" style={{ color: darkMode ? undefined : theme.gold }}>1</span>
                   </div>
                   <div>
-                    <h4 className="font-medium" style={{ color: theme.primary }}>Explore Our Services</h4>
-                    <p className="text-sm mt-1" style={{ color: theme.primaryDark }}>Browse through our proxies, VPSs, and other digital tools</p>
+                    <h4 className="font-medium dark:text-purple-300" style={{ color: darkMode ? undefined : theme.primary }}>Explore Our Services</h4>
+                    <p className="text-sm mt-1 dark:text-gray-400" style={{ color: darkMode ? undefined : theme.primaryDark }}>Browse through our proxies, VPSs, and other digital tools</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-4 p-3 rounded-lg hover:bg-white/50 transition-colors duration-300 group cursor-pointer">
-                  <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform"
-                    style={{ background: theme.primaryLight }}
+                
+                {/* Additional steps - using same dark mode pattern */}
+                <div className="flex items-center gap-4 p-3 rounded-lg hover:bg-white/50 dark:hover:bg-gray-700/50 transition-colors duration-300 group cursor-pointer">
+                  <div className="w-10 h-10 rounded-full dark:bg-purple-900/30 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform"
+                    style={{ background: darkMode ? undefined : theme.primaryLight }}
                   >
-                    <span style={{ color: theme.primary }} className="font-medium">2</span>
+                    <span className="font-medium dark:text-purple-300" style={{ color: darkMode ? undefined : theme.primary }}>2</span>
                   </div>
                   <div>
-                    <h4 className="font-medium" style={{ color: theme.primary }}>Complete Your Profile</h4>
-                    <p className="text-sm mt-1" style={{ color: theme.primaryDark }}>Add payment methods and verify your contact details</p>
+                    <h4 className="font-medium dark:text-purple-300" style={{ color: darkMode ? undefined : theme.primary }}>Complete Your Profile</h4>
+                    <p className="text-sm mt-1 dark:text-gray-400" style={{ color: darkMode ? undefined : theme.primaryDark }}>Add payment methods and verify your contact details</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-4 p-3 rounded-lg hover:bg-white/50 transition-colors duration-300 group cursor-pointer">
-                  <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform"
-                    style={{ background: theme.goldLight }}
+                
+                <div className="flex items-center gap-4 p-3 rounded-lg hover:bg-white/50 dark:hover:bg-gray-700/50 transition-colors duration-300 group cursor-pointer">
+                  <div className="w-10 h-10 rounded-full dark:bg-amber-900/30 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform"
+                    style={{ background: darkMode ? undefined : theme.goldLight }}
                   >
-                    <span style={{ color: theme.gold }} className="font-medium">3</span>
+                    <span className="font-medium dark:text-yellow-400" style={{ color: darkMode ? undefined : theme.gold }}>3</span>
                   </div>
                   <div>
-                    <h4 className="font-medium" style={{ color: theme.primary }}>Make Your First Purchase</h4>
-                    <p className="text-sm mt-1" style={{ color: theme.primaryDark }}>Try our proxies or VCC services to get started</p>
+                    <h4 className="font-medium dark:text-purple-300" style={{ color: darkMode ? undefined : theme.primary }}>Make Your First Purchase</h4>
+                    <p className="text-sm mt-1 dark:text-gray-400" style={{ color: darkMode ? undefined : theme.primaryDark }}>Try our proxies or VCC services to get started</p>
                   </div>
                 </div>
               </div>
@@ -1224,11 +1227,12 @@ const DashboardOverview = () => {
 
           {/* Services Grid */}
           <div className={`${animationComplete ? 'animate-fade-in' : 'opacity-0'}`} style={{ animationDelay: '0.5s', animationFillMode: 'forwards' }}>
-            <h2 className="text-lg font-bold mb-4 flex items-center" style={{ color: theme.primary }}>
+            <h2 className="text-lg font-bold mb-4 flex items-center dark:text-purple-300" style={{ color: darkMode ? undefined : theme.primary }}>
               <span className="mr-2">Your Services</span>
-              <div className="h-0.5 flex-grow rounded ml-2" style={{ background: `linear-gradient(to right, ${theme.primary}, transparent)` }}></div>
+              <div className="h-0.5 flex-grow rounded ml-2 dark:bg-gradient-to-r dark:from-purple-300 dark:to-transparent" style={{ background: darkMode ? undefined : `linear-gradient(to right, ${theme.primary}, transparent)` }}></div>
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+              {/* Map through service cards with dark mode adjustments */}
               {serviceCards.map((card, index) => (
                 <Link
                   key={card.title}
@@ -1240,12 +1244,13 @@ const DashboardOverview = () => {
                   }}
                 >
                   <Card 
-                    className="h-full rounded-xl overflow-hidden border-0 hover:shadow-md transition-all duration-500"
+                    className="h-full rounded-xl overflow-hidden border-0 hover:shadow-md transition-all duration-500 dark:bg-gray-800 dark:text-white"
                     style={{ 
-                      background: 'linear-gradient(135deg, rgba(255,255,255,0.5), rgba(255,255,255,0.8))'
+                      background: darkMode ? undefined : 'linear-gradient(135deg, rgba(255,255,255,0.5), rgba(255,255,255,0.8))'
                     }}
                   >
                     <CardContent className="p-5">
+                      {/* Keep card content structure but adjust colors for dark mode */}
                       <div className="flex items-center justify-between mb-4">
                         <div 
                           className="w-12 h-12 rounded-lg flex items-center justify-center transition-all duration-300 group-hover:scale-110 shadow-sm"
@@ -1257,26 +1262,26 @@ const DashboardOverview = () => {
                         </div>
                         {card.isActive && (
                           <div className="relative">
-                            <div className="rounded-full px-2.5 py-0.5 text-xs font-medium flex items-center"
+                            <div className="rounded-full px-2.5 py-0.5 text-xs font-medium flex items-center dark:bg-purple-900/30"
                               style={{ 
-                                background: theme.primaryLight,
-                                color: theme.primary
+                                background: darkMode ? undefined : theme.primaryLight,
+                                color: darkMode ? '#d8b4fe' : theme.primary
                               }}
                             >
-                              <div className="w-2 h-2 rounded-full mr-1.5 animate-pulse" 
-                                style={{ background: theme.gold }}></div>
+                              <div className="w-2 h-2 rounded-full mr-1.5 animate-pulse dark:bg-yellow-400" 
+                                style={{ background: darkMode ? undefined : theme.gold }}></div>
                               {card.count} Active
                             </div>
                           </div>
                         )}
                       </div>
-                      <h3 className="font-semibold" style={{ color: theme.primary }}>{card.title}</h3>
-                      <p className="text-sm mt-1" style={{ color: theme.primaryDark }}>
+                      <h3 className="font-semibold dark:text-purple-300" style={{ color: darkMode ? undefined : theme.primary }}>{card.title}</h3>
+                      <p className="text-sm mt-1 dark:text-gray-400" style={{ color: darkMode ? undefined : theme.primaryDark }}>
                         {card.description}
                       </p>
                       <div className="flex items-center justify-end mt-4">
-                        <div className="text-sm font-medium flex items-center group-hover:translate-x-1 transition-transform"
-                          style={{ color: theme.gold }}
+                        <div className="text-sm font-medium flex items-center group-hover:translate-x-1 transition-transform dark:text-yellow-400"
+                          style={{ color: darkMode ? undefined : theme.gold }}
                         >
                           Explore <ArrowRightCircle className="ml-1 h-4 w-4" />
                         </div>
@@ -1290,21 +1295,21 @@ const DashboardOverview = () => {
 
           {/* Templates Showcase */}
           <Card 
-            className={`overflow-hidden border-0 shadow-md ${animationComplete ? 'animate-fade-in' : 'opacity-0'}`} 
+            className={`overflow-hidden border-0 shadow-md ${animationComplete ? 'animate-fade-in' : 'opacity-0'} dark:bg-gray-800 dark:text-white`} 
             style={{ 
-              background: `linear-gradient(135deg, rgba(255,255,255,0.6), rgba(255,255,255,0.9))`,
+              background: darkMode ? undefined : `linear-gradient(135deg, rgba(255,255,255,0.6), rgba(255,255,255,0.9))`,
               backdropFilter: 'blur(10px)',
               animationDelay: '0.7s',
               animationFillMode: 'forwards'
             }}
           >
             <CardHeader className="pb-2">
-              <CardTitle className="text-lg font-bold flex items-center" style={{ color: theme.primary }}>
-                <FileImage className="mr-2 h-5 w-5" style={{ color: theme.gold }} />
+              <CardTitle className="text-lg font-bold flex items-center dark:text-purple-300" style={{ color: darkMode ? undefined : theme.primary }}>
+                <FileImage className="mr-2 h-5 w-5 dark:text-yellow-400" style={{ color: darkMode ? undefined : theme.gold }} />
                 Popular PSD Templates
               </CardTitle>
-              <CardDescription style={{ color: theme.primaryDark }}>
-                Professional design templates for your projects
+              <CardDescription className="dark:text-gray-400" style={{ color: darkMode ? undefined : theme.primaryDark }}>
+                Professional design templates for your online work
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -1312,34 +1317,34 @@ const DashboardOverview = () => {
                 {templateItems.map((template, index) => (
                   <div 
                     key={template.id}
-                    className="rounded-lg overflow-hidden bg-white shadow-sm hover:shadow-md transition-all duration-300 group"
+                    className="rounded-lg overflow-hidden bg-white dark:bg-gray-700 shadow-sm hover:shadow-md transition-all duration-300 group"
                     style={{ 
                       animationDelay: `${0.8 + index * 0.1}s`,
                       animationFillMode: 'forwards'
                     }}
                   >
-                    <AspectRatio ratio={4/3} className="bg-purple-100">
+                    <AspectRatio ratio={4/3} className="bg-purple-100 dark:bg-purple-900/30">
                       <div className="w-full h-full flex items-center justify-center"
-                        style={{ background: `linear-gradient(135deg, ${theme.primaryLight}, ${theme.goldLight})` }}
+                        style={{ background: darkMode ? undefined : `linear-gradient(135deg, ${theme.primaryLight}, ${theme.goldLight})` }}
                       >
-                        <FileImage className="h-10 w-10" style={{ color: theme.primary }} />
+                        <FileImage className="h-10 w-10 dark:text-purple-300" style={{ color: darkMode ? undefined : theme.primary }} />
                       </div>
                     </AspectRatio>
                     <div className="p-3">
-                      <h4 className="font-medium truncate" style={{ color: theme.primary }}>
+                      <h4 className="font-medium truncate dark:text-purple-300" style={{ color: darkMode ? undefined : theme.primary }}>
                         {template.title}
                       </h4>
-                      <p className="text-xs mt-1" style={{ color: theme.primaryDark }}>
+                      <p className="text-xs mt-1 dark:text-gray-400" style={{ color: darkMode ? undefined : theme.primaryDark }}>
                         {template.category}
                       </p>
                       <div className="flex justify-between items-center mt-2">
-                        <span className="font-bold text-sm" style={{ color: theme.primary }}>
+                        <span className="font-bold text-sm dark:text-purple-300" style={{ color: darkMode ? undefined : theme.primary }}>
                           {template.price}
                         </span>
-                        <Link to="/dashboard/templates" className="text-xs px-2 py-1 rounded-full transition-colors"
+                        <Link to="/dashboard/templates" className="text-xs px-2 py-1 rounded-full transition-colors dark:bg-yellow-900/30 dark:text-yellow-400"
                           style={{ 
-                            background: theme.goldLight,
-                            color: theme.gold
+                            background: darkMode ? undefined : theme.goldLight,
+                            color: darkMode ? undefined : theme.gold
                           }}
                         >
                           Preview
@@ -1352,8 +1357,8 @@ const DashboardOverview = () => {
               <div className="mt-4 flex justify-center">
                 <Link 
                   to="/dashboard/templates"
-                  className="inline-flex items-center text-sm font-medium hover:underline transition-colors"
-                  style={{ color: theme.primary }}
+                  className="inline-flex items-center text-sm font-medium hover:underline transition-colors dark:text-purple-300"
+                  style={{ color: darkMode ? undefined : theme.primary }}
                 >
                   View All Templates
                   <ArrowRightCircle className="ml-1 h-3 w-3" />
@@ -1367,13 +1372,14 @@ const DashboardOverview = () => {
         <div className="space-y-6">
           {/* Welcome Card for New Users */}
           <Card 
-            className={`overflow-hidden border-0 shadow-md relative ${animationComplete ? 'animate-fade-in' : 'opacity-0'}`} 
+            className={`overflow-hidden border-0 shadow-md relative ${animationComplete ? 'animate-fade-in' : 'opacity-0'} dark:border-purple-900/50`} 
             style={{ 
               background: `linear-gradient(135deg, ${theme.primary}, ${theme.primaryDark})`,
               animationDelay: '0.2s',
               animationFillMode: 'forwards'
             }}
           >
+            {/* Keep the rest of this card's content */}
             <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-full blur-xl transform translate-x-6 -translate-y-6"></div>
             <div className="absolute bottom-0 left-0 w-16 h-16 rounded-full blur-lg transform -translate-x-4 translate-y-4"
               style={{ background: `${theme.goldLight}` }}></div>
@@ -1396,22 +1402,23 @@ const DashboardOverview = () => {
             </CardContent>
           </Card>
 
+          {/* The rest of the right column cards with dark mode */}
           {/* Trending Products */}
           <Card 
-            className={`overflow-hidden border-0 shadow-md ${animationComplete ? 'animate-fade-in' : 'opacity-0'}`} 
+            className={`overflow-hidden border-0 shadow-md ${animationComplete ? 'animate-fade-in' : 'opacity-0'} dark:bg-gray-800 dark:text-white`} 
             style={{ 
-              background: `linear-gradient(135deg, rgba(255,255,255,0.6), rgba(255,255,255,0.9))`,
+              background: darkMode ? undefined : `linear-gradient(135deg, rgba(255,255,255,0.6), rgba(255,255,255,0.9))`,
               backdropFilter: 'blur(10px)',
               animationDelay: '0.3s',
               animationFillMode: 'forwards'
             }}
           >
             <CardHeader className="pb-2">
-              <CardTitle className="text-lg font-bold flex items-center" style={{ color: theme.primary }}>
-                <TrendingUp className="mr-2 h-5 w-5" style={{ color: theme.gold }} />
+              <CardTitle className="text-lg font-bold flex items-center dark:text-purple-300" style={{ color: darkMode ? undefined : theme.primary }}>
+                <TrendingUp className="mr-2 h-5 w-5 dark:text-yellow-400" style={{ color: darkMode ? undefined : theme.gold }} />
                 Trending Services
               </CardTitle>
-              <CardDescription style={{ color: theme.primaryDark }}>
+              <CardDescription className="dark:text-gray-400" style={{ color: darkMode ? undefined : theme.primaryDark }}>
                 Most popular services this week
               </CardDescription>
             </CardHeader>
@@ -1425,7 +1432,7 @@ const DashboardOverview = () => {
                   trendingProducts.map((product, index) => (
                     <div 
                       key={product.id} 
-                      className="flex items-center justify-between p-3 rounded-lg hover:bg-white/70 transition-all"
+                      className="flex items-center justify-between p-3 rounded-lg hover:bg-white/70 dark:hover:bg-gray-700/50 transition-all"
                       style={{ 
                         animationDelay: `${0.4 + index * 0.1}s`,
                         animationFillMode: 'forwards'
@@ -1433,11 +1440,11 @@ const DashboardOverview = () => {
                     >
                       <div className="flex items-center">
                         <TrendingUp className="h-4 w-4 mr-2 text-green-500" />
-                        <span style={{ color: theme.primary }} className="font-medium">
+                        <span className="font-medium dark:text-purple-300" style={{ color: darkMode ? undefined : theme.primary }}>
                           {product.name}
                         </span>
                       </div>
-                      <span className="text-xs font-medium px-2 py-1 rounded-full bg-green-100 text-green-700">
+                      <span className="text-xs font-medium px-2 py-1 rounded-full bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-500">
                         +{product.percent}%
                       </span>
                     </div>
@@ -1447,22 +1454,23 @@ const DashboardOverview = () => {
             </CardContent>
           </Card>
 
+          {/* Continue the same pattern for the remaining right column cards */}
           {/* Tips & Guides */}
           <Card 
-            className={`overflow-hidden border-0 shadow-md ${animationComplete ? 'animate-fade-in' : 'opacity-0'}`} 
+            className={`overflow-hidden border-0 shadow-md ${animationComplete ? 'animate-fade-in' : 'opacity-0'} dark:bg-gray-800 dark:text-white`} 
             style={{ 
-              background: `linear-gradient(135deg, rgba(255,255,255,0.6), rgba(255,255,255,0.9))`,
+              background: darkMode ? undefined : `linear-gradient(135deg, rgba(255,255,255,0.6), rgba(255,255,255,0.9))`,
               backdropFilter: 'blur(10px)',
               animationDelay: '0.4s',
               animationFillMode: 'forwards'
             }}
           >
             <CardHeader className="pb-2">
-              <CardTitle className="text-lg font-bold flex items-center" style={{ color: theme.primary }}>
-                <LightbulbIcon className="mr-2 h-5 w-5" style={{ color: theme.gold }} />
+              <CardTitle className="text-lg font-bold flex items-center dark:text-purple-300" style={{ color: darkMode ? undefined : theme.primary }}>
+                <LightbulbIcon className="mr-2 h-5 w-5 dark:text-yellow-400" style={{ color: darkMode ? undefined : theme.gold }} />
                 Tips & Guides
               </CardTitle>
-              <CardDescription style={{ color: theme.primaryDark }}>
+              <CardDescription className="dark:text-gray-400" style={{ color: darkMode ? undefined : theme.primaryDark }}>
                 Learn how to use our services effectively
               </CardDescription>
             </CardHeader>

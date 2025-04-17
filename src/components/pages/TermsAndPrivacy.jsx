@@ -78,7 +78,7 @@ const TermsAndPrivacy = () => {
           <li>First and last name</li>
           <li>Email address</li>
           <li>Country</li>
-          <li>Phone number (for payments)</li>
+          <li>Phone number</li>
         </ul>
 
         <h2 className="text-xl font-semibold mt-4 dark:text-white">

@@ -1,9 +1,10 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useContext } from 'react';
 import { Calendar, Download, Filter, Printer, Search, Info, Wifi, Globe, Clock, Check, AlertCircle, ArrowDownUp, History } from 'lucide-react';
 import { useDashboard } from "./DashboardContext";
 import { toast } from 'sonner';
 import { getReliableCustomerId } from '@/lib/userDetails';
 import { SERVER_URL } from '@/services/data';
+import { DarkModeContext } from '@/context/DarkModeContext';
 
 // Theme color
 const themeColor = "#804fc2";
@@ -20,6 +21,7 @@ const OrdersPage = () => {
   const endDateRef = useRef(null);
   const [activeView, setActiveView] = useState("active");
   const [noOrdersFound, setNoOrdersFound] = useState(false);
+  const { darkMode } = useContext(DarkModeContext);
 
   // Calculate days remaining in lease
   const calculateDaysRemaining = (endTimestamp) => {
@@ -309,12 +311,12 @@ const OrdersPage = () => {
       return (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {[...Array(6)].map((_, index) => (
-            <div key={index} className="border border-gray-200 rounded-lg p-4 bg-white">
-              <div className="h-6 bg-gray-200 rounded animate-pulse mb-3 w-1/3"></div>
-              <div className="h-4 bg-gray-200 rounded animate-pulse mb-2"></div>
-              <div className="h-4 bg-gray-200 rounded animate-pulse mb-2 w-3/4"></div>
-              <div className="h-4 bg-gray-200 rounded animate-pulse mb-2 w-2/3"></div>
-              <div className="h-4 bg-gray-200 rounded animate-pulse w-1/2"></div>
+            <div key={index} className={`border ${darkMode ? 'border-gray-700' : 'border-gray-200'} rounded-lg p-4 ${darkMode ? 'bg-gray-800' : 'bg-white'}`}>
+              <div className={`h-6 ${darkMode ? 'bg-gray-700' : 'bg-gray-200'} rounded animate-pulse mb-3 w-1/3`}></div>
+              <div className={`h-4 ${darkMode ? 'bg-gray-700' : 'bg-gray-200'} rounded animate-pulse mb-2`}></div>
+              <div className={`h-4 ${darkMode ? 'bg-gray-700' : 'bg-gray-200'} rounded animate-pulse mb-2 w-3/4`}></div>
+              <div className={`h-4 ${darkMode ? 'bg-gray-700' : 'bg-gray-200'} rounded animate-pulse mb-2 w-2/3`}></div>
+              <div className={`h-4 ${darkMode ? 'bg-gray-700' : 'bg-gray-200'} rounded animate-pulse w-1/2`}></div>
             </div>
           ))}
         </div>
@@ -333,8 +335,8 @@ const OrdersPage = () => {
     
     if (noOrdersFound || safeProxies.length === 0) {
       return (
-        <div className="bg-gray-50 border border-gray-200 text-gray-700 rounded-lg p-6 text-center">
-          <Info className="h-12 w-12 mx-auto mb-3 text-gray-400" />
+        <div className={`${darkMode ? 'bg-gray-800 border-gray-700 text-gray-300' : 'bg-gray-50 border-gray-200 text-gray-700'} border rounded-lg p-6 text-center`}>
+          <Info className={`h-12 w-12 mx-auto mb-3 ${darkMode ? 'text-gray-500' : 'text-gray-400'}`} />
           <p className="text-lg font-medium">No active proxies found</p>
           <p className="text-sm mt-2">
             Please check your email (including your spam folder) for your proxy details.
@@ -348,7 +350,7 @@ const OrdersPage = () => {
     
     return (
       <div className="space-y-6">
-        <h3 className="text-lg font-medium text-gray-800">{title} ({safeProxies.length})</h3>
+        <h3 className={`text-lg font-medium ${darkMode ? 'text-white' : 'text-gray-800'}`}>{title} ({safeProxies.length})</h3>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {safeProxies.map((proxy, index) => {
@@ -361,9 +363,9 @@ const OrdersPage = () => {
               <div 
                 key={index} 
                 className={`border rounded-lg p-4 transition-shadow hover:shadow-md ${
-                  isExpired ? 'bg-red-50 border-red-200' : 
-                  isExpiringSoon ? 'bg-yellow-50 border-yellow-200' : 
-                  'bg-white border-gray-200'
+                  isExpired ? `${darkMode ? 'bg-red-900/20 border-red-800' : 'bg-red-50 border-red-200'}` : 
+                  isExpiringSoon ? `${darkMode ? 'bg-yellow-900/20 border-yellow-800' : 'bg-yellow-50 border-yellow-200'}` : 
+                  `${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'}`
                 }`}
               >
                 <div className="flex justify-between items-start mb-3">
@@ -372,8 +374,8 @@ const OrdersPage = () => {
                   </h4>
                   <span className={`px-2 py-1 text-xs rounded-full ${
                     orderData.CONNECTIVITY?.toLowerCase() === 'cell' 
-                      ? 'bg-green-100 text-green-800' 
-                      : 'bg-blue-100 text-blue-800'
+                      ? `${darkMode ? 'bg-green-900/30 text-green-300' : 'bg-green-100 text-green-800'}` 
+                      : `${darkMode ? 'bg-blue-900/30 text-blue-300' : 'bg-blue-100 text-blue-800'}`
                   }`}>
                     {orderData.CONNECTIVITY || 'Unknown'} Connection
                   </span>
@@ -381,19 +383,19 @@ const OrdersPage = () => {
                 
                 <div className="space-y-2 mb-4">
                   <div className="flex items-center text-sm">
-                    <Globe className="h-4 w-4 mr-2 text-gray-500" />
+                    <Globe className={`h-4 w-4 mr-2 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`} />
                     <span className="font-medium">IP:</span>
                     <span className="ml-2 font-mono">{orderData.IP || 'N/A'}</span>
                   </div>
                   
                   <div className="flex items-center text-sm">
-                    <Wifi className="h-4 w-4 mr-2 text-gray-500" />
+                    <Wifi className={`h-4 w-4 mr-2 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`} />
                     <span className="font-medium">ISP:</span>
                     <span className="ml-2">{orderData.ISP || 'N/A'}</span>
                   </div>
                   
                   <div className="flex items-center text-sm">
-                    <Info className="h-4 w-4 mr-2 text-gray-500" />
+                    <Info className={`h-4 w-4 mr-2 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`} />
                     <span className="font-medium">Location:</span>
                     <span className="ml-2">
                       {orderData.LOCATION_CITY ? 
@@ -403,7 +405,7 @@ const OrdersPage = () => {
                   </div>
                   
                   <div className="flex items-center text-sm">
-                    <Clock className="h-4 w-4 mr-2 text-gray-500" />
+                    <Clock className={`h-4 w-4 mr-2 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`} />
                     <span className="font-medium">Lease Period:</span>
                     <span className="ml-2">
                       {formatDate(orderData.LEASE_START_DATE)} - {formatDate(orderData.LEASE_VALID_UNTIL)}
@@ -411,20 +413,20 @@ const OrdersPage = () => {
                   </div>
                 </div>
                 
-                <div className="mt-3 pt-3 border-t border-gray-200 flex justify-between items-center">
+                <div className={`mt-3 pt-3 border-t ${darkMode ? 'border-gray-700' : 'border-gray-200'} flex justify-between items-center`}>
                   <div>
                     {isExpired ? (
-                      <span className="text-red-600 text-sm font-medium flex items-center">
+                      <span className={`${darkMode ? 'text-red-400' : 'text-red-600'} text-sm font-medium flex items-center`}>
                         <AlertCircle className="h-4 w-4 mr-1" />
                         Expired
                       </span>
                     ) : isExpiringSoon ? (
-                      <span className="text-yellow-600 text-sm font-medium flex items-center">
+                      <span className={`${darkMode ? 'text-yellow-400' : 'text-yellow-600'} text-sm font-medium flex items-center`}>
                         <AlertCircle className="h-4 w-4 mr-1" />
                         {daysRemaining} day{daysRemaining !== 1 ? 's' : ''} remaining
                       </span>
                     ) : (
-                      <span className="text-green-600 text-sm font-medium flex items-center">
+                      <span className={`${darkMode ? 'text-green-400' : 'text-green-600'} text-sm font-medium flex items-center`}>
                         <Check className="h-4 w-4 mr-1" />
                         {daysRemaining} day{daysRemaining !== 1 ? 's' : ''} remaining
                       </span>
@@ -433,17 +435,17 @@ const OrdersPage = () => {
                   
                   <div className="space-x-1">
                     {orderData.RENEWABLE === "true" && (
-                      <span className="px-2 py-1 text-xs bg-purple-100 text-purple-800 rounded-full">
+                      <span className={`px-2 py-1 text-xs ${darkMode ? 'bg-purple-900/30 text-purple-300' : 'bg-purple-100 text-purple-800'} rounded-full`}>
                         Renewable
                       </span>
                     )}
                     {orderData.AUTO_RENEWABLE === "true" && (
-                      <span className="px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded-full">
+                      <span className={`px-2 py-1 text-xs ${darkMode ? 'bg-blue-900/30 text-blue-300' : 'bg-blue-100 text-blue-800'} rounded-full`}>
                         Auto-Renew
                       </span>
                     )}
                     {orderData.REFUNDABLE === "true" && (
-                      <span className="px-2 py-1 text-xs bg-green-100 text-green-800 rounded-full">
+                      <span className={`px-2 py-1 text-xs ${darkMode ? 'bg-green-900/30 text-green-300' : 'bg-green-100 text-green-800'} rounded-full`}>
                         Refundable
                       </span>
                     )}
@@ -484,14 +486,14 @@ const OrdersPage = () => {
 
   return (
     <div className="animate-fade-in">
-      <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
+      <div className={`${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'} rounded-lg shadow-sm p-6 mb-6`}>
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
           <h1 className="text-2xl font-bold" style={{ color: themeColor }}>Your Proxies</h1>
           
           <div className="flex flex-wrap gap-3 items-center">
             <button 
               onClick={() => setShowFilters(!showFilters)}
-              className="px-4 py-2 rounded-md bg-gray-100 text-gray-700 hover:bg-gray-200 flex items-center gap-2"
+              className={`px-4 py-2 rounded-md ${darkMode ? 'bg-gray-700 text-gray-200 hover:bg-gray-600' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'} flex items-center gap-2`}
             >
               <Filter className="h-4 w-4" />
               Filter by Date
@@ -519,7 +521,7 @@ const OrdersPage = () => {
         </div>
         
         {/* Email notification alert */}
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6 text-blue-800">
+        <div className={`${darkMode ? 'bg-blue-900/20 border-blue-800 text-blue-200' : 'bg-blue-50 border-blue-200 text-blue-800'} border rounded-lg p-4 mb-6`}>
           <h3 className="text-md font-medium mb-2 flex items-center">
             <Info className="h-5 w-5 mr-2" />
             Important Information
@@ -529,31 +531,31 @@ const OrdersPage = () => {
         
         {/* Filter panel */}
         {showFilters && (
-          <div className="border border-gray-200 rounded-lg p-4 mb-6">
-            <h3 className="text-lg font-medium text-gray-800 mb-4">Filter Proxies by Lease Date</h3>
+          <div className={`border ${darkMode ? 'border-gray-700' : 'border-gray-200'} rounded-lg p-4 mb-6`}>
+            <h3 className={`text-lg font-medium ${darkMode ? 'text-white' : 'text-gray-800'} mb-4`}>Filter Proxies by Lease Date</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
               <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-700 flex items-center">
+                <label className={`text-sm font-medium ${darkMode ? 'text-gray-300' : 'text-gray-700'} flex items-center`}>
                   <Calendar className="h-4 w-4 mr-2" />
                   Lease Start Date
                 </label>
                 <input
                   type="date"
                   ref={startDateRef}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:border-transparent"
+                  className={`w-full px-3 py-2 border ${darkMode ? 'bg-gray-700 border-gray-600 text-white' : 'bg-white border-gray-300 text-gray-900'} rounded-md focus:outline-none focus:ring-2 focus:border-transparent`}
                   style={{ outlineColor: themeColor }}
                 />
               </div>
               
               <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-700 flex items-center">
+                <label className={`text-sm font-medium ${darkMode ? 'text-gray-300' : 'text-gray-700'} flex items-center`}>
                   <Calendar className="h-4 w-4 mr-2" />
                   Lease End Date
                 </label>
                 <input
                   type="date"
                   ref={endDateRef}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:border-transparent"
+                  className={`w-full px-3 py-2 border ${darkMode ? 'bg-gray-700 border-gray-600 text-white' : 'bg-white border-gray-300 text-gray-900'} rounded-md focus:outline-none focus:ring-2 focus:border-transparent`}
                   style={{ outlineColor: themeColor }}
                 />
               </div>
@@ -562,7 +564,7 @@ const OrdersPage = () => {
             <div className="flex justify-end gap-3">
               <button 
                 onClick={resetFilters}
-                className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-900"
+                className={`px-4 py-2 text-sm font-medium ${darkMode ? 'text-gray-300 hover:text-white' : 'text-gray-700 hover:text-gray-900'}`}
               >
                 Reset
               </button>
@@ -584,7 +586,7 @@ const OrdersPage = () => {
           </div>
           <input 
             type="text" 
-            className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:border-transparent" 
+            className={`block w-full pl-10 pr-3 py-2 border ${darkMode ? 'bg-gray-700 border-gray-600 text-white' : 'bg-white border-gray-300 text-gray-900'} rounded-md focus:outline-none focus:ring-2 focus:border-transparent`} 
             placeholder="Search proxies by ID, IP, location or ISP..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
@@ -593,35 +595,35 @@ const OrdersPage = () => {
         </div>
         
         {/* Customer info box */}
-        <div className="bg-gray-50 p-4 rounded-md mb-6 border border-gray-200">
-          <h3 className="text-lg font-medium text-gray-800 mb-2">Account Information</h3>
+        <div className={`${darkMode ? 'bg-gray-700 border-gray-600' : 'bg-gray-50 border-gray-200'} p-4 rounded-md mb-6 border`}>
+          <h3 className={`text-lg font-medium ${darkMode ? 'text-white' : 'text-gray-800'} mb-2`}>Account Information</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
-              <p className="text-sm text-gray-600">Customer ID:</p>
+              <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>Customer ID:</p>
               <p className="text-md font-medium">{user?.customerId || 'Not available'}</p>
             </div>
             <div>
-              <p className="text-sm text-gray-600">Name:</p>
+              <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>Name:</p>
               <p className="text-md font-medium">{user?.name || 'Not available'}</p>
             </div>
             <div>
-              <p className="text-sm text-gray-600">Email:</p>
+              <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>Email:</p>
               <p className="text-md font-medium">{user?.email || 'Not available'}</p>
             </div>
             <div>
-              <p className="text-sm text-gray-600">Active Proxies:</p>
+              <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>Active Proxies:</p>
               <p className="text-md font-medium">
                 {Array.isArray(orders) ? orders.filter(order => calculateDaysRemaining(order.orderData?.LEASE_VALID_UNTIL) > 0).length : 0}
               </p>
             </div>
             <div>
-              <p className="text-sm text-gray-600">Expired Proxies:</p>
+              <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>Expired Proxies:</p>
               <p className="text-md font-medium">
                 {Array.isArray(orders) ? orders.filter(order => calculateDaysRemaining(order.orderData?.LEASE_VALID_UNTIL) === 0).length : 0}
               </p>
             </div>
             <div>
-              <p className="text-sm text-gray-600">Total Proxies:</p>
+              <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>Total Proxies:</p>
               <p className="text-md font-medium">{Array.isArray(orders) ? orders.length : 0}</p>
             </div>
           </div>
@@ -629,24 +631,24 @@ const OrdersPage = () => {
         
         {/* Tabs for Active and Expired Proxies */}
         <div className="mb-6">
-          <div className="grid grid-cols-3 w-full max-w-md mb-4 inline-flex h-10 items-center justify-center rounded-md bg-muted p-1 text-muted-foreground">
+          <div className={`grid grid-cols-3 w-full max-w-md mb-4 inline-flex h-10 items-center justify-center rounded-md ${darkMode ? 'bg-gray-700' : 'bg-muted'} p-1 text-muted-foreground`}>
             <button 
               onClick={() => setActiveView("active")}
-              className={`inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 ${activeView === "active" ? "bg-background text-foreground shadow-sm" : ""}`}
+              className={`inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 ${activeView === "active" ? `${darkMode ? 'bg-gray-800' : 'bg-background'} text-foreground shadow-sm` : ""}`}
             >
               <Check className="h-4 w-4 mr-1" />
               Active Proxies
             </button>
             <button 
               onClick={() => setActiveView("expired")}
-              className={`inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 ${activeView === "expired" ? "bg-background text-foreground shadow-sm" : ""}`}
+              className={`inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 ${activeView === "expired" ? `${darkMode ? 'bg-gray-800' : 'bg-background'} text-foreground shadow-sm` : ""}`}
             >
               <History className="h-4 w-4 mr-1" />
               Expired Proxies
             </button>
             <button 
               onClick={() => setActiveView("all")}
-              className={`inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 ${activeView === "all" ? "bg-background text-foreground shadow-sm" : ""}`}
+              className={`inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 ${activeView === "all" ? `${darkMode ? 'bg-gray-800' : 'bg-background'} text-foreground shadow-sm` : ""}`}
             >
               <ArrowDownUp className="h-4 w-4 mr-1" />
               All Proxies
@@ -670,61 +672,61 @@ const OrdersPage = () => {
         
         {/* Proxy Connection Details */}
         {displayOrders.length > 0 && (
-          <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-6">
-            <h3 className="text-lg font-medium text-gray-800 mb-3">Connection Information</h3>
+          <div className={`${darkMode ? 'bg-gray-700 border-gray-600' : 'bg-gray-50 border-gray-200'} border rounded-lg p-4 mb-6`}>
+            <h3 className={`text-lg font-medium ${darkMode ? 'text-white' : 'text-gray-800'} mb-3`}>Connection Information</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="border border-gray-200 rounded-md bg-white p-4">
+              <div className={`border ${darkMode ? 'border-gray-600 bg-gray-800' : 'border-gray-200 bg-white'} rounded-md p-4`}>
                 <h4 className="text-md font-medium mb-2" style={{ color: themeColor }}>SOCKS5 Connection</h4>
                 <div className="space-y-2">
                   <div className="flex flex-wrap items-center text-sm">
                     <span className="font-medium w-20">SOCK IP:</span>
-                    <code className="px-2 py-1 bg-gray-100 rounded font-mono">
+                    <code className={`px-2 py-1 ${darkMode ? 'bg-gray-700' : 'bg-gray-100'} rounded font-mono`}>
                       {displayOrders[0]?.orderData?.SOCK_IP || 'N/A'}
                     </code>
                   </div>
                   <div className="flex flex-wrap items-center text-sm">
                     <span className="font-medium w-20">SOCK PORT:</span>
-                    <code className="px-2 py-1 bg-gray-100 rounded font-mono">
+                    <code className={`px-2 py-1 ${darkMode ? 'bg-gray-700' : 'bg-gray-100'} rounded font-mono`}>
                       {displayOrders[0]?.orderData?.SOCK_PORT || 'N/A'}
                     </code>
                   </div>
                   <div className="flex flex-wrap items-center text-sm">
                     <span className="font-medium w-20">SOCK USER:</span>
-                    <code className="px-2 py-1 bg-gray-100 rounded font-mono">
+                    <code className={`px-2 py-1 ${darkMode ? 'bg-gray-700' : 'bg-gray-100'} rounded font-mono`}>
                       {displayOrders[0]?.orderData?.PROXY_ID || displayOrders[0]?.externalOrderId || 'N/A'}
                     </code>
                   </div>
                   <div className="flex flex-wrap items-center text-sm">
                     <span className="font-medium w-20">SOCK PASS:</span>
-                    <code className="px-2 py-1 bg-gray-100 rounded font-mono">
+                    <code className={`px-2 py-1 ${darkMode ? 'bg-gray-700' : 'bg-gray-100'} rounded font-mono`}>
                       {displayOrders[0]?.orderData?.PROXY_PASSWORD || 'proxy-password'}
                     </code>
                   </div>
                 </div>
               </div>
               
-              <div className="border border-gray-200 rounded-md bg-white p-4">
+              <div className={`border ${darkMode ? 'border-gray-600 bg-gray-800' : 'border-gray-200 bg-white'} rounded-md p-4`}>
                 <h4 className="text-md font-medium mb-2" style={{ color: themeColor }}>HTTP Connection</h4>
                 <div className="space-y-2">
                   <div className="flex flex-wrap items-center text-sm">
                     <span className="font-medium w-20">Host:</span>
-                    <code className="px-2 py-1 bg-gray-100 rounded font-mono">
+                    <code className={`px-2 py-1 ${darkMode ? 'bg-gray-700' : 'bg-gray-100'} rounded font-mono`}>
                       {displayOrders[0]?.orderData?.HOST || displayOrders[0]?.orderData?.IP || 'N/A'}
                     </code>
                   </div>
                   <div className="flex flex-wrap items-center text-sm">
                     <span className="font-medium w-20">Port:</span>
-                    <code className="px-2 py-1 bg-gray-100 rounded font-mono">8080</code>
+                    <code className={`px-2 py-1 ${darkMode ? 'bg-gray-700' : 'bg-gray-100'} rounded font-mono`}>8080</code>
                   </div>
                   <div className="flex flex-wrap items-center text-sm">
                     <span className="font-medium w-20">Username:</span>
-                    <code className="px-2 py-1 bg-gray-100 rounded font-mono">
+                    <code className={`px-2 py-1 ${darkMode ? 'bg-gray-700' : 'bg-gray-100'} rounded font-mono`}>
                       {displayOrders[0]?.orderData?.PROXY_ID || displayOrders[0]?.externalOrderId || 'N/A'}
                     </code>
                   </div>
                   <div className="flex flex-wrap items-center text-sm">
                     <span className="font-medium w-20">Password:</span>
-                    <code className="px-2 py-1 bg-gray-100 rounded font-mono">
+                    <code className={`px-2 py-1 ${darkMode ? 'bg-gray-700' : 'bg-gray-100'} rounded font-mono`}>
                       {displayOrders[0]?.orderData?.PROXY_PASSWORD || 'proxy-password'}
                     </code>
                   </div>
