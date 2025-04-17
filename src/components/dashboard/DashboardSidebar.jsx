@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useDashboard } from './DashboardContext';
+import { DarkModeContext } from '@/context/DarkModeContext';
 import { 
   Laptop, 
   Server, 
@@ -21,6 +22,7 @@ const DashboardSidebar = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const { logout } = useDashboard();
+  const { darkMode } = useContext(DarkModeContext);
   
   // Close mobile menu when screen size changes to desktop
   useEffect(() => {
@@ -71,12 +73,12 @@ const DashboardSidebar = () => {
       
       {/* Mobile sidebar */}
       <div 
-        className={`fixed inset-y-0 left-0 bg-white shadow-xl z-50 w-64 transition-transform duration-300 transform md:hidden ${
+        className={`fixed inset-y-0 left-0 bg-white dark:bg-gray-900 shadow-xl z-50 w-64 transition-transform duration-300 transform md:hidden ${
           mobileOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
         {/* Mobile menu header */}
-        <div className="flex items-center justify-between h-16 border-b border-gray-200 bg-gradient-to-r from-[#874fc2] to-[#9a6dd2] px-4">
+        <div className="flex items-center justify-between h-16 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-[#874fc2] to-[#9a6dd2] px-4">
           <div className="flex items-center">
             <div className="w-10 h-10 flex items-center justify-center rounded-full bg-white text-[#874fc2] text-xl font-bold shadow-md mr-3">
               E
@@ -98,8 +100,8 @@ const DashboardSidebar = () => {
                 className={({ isActive }) =>
                   `flex items-center py-3 px-3 rounded-md transition-all duration-200 ${
                     isActive
-                      ? 'bg-[#f3eefb] text-[#874fc2] font-medium'
-                      : 'text-gray-600 hover:bg-[#f8f5fd] hover:text-[#874fc2]'
+                      ? 'bg-[#f3eefb] text-[#874fc2] font-medium dark:bg-gray-800 dark:text-purple-300'
+                      : 'text-gray-600 hover:bg-[#f8f5fd] hover:text-[#874fc2] dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-purple-300'
                   }`
                 }
                 onClick={() => setMobileOpen(false)}
@@ -115,7 +117,7 @@ const DashboardSidebar = () => {
         <div className="absolute bottom-6 px-2 w-full">
           <button
             onClick={handleLogout}
-            className="flex items-center py-3 px-3 rounded-md transition-colors w-full text-gray-600 hover:bg-[#f8f5fd] hover:text-[#874fc2]"
+            className="flex items-center py-3 px-3 rounded-md transition-colors w-full text-gray-600 hover:bg-[#f8f5fd] hover:text-[#874fc2] dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-purple-300"
           >
             <LogOut className="h-5 w-5 mr-3" />
             <span>Logout</span>
@@ -130,7 +132,7 @@ const DashboardSidebar = () => {
       {/* Hamburger menu button for mobile */}
       <button 
         onClick={toggleMobileMenu}
-        className="fixed top-4 left-4 z-30 p-2 rounded-md bg-white shadow-md text-[#874fc2] md:hidden"
+        className="fixed top-4 left-4 z-30 p-2 rounded-md bg-white dark:bg-gray-800 shadow-md text-[#874fc2] dark:text-purple-300 md:hidden"
       >
         <Menu size={24} />
       </button>
@@ -141,12 +143,12 @@ const DashboardSidebar = () => {
       {/* Desktop sidebar */}
       <div className="relative">
         <div 
-          className={`bg-white shadow-lg border-r border-gray-200 z-30 h-screen transition-all duration-300 ease-in-out ${
+          className={`bg-white dark:bg-gray-900 shadow-lg border-r border-gray-200 dark:border-gray-700 z-30 h-screen transition-all duration-300 ease-in-out ${
             collapsed ? 'w-20' : 'w-64'
           } hidden md:block`}
         >
           {/* Logo */}
-          <div className="flex items-center justify-center h-16 border-b border-gray-200 bg-gradient-to-r from-[#874fc2] to-[#9a6dd2]">
+          <div className="flex items-center justify-center h-16 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-[#874fc2] to-[#9a6dd2]">
             {collapsed ? (
               <div className="w-10 h-10 flex items-center justify-center rounded-full bg-white text-[#874fc2] text-xl font-bold shadow-md">
                 E
@@ -171,8 +173,8 @@ const DashboardSidebar = () => {
                   className={({ isActive }) =>
                     `flex items-center py-3 px-3 rounded-md transition-all duration-200 ${
                       isActive
-                        ? 'bg-[#f3eefb] text-[#874fc2] font-medium'
-                        : 'text-gray-600 hover:bg-[#f8f5fd] hover:text-[#874fc2]'
+                        ? 'bg-[#f3eefb] text-[#874fc2] font-medium dark:bg-gray-800 dark:text-purple-300'
+                        : 'text-gray-600 hover:bg-[#f8f5fd] hover:text-[#874fc2] dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-purple-300'
                     } ${collapsed ? 'justify-center' : ''}`
                   }
                 >
@@ -187,7 +189,7 @@ const DashboardSidebar = () => {
           <div className="absolute bottom-6 px-2 w-full">
             <button
               onClick={handleLogout}
-              className={`flex items-center py-3 px-3 rounded-md transition-colors w-full text-gray-600 hover:bg-[#f8f5fd] hover:text-[#874fc2] ${
+              className={`flex items-center py-3 px-3 rounded-md transition-colors w-full text-gray-600 hover:bg-[#f8f5fd] hover:text-[#874fc2] dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-purple-300 ${
                 collapsed ? 'justify-center' : ''
               }`}
             >
@@ -200,7 +202,7 @@ const DashboardSidebar = () => {
         {/* Toggle Button for desktop */}
         <button 
           onClick={toggleSidebar}
-          className="absolute -right-4 top-20 bg-white shadow-md border border-gray-200 rounded-full p-1.5 text-[#874fc2] hover:bg-[#f8f5fd] transition-colors z-40 hidden md:block"
+          className="absolute -right-4 top-20 bg-white dark:bg-gray-800 shadow-md border border-gray-200 dark:border-gray-700 rounded-full p-1.5 text-[#874fc2] dark:text-purple-300 hover:bg-[#f8f5fd] dark:hover:bg-gray-700 transition-colors z-40 hidden md:block"
         >
           {collapsed ? 
             <ChevronRight size={18} className="transition-transform hover:scale-110" /> : 

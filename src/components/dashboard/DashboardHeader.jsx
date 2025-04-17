@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDashboard } from './DashboardContext';
-import { Menu, Bell, ChevronDown, User, LogOut, Settings } from 'lucide-react';
+import { Menu, Bell, ChevronDown, User, LogOut } from 'lucide-react';
 
 const DashboardHeader = ({ toggleSidebar }) => {
   const { user, logout } = useDashboard();
@@ -184,12 +184,7 @@ const DashboardHeader = ({ toggleSidebar }) => {
       
       {/* Right side - User profile and notifications */}
       <div className="flex items-center space-x-4">
-        {/* Notifications */}
-        <button className="p-2 rounded-md text-gray-600 hover:bg-gray-100 relative dark:text-gray-300 dark:hover:bg-gray-700">
-          <Bell className="h-5 w-5" />
-          <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
-        </button>
-        
+       
         {/* User Profile Dropdown */}
         <div className="relative user-menu-container">
           <button 
@@ -223,10 +218,6 @@ const DashboardHeader = ({ toggleSidebar }) => {
               <a href="/dashboard/profile" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700">
                 <User className="h-4 w-4 mr-2" />
                 Profile
-              </a>
-              <a href="/dashboard/settings" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700">
-                <Settings className="h-4 w-4 mr-2" />
-                Settings
               </a>
               <button 
                 onClick={handleLogout}
