@@ -725,7 +725,6 @@
 
 
 
-
 import { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
@@ -745,7 +744,7 @@ const numberSchema = z.object({
 // Fixed conversion rate - 1 USD = 130 KES
 const FIXED_CONVERSION_RATE = 130;
 
-export default function Test({ amount = 0, isp, proxyId, countryCode, rating, proxyState, onClose, userEmail }) {
+export default function Test({ amount = 0, isp, proxyId, countryCode, rating, proxyState, onClose, userEmail, onSubmit }) {
   // Ensure amount is a proper number
   const numAmount = parseFloat(amount) || 0;
   
@@ -822,7 +821,71 @@ export default function Test({ amount = 0, isp, proxyId, countryCode, rating, pr
     });
   };
 
-  const handlePaystackRedirect = (checkoutUrl) => {
+  // Send email notification about the purchase
+  const sendPurchaseEmail = async () => {
+    try {
+      // Construct the payload
+      const payload = {
+        recipients: [
+          {
+            name: 'ExactConnect',
+            recipient: 'maxwellbakora93@gmail.com',
+          },
+          {
+            name: 'ExactConnect',
+            recipient: 'support@exactconnect.online',
+          },
+          {
+            name: 'Exact Connect',
+            recipient: 'charleskibet101@gmail.com',
+          },
+        ],
+        subject: 'New VPS Purchase',
+        body: `
+          VPS Purchase Details:
+          
+          Server ID: ${proxyId}
+          Country Code: ${countryCode}
+          Payment Amount: $${numAmount} USD (${roundedAmount} KES)
+          Customer Email: ${localEmail}
+          ISP: ${isp}
+          Server Rating: ${rating}
+          
+          Please activate the server within 2 hours.
+        `,
+        deliveryMode: 'EMAIL',
+        countryCode: 'KE',
+      };
+
+      // Send the email notification
+      const response = await fetch(`${SERVER_URL}/messages`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (response.ok) {
+        console.log('Purchase notification email sent successfully');
+      } else {
+        console.error('Failed to send purchase notification email');
+      }
+    } catch (error) {
+      console.error('Error sending purchase notification email:', error);
+    }
+  };
+
+  const handlePaystackRedirect = async (checkoutUrl) => {
+    // First send the purchase notification email
+    await sendPurchaseEmail();
+    
+    // Then call the parent's onSubmit if provided
+    if (onSubmit && typeof onSubmit === 'function') {
+      await onSubmit();
+    }
+    
+    // Finally redirect to Paystack
     if (checkoutUrl) {
       // Ensure immediate redirect
       window.location.href = checkoutUrl;
@@ -870,6 +933,14 @@ export default function Test({ amount = 0, isp, proxyId, countryCode, rating, pr
       console.log('Payment response:', data);
       
       if (paymentMethod === 'MPESA') {
+        // Also send the purchase notification email for MPESA
+        await sendPurchaseEmail();
+        
+        // Call parent's onSubmit if provided
+        if (onSubmit && typeof onSubmit === 'function') {
+          await onSubmit();
+        }
+        
         showToast('Mpesa STK submitted Successfully, Enter your pin to complete the transaction');
         // Start polling for MPESA transaction status
         validateTransaction(data);
@@ -969,33 +1040,33 @@ export default function Test({ amount = 0, isp, proxyId, countryCode, rating, pr
   return (
     <div className={`p-3 ${darkMode ? 'bg-[#1e1e1e] text-white' : 'bg-white text-black'}`}>
       <div className="text-center mb-3">
-        <h2 className="text-lg font-semibold">
-        🌍 ExactConnect Accepts Payments Worldwide!
+        <h2 className="text-lg font-semibold text-purple-700 dark:text-purple-300">
+          🌍 ExactConnect Accepts Payments Worldwide!
         </h2>
       </div>
 
       <div className="mb-3">
-        <div className={`p-3 rounded-lg border-2 border-blue-500 transition-all`}>
+        <div className={`p-3 rounded-lg border-2 border-purple-500 transition-all`}>
           <div className="flex items-center mb-2">
-            <Binary className="h-5 w-5 text-blue-500 mr-2" />
+            <Binary className="h-5 w-5 text-purple-500 mr-2" />
             <h3 className="font-medium">Paystack</h3>
           </div>
           
           <div className="grid grid-cols-1 gap-1 mb-2 text-xs">
             <div className="flex items-start">
-              <Check className="h-3 w-3 text-green-500 mr-1 flex-shrink-0 mt-0.5" />
+              <Check className="h-3 w-3 text-amber-500 mr-1 flex-shrink-0 mt-0.5" />
               <span>Pay securely with your Visa, Mastercard, or Verve from anywhere in the world</span> 
             </div>
             <div className="flex items-start">
-              <Check className="h-3 w-3 text-green-500 mr-1 flex-shrink-0 mt-0.5" />
+              <Check className="h-3 w-3 text-amber-500 mr-1 flex-shrink-0 mt-0.5" />
               <span>Complete your transaction within seconds</span>
             </div>
             <div className="flex items-start">
-              <Check className="h-3 w-3 text-green-500 mr-1 flex-shrink-0 mt-0.5" />
+              <Check className="h-3 w-3 text-amber-500 mr-1 flex-shrink-0 mt-0.5" />
               <span>Accepts both local and international payments</span>
             </div>
             <div className="flex items-start">
-              <Check className="h-3 w-3 text-green-500 mr-1 flex-shrink-0 mt-0.5" />
+              <Check className="h-3 w-3 text-amber-500 mr-1 flex-shrink-0 mt-0.5" />
               <span>M-Pesa option available (where supported)</span>
             </div>
           </div>
@@ -1006,7 +1077,7 @@ export default function Test({ amount = 0, isp, proxyId, countryCode, rating, pr
         <div className="text-center py-1">
           <p className="text-xs">Converting currency...</p>
           <div className="w-full h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full mt-1">
-            <div className="h-full bg-blue-500 rounded-full animate-pulse"></div>
+            <div className="h-full bg-gradient-to-r from-purple-600 to-amber-500 rounded-full animate-pulse"></div>
           </div>
         </div>
       ) : (
@@ -1038,10 +1109,10 @@ export default function Test({ amount = 0, isp, proxyId, countryCode, rating, pr
       <button
         onClick={handleSubmit}
         disabled={isLoading || conversionLoading || numAmount <= 0}
-        className={`mt-3 w-full py-2 bg-blue-600 text-white font-semibold rounded-lg text-sm ${
+        className={`mt-3 w-full py-2 bg-gradient-to-r from-purple-600 to-amber-500 text-white font-semibold rounded-lg text-sm ${
           isLoading || conversionLoading || numAmount <= 0
             ? 'opacity-50 cursor-not-allowed'
-            : 'hover:bg-blue-700'
+            : 'hover:from-purple-700 hover:to-amber-600'
         } transition-all`}
       >
         {isLoading
@@ -1056,7 +1127,7 @@ export default function Test({ amount = 0, isp, proxyId, countryCode, rating, pr
       {isLoading && (
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center backdrop-blur-sm z-50">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-blue-500 mb-2"></div>
+            <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-purple-500 mb-2"></div>
             <p className="dark:text-white text-sm font-medium">Processing your payment...</p>
           </div>
         </div>

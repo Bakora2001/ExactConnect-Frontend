@@ -558,17 +558,6 @@ const Home = () => {
                     </div>
                     <h3 className="text-xl font-semibold mb-3">{service.title}</h3>
                     <p className="text-base opacity-80 mb-6">{service.desc}</p>
-                    <a 
-                      href={`/${service.title.toLowerCase().replace(/\s+/g, '-')}`}
-                      className={`inline-flex items-center text-sm font-medium ${
-                        darkMode ? 'text-purple-400 hover:text-purple-300' : 'text-purple-700 hover:text-purple-800'
-                      }`}
-                    >
-                      Learn More
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </a>
                   </div>
                 ))}
               </div>

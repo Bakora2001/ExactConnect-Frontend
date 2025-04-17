@@ -316,7 +316,8 @@ const Psd = () => {
       return;
     }
     
-    setShowPaymentModal(true);
+    // Navigate to login page instead of showing payment modal
+    navigate('/account/login');
   };
 
   const handlePayment = (method) => {

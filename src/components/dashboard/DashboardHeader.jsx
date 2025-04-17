@@ -1,9 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useDashboard } from './DashboardContext';
-import { Menu, Bell, ChevronDown, User, LogOut } from 'lucide-react';
+import { DarkModeContext } from '@/context/DarkModeContext';
+import { Menu, Bell, ChevronDown, User, LogOut, Moon, Sun } from 'lucide-react';
 
 const DashboardHeader = ({ toggleSidebar }) => {
   const { user, logout } = useDashboard();
+  const { darkMode, toggleDarkMode } = useContext(DarkModeContext);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [displayName, setDisplayName] = useState('User');
   const [userEmail, setUserEmail] = useState('user@example.com');
@@ -184,6 +186,18 @@ const DashboardHeader = ({ toggleSidebar }) => {
       
       {/* Right side - User profile and notifications */}
       <div className="flex items-center space-x-4">
+        {/* Dark Mode Toggle */}
+        <button 
+          onClick={toggleDarkMode}
+          className="p-2 rounded-md text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700"
+          aria-label="Toggle dark mode"
+        >
+          {darkMode ? (
+            <Sun className="h-5 w-5" />
+          ) : (
+            <Moon className="h-5 w-5" />
+          )}
+        </button>
        
         {/* User Profile Dropdown */}
         <div className="relative user-menu-container">

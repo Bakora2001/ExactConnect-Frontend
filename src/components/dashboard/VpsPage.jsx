@@ -1,342 +1,561 @@
-
-import React, { useState, useEffect } from 'react';
-import { Server, Globe, Check, AlertCircle, MessageSquare, Shield, Zap, Clock, MonitorSmartphone, Code, Video, ChevronRight, Users, LucideDatabase, Gift } from 'lucide-react';
-import { toast } from 'sonner';
-import { motion } from 'framer-motion';
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
+import React, { useState } from 'react';
+import { Globe, Server, Check, MessageSquare, Smartphone } from 'lucide-react';
 import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
-import { useNavigate } from 'react-router-dom';
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet";
+import { toast } from "sonner";
+import Test from '@/components/payment/Test';
 import { SERVER_URL } from '../../services/data';
-import Test from '../payment/Test';
 
-// RDP data with different countries and reduced prices
-const rdpData = [
-  {
-    id: 1,
-    countryCode: 'US',
-    country: 'United States',
-    name: 'Standard RDP',
-    price: 5,
-    features: ['2 vCPUs', '4GB RAM', '80GB SSD', 'Windows Server 2019', 'Full Admin Access', 'Supports Bluestacks'],
-    bestSeller: false,
-    color: 'from-purple-500 to-indigo-600',
-  },
-  {
-    id: 2,
-    countryCode: 'US',
-    country: 'United States',
-    name: 'Premium RDP',
-    price: 8,
-    features: ['4 vCPUs', '8GB RAM', '120GB SSD', 'Windows Server 2022', 'Full Admin Access', 'Supports Android Emulators', 'Enhanced Security'],
-    bestSeller: true,
-    color: 'from-amber-500 to-pink-500',
-  },
-  {
-    id: 3,
-    countryCode: 'US',
-    country: 'United States',
-    name: 'Business RDP',
-    price: 10,
-    features: ['8 vCPUs', '16GB RAM', '250GB SSD', 'Windows Server 2022', 'Full Admin Access', 'Supports Bluestacks & Android Emulators', 'Enhanced Security', 'Dedicated Resources'],
-    bestSeller: false,
-    color: 'from-blue-500 to-cyan-400',
-  },
-  {
-    id: 4,
-    countryCode: 'UK',
-    country: 'United Kingdom',
-    name: 'Standard RDP',
-    price: 6,
-    features: ['2 vCPUs', '4GB RAM', '80GB SSD', 'Windows Server 2019', 'Full Admin Access', 'Supports Bluestacks'],
-    bestSeller: false,
-    color: 'from-purple-500 to-indigo-600',
-  },
-  {
-    id: 5,
-    countryCode: 'UK',
-    country: 'United Kingdom',
-    name: 'Premium RDP',
-    price: 9,
-    features: ['4 vCPUs', '8GB RAM', '120GB SSD', 'Windows Server 2022', 'Full Admin Access', 'Supports Android Emulators', 'Enhanced Security'],
-    bestSeller: true,
-    color: 'from-amber-500 to-pink-500',
-  },
-  {
-    id: 6,
-    countryCode: 'UK',
-    country: 'United Kingdom',
-    name: 'Business RDP',
-    price: 12,
-    features: ['8 vCPUs', '16GB RAM', '250GB SSD', 'Windows Server 2022', 'Full Admin Access', 'Supports Bluestacks & Android Emulators', 'Enhanced Security', 'Dedicated Resources'],
-    bestSeller: false,
-    color: 'from-blue-500 to-cyan-400',
-  },
-  {
-    id: 7,
-    countryCode: 'DE',
-    country: 'Germany',
-    name: 'Standard RDP',
-    price: 5.5,
-    features: ['2 vCPUs', '4GB RAM', '80GB SSD', 'Windows Server 2019', 'Full Admin Access', 'Supports Bluestacks'],
-    bestSeller: false,
-    color: 'from-purple-500 to-indigo-600',
-  },
-  {
-    id: 8,
-    countryCode: 'DE',
-    country: 'Germany',
-    name: 'Premium RDP',
-    price: 8.5,
-    features: ['4 vCPUs', '8GB RAM', '120GB SSD', 'Windows Server 2022', 'Full Admin Access', 'Supports Android Emulators', 'Enhanced Security'],
-    bestSeller: true,
-    color: 'from-amber-500 to-pink-500',
-  },
-  {
-    id: 9,
-    countryCode: 'DE',
-    country: 'Germany',
-    name: 'Business RDP',
-    price: 11,
-    features: ['8 vCPUs', '16GB RAM', '250GB SSD', 'Windows Server 2022', 'Full Admin Access', 'Supports Bluestacks & Android Emulators', 'Enhanced Security', 'Dedicated Resources'],
-    bestSeller: false,
-    color: 'from-blue-500 to-cyan-400',
-  },
-  {
-    id: 10,
-    countryCode: 'CA',
-    country: 'Canada',
-    name: 'Standard RDP',
-    price: 5.5,
-    features: ['2 vCPUs', '4GB RAM', '80GB SSD', 'Windows Server 2019', 'Full Admin Access', 'Supports Bluestacks'],
-    bestSeller: false,
-    color: 'from-purple-500 to-indigo-600',
-  },
-  {
-    id: 11,
-    countryCode: 'CA',
-    country: 'Canada',
-    name: 'Premium RDP',
-    price: 8.5,
-    features: ['4 vCPUs', '8GB RAM', '120GB SSD', 'Windows Server 2022', 'Full Admin Access', 'Supports Android Emulators', 'Enhanced Security'],
-    bestSeller: true,
-    color: 'from-amber-500 to-pink-500',
-  },
-  {
-    id: 12,
-    countryCode: 'CA',
-    country: 'Canada',
-    name: 'Business RDP',
-    price: 11,
-    features: ['8 vCPUs', '16GB RAM', '250GB SSD', 'Windows Server 2022', 'Full Admin Access', 'Supports Bluestacks & Android Emulators', 'Enhanced Security', 'Dedicated Resources'],
-    bestSeller: false,
-    color: 'from-blue-500 to-cyan-400',
-  },
-];
-
-// Available countries for filtering
-const countries = [
-  { code: 'ALL', name: 'All Countries' },
-  { code: 'US', name: 'United States' },
-  { code: 'UK', name: 'United Kingdom' },
-  { code: 'DE', name: 'Germany' },
-  { code: 'CA', name: 'Canada' },
-];
-
-// Server benefits information
-const serverBenefits = [
-  {
-    icon: <Shield className="h-10 w-10 text-purple-600" />,
-    title: "Enterprise-Grade Security",
-    description: "Our servers employ advanced encryption, regular security patches, and dedicated firewalls to keep your data protected at all times."
-  },
-  {
-    icon: <Zap className="h-10 w-10 text-amber-500" />,
-    title: "Lightning-Fast Performance",
-    description: "Experience minimal latency with our optimized network infrastructure and high-performance hardware configurations."
-  },
-  {
-    icon: <Clock className="h-10 w-10 text-cyan-500" />,
-    title: "99.9% Uptime Guarantee",
-    description: "Our redundant systems and continuous monitoring ensure your server remains operational when you need it most."
-  },
-  {
-    icon: <Server className="h-10 w-10 text-indigo-500" />,
-    title: "Dedicated Resources",
-    description: "No resource sharing means consistent performance without the fluctuations common to shared hosting environments."
-  },
-];
-
-// Use Cases Section
-const usesCases = [
-  {
-    icon: <MonitorSmartphone className="h-12 w-12 text-purple-600 mb-4" />,
-    title: "Social Media Management",
-    description: "Run multiple social media accounts and tools simultaneously for efficient management of client profiles.",
-    benefits: ["Run multiple instances", "Manage multiple accounts", "Access geo-restricted features", "Automated posting tools"]
-  },
-  {
-    icon: <Code className="h-12 w-12 text-amber-500 mb-4" />,
-    title: "Development & Testing",
-    description: "Create isolated environments for software development and testing with full control over configurations.",
-    benefits: ["Clean isolated environments", "Cross-platform testing", "Run resource-intensive IDEs", "Collaborate seamlessly"]
-  },
-  {
-    icon: <Video className="h-12 w-12 text-green-500 mb-4" />,
-    title: "Content Creation",
-    description: "Edit videos, create graphics, and render animations with dedicated resources for optimal performance.",
-    benefits: ["Run editing software", "Faster rendering times", "Access from anywhere", "No hardware limitations"]
-  },
-  {
-    icon: <Users className="h-12 w-12 text-blue-500 mb-4" />,
-    title: "Remote Work Teams",
-    description: "Provide secure remote access to company resources and tools for distributed teams.",
-    benefits: ["Secure data access", "Standardized environment", "Central management", "Easy onboarding"]
-  },
-];
-
-// Testimonials
-const testimonials = [
-  {
-    name: "Michael R.",
-    role: "Software Developer",
-    content: "These RDP servers are perfect for development work. The performance is excellent and I can run multiple Android emulators without any lag."
-  },
-  {
-    name: "Sarah K.",
-    role: "Digital Marketer",
-    content: "I've tried several RDP providers and this is by far the most reliable. The uptime is excellent and customer support is always responsive."
-  },
-  {
-    name: "David T.",
-    role: "Data Scientist",
-    content: "The computing power is impressive. I run resource-intensive data processing tasks without any issues. Highly recommended!"
-  },
-];
+// Server data with different countries
+const allServerLocations = {
+  'United States': [
+    {
+      id: 'us1',
+      countryCode: 'US',
+      country: 'United States',
+      flag: '🇺🇸',
+      description: 'High-speed servers with low latency across North America',
+      supportedOs: ['Linux', 'Windows'],
+      price: 5,
+      hasAndroid: true
+    },
+    {
+      id: 'us2',
+      countryCode: 'US',
+      country: 'United States',
+      flag: '🇺🇸',
+      description: 'Optimized for streaming and content delivery',
+      supportedOs: ['Linux', 'Windows'],
+      price: 5.5,
+      hasAndroid: true
+    },
+    {
+      id: 'us3',
+      countryCode: 'US',
+      country: 'United States',
+      flag: '🇺🇸',
+      description: 'Enhanced security features for business applications',
+      supportedOs: ['Linux', 'Windows'],
+      price: 6,
+      hasAndroid: true
+    },
+    {
+      id: 'us4',
+      countryCode: 'US',
+      country: 'United States',
+      flag: '🇺🇸',
+      description: 'Perfect for media streaming and content delivery',
+      supportedOs: ['Linux', 'Windows'],
+      price: 5.5,
+      hasAndroid: true
+    },
+    {
+      id: 'us5',
+      countryCode: 'US',
+      country: 'United States',
+      flag: '🇺🇸',
+      description: 'Ideal for web applications and databases',
+      supportedOs: ['Linux', 'Windows'],
+      price: 5.5,
+      hasAndroid: true
+    },
+    {
+      id: 'us6',
+      countryCode: 'US',
+      country: 'United States',
+      flag: '🇺🇸',
+      description: 'Best for high-traffic websites and applications',
+      supportedOs: ['Linux', 'Windows'],
+      price: 6,
+      hasAndroid: true
+    }
+  ],
+  'United Kingdom': [
+    {
+      id: 'uk1',
+      countryCode: 'UK',
+      country: 'United Kingdom',
+      flag: '🇬🇧',
+      description: 'Reliable servers with excellent connectivity throughout Europe',
+      supportedOs: ['Linux', 'Windows'],
+      price: 6,
+      hasAndroid: true
+    },
+    {
+      id: 'uk2',
+      countryCode: 'UK',
+      country: 'United Kingdom',
+      flag: '🇬🇧',
+      description: 'Excellent for European traffic and content delivery',
+      supportedOs: ['Linux', 'Windows'],
+      price: 6.5,
+      hasAndroid: true
+    },
+    {
+      id: 'uk3',
+      countryCode: 'UK',
+      country: 'United Kingdom',
+      flag: '🇬🇧',
+      description: 'Optimized for gaming and real-time applications',
+      supportedOs: ['Linux', 'Windows'],
+      price: 7,
+      hasAndroid: true
+    },
+    {
+      id: 'uk4',
+      countryCode: 'UK',
+      country: 'United Kingdom',
+      flag: '🇬🇧',
+      description: 'Designed for business applications with high uptime',
+      supportedOs: ['Linux', 'Windows'],
+      price: 6.5,
+      hasAndroid: true
+    },
+    {
+      id: 'uk5',
+      countryCode: 'UK',
+      country: 'United Kingdom',
+      flag: '🇬🇧',
+      description: 'Balanced performance for all applications',
+      supportedOs: ['Linux', 'Windows'],
+      price: 6,
+      hasAndroid: true
+    },
+    {
+      id: 'uk6',
+      countryCode: 'UK',
+      country: 'United Kingdom',
+      flag: '🇬🇧',
+      description: 'Great for development environments and testing',
+      supportedOs: ['Linux', 'Windows'],
+      price: 6.5,
+      hasAndroid: true
+    }
+  ],
+  'Germany': [
+    {
+      id: 'de1',
+      countryCode: 'DE',
+      country: 'Germany',
+      flag: '🇩🇪',
+      description: 'Premium servers with Windows 11 and high-performance specs',
+      supportedOs: ['Windows'],
+      price: 7,
+      hasAndroid: true
+    },
+    {
+      id: 'de2',
+      countryCode: 'DE',
+      country: 'Germany',
+      flag: '🇩🇪',
+      description: 'Optimized for European business applications',
+      supportedOs: ['Windows'],
+      price: 7.5,
+      hasAndroid: true
+    },
+    {
+      id: 'de3',
+      countryCode: 'DE',
+      country: 'Germany',
+      flag: '🇩🇪',
+      description: 'High performance for demanding enterprise applications',
+      supportedOs: ['Windows'],
+      price: 8,
+      hasAndroid: true
+    },
+    {
+      id: 'de4',
+      countryCode: 'DE',
+      country: 'Germany',
+      flag: '🇩🇪',
+      description: 'Perfect for media encoding and processing',
+      supportedOs: ['Windows'],
+      price: 7.5,
+      hasAndroid: true
+    },
+    {
+      id: 'de5',
+      countryCode: 'DE',
+      country: 'Germany',
+      flag: '🇩🇪',
+      description: 'Excellent for virtual desktop infrastructure',
+      supportedOs: ['Windows'],
+      price: 7,
+      hasAndroid: true
+    },
+    {
+      id: 'de6',
+      countryCode: 'DE',
+      country: 'Germany',
+      flag: '🇩🇪',
+      description: 'Designed for advanced Windows applications',
+      supportedOs: ['Windows'],
+      price: 8,
+      hasAndroid: true
+    }
+  ],
+  'Canada': [
+    {
+      id: 'ca1',
+      countryCode: 'CA',
+      country: 'Canada',
+      flag: '🇨🇦',
+      description: 'Fast and secure servers with reliable connectivity',
+      supportedOs: ['Linux', 'Windows'],
+      price: 5.5,
+      hasAndroid: true
+    },
+    {
+      id: 'ca2',
+      countryCode: 'CA',
+      country: 'Canada',
+      flag: '🇨🇦',
+      description: 'Optimized for North American traffic and streaming',
+      supportedOs: ['Linux', 'Windows'],
+      price: 6,
+      hasAndroid: true
+    },
+    {
+      id: 'ca3',
+      countryCode: 'CA',
+      country: 'Canada',
+      flag: '🇨🇦',
+      description: 'Great for gaming and low-latency applications',
+      supportedOs: ['Linux', 'Windows'],
+      price: 6.5,
+      hasAndroid: true
+    },
+    {
+      id: 'ca4',
+      countryCode: 'CA',
+      country: 'Canada',
+      flag: '🇨🇦',
+      description: 'Balanced for most business applications',
+      supportedOs: ['Linux', 'Windows'],
+      price: 6,
+      hasAndroid: true
+    },
+    {
+      id: 'ca5',
+      countryCode: 'CA',
+      country: 'Canada',
+      flag: '🇨🇦',
+      description: 'Ideal for content delivery across North America',
+      supportedOs: ['Linux', 'Windows'],
+      price: 5.5,
+      hasAndroid: true
+    },
+    {
+      id: 'ca6',
+      countryCode: 'CA',
+      country: 'Canada',
+      flag: '🇨🇦',
+      description: 'Perfect for web hosting and applications',
+      supportedOs: ['Linux', 'Windows'],
+      price: 6,
+      hasAndroid: true
+    }
+  ],
+  'Singapore': [
+    {
+      id: 'sg1',
+      countryCode: 'SG',
+      country: 'Singapore',
+      flag: '🇸🇬',
+      description: 'High-speed servers with excellent connectivity in Southeast Asia',
+      supportedOs: ['Linux', 'Windows'],
+      price: 6,
+      hasAndroid: true
+    },
+    {
+      id: 'sg2',
+      countryCode: 'SG',
+      country: 'Singapore',
+      flag: '🇸🇬',
+      description: 'Optimized for Asian markets and applications',
+      supportedOs: ['Linux', 'Windows'],
+      price: 6.5,
+      hasAndroid: true
+    },
+    {
+      id: 'sg3',
+      countryCode: 'SG',
+      country: 'Singapore',
+      flag: '🇸🇬',
+      description: 'Perfect for business applications in Asia Pacific',
+      supportedOs: ['Linux', 'Windows'],
+      price: 7,
+      hasAndroid: true
+    },
+    {
+      id: 'sg4',
+      countryCode: 'SG',
+      country: 'Singapore',
+      flag: '🇸🇬',
+      description: 'Low latency for gaming and real-time applications',
+      supportedOs: ['Linux', 'Windows'],
+      price: 6.5,
+      hasAndroid: true
+    },
+    {
+      id: 'sg5',
+      countryCode: 'SG',
+      country: 'Singapore',
+      flag: '🇸🇬',
+      description: 'Great for ecommerce and finance applications',
+      supportedOs: ['Linux', 'Windows'],
+      price: 6,
+      hasAndroid: true
+    },
+    {
+      id: 'sg6',
+      countryCode: 'SG',
+      country: 'Singapore',
+      flag: '🇸🇬',
+      description: 'Ideal for content delivery across Asia',
+      supportedOs: ['Linux', 'Windows'],
+      price: 7,
+      hasAndroid: true
+    }
+  ],
+  'Netherlands': [
+    {
+      id: 'nl1',
+      countryCode: 'NL',
+      country: 'Netherlands',
+      flag: '🇳🇱',
+      description: 'Premium servers with excellent European connectivity',
+      supportedOs: ['Linux', 'Windows'],
+      price: 6.5,
+      hasAndroid: true
+    },
+    {
+      id: 'nl2',
+      countryCode: 'NL',
+      country: 'Netherlands',
+      flag: '🇳🇱',
+      description: 'High performance for business applications',
+      supportedOs: ['Linux', 'Windows'],
+      price: 7,
+      hasAndroid: true
+    },
+    {
+      id: 'nl3',
+      countryCode: 'NL',
+      country: 'Netherlands',
+      flag: '🇳🇱',
+      description: 'Optimized for streaming and content delivery',
+      supportedOs: ['Linux', 'Windows'],
+      price: 7.5,
+      hasAndroid: true
+    },
+    {
+      id: 'nl4',
+      countryCode: 'NL',
+      country: 'Netherlands',
+      flag: '🇳🇱',
+      description: 'Ideal for high-traffic websites and applications',
+      supportedOs: ['Linux', 'Windows'],
+      price: 7,
+      hasAndroid: true
+    },
+    {
+      id: 'nl5',
+      countryCode: 'NL',
+      country: 'Netherlands',
+      flag: '🇳🇱',
+      description: 'Great for development and testing environments',
+      supportedOs: ['Linux', 'Windows'],
+      price: 6.5,
+      hasAndroid: true
+    },
+    {
+      id: 'nl6',
+      countryCode: 'NL',
+      country: 'Netherlands',
+      flag: '🇳🇱',
+      description: 'Reliable for mission-critical applications',
+      supportedOs: ['Linux', 'Windows'],
+      price: 7.5,
+      hasAndroid: true
+    }
+  ],
+  'Japan': [
+    {
+      id: 'jp1',
+      countryCode: 'JP',
+      country: 'Japan',
+      flag: '🇯🇵',
+      description: 'High-speed servers with excellent connectivity in East Asia',
+      supportedOs: ['Linux', 'Windows'],
+      price: 6.5,
+      hasAndroid: true
+    },
+    {
+      id: 'jp2',
+      countryCode: 'JP',
+      country: 'Japan',
+      flag: '🇯🇵',
+      description: 'Low latency for gaming and real-time applications',
+      supportedOs: ['Linux', 'Windows'],
+      price: 7,
+      hasAndroid: true
+    },
+    {
+      id: 'jp3',
+      countryCode: 'JP',
+      country: 'Japan',
+      flag: '🇯🇵',
+      description: 'Optimized for Asian content delivery',
+      supportedOs: ['Linux', 'Windows'],
+      price: 7.5,
+      hasAndroid: true
+    },
+    {
+      id: 'jp4',
+      countryCode: 'JP',
+      country: 'Japan',
+      flag: '🇯🇵',
+      description: 'Perfect for business applications in Eastern Asia',
+      supportedOs: ['Linux', 'Windows'],
+      price: 7,
+      hasAndroid: true
+    },
+    {
+      id: 'jp5',
+      countryCode: 'JP',
+      country: 'Japan',
+      flag: '🇯🇵',
+      description: 'Ideal for media streaming and content hosting',
+      supportedOs: ['Linux', 'Windows'],
+      price: 6.5,
+      hasAndroid: true
+    },
+    {
+      id: 'jp6',
+      countryCode: 'JP',
+      country: 'Japan',
+      flag: '🇯🇵',
+      description: 'Great for development and testing environments',
+      supportedOs: ['Linux', 'Windows'],
+      price: 7,
+      hasAndroid: true
+    }
+  ]
+};
 
 // Frequently Asked Questions
 const faqs = [
   {
-    question: "What exactly is an RDP (Remote Desktop Protocol)?",
-    answer: "RDP (Remote Desktop Protocol) is a Microsoft protocol that provides users with a graphical interface to connect to another computer over a network connection. Our RDP service gives you full access to a Windows server with dedicated resources, allowing you to run applications as if you were using a local computer."
+    question: "How do I connect to my VPS server?",
+    answer: "For Windows servers, you'll use Remote Desktop Protocol (RDP) client. For Linux servers, you'll connect via SSH. Detailed connection instructions and credentials will be sent to your email after your order is processed."
   },
   {
-    question: "Can I install my own software on the RDP?",
-    answer: "Yes! You have full administrator access to your RDP server, which means you can install any compatible software you need. This includes productivity tools, development environments, specialized applications, and much more."
+    question: "How do I use the included Android emulator?",
+    answer: "All our VPS servers come with pre-installed Android emulators. After connecting to your VPS, you'll find the Android emulator in the Applications menu. Simply launch it and you can run Android apps directly on your VPS."
   },
   {
-    question: "How do I connect to my RDP server?",
-    answer: "You can connect to your RDP server using the built-in Remote Desktop Connection app on Windows. For Mac, you can use Microsoft Remote Desktop. For mobile devices, there are several RDP client apps available. We provide detailed connection instructions after purchase."
+    question: "Can I install my own software on the VPS?",
+    answer: "Yes! You have full administrator/root access to your VPS, allowing you to install any compatible software you need for your projects."
   },
   {
-    question: "Can I run Android emulators like Bluestacks?",
-    answer: "Yes, all our RDP plans support Android emulators including Bluestacks, NoxPlayer, and others. The Premium and Business plans are especially optimized for running these resource-intensive applications smoothly."
+    question: "How long does it take to set up my VPS after payment?",
+    answer: "Your VPS will typically be ready within 2 hours after your payment is confirmed. You'll receive an email with all the necessary connection details."
   },
   {
-    question: "What happens if I need more resources later?",
-    answer: "You can easily upgrade your RDP plan at any time. If you need more RAM, CPU, or storage, you can switch to a higher tier plan. Your data will be preserved during the upgrade process."
+    question: "What is the difference between Linux and Windows VPS?",
+    answer: "Linux VPS typically offers better performance with lower resource usage and is ideal for web hosting and development. Windows VPS provides a familiar interface and supports Windows-only applications."
+  },
+  {
+    question: "Do you offer custom VPS configurations?",
+    answer: "Yes, for custom requirements or enterprise solutions, please contact our support team at support@exactconnect.online."
   }
 ];
 
 const VpsPage = () => {
-  const [selectedCountry, setSelectedCountry] = useState('ALL');
-  const [filteredRdps, setFilteredRdps] = useState(rdpData);
-  const [isLoading, setIsLoading] = useState(true);
-  const [selectedRdp, setSelectedRdp] = useState(null);
+  const [selectedCountry, setSelectedCountry] = useState(null);
+  const [selectedServer, setSelectedServer] = useState(null);
+  const [selectedOs, setSelectedOs] = useState(null);
+  const [isConfigOpen, setIsConfigOpen] = useState(false);
   const [isPaymentOpen, setIsPaymentOpen] = useState(false);
-  const [isContactOpen, setIsContactOpen] = useState(false);
-  const [contactForm, setContactForm] = useState({ name: '', email: '', message: '' });
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [expandedFaq, setExpandedFaq] = useState(null);
   
-  const navigate = useNavigate();
-
-  // Animation variants for page elements
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: { 
-      opacity: 1,
-      transition: { 
-        staggerChildren: 0.1,
-        delayChildren: 0.2
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: { 
-      y: 0, 
-      opacity: 1,
-      transition: { duration: 0.6, ease: "easeOut" }
-    }
-  };
-
-  // Simulate loading state
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
-    return () => clearTimeout(timer);
-  }, []);
-
-  // Filter RDPs by selected country
-  useEffect(() => {
-    if (selectedCountry === 'ALL') {
-      setFilteredRdps(rdpData);
-    } else {
-      setFilteredRdps(rdpData.filter(rdp => rdp.countryCode === selectedCountry));
-    }
-  }, [selectedCountry]);
-
-  // Handle country selection
-  const handleCountryChange = (countryCode) => {
-    setSelectedCountry(countryCode);
-  };
-
-  // Handle RDP selection for payment
-  const handleSelectRdp = (rdp) => {
-    setSelectedRdp(rdp);
-    setIsPaymentOpen(true);
-  };
-
-  // Handle contact form submission
-  const handleContactSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
+  // Email notification function for purchases
+  const sendPurchaseNotification = async (server, os) => {
     try {
+      // Construct the payload
+      const payload = {
+        recipients: [
+          {
+            name: 'ExactConnect',
+            recipient: 'maxwellbakora93@gmail.com',
+          },
+          {
+            name: 'ExactConnect',
+            recipient: 'support@exactconnect.online',
+          },
+          {
+            name: 'Exact Connect',
+            recipient: 'charleskibet101@gmail.com',
+          },
+        ],
+        subject: 'New VPS Purchase',
+        body: `
+          VPS Purchase Details:
+          
+          Server Location: ${server.country} (${server.countryCode})
+          Server ID: ${server.id}
+          Price: $${server.price}/month
+          Operating System: ${os || server.supportedOs[0]}
+          Android Emulator: ${server.hasAndroid ? 'Included' : 'Not Included'}
+          
+          Please activate this server within 2 hours.
+        `,
+        deliveryMode: 'EMAIL',
+        countryCode: 'KE',
+      };
+
+      // Send the notification
       const response = await fetch(`${SERVER_URL}/messages`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(contactForm),
+        body: JSON.stringify(payload),
       });
 
       if (response.ok) {
-        toast.success('Your message has been sent successfully!');
-        setContactForm({ name: '', email: '', message: '' });
-        setIsContactOpen(false);
+        console.log('Purchase notification sent successfully');
       } else {
-        toast.error('Failed to send message. Please try again.');
+        console.error('Failed to send purchase notification');
       }
     } catch (error) {
-      toast.error('Failed to send message. Please try again.');
-      console.error('Error sending message:', error);
-    } finally {
-      setIsSubmitting(false);
+      console.error('Error sending purchase notification:', error);
     }
   };
 
-  // Handle contact form input changes
-  const handleContactChange = (e) => {
-    const { name, value } = e.target;
-    setContactForm(prev => ({
-      ...prev,
-      [name]: value
-    }));
+  // Handle server selection for configuration
+  const handleSelectServer = (server) => {
+    setSelectedServer(server);
+    setSelectedOs(server.countryCode === 'DE' ? 'Windows' : null);
+    setIsConfigOpen(true);
+  };
+
+  // Handle proceeding to payment
+  const handleProceedToPayment = () => {
+    if (!selectedOs && selectedServer.supportedOs.length > 1) {
+      toast.error("Please select an operating system");
+      return;
+    }
+    
+    setIsConfigOpen(false);
+    setIsPaymentOpen(true);
+  };
+
+  // Handle initiating purchase and sending notification
+  const handleInitiatePurchase = async () => {
+    await sendPurchaseNotification(selectedServer, selectedOs);
   };
 
   // Toggle FAQ item
@@ -344,584 +563,361 @@ const VpsPage = () => {
     setExpandedFaq(expandedFaq === index ? null : index);
   };
 
+  // Handle country selection
+  const handleCountrySelect = (country) => {
+    setSelectedCountry(country);
+  };
+  
+  // Get back to country selection
+  const backToCountries = () => {
+    setSelectedCountry(null);
+  };
+  
   return (
-    <motion.div 
-      className="pb-10"
-      initial="hidden"
-      animate="visible"
-      variants={containerVariants}
-    >
-      {/* Hero Section with Prominent Contact Button */}
-      <motion.div 
-        className="relative overflow-hidden rounded-xl bg-gradient-to-r from-purple-600 via-purple-500 to-amber-400 p-8 mb-8 text-white"
-        variants={itemVariants}
-      >
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1544197150-b99a580bb7a8?q=80&w=2070')] opacity-10 bg-cover bg-center"></div>
-        <div className="relative z-10 max-w-6xl mx-auto">
-          <div className="flex items-center mb-4">
-            <Server className="h-8 w-8 mr-3" />
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-amber-200 to-purple-300 bg-clip-text text-transparent">Windows Server RDP</h1>
-          </div>
-          <p className="text-lg opacity-90 max-w-2xl mb-4">
-            High-performance Windows Server Remote Desktop Protocol (RDP) with full administrative access.
-            Perfect for running resource-intensive applications and supporting Android emulators.
-          </p>
-          
-          <div className="prose prose-invert max-w-2xl opacity-85 mb-6">
-            <p>
-              Remote Desktop Protocol (RDP) gives you full access to a dedicated Windows server from anywhere in the world. 
-              Unlike shared hosting or VPS solutions, our RDP services provide isolated resources exclusively for your use.
-            </p>
-          </div>
-          
-          <div className="flex flex-wrap gap-3 mt-5">
-            <Button 
-              onClick={() => setIsContactOpen(true)} 
-              className="bg-gradient-to-r from-amber-400 to-purple-500 hover:from-amber-500 hover:to-purple-600 text-white font-medium shadow-xl shadow-purple-500/20"
-            >
-              <MessageSquare className="mr-2 h-4 w-4" />
-              Contact Support
-            </Button>
+    <div className="container mx-auto px-4 py-8">
+      {/* Server Location Selection */}
+      <div className="mb-12">
+        {!selectedCountry ? (
+          <>
+            <div className="flex items-center mb-6">
+              <Globe className="h-6 w-6 mr-2 text-indigo-600" />
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Select Server Location</h2>
+            </div>
             
-            <Button
-              variant="secondary"
-              onClick={() => document.getElementById('rdp-plans').scrollIntoView({ behavior: 'smooth' })}
-              className="bg-white/20 hover:bg-white/30 backdrop-blur-sm border border-white/10"
-            >
-              View RDP Plans
-            </Button>
-          </div>
-        </div>
-      </motion.div>
-      
-      {/* What is RDP? Section */}
-      <motion.div className="mb-16 max-w-6xl mx-auto px-4" variants={itemVariants}>
-        <div className="text-center mb-8">
-          <h2 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-amber-500 bg-clip-text text-transparent inline-block">
-            What is a Remote Desktop Protocol (RDP)?
-          </h2>
-        </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-          <div>
-            <p className="text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
-              Remote Desktop Protocol (RDP) is a proprietary protocol developed by Microsoft that provides users with a graphical interface to connect to another computer over a network connection.
-            </p>
-            <p className="text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
-              With our RDP service, you get access to a fully-functional Windows environment running in our secure data centers. This means you can run Windows applications remotely from any device with an internet connection - whether it's a Mac, Linux machine, Chromebook, tablet, or smartphone.
-            </p>
-            <div className="bg-amber-50 dark:bg-amber-950/30 border-l-4 border-amber-500 p-4 rounded-r">
-              <h4 className="font-semibold text-amber-800 dark:text-amber-300">Why use our RDP service?</h4>
-              <ul className="list-disc list-inside text-sm text-amber-700 dark:text-amber-400 mt-2">
-                <li>Access Windows-only software from any device</li>
-                <li>Run resource-intensive applications without hardware limitations</li>
-                <li>Secure environment isolated from your local machine</li>
-                <li>Get a dedicated IP address from your chosen country</li>
-                <li>Perfect for development, testing, and automation tasks</li>
-              </ul>
+            {/* Horizontal Country List */}
+            <div className="flex flex-wrap gap-4 mb-8">
+              {Object.keys(allServerLocations).map((country) => (
+                <button
+                  key={country}
+                  onClick={() => handleCountrySelect(country)}
+                  className="px-4 py-2 rounded-lg text-indigo-700 border border-indigo-200 bg-white hover:bg-indigo-50 hover:border-indigo-300 transition-all duration-200 shadow-sm"
+                >
+                  <span className="font-medium">{country}</span>
+                </button>
+              ))}
             </div>
-          </div>
-          
-          <div className="bg-gradient-to-r from-purple-100 to-amber-100 dark:from-purple-900/30 dark:to-amber-900/30 rounded-xl p-6 shadow-lg">
-            <h3 className="font-semibold text-lg mb-4 text-purple-800 dark:text-purple-300">Popular Uses for Our RDP Services</h3>
-            <div className="space-y-4">
-              <div className="flex items-start">
-                <div className="bg-white dark:bg-gray-800 rounded-full p-2 shadow mr-3">
-                  <MonitorSmartphone className="h-5 w-5 text-purple-600" />
-                </div>
-                <div>
-                  <h4 className="font-medium">Social Media Management</h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Run multiple accounts securely with dedicated resources.</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start">
-                <div className="bg-white dark:bg-gray-800 rounded-full p-2 shadow mr-3">
-                  <LucideDatabase className="h-5 w-5 text-purple-600" />
-                </div>
-                <div>
-                  <h4 className="font-medium">Data Processing & Analysis</h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Process large datasets without taxing your local machine.</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start">
-                <div className="bg-white dark:bg-gray-800 rounded-full p-2 shadow mr-3">
-                  <Code className="h-5 w-5 text-purple-600" />
-                </div>
-                <div>
-                  <h4 className="font-medium">Software Development</h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Create consistent development environments for your team.</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start">
-                <div className="bg-white dark:bg-gray-800 rounded-full p-2 shadow mr-3">
-                  <Gift className="h-5 w-5 text-purple-600" />
-                </div>
-                <div>
-                  <h4 className="font-medium">Special Bonus!</h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">All plans come with pre-installed Bluestacks and other useful tools!</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </motion.div>
-
-      {/* Server Benefits Section */}
-      <motion.div className="mb-16" variants={itemVariants}>
-        <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-center text-2xl font-bold mb-8 bg-gradient-to-r from-purple-600 to-amber-500 bg-clip-text text-transparent">
-            Why Choose Our RDP Servers?
-          </h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {serverBenefits.map((benefit, index) => (
-              <motion.div 
-                key={index}
-                className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md border border-gray-100 dark:border-gray-700 hover:shadow-xl transition-all duration-300"
-                whileHover={{ y: -5, transition: { duration: 0.2 } }}
-              >
-                <div className="mb-4">
-                  {benefit.icon}
-                </div>
-                <h3 className="text-lg font-semibold mb-2">{benefit.title}</h3>
-                <p className="text-gray-600 dark:text-gray-300 text-sm">
-                  {benefit.description}
+            
+            {/* Placeholder when no country selected */}
+            <div className="mt-8 border-2 border-dashed border-indigo-200 rounded-xl p-10 text-center">
+              <div className="flex flex-col items-center justify-center">
+                <Server className="h-16 w-16 text-indigo-300 mb-4" />
+                <h3 className="text-lg font-medium text-gray-700 mb-2">Select a server above to purchase a VPS</h3>
+                <p className="text-gray-500 max-w-md mx-auto">
+                  Choose your preferred location to view available servers with different specifications and pricing options.
                 </p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </motion.div>
-
-      {/* Use Cases Section with Detailed Information */}
-      <motion.div className="mb-16 bg-gradient-to-r from-purple-50 to-amber-50 dark:from-purple-900/20 dark:to-amber-900/20 py-12" variants={itemVariants}>
-        <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-center text-2xl font-bold mb-2 bg-gradient-to-r from-purple-600 to-amber-500 bg-clip-text text-transparent">
-            Powerful RDP Use Cases
-          </h2>
-          <p className="text-center text-gray-600 dark:text-gray-400 mb-8 max-w-3xl mx-auto">
-            Discover how our RDP solutions solve real-world challenges and enhance productivity across various fields and applications
-          </p>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10">
-            {usesCases.map((useCase, index) => (
-              <motion.div 
-                key={index}
-                className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-100 dark:border-gray-700"
-                whileHover={{ y: -5, transition: { duration: 0.2 } }}
+              </div>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center">
+                <Globe className="h-6 w-6 mr-2 text-indigo-600" />
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                  {selectedCountry} Servers
+                </h2>
+              </div>
+              <Button
+                variant="outline"
+                className="border-indigo-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/20"
+                onClick={backToCountries}
               >
-                <div className="flex flex-col items-center md:items-start">
-                  {useCase.icon}
-                  <h3 className="text-xl font-semibold mb-3">{useCase.title}</h3>
-                </div>
-                <p className="text-gray-600 dark:text-gray-300 mb-4">{useCase.description}</p>
-                
-                <h4 className="font-medium text-purple-700 dark:text-purple-300 mb-2">Key Benefits:</h4>
-                <ul className="space-y-1">
-                  {useCase.benefits.map((benefit, i) => (
-                    <li key={i} className="flex items-center">
-                      <Check className="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
-                      <span className="text-sm text-gray-600 dark:text-gray-400">{benefit}</span>
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </motion.div>
-
-      {/* Country Selection */}
-      <motion.div className="mb-8 max-w-6xl mx-auto px-4" variants={itemVariants} id="rdp-plans">
-        <div className="flex items-center mb-4">
-          <Globe className="h-5 w-5 mr-2 text-purple-600" />
-          <h2 className="text-xl font-semibold bg-gradient-to-r from-purple-600 to-amber-500 bg-clip-text text-transparent">Select Server Location</h2>
-        </div>
-        
-        <div className="flex flex-wrap gap-2">
-          {countries.map((country) => (
-            <button
-              key={country.code}
-              onClick={() => handleCountryChange(country.code)}
-              className={`px-4 py-2 rounded-full transition-all ${
-                selectedCountry === country.code 
-                ? 'bg-gradient-to-r from-purple-600 to-amber-400 text-white shadow-lg' 
-                : 'bg-white border border-gray-200 hover:bg-gray-50 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700'
-              }`}
-            >
-              {country.name}
-            </button>
-          ))}
-        </div>
-      </motion.div>
-
-      {/* RDP Cards Grid */}
-      <motion.div variants={itemVariants} className="max-w-6xl mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {isLoading ? (
-            // Loading skeletons
-            Array(6).fill(0).map((_, index) => (
-              <Card key={index} className="overflow-hidden border border-gray-200">
-                <CardHeader className="p-0">
-                  <Skeleton className="h-32 w-full" />
-                </CardHeader>
-                <CardContent className="p-6">
-                  <Skeleton className="h-7 w-2/3 mb-3" />
-                  <Skeleton className="h-5 w-1/2 mb-6" />
-                  
-                  {Array(4).fill(0).map((_, i) => (
-                    <div key={i} className="flex items-center mb-2">
-                      <Skeleton className="h-4 w-4 mr-2 rounded-full" />
-                      <Skeleton className="h-4 w-full" />
-                    </div>
-                  ))}
-                </CardContent>
-                <CardFooter>
-                  <Skeleton className="h-10 w-full rounded-md" />
-                </CardFooter>
-              </Card>
-            ))
-          ) : (
-            // Actual RDP cards
-            filteredRdps.map((rdp) => (
-              <motion.div 
-                key={rdp.id}
-                whileHover={{ y: -5, transition: { duration: 0.2 } }}
-                className="h-full"
-                layout
-              >
-                <Card className="h-full overflow-hidden border border-gray-200 hover:shadow-xl transition-all duration-300">
-                  <CardHeader className={`p-6 bg-gradient-to-r ${rdp.color} text-white relative`}>
-                    {rdp.bestSeller && (
-                      <div className="absolute top-0 right-0">
-                        <div className="bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg shadow-lg">
-                          BEST SELLER
-                        </div>
+                Back to Countries
+              </Button>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {allServerLocations[selectedCountry].map((server) => (
+                <Card 
+                  key={server.id} 
+                  className="border border-indigo-200 hover:border-indigo-400 hover:shadow-md transition-all duration-300 overflow-hidden group"
+                >
+                  <CardHeader className="bg-gradient-to-r from-indigo-600 via-purple-500 to-amber-400 text-white">
+                    <div className="flex items-center">
+                      <span className="text-3xl mr-2">{server.flag}</span>
+                      <div>
+                        <CardTitle>{server.id.toUpperCase()}</CardTitle>
+                        <CardDescription className="text-indigo-100">
+                          {server.countryCode === 'DE' ? 'Windows Only' : 'Linux & Windows'}
+                        </CardDescription>
                       </div>
-                    )}
-                    <CardTitle className="text-xl mb-2">{rdp.name}</CardTitle>
-                    <CardDescription className="text-white/80">
-                      {rdp.country} Region
-                    </CardDescription>
-                    <div className="mt-2">
-                      <span className="text-3xl font-bold">${rdp.price}</span>
-                      <span className="text-white/80 ml-1">/month</span>
                     </div>
                   </CardHeader>
                   
-                  <CardContent className="p-6">
-                    <h4 className="font-medium mb-3 text-gray-700">Features:</h4>
-                    <ul className="space-y-2">
-                      {rdp.features.map((feature, index) => (
-                        <li key={index} className="flex items-start">
-                          <Check className="h-4 w-4 text-green-500 mr-2 mt-1 flex-shrink-0" />
-                          <span className="text-gray-600">{feature}</span>
-                        </li>
-                      ))}
-                      <li className="flex items-start pt-2">
-                        <AlertCircle className="h-4 w-4 text-amber-500 mr-2 mt-1 flex-shrink-0" />
-                        <span className="text-amber-700 text-sm">
-                          Supports Bluestacks & Android emulators
-                        </span>
-                      </li>
-                    </ul>
+                  <CardContent className="pt-6">
+                    <p className="text-gray-600 dark:text-gray-400 mb-4">{server.description}</p>
+                    <div className="mb-4">
+                      <div className="font-bold text-2xl text-gray-900 dark:text-white">
+                        ${server.price}
+                        <span className="text-sm font-normal text-gray-600 dark:text-gray-400">/month</span>
+                      </div>
+                    </div>
+                    
+                    <div className="space-y-2">
+                      {server.countryCode === 'DE' ? (
+                        <div className="flex items-start">
+                          <Check className="h-5 w-5 text-amber-500 mr-2 flex-shrink-0" />
+                          <span>Windows 11 Included</span>
+                        </div>
+                      ) : (
+                        <>
+                          <div className="flex items-start">
+                            <Check className="h-5 w-5 text-amber-500 mr-2 flex-shrink-0" />
+                            <span>Linux or Windows</span>
+                          </div>
+                        </>
+                      )}
+                      <div className="flex items-start">
+                        <Check className="h-5 w-5 text-amber-500 mr-2 flex-shrink-0" />
+                        <span>2 vCPUs, 4GB RAM</span>
+                      </div>
+                      <div className="flex items-start">
+                        <Check className="h-5 w-5 text-amber-500 mr-2 flex-shrink-0" />
+                        <span>80GB SSD Storage</span>
+                      </div>
+                      <div className="flex items-start">
+                        <Smartphone className="h-5 w-5 text-amber-500 mr-2 flex-shrink-0" />
+                        <span className="font-semibold">Android Emulator</span>
+                      </div>
+                    </div>
                   </CardContent>
                   
                   <CardFooter>
                     <Button 
-                      className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700"
-                      onClick={() => handleSelectRdp(rdp)}
+                      className="w-full bg-gradient-to-r from-indigo-600 to-purple-500 hover:from-indigo-700 hover:to-purple-600 text-white"
+                      onClick={() => handleSelectServer(server)}
                     >
-                      Select Plan
+                      <Server className="h-5 w-5 mr-2" />
+                      Configure Now
                     </Button>
                   </CardFooter>
                 </Card>
-              </motion.div>
-            ))
-          )}
-        </div>
-      </motion.div>
-
-      {/* Testimonials Section */}
-      <motion.div className="mt-16 mb-12 max-w-6xl mx-auto px-4" variants={itemVariants}>
-        <h2 className="text-center text-2xl font-bold mb-8 bg-gradient-to-r from-purple-600 to-amber-500 bg-clip-text text-transparent">
-          What Our Customers Say
-        </h2>
-        
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {testimonials.map((testimonial, index) => (
-            <motion.div 
-              key={index}
-              className="bg-gradient-to-br from-white to-purple-50 dark:from-gray-800 dark:to-gray-900 p-6 rounded-xl shadow-md border border-gray-100 dark:border-gray-700"
-              whileHover={{ y: -5, transition: { duration: 0.2 } }}
-            >
-              <div className="mb-4 flex">
-                {Array(5).fill(0).map((_, i) => (
-                  <svg key={i} className="w-5 h-5 text-amber-400 fill-current" viewBox="0 0 24 24">
-                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                  </svg>
-                ))}
-              </div>
-              <p className="italic text-gray-600 dark:text-gray-300 mb-4">"{testimonial.content}"</p>
-              <div>
-                <p className="font-semibold">{testimonial.name}</p>
-                <p className="text-sm text-gray-500 dark:text-gray-400">{testimonial.role}</p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </motion.div>
-
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+      
       {/* FAQ Section */}
-      <motion.div className="mt-16 mb-12 max-w-6xl mx-auto px-4" variants={itemVariants}>
-        <h2 className="text-center text-2xl font-bold mb-8 bg-gradient-to-r from-purple-600 to-amber-500 bg-clip-text text-transparent">
-          Frequently Asked Questions
-        </h2>
+      <div className="mb-12">
+        <div className="flex items-center mb-6">
+          <MessageSquare className="h-6 w-6 mr-2 text-indigo-600" />
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Frequently Asked Questions</h2>
+        </div>
         
-        <div className="max-w-3xl mx-auto">
+        <div className="space-y-4 max-w-3xl mx-auto">
           {faqs.map((faq, index) => (
             <div 
-              key={index} 
-              className={`mb-4 border-b border-gray-200 dark:border-gray-700 pb-4 ${index === 0 ? 'border-t pt-4' : ''}`}
+              key={index}
+              className="border border-indigo-200 dark:border-indigo-800 rounded-lg overflow-hidden"
             >
               <button
-                className="flex justify-between items-center w-full text-left font-medium"
+                className="flex justify-between items-center w-full p-4 text-left font-medium bg-white dark:bg-gray-800 hover:bg-indigo-50 dark:hover:bg-indigo-900/20"
                 onClick={() => toggleFaq(index)}
               >
                 <span>{faq.question}</span>
-                <ChevronRight className={`h-5 w-5 transition-transform ${expandedFaq === index ? 'transform rotate-90' : ''}`} />
+                <svg 
+                  className={`w-5 h-5 transition-transform text-amber-500 ${expandedFaq === index ? 'transform rotate-180' : ''}`} 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
               </button>
               
               {expandedFaq === index && (
-                <motion.div 
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: 'auto', opacity: 1 }}
-                  transition={{ duration: 0.3 }}
-                  className="mt-3 text-gray-600 dark:text-gray-400"
-                >
-                  <p>{faq.answer}</p>
-                </motion.div>
+                <div className="p-4 bg-indigo-50 dark:bg-indigo-900/10 border-t border-indigo-200 dark:border-indigo-800">
+                  <p className="text-gray-600 dark:text-gray-400">{faq.answer}</p>
+                </div>
               )}
             </div>
           ))}
         </div>
-      </motion.div>
-
-      {/* Features Comparison */}
-      <motion.div className="mt-16 mb-12 max-w-6xl mx-auto px-4" variants={itemVariants}>
-        <h2 className="text-center text-2xl font-bold mb-8 bg-gradient-to-r from-purple-600 to-amber-500 bg-clip-text text-transparent">
-          Technical Specifications
-        </h2>
         
-        <div className="overflow-x-auto">
-          <table className="w-full border-collapse">
-            <thead>
-              <tr className="bg-purple-100 dark:bg-purple-900/30">
-                <th className="p-4 text-left border-b border-gray-200 dark:border-gray-700">Feature</th>
-                <th className="p-4 text-center border-b border-gray-200 dark:border-gray-700">Standard</th>
-                <th className="p-4 text-center border-b border-gray-200 dark:border-gray-700">Premium</th>
-                <th className="p-4 text-center border-b border-gray-200 dark:border-gray-700">Business</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td className="p-4 border-b border-gray-200 dark:border-gray-700 font-medium">CPU</td>
-                <td className="p-4 text-center border-b border-gray-200 dark:border-gray-700">2 vCPUs</td>
-                <td className="p-4 text-center border-b border-gray-200 dark:border-gray-700">4 vCPUs</td>
-                <td className="p-4 text-center border-b border-gray-200 dark:border-gray-700">8 vCPUs</td>
-              </tr>
-              <tr>
-                <td className="p-4 border-b border-gray-200 dark:border-gray-700 font-medium">RAM</td>
-                <td className="p-4 text-center border-b border-gray-200 dark:border-gray-700">4 GB</td>
-                <td className="p-4 text-center border-b border-gray-200 dark:border-gray-700">8 GB</td>
-                <td className="p-4 text-center border-b border-gray-200 dark:border-gray-700">16 GB</td>
-              </tr>
-              <tr>
-                <td className="p-4 border-b border-gray-200 dark:border-gray-700 font-medium">Storage</td>
-                <td className="p-4 text-center border-b border-gray-200 dark:border-gray-700">80 GB SSD</td>
-                <td className="p-4 text-center border-b border-gray-200 dark:border-gray-700">120 GB SSD</td>
-                <td className="p-4 text-center border-b border-gray-200 dark:border-gray-700">250 GB SSD</td>
-              </tr>
-              <tr>
-                <td className="p-4 border-b border-gray-200 dark:border-gray-700 font-medium">Bandwidth</td>
-                <td className="p-4 text-center border-b border-gray-200 dark:border-gray-700">2 TB</td>
-                <td className="p-4 text-center border-b border-gray-200 dark:border-gray-700">3 TB</td>
-                <td className="p-4 text-center border-b border-gray-200 dark:border-gray-700">5 TB</td>
-              </tr>
-              <tr>
-                <td className="p-4 border-b border-gray-200 dark:border-gray-700 font-medium">OS</td>
-                <td className="p-4 text-center border-b border-gray-200 dark:border-gray-700">Windows Server 2019</td>
-                <td className="p-4 text-center border-b border-gray-200 dark:border-gray-700">Windows Server 2022</td>
-                <td className="p-4 text-center border-b border-gray-200 dark:border-gray-700">Windows Server 2022</td>
-              </tr>
-              <tr>
-                <td className="p-4 border-b border-gray-200 dark:border-gray-700 font-medium">Guaranteed Uptime</td>
-                <td className="p-4 text-center border-b border-gray-200 dark:border-gray-700">99.5%</td>
-                <td className="p-4 text-center border-b border-gray-200 dark:border-gray-700">99.9%</td>
-                <td className="p-4 text-center border-b border-gray-200 dark:border-gray-700">99.99%</td>
-              </tr>
-              <tr>
-                <td className="p-4 border-b border-gray-200 dark:border-gray-700 font-medium">Support</td>
-                <td className="p-4 text-center border-b border-gray-200 dark:border-gray-700">Email Only</td>
-                <td className="p-4 text-center border-b border-gray-200 dark:border-gray-700">Email & Chat</td>
-                <td className="p-4 text-center border-b border-gray-200 dark:border-gray-700">Priority Support</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </motion.div>
-
-      {/* Get Started Now CTA */}
-      <motion.div 
-        className="mt-16 mb-16 bg-gradient-to-r from-purple-600 via-purple-500 to-amber-400 rounded-xl py-12 px-6 max-w-6xl mx-auto text-white text-center"
-        variants={itemVariants}
-      >
-        <h2 className="text-3xl font-bold mb-4">Ready to Get Started?</h2>
-        <p className="max-w-2xl mx-auto mb-8">
-          Select one of our RDP plans above or contact us for a custom configuration tailored to your specific needs.
-          Our team is ready to help you find the perfect solution.
-        </p>
-        <div className="flex flex-wrap justify-center gap-4">
-          <Button 
-            onClick={() => document.getElementById('rdp-plans').scrollIntoView({ behavior: 'smooth' })} 
-            size="lg"
-            className="bg-white text-purple-600 hover:bg-gray-100 font-medium px-8"
+        <div className="text-center mt-8">
+          <p className="text-gray-600 dark:text-gray-400 mb-2">For custom configurations or support:</p>
+          <a 
+            href="mailto:support@exactconnect.online" 
+            className="text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300 font-medium"
           >
-            View Plans
-          </Button>
-          <Button 
-            onClick={() => setIsContactOpen(true)} 
-            variant="outline"
-            size="lg"
-            className="bg-transparent border-2 border-white hover:bg-white/10 text-white font-medium px-8"
-          >
-            Contact Support
-          </Button>
+            support@exactconnect.online
+          </a>
         </div>
-      </motion.div>
-
-      {/* Bottom Contact Button */}
-      <motion.div 
-        className="mt-16 text-center max-w-6xl mx-auto px-4"
-        variants={itemVariants}
-      >
-        <p className="text-lg mb-4">Have questions or need a custom configuration?</p>
-        <Button 
-          onClick={() => setIsContactOpen(true)} 
-          size="lg"
-          className="bg-gradient-to-r from-purple-600 to-amber-400 hover:from-purple-700 hover:to-amber-500 text-white font-medium px-8 py-6 h-auto shadow-xl shadow-purple-500/20"
-        >
-          <MessageSquare className="mr-2 h-5 w-5" />
-          Contact Our Support Team
-        </Button>
-      </motion.div>
-
-      {/* Payment Dialog - Center modal */}
-      <Sheet open={isPaymentOpen} onOpenChange={setIsPaymentOpen}>
-        <SheetContent side="center" className="max-w-md rounded-xl overflow-auto max-h-[90vh]">
-          <SheetHeader>
-            <SheetTitle className="text-xl bg-gradient-to-r from-purple-600 to-amber-400 bg-clip-text text-transparent">Complete Your Purchase</SheetTitle>
-            <SheetDescription>
-              {selectedRdp && (
-                <div className="mb-2">
-                  You're purchasing {selectedRdp.name} - {selectedRdp.country} (${selectedRdp.price}/month)
+      </div>
+      
+      {/* Configuration Sheet */}
+      {selectedServer && (
+        <Sheet open={isConfigOpen} onOpenChange={setIsConfigOpen}>
+          <SheetContent className="w-full sm:max-w-md overflow-auto border-l border-indigo-200 dark:border-indigo-800">
+            <SheetHeader className="mb-6">
+              <SheetTitle className="text-xl text-indigo-700 dark:text-indigo-300">Configure Your VPS</SheetTitle>
+              <SheetDescription>
+                {selectedServer.flag} {selectedServer.country} Server ID: {selectedServer.id.toUpperCase()}
+              </SheetDescription>
+            </SheetHeader>
+            
+            <div className="space-y-6">
+              {/* OS Selection (if not Germany) */}
+              {selectedServer.countryCode !== 'DE' && (
+                <div>
+                  <h3 className="text-sm font-medium mb-3">Select Operating System</h3>
+                  <div className="grid grid-cols-2 gap-3">
+                    {selectedServer.supportedOs.map((os) => (
+                      <div
+                        key={os}
+                        className={`border rounded-lg p-4 cursor-pointer ${
+                          selectedOs === os 
+                            ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-900/20' 
+                            : 'border-gray-200 hover:border-gray-300'
+                        }`}
+                        onClick={() => setSelectedOs(os)}
+                      >
+                        <div className="flex items-center">
+                          {os === 'Windows' ? (
+                            <div className="w-8 h-8 mr-3 text-blue-500">
+                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801" />
+                              </svg>
+                            </div>
+                          ) : (
+                            <div className="w-8 h-8 mr-3 text-black dark:text-white">
+                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12.503 0c-.155 0-.315.008-.479.021-4.227.333-3.106 4.807-3.17 6.298-.077 1.093-.3 1.954-1.051 3.021-.885 1.051-2.127 2.75-2.716 4.521-.278.832-.41 1.684-.411 2.5-.005.991.427 2.057 1.316 2.83.442.384 1.084.629 1.658.629.546 0 1.056-.176 1.443-.511.193-.189.366-.426.475-.649.109.226.28.461.475.65.397.337.897.511 1.443.511.595 0 1.232-.249 1.658-.632.891-.775 1.32-1.833 1.319-2.821 0-.817-.136-1.669-.412-2.499-.597-1.772-1.84-3.468-2.725-4.521-.747-1.07-.97-1.93-1.046-3.021-.063-1.498 1.05-5.979-3.117-6.299-.168-.013-.334-.02-.486-.02zm.487.833c.185.015.373.031.566.063 2.04.33 1.766 3.108 1.809 4.223.051 1.315.37 2.544 1.303 3.895.7.797 1.668 2.169 2.434 3.927.344 1.019.486 2.002.489 2.849.002.752-.271 1.445-.78 1.88-.303.263-.712.395-1.057.395-.335 0-.656-.131-.887-.334-.179-.156-.325-.354-.445-.601-.1-.198-.216-.401-.371-.562-.157-.165-.378-.276-.591-.276-.212 0-.435.11-.594.275-.159.165-.273.367-.371.562-.116.246-.26.442-.438.597-.23.199-.548.332-.882.332-.344 0-.754-.13-1.058-.392-.516-.439-.783-1.131-.779-1.887.002-.846.145-1.83.488-2.848.767-1.759 1.733-3.131 2.438-3.93.929-1.353 1.247-2.58 1.297-3.891.042-1.152-.237-3.894 1.812-4.222.192-.031.38-.048.564-.063zm4.91 15.306c-.048.096-.097.187-.148.283.053-.094.104-.187.148-.283z" />
+                              </svg>
+                            </div>
+                          )}
+                          <span>{os}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               )}
-            </SheetDescription>
-          </SheetHeader>
-          
-          {selectedRdp && (
-            <div className="mt-6">
-              <div className="bg-gradient-to-r from-purple-100 to-amber-100 dark:from-purple-900/30 dark:to-amber-900/30 p-4 rounded-lg mb-6">
-                <h3 className="font-medium text-lg mb-2">Important Information</h3>
-                <p className="text-sm text-gray-700 dark:text-gray-300">
-                  After payment, please allow up to <strong>30 minutes</strong> for your server to be configured.
-                  Login credentials will be sent to your registered email address.
+              
+              {/* Android Emulator Information */}
+              <div className="border border-amber-300 bg-amber-50 dark:bg-amber-900/10 p-4 rounded-lg">
+                <div className="flex items-center mb-2">
+                  <Smartphone className="h-5 w-5 text-amber-600 mr-2" />
+                  <h3 className="font-medium">Android Emulator Included</h3>
+                </div>
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  This VPS comes with a pre-installed Android emulator, perfect for app testing,
+                  development, or running Android applications in a secure environment.
                 </p>
               </div>
               
-              <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
-                <Test 
-                  amount={selectedRdp.price} 
-                  isp="ExactConnect" 
-                  proxyId={selectedRdp.id}
-                  countryCode={selectedRdp.countryCode}
+              {/* Order Summary */}
+              <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg border border-indigo-200 dark:border-indigo-800">
+                <h3 className="font-medium mb-3 text-indigo-700 dark:text-indigo-300">Order Summary</h3>
+                <div className="space-y-2">
+                  <div className="flex justify-between">
+                    <span className="text-gray-600 dark:text-gray-400">Server ID</span>
+                    <span className="font-medium">{selectedServer.id.toUpperCase()}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600 dark:text-gray-400">Location</span>
+                    <span className="font-medium">{selectedServer.country}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600 dark:text-gray-400">Operating System</span>
+                    <span className="font-medium">
+                      {selectedServer.countryCode === 'DE' ? 'Windows 11' : (selectedOs || 'Not selected')}
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600 dark:text-gray-400">Android Emulator</span>
+                    <span className="font-medium">Included</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600 dark:text-gray-400">Customer Support</span>
+                    <span className="font-medium">Email & Chat</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600 dark:text-gray-400">Billing Cycle</span>
+                    <span className="font-medium">Monthly</span>
+                  </div>
+                  <div className="border-t border-gray-200 dark:border-gray-700 pt-2 mt-2">
+                    <div className="flex justify-between font-bold">
+                      <span>Total</span>
+                      <span>${selectedServer.price}/month</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="bg-indigo-50 dark:bg-indigo-900/10 p-4 rounded-lg border border-indigo-200 dark:border-indigo-800">
+                <p className="text-sm text-indigo-800 dark:text-indigo-200">
+                  Your VPS will be set up within 2 hours after payment confirmation.
+                  Login credentials will be sent to your email.
+                </p>
+              </div>
+              
+              <Button 
+                className="w-full bg-gradient-to-r from-indigo-600 via-purple-500 to-amber-500 hover:from-indigo-700 hover:via-purple-600 hover:to-amber-600 text-white"
+                onClick={handleProceedToPayment}
+              >
+                Proceed to Payment
+              </Button>
+            </div>
+          </SheetContent>
+        </Sheet>
+      )}
+      
+      {/* Payment Sheet */}
+      {selectedServer && (
+        <Sheet open={isPaymentOpen} onOpenChange={setIsPaymentOpen}>
+          <SheetContent className="w-full sm:max-w-md overflow-auto border-l border-indigo-200 dark:border-indigo-800">
+            <SheetHeader className="mb-6">
+              <SheetTitle className="text-xl text-indigo-700 dark:text-indigo-300">Complete Payment</SheetTitle>
+              <SheetDescription>
+                {selectedServer.flag} {selectedServer.country} VPS - ${selectedServer.price}/month
+              </SheetDescription>
+            </SheetHeader>
+            
+            <div className="space-y-6">
+              <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg border border-indigo-200 dark:border-indigo-800">
+                <h3 className="font-medium mb-2 text-indigo-700 dark:text-indigo-300">Order Details</h3>
+                <div className="space-y-1 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-gray-600 dark:text-gray-400">Server ID</span>
+                    <span>{selectedServer.id.toUpperCase()}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600 dark:text-gray-400">Location</span>
+                    <span>{selectedServer.country}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600 dark:text-gray-400">Operating System</span>
+                    <span>{selectedServer.countryCode === 'DE' ? 'Windows 11' : selectedOs}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600 dark:text-gray-400">Android Emulator</span>
+                    <span>Included</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600 dark:text-gray-400">Billing</span>
+                    <span>Monthly</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="border border-indigo-200 dark:border-indigo-800 rounded-lg p-4">
+                <Test
+                  amount={selectedServer.price}
+                  isp="ExactConnect"
+                  proxyId={selectedServer.id}
+                  countryCode={selectedServer.countryCode}
                   rating="premium"
                   proxyState={false}
+                  onSubmit={handleInitiatePurchase}
                 />
               </div>
             </div>
-          )}
-        </SheetContent>
-      </Sheet>
-
-      {/* Contact Support Sheet */}
-      <Sheet open={isContactOpen} onOpenChange={setIsContactOpen}>
-        <SheetContent side="center" className="max-w-md rounded-xl overflow-auto max-h-[90vh]">
-          <SheetHeader>
-            <SheetTitle className="text-xl bg-gradient-to-r from-purple-600 to-amber-400 bg-clip-text text-transparent">Contact Support</SheetTitle>
-            <SheetDescription>
-              Need help with your RDP setup or have questions? Send us a message.
-            </SheetDescription>
-          </SheetHeader>
-          
-          <form onSubmit={handleContactSubmit} className="space-y-4 mt-6">
-            <div>
-              <label htmlFor="name" className="block text-sm font-medium mb-1">Name</label>
-              <input 
-                type="text"
-                id="name"
-                name="name"
-                required
-                value={contactForm.name}
-                onChange={handleContactChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all"
-                placeholder="Your name"
-              />
-            </div>
-            
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium mb-1">Email</label>
-              <input 
-                type="email"
-                id="email"
-                name="email"
-                required
-                value={contactForm.email}
-                onChange={handleContactChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all"
-                placeholder="your@email.com"
-              />
-            </div>
-            
-            <div>
-              <label htmlFor="message" className="block text-sm font-medium mb-1">Message</label>
-              <textarea 
-                id="message"
-                name="message"
-                required
-                value={contactForm.message}
-                onChange={handleContactChange}
-                rows={5}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all"
-                placeholder="How can we help you?"
-              />
-            </div>
-            
-            <Button 
-              type="submit" 
-              className="w-full bg-gradient-to-r from-purple-600 to-amber-400 hover:from-purple-700 hover:to-amber-500 text-white"
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? 'Sending...' : 'Send Message'}
-            </Button>
-          </form>
-        </SheetContent>
-      </Sheet>
-    </motion.div>
+          </SheetContent>
+        </Sheet>
+      )}
+    </div>
   );
 };
 
