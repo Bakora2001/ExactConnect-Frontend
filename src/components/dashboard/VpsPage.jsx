@@ -580,44 +580,31 @@ const VpsPage = () => {
         {!selectedCountry ? (
           <>
             <div className="flex items-center mb-6">
-              <Globe className="h-6 w-6 mr-2 text-purple-600" />
+              <Globe className="h-6 w-6 mr-2 text-indigo-600" />
               <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Select Server Location</h2>
             </div>
             
-            {/* Horizontal Country Selection */}
-            <div className="mb-8 overflow-x-auto pb-4">
-              <div className="flex space-x-4 min-w-max">
-                {Object.keys(allServerLocations).map((country) => (
-                  <div
-                    key={country}
-                    onClick={() => handleCountrySelect(country)}
-                    className="flex-shrink-0 cursor-pointer transition-all duration-300"
-                  >
-                    <div className="w-56 border border-purple-200 hover:border-purple-400 rounded-lg overflow-hidden shadow-sm hover:shadow-md">
-                      <div className="bg-gradient-to-r from-purple-600 to-purple-400 p-4 text-white">
-                        <div className="flex items-center">
-                          <span className="text-3xl mr-2">{allServerLocations[country][0].flag}</span>
-                          <h3 className="font-semibold text-lg">{country}</h3>
-                        </div>
-                      </div>
-                      
-                      <div className="p-4 bg-white dark:bg-gray-800">
-                        <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
-                          {allServerLocations[country].length} servers available
-                        </p>
-                        <p className="text-sm font-medium">
-                          From ${Math.min(...allServerLocations[country].map(s => s.price))}/month
-                        </p>
-                        <Button 
-                          className="w-full mt-3 bg-purple-600 hover:bg-purple-700 text-white"
-                          size="sm"
-                        >
-                          View Servers
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+            {/* Horizontal Country List */}
+            <div className="flex flex-wrap gap-4 mb-8">
+              {Object.keys(allServerLocations).map((country) => (
+                <button
+                  key={country}
+                  onClick={() => handleCountrySelect(country)}
+                  className="px-4 py-2 rounded-lg text-indigo-700 border border-indigo-200 bg-white hover:bg-indigo-50 hover:border-indigo-300 transition-all duration-200 shadow-sm"
+                >
+                  <span className="font-medium">{country}</span>
+                </button>
+              ))}
+            </div>
+            
+            {/* Placeholder when no country selected */}
+            <div className="mt-8 border-2 border-dashed border-indigo-200 rounded-xl p-10 text-center">
+              <div className="flex flex-col items-center justify-center">
+                <Server className="h-16 w-16 text-indigo-300 mb-4" />
+                <h3 className="text-lg font-medium text-gray-700 mb-2">Select a server above to purchase a VPS</h3>
+                <p className="text-gray-500 max-w-md mx-auto">
+                  Choose your preferred location to view available servers with different specifications and pricing options.
+                </p>
               </div>
             </div>
           </>
@@ -625,14 +612,14 @@ const VpsPage = () => {
           <>
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center">
-                <Globe className="h-6 w-6 mr-2 text-purple-600" />
+                <Globe className="h-6 w-6 mr-2 text-indigo-600" />
                 <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
                   {selectedCountry} Servers
                 </h2>
               </div>
               <Button
                 variant="outline"
-                className="border-purple-300 hover:bg-purple-50 dark:hover:bg-purple-900/20"
+                className="border-indigo-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/20"
                 onClick={backToCountries}
               >
                 Back to Countries
@@ -643,14 +630,14 @@ const VpsPage = () => {
               {allServerLocations[selectedCountry].map((server) => (
                 <Card 
                   key={server.id} 
-                  className="border border-purple-200 hover:border-purple-400 hover:shadow-lg transition-all duration-300 overflow-hidden group"
+                  className="border border-indigo-200 hover:border-indigo-400 hover:shadow-md transition-all duration-300 overflow-hidden group"
                 >
-                  <CardHeader className="bg-gradient-to-r from-purple-600 to-purple-500 text-white">
+                  <CardHeader className="bg-gradient-to-r from-indigo-600 via-purple-500 to-amber-400 text-white">
                     <div className="flex items-center">
                       <span className="text-3xl mr-2">{server.flag}</span>
                       <div>
                         <CardTitle>{server.id.toUpperCase()}</CardTitle>
-                        <CardDescription className="text-purple-100">
+                        <CardDescription className="text-indigo-100">
                           {server.countryCode === 'DE' ? 'Windows Only' : 'Linux & Windows'}
                         </CardDescription>
                       </div>
@@ -669,27 +656,27 @@ const VpsPage = () => {
                     <div className="space-y-2">
                       {server.countryCode === 'DE' ? (
                         <div className="flex items-start">
-                          <Check className="h-5 w-5 text-purple-500 mr-2 flex-shrink-0" />
+                          <Check className="h-5 w-5 text-amber-500 mr-2 flex-shrink-0" />
                           <span>Windows 11 Included</span>
                         </div>
                       ) : (
                         <>
                           <div className="flex items-start">
-                            <Check className="h-5 w-5 text-purple-500 mr-2 flex-shrink-0" />
+                            <Check className="h-5 w-5 text-amber-500 mr-2 flex-shrink-0" />
                             <span>Linux or Windows</span>
                           </div>
                         </>
                       )}
                       <div className="flex items-start">
-                        <Check className="h-5 w-5 text-purple-500 mr-2 flex-shrink-0" />
+                        <Check className="h-5 w-5 text-amber-500 mr-2 flex-shrink-0" />
                         <span>2 vCPUs, 4GB RAM</span>
                       </div>
                       <div className="flex items-start">
-                        <Check className="h-5 w-5 text-purple-500 mr-2 flex-shrink-0" />
+                        <Check className="h-5 w-5 text-amber-500 mr-2 flex-shrink-0" />
                         <span>80GB SSD Storage</span>
                       </div>
                       <div className="flex items-start">
-                        <Smartphone className="h-5 w-5 text-purple-500 mr-2 flex-shrink-0" />
+                        <Smartphone className="h-5 w-5 text-amber-500 mr-2 flex-shrink-0" />
                         <span className="font-semibold">Android Emulator</span>
                       </div>
                     </div>
@@ -697,7 +684,7 @@ const VpsPage = () => {
                   
                   <CardFooter>
                     <Button 
-                      className="w-full bg-purple-600 hover:bg-purple-700 text-white"
+                      className="w-full bg-gradient-to-r from-indigo-600 to-purple-500 hover:from-indigo-700 hover:to-purple-600 text-white"
                       onClick={() => handleSelectServer(server)}
                     >
                       <Server className="h-5 w-5 mr-2" />
@@ -714,7 +701,7 @@ const VpsPage = () => {
       {/* FAQ Section */}
       <div className="mb-12">
         <div className="flex items-center mb-6">
-          <MessageSquare className="h-6 w-6 mr-2 text-purple-600" />
+          <MessageSquare className="h-6 w-6 mr-2 text-indigo-600" />
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Frequently Asked Questions</h2>
         </div>
         
@@ -722,15 +709,15 @@ const VpsPage = () => {
           {faqs.map((faq, index) => (
             <div 
               key={index}
-              className="border border-purple-200 dark:border-purple-800 rounded-lg overflow-hidden"
+              className="border border-indigo-200 dark:border-indigo-800 rounded-lg overflow-hidden"
             >
               <button
-                className="flex justify-between items-center w-full p-4 text-left font-medium bg-white dark:bg-gray-800 hover:bg-purple-50 dark:hover:bg-purple-900/20"
+                className="flex justify-between items-center w-full p-4 text-left font-medium bg-white dark:bg-gray-800 hover:bg-indigo-50 dark:hover:bg-indigo-900/20"
                 onClick={() => toggleFaq(index)}
               >
                 <span>{faq.question}</span>
                 <svg 
-                  className={`w-5 h-5 transition-transform text-purple-600 ${expandedFaq === index ? 'transform rotate-180' : ''}`} 
+                  className={`w-5 h-5 transition-transform text-amber-500 ${expandedFaq === index ? 'transform rotate-180' : ''}`} 
                   fill="none" 
                   stroke="currentColor" 
                   viewBox="0 0 24 24"
@@ -740,7 +727,7 @@ const VpsPage = () => {
               </button>
               
               {expandedFaq === index && (
-                <div className="p-4 bg-purple-50 dark:bg-purple-900/10 border-t border-purple-200 dark:border-purple-800">
+                <div className="p-4 bg-indigo-50 dark:bg-indigo-900/10 border-t border-indigo-200 dark:border-indigo-800">
                   <p className="text-gray-600 dark:text-gray-400">{faq.answer}</p>
                 </div>
               )}
@@ -752,7 +739,7 @@ const VpsPage = () => {
           <p className="text-gray-600 dark:text-gray-400 mb-2">For custom configurations or support:</p>
           <a 
             href="mailto:support@exactconnect.online" 
-            className="text-purple-600 hover:text-purple-800 dark:text-purple-400 dark:hover:text-purple-300 font-medium"
+            className="text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300 font-medium"
           >
             support@exactconnect.online
           </a>
@@ -762,9 +749,9 @@ const VpsPage = () => {
       {/* Configuration Sheet */}
       {selectedServer && (
         <Sheet open={isConfigOpen} onOpenChange={setIsConfigOpen}>
-          <SheetContent className="w-full sm:max-w-md overflow-auto border-l border-purple-200 dark:border-purple-800">
+          <SheetContent className="w-full sm:max-w-md overflow-auto border-l border-indigo-200 dark:border-indigo-800">
             <SheetHeader className="mb-6">
-              <SheetTitle className="text-xl text-purple-700 dark:text-purple-300">Configure Your VPS</SheetTitle>
+              <SheetTitle className="text-xl text-indigo-700 dark:text-indigo-300">Configure Your VPS</SheetTitle>
               <SheetDescription>
                 {selectedServer.flag} {selectedServer.country} Server ID: {selectedServer.id.toUpperCase()}
               </SheetDescription>
@@ -781,7 +768,7 @@ const VpsPage = () => {
                         key={os}
                         className={`border rounded-lg p-4 cursor-pointer ${
                           selectedOs === os 
-                            ? 'border-purple-500 bg-purple-50 dark:bg-purple-900/20' 
+                            ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-900/20' 
                             : 'border-gray-200 hover:border-gray-300'
                         }`}
                         onClick={() => setSelectedOs(os)}
@@ -809,9 +796,9 @@ const VpsPage = () => {
               )}
               
               {/* Android Emulator Information */}
-              <div className="border border-purple-300 bg-purple-50 dark:bg-purple-900/10 p-4 rounded-lg">
+              <div className="border border-amber-300 bg-amber-50 dark:bg-amber-900/10 p-4 rounded-lg">
                 <div className="flex items-center mb-2">
-                  <Smartphone className="h-5 w-5 text-purple-600 mr-2" />
+                  <Smartphone className="h-5 w-5 text-amber-600 mr-2" />
                   <h3 className="font-medium">Android Emulator Included</h3>
                 </div>
                 <p className="text-sm text-gray-600 dark:text-gray-400">
@@ -821,8 +808,8 @@ const VpsPage = () => {
               </div>
               
               {/* Order Summary */}
-              <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg border border-purple-200 dark:border-purple-800">
-                <h3 className="font-medium mb-3 text-purple-700 dark:text-purple-300">Order Summary</h3>
+              <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg border border-indigo-200 dark:border-indigo-800">
+                <h3 className="font-medium mb-3 text-indigo-700 dark:text-indigo-300">Order Summary</h3>
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span className="text-gray-600 dark:text-gray-400">Server ID</span>
@@ -859,15 +846,15 @@ const VpsPage = () => {
                 </div>
               </div>
               
-              <div className="bg-purple-50 dark:bg-purple-900/10 p-4 rounded-lg border border-purple-200 dark:border-purple-800">
-                <p className="text-sm text-purple-800 dark:text-purple-200">
+              <div className="bg-indigo-50 dark:bg-indigo-900/10 p-4 rounded-lg border border-indigo-200 dark:border-indigo-800">
+                <p className="text-sm text-indigo-800 dark:text-indigo-200">
                   Your VPS will be set up within 2 hours after payment confirmation.
                   Login credentials will be sent to your email.
                 </p>
               </div>
               
               <Button 
-                className="w-full bg-purple-600 hover:bg-purple-700 text-white"
+                className="w-full bg-gradient-to-r from-indigo-600 via-purple-500 to-amber-500 hover:from-indigo-700 hover:via-purple-600 hover:to-amber-600 text-white"
                 onClick={handleProceedToPayment}
               >
                 Proceed to Payment
@@ -880,17 +867,17 @@ const VpsPage = () => {
       {/* Payment Sheet */}
       {selectedServer && (
         <Sheet open={isPaymentOpen} onOpenChange={setIsPaymentOpen}>
-          <SheetContent className="w-full sm:max-w-md overflow-auto border-l border-purple-200 dark:border-purple-800">
+          <SheetContent className="w-full sm:max-w-md overflow-auto border-l border-indigo-200 dark:border-indigo-800">
             <SheetHeader className="mb-6">
-              <SheetTitle className="text-xl text-purple-700 dark:text-purple-300">Complete Payment</SheetTitle>
+              <SheetTitle className="text-xl text-indigo-700 dark:text-indigo-300">Complete Payment</SheetTitle>
               <SheetDescription>
                 {selectedServer.flag} {selectedServer.country} VPS - ${selectedServer.price}/month
               </SheetDescription>
             </SheetHeader>
             
             <div className="space-y-6">
-              <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg border border-purple-200 dark:border-purple-800">
-                <h3 className="font-medium mb-2 text-purple-700 dark:text-purple-300">Order Details</h3>
+              <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg border border-indigo-200 dark:border-indigo-800">
+                <h3 className="font-medium mb-2 text-indigo-700 dark:text-indigo-300">Order Details</h3>
                 <div className="space-y-1 text-sm">
                   <div className="flex justify-between">
                     <span className="text-gray-600 dark:text-gray-400">Server ID</span>
@@ -915,7 +902,7 @@ const VpsPage = () => {
                 </div>
               </div>
               
-              <div className="border border-purple-200 dark:border-purple-800 rounded-lg p-4">
+              <div className="border border-indigo-200 dark:border-indigo-800 rounded-lg p-4">
                 <Test
                   amount={selectedServer.price}
                   isp="ExactConnect"
