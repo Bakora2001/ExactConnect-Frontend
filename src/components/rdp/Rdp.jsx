@@ -32,7 +32,6 @@ const Rdp = () => {
               </h1>
               <p className="text-base lg:text-lg font-medium mb-8 opacity-90">
                 High-performance RDP solutions with built-in Android Emulator support.<br />
-                Get your server activated within 2 hours of purchase.
               </p>
               <Button 
                 className="bg-white text-purple-700 hover:bg-gray-100 px-8 py-6 text-lg font-medium"

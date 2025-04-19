@@ -17,7 +17,7 @@ const allServerLocations = {
       flag: '🇺🇸',
       description: 'High-speed servers with low latency across North America',
       supportedOs: ['Linux', 'Windows'],
-      price: 5,
+      price: 10,
       hasAndroid: true
     },
     {
@@ -48,26 +48,6 @@ const allServerLocations = {
       description: 'Perfect for media streaming and content delivery',
       supportedOs: ['Linux', 'Windows'],
       price: 5.5,
-      hasAndroid: true
-    },
-    {
-      id: 'us5',
-      countryCode: 'US',
-      country: 'United States',
-      flag: '🇺🇸',
-      description: 'Ideal for web applications and databases',
-      supportedOs: ['Linux', 'Windows'],
-      price: 5.5,
-      hasAndroid: true
-    },
-    {
-      id: 'us6',
-      countryCode: 'US',
-      country: 'United States',
-      flag: '🇺🇸',
-      description: 'Best for high-traffic websites and applications',
-      supportedOs: ['Linux', 'Windows'],
-      price: 6,
       hasAndroid: true
     }
   ],

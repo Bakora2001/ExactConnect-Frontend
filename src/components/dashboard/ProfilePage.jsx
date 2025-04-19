@@ -66,7 +66,7 @@ const ProfilePage = () => {
                     <div className="flex items-center">
                       <User className={`w-5 h-5 mr-3 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`} />
                       <div>
-                        <p className={`text-sm font-medium ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>Customer Id</p>
+                        <p className={`text-sm font-medium ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>Customer I</p>
                         <p className={`text-base ${darkMode ? 'text-white' : 'text-gray-900'}`}>{user?.customerId || 'N/A'}</p>
                       </div>
                     </div>
