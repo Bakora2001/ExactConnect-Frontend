@@ -1255,7 +1255,7 @@ import { Binary, Check } from 'lucide-react';
 import { SERVER_URL } from '../../services/data';
 import { DarkModeContext } from '../../context/DarkModeContext';
 import { formatPhoneNumber } from '../../utils/formatPhoneNumber';
-import { customerId, email as defaultEmail } from '../../lib/userDetails';
+import { getUserDetails, getReliableCustomerId } from '../../lib/userDetails';
 import { useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 
@@ -1279,11 +1279,43 @@ export default function Test({ amount = 0, isp, proxyId, countryCode, rating, pr
   const [convertedAmount, setConvertedAmount] = useState(0);
   const [roundedAmount, setRoundedAmount] = useState(0);
   const [conversionLoading, setConversionLoading] = useState(true);
-  const [localEmail, setLocalEmail] = useState(userEmail || defaultEmail);
+  const [localEmail, setLocalEmail] = useState(userEmail || '');
   const [emailSent, setEmailSent] = useState(false);
+  const [activeCustomerId, setActiveCustomerId] = useState('');
 
   const [phoneNumber, setPhoneNumber] = useState('');
   const navigate = useNavigate();
+
+  // Important fix: Initialize customer ID immediately and keep it actively updated
+  useEffect(() => {
+    const initializeCustomerId = () => {
+      // Get the latest customer ID using the reliable function
+      const currentCustomerId = getReliableCustomerId();
+      
+      if (currentCustomerId) {
+        console.log("Customer ID initialized:", currentCustomerId);
+        setActiveCustomerId(currentCustomerId);
+      } else {
+        console.warn("Customer ID not found in localStorage");
+        // Try to get user details directly as a fallback
+        const userDetails = getUserDetails();
+        if (userDetails?.customerId || userDetails?.customerReference) {
+          const id = userDetails.customerId || userDetails.customerReference;
+          console.log("Customer ID found in getUserDetails():", id);
+          setActiveCustomerId(id);
+        }
+      }
+    };
+
+    // Initialize immediately
+    initializeCustomerId();
+    
+    // Set up a periodic check to ensure we always have the latest customer ID
+    const intervalId = setInterval(initializeCustomerId, 1000);
+    
+    // Clean up interval on component unmount
+    return () => clearInterval(intervalId);
+  }, []);
 
   // If userEmail changes or becomes available, update the local state
   useEffect(() => {
@@ -1292,21 +1324,20 @@ export default function Test({ amount = 0, isp, proxyId, countryCode, rating, pr
     }
   }, [userEmail]);
 
-  // As a fallback, check localStorage directly 
+  // As a fallback, check localStorage directly for email
   useEffect(() => {
     try {
-      const storedUserDetails = localStorage.getItem('userDetails');
-      if (storedUserDetails) {
-        const parsedDetails = JSON.parse(storedUserDetails);
-        if (parsedDetails?.email && !localEmail) {
-          console.log("Email loaded from localStorage:", parsedDetails.email);
-          setLocalEmail(parsedDetails.email);
+      if (!localEmail) {
+        const userDetails = getUserDetails();
+        if (userDetails?.email) {
+          console.log("Email loaded from getUserDetails():", userDetails.email);
+          setLocalEmail(userDetails.email);
         }
       }
     } catch (error) {
-      console.error("Error accessing localStorage:", error);
+      console.error("Error accessing user details:", error);
     }
-  }, []);
+  }, [localEmail]);
 
   const formattedNumber = formatPhoneNumber(phoneNumber);
 
@@ -1333,8 +1364,8 @@ export default function Test({ amount = 0, isp, proxyId, countryCode, rating, pr
     console.log("Converted amount:", convertedAmount);
     console.log("Rounded amount:", roundedAmount);
     console.log("Using email:", localEmail);
-    console.log("Customer ID:", customerId);
-  }, [numAmount, convertedAmount, roundedAmount, localEmail]);
+    console.log("Active Customer ID:", activeCustomerId);
+  }, [numAmount, convertedAmount, roundedAmount, localEmail, activeCustomerId]);
 
   const showToast = (message, type = 'info') => {
     toast[type](message, {
@@ -1382,7 +1413,7 @@ export default function Test({ amount = 0, isp, proxyId, countryCode, rating, pr
           Country Code: ${countryCode}
           Payment Amount: $${numAmount} USD (${roundedAmount} KES)
           Customer Email: ${localEmail}
-          Customer ID: ${customerId || 'Unknown'}
+          Customer ID: ${activeCustomerId || 'Unknown'}
           ISP: ExactConnect
           Server Rating: premium
           Server Location: ${countryCode === 'GB' ? 'United Kingdom (UK)' : countryCode}
@@ -1390,7 +1421,7 @@ export default function Test({ amount = 0, isp, proxyId, countryCode, rating, pr
           Operating System: Windows
           Android Emulator: Yes
           
-          ***CUSTOMER ID: ${customerId || 'Unknown'}***
+          ***CUSTOMER ID: ${activeCustomerId || 'Unknown'}***
           ***CUSTOMER EMAIL: ${localEmail}***
           
           Please activate the VPS within 2 hours.
@@ -1401,7 +1432,7 @@ export default function Test({ amount = 0, isp, proxyId, countryCode, rating, pr
           Country Code: ${countryCode}
           Payment Amount: $${numAmount} USD (${roundedAmount} KES)
           Customer Email: ${localEmail}
-          Customer ID: ${customerId || 'Unknown'}
+          Customer ID: ${activeCustomerId || 'Unknown'}
           ISP: ${isp}
           Server Rating: ${rating}
           
@@ -1436,11 +1467,17 @@ export default function Test({ amount = 0, isp, proxyId, countryCode, rating, pr
 
   // Function to lease the proxy
   const leaseProxy = async () => {
+    if (!activeCustomerId) {
+      console.error("Cannot lease proxy: Customer ID is missing");
+      showToast('Customer ID is missing. Please try again or refresh.', 'error');
+      return false;
+    }
+    
     try {
       // Construct the payload for leasing the proxy
       const leasePayload = {
         proxyId: proxyId,
-        customerId: customerId,
+        customerId: activeCustomerId,
         amount: numAmount,
         status: "ACTIVE",
         paymentReference: `PROXY-${proxyId}-${Date.now()}`,
@@ -1449,6 +1486,8 @@ export default function Test({ amount = 0, isp, proxyId, countryCode, rating, pr
         countryCode: countryCode,
         isp: isp
       };
+
+      console.log("Leasing proxy with payload:", leasePayload);
 
       // Make the API call to lease the proxy
       const response = await axios.post(`${SERVER_URL}/products/proxy/lease`, leasePayload);
@@ -1497,6 +1536,13 @@ export default function Test({ amount = 0, isp, proxyId, countryCode, rating, pr
 
   const handlePaystackRedirect = async (checkoutUrl) => {
     try {
+      // Validate customer ID is present
+      if (!activeCustomerId) {
+        showToast('Customer ID is missing. Please log in again.', 'error');
+        setIsLoading(false);
+        return;
+      }
+      
       // Check if this is a VPS purchase
       const isVpsPurchase = isp === 'ExactConnect' && rating === 'premium';
       
@@ -1532,7 +1578,7 @@ export default function Test({ amount = 0, isp, proxyId, countryCode, rating, pr
         amount: numAmount,
         timestamp: Date.now(),
         isVps: isVpsPurchase,
-        customerId: customerId, // Make sure to include this
+        customerId: activeCustomerId, // Make sure to include the active customer ID
         customerEmail: localEmail // And this
       }));
       
@@ -1561,7 +1607,8 @@ export default function Test({ amount = 0, isp, proxyId, countryCode, rating, pr
     setErrors('');
     setEmailSent(false);  // Reset email sent status on new submission
 
-    if (!customerId) {
+    // Ensure we have the customer ID
+    if (!activeCustomerId) {
       showToast('Customer ID is missing. Please log in again.', 'error');
       setIsLoading(false);
       return;
@@ -1577,7 +1624,7 @@ export default function Test({ amount = 0, isp, proxyId, countryCode, rating, pr
         category: 'COLLECTIONS',
         countryCode: 'KE',
         currencyCode: 'KES',
-        createdBy: customerId || 'customer',
+        createdBy: activeCustomerId || 'customer',
         metaData: {
           proxyId: proxyId,
           rating: rating,
@@ -1586,7 +1633,7 @@ export default function Test({ amount = 0, isp, proxyId, countryCode, rating, pr
           proxyState: proxyState === true ? 'OLD' : 'NEW',
           amount: numAmount,
           requestedService: 'PROXIES',
-          customerId: customerId,
+          customerId: activeCustomerId,
           callbackUrl: `${window.location.origin}/payment/callback`,
         },
       };
@@ -1784,12 +1831,19 @@ export default function Test({ amount = 0, isp, proxyId, countryCode, rating, pr
           We'll send payment receipt details to the address above.
         </p>
       </div>
+      
+      {/* Customer ID Debug Display - Can be removed in production */}
+      <div className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+        <p>
+          Customer ID: {activeCustomerId ? `${activeCustomerId.substring(0, 5)}...` : 'Loading...'}
+        </p>
+      </div>
 
       <button
         onClick={handleSubmit}
-        disabled={isLoading || conversionLoading || numAmount <= 0}
+        disabled={isLoading || conversionLoading || numAmount <= 0 || !activeCustomerId}
         className={`mt-3 w-full py-2 bg-gradient-to-r from-purple-600 to-amber-500 text-white font-semibold rounded-lg text-sm ${
-          isLoading || conversionLoading || numAmount <= 0
+          isLoading || conversionLoading || numAmount <= 0 || !activeCustomerId
             ? 'opacity-50 cursor-not-allowed'
             : 'hover:from-purple-700 hover:to-amber-600'
         } transition-all`}
@@ -1798,6 +1852,8 @@ export default function Test({ amount = 0, isp, proxyId, countryCode, rating, pr
           ? 'Processing...'
           : conversionLoading
           ? 'Converting...'
+          : !activeCustomerId
+          ? 'Loading customer data...'
           : `Pay ${roundedAmount} KES with Paystack`}
       </button>
       
